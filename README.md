@@ -11,7 +11,7 @@ instance, and tracker data management.
 To install the package in your project run
 
 ```bash
- flutter pub install dhis2_flutter_toolkit
+ flutter pub add dhis2_flutter_toolkit
 ```
 
 ## Dependencies
