@@ -2,11 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'client.dart';
+import '../client/client.dart';
 import 'credentials.dart';
-import 'preferences.dart';
+import 'secure_storage.dart';
 
 /// Main entry point of the authentication service. This service allows you to
 ///
@@ -16,36 +17,39 @@ import 'preferences.dart';
 ///  - Manage a user: Add or delete a user. (An easier way of adding a user is through logging them in)
 ///
 class D2AuthService {
-  List<D2UserCredential> getUsers() {
-    List<String> users = preferences?.getStringList("users") ?? [];
+  D2SecureStorageService storageService = D2SecureStorageService();
+
+  Future<List<D2UserCredential>> _getUsers() async {
+    List<String> users =
+        await storageService.getObject<List<String>>("users") ?? [];
     if (users.isEmpty) {
       return [].cast<D2UserCredential>();
     }
     return users.map<D2UserCredential>(D2UserCredential.fromMap).toList() ?? [];
   }
 
-  Future setLoggedInUser(D2UserCredential credentials) async {
-    return await preferences?.setString("loggedInUser", credentials.id);
+  Future _setLoggedInUser(D2UserCredential credentials) async {
+    return await storageService.set("loggedInUser", credentials.id);
   }
 
   /// Logs out the user, if deleteData is passed, all user associated data will be deleted.
   ///
   ///
   Future logoutUser({bool deleteData = false}) async {
-    D2UserCredential? credential = currentUser();
+    D2UserCredential? credential = await currentUser();
     if (credential == null) {
       throw "No logged in user";
     }
 
     if (deleteData) {
-      await deleteDbFiles(credential.id);
+      await _deleteDbFiles(credential.id);
     }
-    return await preferences?.setString("loggedInUser", "");
+    return await storageService.set("loggedInUser", "");
   }
 
   /// Delete all user related data. Pass the user Id as the store id.
   ///
-  Future deleteDbFiles(String storeId) async {
+  Future _deleteDbFiles(String storeId) async {
     Directory docDir = await getApplicationDocumentsDirectory();
     Directory('${docDir.path}/$storeId').delete();
   }
@@ -54,18 +58,18 @@ class D2AuthService {
   ///
   Future deleteUser(D2UserCredential credentials) async {
     //Delete user data first
-    await deleteDbFiles(credentials.id);
+    await _deleteDbFiles(credentials.id);
     //Delete them from the user's list
-    List<D2UserCredential> users = getUsers();
+    List<D2UserCredential> users = await _getUsers();
     users.removeWhere((element) => element.id == credentials.id);
     List<String> usersPayload =
         users.map((e) => jsonEncode(e.toMap())).toList();
-    await preferences?.setStringList("users", usersPayload);
-    await deleteDbFiles(credentials.id);
+    await storageService.setObject("users", usersPayload);
+    await _deleteDbFiles(credentials.id);
   }
 
   Future saveUser(D2UserCredential credentials) async {
-    List<D2UserCredential> users = getUsers();
+    List<D2UserCredential> users = await _getUsers();
     D2UserCredential? updatedUser = users
         .firstWhereOrNull((D2UserCredential user) => user.id == credentials.id);
     if (updatedUser != null) {
@@ -76,11 +80,11 @@ class D2AuthService {
     List<String> usersPayload =
         users.map((e) => jsonEncode(e.toMap())).toList();
 
-    return await preferences?.setStringList("users", usersPayload);
+    return await storageService.setObject("users", usersPayload);
   }
 
-  D2UserCredential? getLoggedInUser() {
-    String? loggedInUserId = preferences?.getString("loggedInUser");
+  Future<D2UserCredential?> _getLoggedInUser() async {
+    String? loggedInUserId = await storageService.get("loggedInUser");
     if (loggedInUserId == null) {
       return null;
     }
@@ -89,14 +93,14 @@ class D2AuthService {
       return null;
     }
 
-    List<D2UserCredential> users = getUsers();
+    List<D2UserCredential> users = await _getUsers();
     D2UserCredential? user =
         users.firstWhereOrNull((element) => element.id == loggedInUserId);
     return user;
   }
 
-  Future<bool> verifyOnline(D2UserCredential credentials) async {
-    D2HttpClientService client = D2HttpClientService(credentials);
+  Future<bool> _verifyOnline(D2UserCredential credentials) async {
+    D2ClientService client = D2ClientService(credentials);
     Map? data = await client.httpGet<Map>("me");
     if (data == null) {
       throw "Error logging in.";
@@ -105,37 +109,52 @@ class D2AuthService {
       throw "Invalid username or password";
     }
     if (data["username"] == credentials.username) {
-      await setLoggedInUser(credentials);
+      await _setLoggedInUser(credentials);
       saveUser(credentials);
       return true;
     }
     return false;
   }
-
   //TODO: The logic to verify the user is not as strong. Improve it using encryption
+  Future<bool> _verifyOffline(D2UserCredential credentials) async {
+    List<D2UserCredential> users = await _getUsers();
+    D2UserCredential? user =
+        users.firstWhereOrNull((element) => element.id == credentials.id);
+    if (user == null) {
+      return false;
+    }
+    if (credentials.password != user.password) {
+      throw "Invalid password";
+    }
+    return true;
+  }
+
   Future<bool> verifyUser(D2UserCredential credentials,
       {bool offlineFirst = false}) async {
-    List<D2UserCredential> users = getUsers();
     if (offlineFirst) {
-      D2UserCredential? user =
-          users.firstWhereOrNull((element) => element.id == credentials.id);
-      if (user == null) {
-        return await verifyOnline(credentials);
+      bool verified = await _verifyOffline(credentials);
+      if (!verified) {
+        return await _verifyOnline(credentials);
+      } else {
+        return verified;
       }
-      //TODO: This looks terrible.
-      if (credentials.password != user.password) {
-        throw "Invalid password";
-      }
-      return true;
     }
 
-    return await verifyOnline(credentials);
+    final connectivityResult = await (Connectivity().checkConnectivity());
+
+    if (connectivityResult == ConnectivityResult.none) {
+      //Try logging in offline
+      return _verifyOffline(credentials);
+    }
+
+    return await _verifyOnline(credentials).timeout(const Duration(minutes: 2),
+        onTimeout: () => _verifyOffline(credentials));
   }
 
   /// Gets the current logged in user. Returns null if there is no current logged in user
   ///
-  D2UserCredential? currentUser() {
-    return getLoggedInUser();
+  Future<D2UserCredential?> currentUser() async {
+    return _getLoggedInUser();
   }
 
   /// Logs in the user with the specified credentials.

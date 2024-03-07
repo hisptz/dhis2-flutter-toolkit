@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import 'credentials.dart';
+import '../auth_service/credentials.dart';
 
-class D2HttpClientService {
+class D2ClientService {
   D2UserCredential credentials;
 
-  D2HttpClientService(this.credentials);
+  D2ClientService(this.credentials);
 
-  D2HttpClientService.initialize(
+  D2ClientService.initialize(
       {required String username,
       required String password,
       required String baseURL})

@@ -12,6 +12,7 @@ dependencies:
   connectivity_plus: ^5.0.2
   flutter:
     sdk: flutter
+  flutter_secure_storage: ^9.0.0
   http: ^1.2.1
   objectbox: ^2.5.1
   objectbox_flutter_libs: ^2.5.1
