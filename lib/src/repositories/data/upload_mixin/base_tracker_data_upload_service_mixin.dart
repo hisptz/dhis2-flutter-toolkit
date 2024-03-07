@@ -9,7 +9,7 @@ import '../base.dart';
 mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     on BaseDataRepository<T> {
   D2ClientService? client;
-  int uploadPageSize = 100;
+  int uploadPageSize = 50;
   String uploadResource = "tracker";
   abstract String label;
   abstract String uploadDataKey;
