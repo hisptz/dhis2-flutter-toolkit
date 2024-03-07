@@ -18,8 +18,8 @@ class D2EventRepository extends BaseDataRepository<D2Event>
         BaseTrackerDataUploadServiceMixin<D2Event> {
   D2EventRepository(super.db);
 
-  StreamController<DownloadStatus> controller =
-      StreamController<DownloadStatus>();
+  StreamController<D2SyncStatus> controller =
+      StreamController<D2SyncStatus>();
 
   @override
   D2Event? getByUid(String uid) {

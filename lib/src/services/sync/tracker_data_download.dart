@@ -13,8 +13,8 @@ import '../client/client.dart';
 class D2TrackerDataDownloadService {
   D2ObjectBox db;
   D2ClientService client;
-  StreamController<DownloadStatus> downloadController =
-      StreamController<DownloadStatus>();
+  StreamController<D2SyncStatus> downloadController =
+      StreamController<D2SyncStatus>();
 
   D2TrackerDataDownloadService(this.db, this.client);
 
@@ -60,7 +60,7 @@ class D2TrackerDataDownloadService {
   Future<void> download() async {
     await setupDataDownload();
     downloadController
-        .add(DownloadStatus(status: Status.complete, label: "All"));
+        .add(D2SyncStatus(status: Status.complete, label: "All"));
     downloadController.close();
   }
 }

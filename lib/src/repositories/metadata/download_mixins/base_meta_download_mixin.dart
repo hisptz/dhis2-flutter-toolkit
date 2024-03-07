@@ -9,7 +9,7 @@ import '../../../models/metadata/base.dart';
 mixin BaseMetaDownloadServiceMixin<T extends D2MetaResource>
     on BaseMetaRepository<T> {
   D2ClientService? client;
-  StreamController<DownloadStatus> downloadController = StreamController();
+  StreamController<D2SyncStatus> downloadController = StreamController();
   abstract String resource;
   abstract String label;
   List<String> downloadFields = [];
@@ -96,7 +96,7 @@ mixin BaseMetaDownloadServiceMixin<T extends D2MetaResource>
 
   Future initializeDownload() async {
     Pagination pagination = await getPagination();
-    DownloadStatus status = DownloadStatus(
+    D2SyncStatus status = D2SyncStatus(
         synced: 0,
         total: pagination.pageCount,
         status: Status.initialized,

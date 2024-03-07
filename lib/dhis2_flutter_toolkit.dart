@@ -98,3 +98,5 @@ export "src/services/sync/tracker_data_download.dart"
     show D2TrackerDataDownloadService;
 export "src/services/sync/tracker_data_upload_service.dart"
     show D2TrackerDataUploadService;
+//Utils
+export "src/utils/download_status.dart" show D2SyncStatus;

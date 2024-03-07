@@ -13,8 +13,8 @@ import '../relationship.dart';
 mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
     on BaseDataRepository<T> {
   D2ClientService? client;
-  StreamController<DownloadStatus> downloadController =
-      StreamController<DownloadStatus>();
+  StreamController<D2SyncStatus> downloadController =
+      StreamController<D2SyncStatus>();
   abstract String downloadResource;
   List<String> fields = [];
   List<String> filters = [];
@@ -125,7 +125,7 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
 
   Future initializeDownload() async {
     Pagination pagination = await getPagination();
-    DownloadStatus status = DownloadStatus(
+    D2SyncStatus status = D2SyncStatus(
         synced: 0,
         total: pagination.pageCount,
         status: Status.initialized,

@@ -8,8 +8,8 @@ import '../../utils/download_status.dart';
 class D2MetadataDownloadService {
   D2ObjectBox db;
   D2ClientService client;
-  StreamController<DownloadStatus> controller =
-      StreamController<DownloadStatus>();
+  StreamController<D2SyncStatus> controller =
+      StreamController<D2SyncStatus>();
 
   get stream {
     return controller.stream;
@@ -65,7 +65,7 @@ class D2MetadataDownloadService {
 
   Future setupSync() async {
     await setupMetadataDownload();
-    controller.add(DownloadStatus(status: Status.complete, label: "All"));
+    controller.add(D2SyncStatus(status: Status.complete, label: "All"));
     controller.close();
   }
 

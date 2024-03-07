@@ -120,7 +120,7 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
 
   @override
   Future initializeDownload() async {
-    DownloadStatus status = DownloadStatus(
+    D2SyncStatus status = D2SyncStatus(
         synced: 0,
         total: programIds.length,
         status: Status.initialized,

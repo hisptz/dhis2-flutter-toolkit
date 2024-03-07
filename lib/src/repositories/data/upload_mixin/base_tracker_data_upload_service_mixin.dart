@@ -13,8 +13,8 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
   String uploadResource = "tracker";
   abstract String label;
   abstract String uploadDataKey;
-  StreamController<DownloadStatus> uploadController =
-      StreamController<DownloadStatus>();
+  StreamController<D2SyncStatus> uploadController =
+      StreamController<D2SyncStatus>();
 
   setUnSyncedQuery();
 
@@ -85,7 +85,7 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     //TODO: Handle import summary
     int count = getUnSyncedCount();
     int pages = (count / pageSize).ceil().clamp(1, 10);
-    DownloadStatus status = DownloadStatus(
+    D2SyncStatus status = D2SyncStatus(
         synced: 0, total: pages, status: Status.initialized, label: label);
     uploadController.add(status);
 

@@ -15,8 +15,8 @@ import '../client/client.dart';
 class D2TrackerDataUploadService {
   D2ObjectBox db;
   D2ClientService client;
-  StreamController<DownloadStatus> uploadController =
-      StreamController<DownloadStatus>();
+  StreamController<D2SyncStatus> uploadController =
+      StreamController<D2SyncStatus>();
 
   D2TrackerDataUploadService(this.db, this.client);
 
@@ -58,7 +58,7 @@ class D2TrackerDataUploadService {
 
   Future<void> upload() async {
     await setupDataUpload();
-    uploadController.add(DownloadStatus(status: Status.complete, label: "All"));
+    uploadController.add(D2SyncStatus(status: Status.complete, label: "All"));
     uploadController.close();
   }
 }

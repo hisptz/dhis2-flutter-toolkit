@@ -16,8 +16,8 @@ class D2TrackedEntityRepository extends BaseDataRepository<D2TrackedEntity>
         BaseTrackerDataUploadServiceMixin<D2TrackedEntity> {
   D2TrackedEntityRepository(super.db);
 
-  StreamController<DownloadStatus> controller =
-      StreamController<DownloadStatus>();
+  StreamController<D2SyncStatus> controller =
+      StreamController<D2SyncStatus>();
 
   @override
   D2TrackedEntity? getByUid(String uid) {

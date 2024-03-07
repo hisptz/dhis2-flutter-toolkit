@@ -12,8 +12,8 @@ class D2RelationshipRepository extends BaseDataRepository<D2Relationship>
      {
   D2RelationshipRepository(super.db);
 
-  StreamController<DownloadStatus> controller =
-      StreamController<DownloadStatus>();
+  StreamController<D2SyncStatus> controller =
+      StreamController<D2SyncStatus>();
 
   @override
   D2Relationship? getByUid(String uid) {

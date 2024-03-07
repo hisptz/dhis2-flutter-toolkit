@@ -14,8 +14,8 @@ mixin BaseSingleMetaDownloadServiceMixin<T extends D2MetaResource>
   List<String> filters = [];
   T? entity;
 
-  StreamController<DownloadStatus> downloadController =
-      StreamController<DownloadStatus>();
+  StreamController<D2SyncStatus> downloadController =
+      StreamController<D2SyncStatus>();
 
   BaseSingleMetaDownloadServiceMixin<T> setClient(D2ClientService client) {
     this.client = client;
@@ -31,7 +31,7 @@ mixin BaseSingleMetaDownloadServiceMixin<T extends D2MetaResource>
     return resource;
   }
 
-  Stream<DownloadStatus> get downloadStream {
+  Stream<D2SyncStatus> get downloadStream {
     return downloadController.stream;
   }
 
@@ -58,7 +58,7 @@ mixin BaseSingleMetaDownloadServiceMixin<T extends D2MetaResource>
   }
 
   void download() async {
-    DownloadStatus status = DownloadStatus(
+    D2SyncStatus status = D2SyncStatus(
         synced: 0, total: 1, status: Status.initialized, label: label);
     downloadController.add(status);
     Map<String, dynamic>? data = await getData<Map<String, dynamic>>();
