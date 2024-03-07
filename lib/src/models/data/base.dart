@@ -1,4 +1,3 @@
-
 import 'upload_base.dart';
 
 abstract class D2DataResource {
@@ -11,4 +10,6 @@ abstract class D2DataResource {
   }
 }
 
-abstract class SyncDataSource extends D2DataResource implements SyncableData {}
+abstract class SyncDataSource extends D2DataResource implements SyncableData {
+  abstract String uid;
+}

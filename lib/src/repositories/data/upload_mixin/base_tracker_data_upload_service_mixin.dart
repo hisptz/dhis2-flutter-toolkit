@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../../../dhis2_flutter_toolkit.dart';
@@ -9,7 +10,7 @@ import '../base.dart';
 mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     on BaseDataRepository<T> {
   D2ClientService? client;
-  int uploadPageSize = 50;
+  int uploadPageSize = 10;
   String uploadResource = "tracker";
   abstract String label;
   abstract String uploadDataKey;
@@ -44,6 +45,14 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     return query.count();
   }
 
+  List<String> getErroredEntityUidFromImportSummary(
+      Map<String, dynamic> importSummary) {
+    List errorReports = importSummary["validationReport"]["errorReports"];
+    return errorReports
+        .map<String>((errorReport) => errorReport["uid"])
+        .toList();
+  }
+
   Future<Map<String, dynamic>> uploadPage(int page) async {
     Query<T> localQuery = query;
     localQuery
@@ -58,12 +67,22 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
         .httpPost<Map<String, dynamic>>(uploadURL, payload,
             queryParameters: uploadQueryParams);
 
-    //TODO: Handle import summary. Don't update sync status of failed payloads
-
-    for (T entity in entities) {
-      entity.synced = true;
+    if (response["status"] == "ERROR") {
+      List<String> entitiesIdsWithErrors =
+          getErroredEntityUidFromImportSummary(response);
+      List<T> entitiesWithoutErrors = entities
+          .whereNot((T entity) => entitiesIdsWithErrors.contains(entity.uid))
+          .toList();
+      for (T entity in entitiesWithoutErrors) {
+        entity.synced = true;
+      }
+      await box.putManyAsync(entitiesWithoutErrors);
+    } else {
+      for (T entity in entities) {
+        entity.synced = true;
+      }
+      await box.putManyAsync(entities);
     }
-    await box.putManyAsync(entities);
     return response;
   }
 
