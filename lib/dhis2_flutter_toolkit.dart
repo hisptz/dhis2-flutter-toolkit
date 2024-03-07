@@ -1,7 +1,5 @@
 library dhis2_flutter_toolkit;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export "./src/services/auth_service/auth_service.dart" show D2AuthService;
+export "./src/services/auth_service/credentials.dart" show D2UserCredential;
+export "./src/services/client/client.dart" show D2ClientService;
