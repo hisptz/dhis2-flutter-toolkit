@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
 import '../../../objectbox.dart';
-import '../../utils/download_status.dart';
+import '../../utils/sync_status.dart';
 
 class D2MetadataDownloadService {
   D2ObjectBox db;
@@ -65,7 +65,7 @@ class D2MetadataDownloadService {
 
   Future setupSync() async {
     await setupMetadataDownload();
-    controller.add(D2SyncStatus(status: Status.complete, label: "All"));
+    controller.add(D2SyncStatus(status: D2SyncStatusEnum.complete, label: "All"));
     controller.close();
   }
 

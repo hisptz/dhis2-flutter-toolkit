@@ -18,13 +18,13 @@ class D2SecureStorageService {
     return await set(key, objectString);
   }
 
-  Future<T?> getObject<T extends Object>(String key) async {
+  Future getObject(String key) async {
     String? objectString = await get(key);
     if (objectString == null) {
       return null;
     }
     try {
-      return jsonDecode(objectString) as T;
+      return jsonDecode(objectString);
     } catch (e) {
       throw "Invalid object obtained at key $key: ${e.toString()}";
     }

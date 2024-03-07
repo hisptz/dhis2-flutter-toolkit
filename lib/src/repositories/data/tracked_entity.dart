@@ -3,7 +3,7 @@ import 'package:objectbox/objectbox.dart';
 
 import '../../../objectbox.g.dart';
 import '../../models/data/tracked_entity.dart';
-import '../../utils/download_status.dart';
+import '../../utils/sync_status.dart';
 import 'base.dart';
 import 'download_mixin/base_tracker_data_download_service_mixin.dart';
 import 'download_mixin/tracked_entity_data_download_service_mixin.dart';

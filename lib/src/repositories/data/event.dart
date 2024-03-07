@@ -4,7 +4,7 @@ import 'package:objectbox/objectbox.dart';
 
 import '../../../objectbox.g.dart';
 import '../../models/data/event.dart';
-import '../../utils/download_status.dart';
+import '../../utils/sync_status.dart';
 import 'base.dart';
 import 'download_mixin/base_tracker_data_download_service_mixin.dart';
 import 'download_mixin/event_data_download_service_mixin.dart';

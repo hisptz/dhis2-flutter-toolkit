@@ -1,6 +1,6 @@
 import '../../../../dhis2_flutter_toolkit.dart';
 import '../../../models/metadata/program.dart';
-import '../../../utils/download_status.dart';
+import '../../../utils/sync_status.dart';
 import '../data_element.dart';
 import '../legend.dart';
 import '../legend_set.dart';
@@ -123,7 +123,7 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
     D2SyncStatus status = D2SyncStatus(
         synced: 0,
         total: programIds.length,
-        status: Status.initialized,
+        status: D2SyncStatusEnum.initialized,
         label: label);
     downloadController.add(status);
     for (final programId in programIds) {

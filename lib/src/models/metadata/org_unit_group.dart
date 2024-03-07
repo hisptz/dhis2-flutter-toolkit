@@ -1,9 +1,7 @@
-import 'package:dhis2_flutter_toolkit/objectbox.dart';
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../repositories/metadata/org_unit_group.dart';
 import 'base.dart';
-import 'org_unit.dart';
 
 @Entity()
 class D2OrgUnitGroup implements D2MetaResource {
@@ -31,10 +29,14 @@ class D2OrgUnitGroup implements D2MetaResource {
         displayName = json["displayName"],
         created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]) {
-    List<D2OrgUnit> orgUnits = json["organisationUnits"]
-        .map((Map json) => D2OrgUnit.fromMap(db, json));
-    organisationUnits.addAll(orgUnits);
     id = D2OrgUnitGroupRepository(db).getIdByUid(json["id"]) ?? 0;
+
+    List<D2OrgUnit?> orgUnits = json["organisationUnits"]
+        .map<D2OrgUnit?>((json) => D2OrgUnitRepository(db).getByUid(json["id"]))
+        .toList();
+    List<D2OrgUnit> availableOrgUnits =
+        orgUnits.where((element) => element != null).toList().cast<D2OrgUnit>();
+    organisationUnits.addAll(availableOrgUnits);
   }
 
   @override

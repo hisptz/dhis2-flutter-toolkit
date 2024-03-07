@@ -5,7 +5,7 @@ import 'package:collection/collection.dart';
 import '../../../models/data/base.dart';
 import '../../../models/data/relationship.dart';
 import '../../../services/client/client.dart';
-import '../../../utils/download_status.dart';
+import '../../../utils/sync_status.dart';
 import '../../../utils/pagination.dart';
 import '../base.dart';
 import '../relationship.dart';
@@ -128,7 +128,7 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
     D2SyncStatus status = D2SyncStatus(
         synced: 0,
         total: pagination.pageCount,
-        status: Status.initialized,
+        status: D2SyncStatusEnum.initialized,
         label: "$label for ${program!.name} program");
     downloadController.add(status);
 

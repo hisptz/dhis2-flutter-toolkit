@@ -1,11 +1,11 @@
-enum Status { initialized, syncing, complete }
+enum D2SyncStatusEnum { initialized, syncing, complete }
 
 class D2SyncStatus {
   String label;
   int? synced;
   int? total;
 
-  Status status;
+  D2SyncStatusEnum status;
 
   D2SyncStatus(
       {this.synced, this.total, required this.status, required this.label});
@@ -18,7 +18,7 @@ class D2SyncStatus {
   }
 
   D2SyncStatus complete() {
-    status = Status.complete;
+    status = D2SyncStatusEnum.complete;
     return this;
   }
 }

@@ -20,12 +20,17 @@ class D2AuthService {
   D2SecureStorageService storageService = D2SecureStorageService();
 
   Future<List<D2UserCredential>> _getUsers() async {
-    List<String> users =
-        await storageService.getObject<List<String>>("users") ?? [];
+    List? users = await storageService.getObject("users");
+    if (users == null) {
+      return [].cast<D2UserCredential>();
+    }
     if (users.isEmpty) {
       return [].cast<D2UserCredential>();
     }
-    return users.map<D2UserCredential>(D2UserCredential.fromMap).toList() ?? [];
+    return users
+            .map<D2UserCredential>((user) => D2UserCredential.fromMap(user))
+            .toList() ??
+        [];
   }
 
   Future _setLoggedInUser(D2UserCredential credentials) async {
@@ -101,20 +106,28 @@ class D2AuthService {
 
   Future<bool> _verifyOnline(D2UserCredential credentials) async {
     D2ClientService client = D2ClientService(credentials);
-    Map? data = await client.httpGet<Map>("me");
-    if (data == null) {
-      throw "Error logging in.";
+    try {
+      Map? data = await client.httpGet<Map>("me");
+      if (data == null) {
+        throw "Error logging in.";
+      }
+      if (data["httpStatusCode"] == 401) {
+        throw "Invalid username or password";
+      }
+      if (data["username"] == credentials.username) {
+        saveUser(credentials);
+        return true;
+      }
+      return false;
+    } catch (e) {
+      String errorString = e.toString();
+      if (errorString.contains("401")) {
+        throw "Invalid username or password";
+      }
+      rethrow;
     }
-    if (data["httpStatusCode"] == 401) {
-      throw "Invalid username or password";
-    }
-    if (data["username"] == credentials.username) {
-      await _setLoggedInUser(credentials);
-      saveUser(credentials);
-      return true;
-    }
-    return false;
   }
+
   //TODO: The logic to verify the user is not as strong. Improve it using encryption
   Future<bool> _verifyOffline(D2UserCredential credentials) async {
     List<D2UserCredential> users = await _getUsers();
@@ -126,6 +139,7 @@ class D2AuthService {
     if (credentials.password != user.password) {
       throw "Invalid password";
     }
+    await Future.delayed(const Duration(seconds: 1)); //Artificial delay
     return true;
   }
 
@@ -171,6 +185,7 @@ class D2AuthService {
         username: username, password: password, baseURL: baseURL);
 
     if (await verifyUser(credentials, offlineFirst: offlineFirst)) {
+      await _setLoggedInUser(credentials);
       return credentials;
     } else {
       throw "Error logging in";

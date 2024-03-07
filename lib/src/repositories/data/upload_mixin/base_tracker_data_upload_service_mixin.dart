@@ -3,7 +3,7 @@ import 'package:objectbox/objectbox.dart';
 
 import '../../../../dhis2_flutter_toolkit.dart';
 import '../../../models/data/base.dart';
-import '../../../utils/download_status.dart';
+import '../../../utils/sync_status.dart';
 import '../base.dart';
 
 mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
@@ -86,7 +86,7 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     int count = getUnSyncedCount();
     int pages = (count / pageSize).ceil().clamp(1, 10);
     D2SyncStatus status = D2SyncStatus(
-        synced: 0, total: pages, status: Status.initialized, label: label);
+        synced: 0, total: pages, status: D2SyncStatusEnum.initialized, label: label);
     uploadController.add(status);
 
     for (int page = 0; page < pages; page++) {

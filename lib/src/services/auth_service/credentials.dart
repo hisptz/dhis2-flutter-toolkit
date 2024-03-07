@@ -21,7 +21,7 @@ class D2UserCredential {
   }
 
   D2UserCredential.fromMap(String jsonString) {
-    Map<String, String> map = jsonDecode(jsonString);
+    Map map = jsonDecode(jsonString);
     username = map["username"]!;
     password = map["password"]!;
     baseURL = map["baseURL"]!;

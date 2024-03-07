@@ -1,6 +1,6 @@
 import 'dart:async';
 import '../../../services/client/client.dart';
-import '../../../utils/download_status.dart';
+import '../../../utils/sync_status.dart';
 import '../../../utils/pagination.dart';
 import '../base.dart';
 
@@ -99,7 +99,7 @@ mixin BaseMetaDownloadServiceMixin<T extends D2MetaResource>
     D2SyncStatus status = D2SyncStatus(
         synced: 0,
         total: pagination.pageCount,
-        status: Status.initialized,
+        status: D2SyncStatusEnum.initialized,
         label: label);
     downloadController.add(status);
 

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import '../../../models/metadata/base.dart';
 import '../../../services/client/client.dart';
-import '../../../utils/download_status.dart';
+import '../../../utils/sync_status.dart';
 import '../base.dart';
 
 mixin BaseSingleMetaDownloadServiceMixin<T extends D2MetaResource>
@@ -59,7 +59,7 @@ mixin BaseSingleMetaDownloadServiceMixin<T extends D2MetaResource>
 
   void download() async {
     D2SyncStatus status = D2SyncStatus(
-        synced: 0, total: 1, status: Status.initialized, label: label);
+        synced: 0, total: 1, status: D2SyncStatusEnum.initialized, label: label);
     downloadController.add(status);
     Map<String, dynamic>? data = await getData<Map<String, dynamic>>();
     if (data == null) {

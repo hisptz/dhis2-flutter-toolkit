@@ -7,7 +7,7 @@ import '../../repositories/data/event.dart';
 import '../../repositories/data/tracked_entity.dart';
 import '../../repositories/metadata/program.dart';
 import '../../repositories/metadata/user.dart';
-import '../../utils/download_status.dart';
+import '../../utils/sync_status.dart';
 import '../client/client.dart';
 
 class D2TrackerDataDownloadService {
@@ -60,7 +60,7 @@ class D2TrackerDataDownloadService {
   Future<void> download() async {
     await setupDataDownload();
     downloadController
-        .add(D2SyncStatus(status: Status.complete, label: "All"));
+        .add(D2SyncStatus(status: D2SyncStatusEnum.complete, label: "All"));
     downloadController.close();
   }
 }
