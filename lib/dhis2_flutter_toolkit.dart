@@ -86,10 +86,13 @@ export "src/repositories/metadata/tracked_entity_type_attribute.dart"
     show D2TrackedEntityTypeAttributeRepository;
 export "src/repositories/metadata/user.dart" show D2UserRepository;
 export "src/repositories/metadata/user_group.dart" show D2UserGroupRepository;
-export "src/repositories/metadata/user_role.dart" show D2UserRoleRepository;
-
-
-//Services
+export "src/repositories/metadata/user_role.dart" show D2UserRoleRepository;//Services
 export "src/services/auth_service/auth_service.dart" show D2AuthService;
 export "src/services/auth_service/credentials.dart" show D2UserCredential;
 export "src/services/client/client.dart" show D2ClientService;
+export "src/services/sync/metadata_download.dart"
+    show D2MetadataDownloadService;
+export "src/services/sync/tracker_data_download.dart"
+    show D2TrackerDataDownloadService;
+export "src/services/sync/tracker_data_upload_service.dart"
+    show D2TrackerDataUploadService;
