@@ -1,0 +1,2206 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:8194103628207524606",
+      "lastPropertyId": "3:7124008240466461217",
+      "name": "D2AttributeValue",
+      "properties": [
+        {
+          "id": "1:8839551495175793737",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2382386814859343403",
+          "name": "dataElementId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "1:642469775700694910",
+          "relationTarget": "D2DataElement"
+        },
+        {
+          "id": "3:7124008240466461217",
+          "name": "trackedEntityAttributeId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "2:582472308750711563",
+          "relationTarget": "D2TrackedEntityAttribute"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:257964529443086557",
+      "lastPropertyId": "16:5768982099937524890",
+      "name": "D2DataElement",
+      "properties": [
+        {
+          "id": "1:153857577912867370",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "2:1068976870237242549",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "3:7475371662312261404",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "3:5546789341143603093"
+        },
+        {
+          "id": "4:8069162851026044184",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "5:5491282417617659695",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "6:2373811265280008907",
+          "name": "displayFormName",
+          "type": 9
+        },
+        {
+          "id": "7:2400612193559729384",
+          "name": "displayName",
+          "type": 9
+        },
+        {
+          "id": "8:6111165810266209416",
+          "name": "formName",
+          "type": 9
+        },
+        {
+          "id": "9:5776418584382580651",
+          "name": "shortName",
+          "type": 9
+        },
+        {
+          "id": "10:5412756780220185068",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "11:7313178459616335792",
+          "name": "aggregationType",
+          "type": 9
+        },
+        {
+          "id": "12:381029426780078357",
+          "name": "valueType",
+          "type": 9
+        },
+        {
+          "id": "13:5201652112925849782",
+          "name": "domainType",
+          "type": 9
+        },
+        {
+          "id": "14:4421197147783367843",
+          "name": "zeroIsSignificant",
+          "type": 1
+        },
+        {
+          "id": "15:4057732206691562295",
+          "name": "optionSetId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "4:2213367397718689164",
+          "relationTarget": "D2OptionSet"
+        },
+        {
+          "id": "16:5768982099937524890",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        }
+      ],
+      "relations": [
+        {
+          "id": "1:5312970320050760802",
+          "name": "legendSets",
+          "targetId": "7:5152220214672915316"
+        }
+      ]
+    },
+    {
+      "id": "3:5116683257084345145",
+      "lastPropertyId": "9:6279117620427392603",
+      "name": "D2DataValue",
+      "properties": [
+        {
+          "id": "1:7756699009402294515",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:309772828289505441",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "3:6092605011877383392",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "4:8942881779622739760",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "5:5861792340533555303"
+        },
+        {
+          "id": "5:1691371662617369514",
+          "name": "value",
+          "type": 9
+        },
+        {
+          "id": "6:927046481526183180",
+          "name": "providedElsewhere",
+          "type": 1
+        },
+        {
+          "id": "7:2829953433785256039",
+          "name": "eventId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "6:3148136911393648919",
+          "relationTarget": "D2Event"
+        },
+        {
+          "id": "8:4265080367712741581",
+          "name": "dataElementId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "7:8203652011957087137",
+          "relationTarget": "D2DataElement"
+        },
+        {
+          "id": "9:6279117620427392603",
+          "name": "synced",
+          "type": 1
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:8139154496331483919",
+      "lastPropertyId": "14:4179157576741126647",
+      "name": "D2Enrollment",
+      "properties": [
+        {
+          "id": "1:3954389186778598467",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:431621834414235256",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "3:5052411273028172916",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "4:8967691669905465948",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "8:3662341476825647812"
+        },
+        {
+          "id": "5:9047016616756964207",
+          "name": "enrolledAt",
+          "type": 10
+        },
+        {
+          "id": "6:5869981996651245249",
+          "name": "deleted",
+          "type": 1
+        },
+        {
+          "id": "7:2543072910519371713",
+          "name": "followup",
+          "type": 1
+        },
+        {
+          "id": "8:6816986956621232723",
+          "name": "occurredAt",
+          "type": 10
+        },
+        {
+          "id": "9:2636892458558341309",
+          "name": "status",
+          "type": 9
+        },
+        {
+          "id": "10:2611507800926122229",
+          "name": "notes",
+          "type": 9
+        },
+        {
+          "id": "11:520577305671522521",
+          "name": "trackedEntityId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "9:2892247543491146345",
+          "relationTarget": "D2TrackedEntity"
+        },
+        {
+          "id": "12:2105441922802815075",
+          "name": "orgUnitId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "10:1632045706883429006",
+          "relationTarget": "D2OrgUnit"
+        },
+        {
+          "id": "13:6713454989307523315",
+          "name": "programId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "11:6522261318498184945",
+          "relationTarget": "D2Program"
+        },
+        {
+          "id": "14:4179157576741126647",
+          "name": "synced",
+          "type": 1
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:6994186532441416598",
+      "lastPropertyId": "18:7960173176852217204",
+      "name": "D2Event",
+      "properties": [
+        {
+          "id": "1:5317964321463801348",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8629452217769988879",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "3:6893101414650185680",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "4:3826385106803832800",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "5:8453330915151234656",
+          "name": "scheduledAt",
+          "type": 10
+        },
+        {
+          "id": "6:6678790599922446218",
+          "name": "occurredAt",
+          "type": 10
+        },
+        {
+          "id": "7:7433995725547976257",
+          "name": "status",
+          "type": 9
+        },
+        {
+          "id": "8:1186591974400778090",
+          "name": "attributeCategoryOptions",
+          "type": 9
+        },
+        {
+          "id": "9:3648259723985600377",
+          "name": "deleted",
+          "type": 1
+        },
+        {
+          "id": "10:7827428386563195400",
+          "name": "followup",
+          "type": 1
+        },
+        {
+          "id": "11:5365507211947420418",
+          "name": "attributeOptionCombo",
+          "type": 9
+        },
+        {
+          "id": "12:1353522068059277391",
+          "name": "notes",
+          "type": 9
+        },
+        {
+          "id": "13:6337403412224424505",
+          "name": "enrollmentId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "12:2834602324857817255",
+          "relationTarget": "D2Enrollment"
+        },
+        {
+          "id": "14:2560842482721832668",
+          "name": "trackedEntityId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "13:4650617062715984219",
+          "relationTarget": "D2TrackedEntity"
+        },
+        {
+          "id": "15:1167027307181988978",
+          "name": "programId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "14:3561540464840186280",
+          "relationTarget": "D2Program"
+        },
+        {
+          "id": "16:7599974387040066503",
+          "name": "programStageId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "15:5142603708832639895",
+          "relationTarget": "D2ProgramStage"
+        },
+        {
+          "id": "17:5408491403130541557",
+          "name": "orgUnitId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "16:5879648136843000888",
+          "relationTarget": "D2OrgUnit"
+        },
+        {
+          "id": "18:7960173176852217204",
+          "name": "synced",
+          "type": 1
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "6:5575663878272384738",
+      "lastPropertyId": "10:3195491578812732931",
+      "name": "D2Legend",
+      "properties": [
+        {
+          "id": "1:4385760401151392791",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8670601456927162078",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:2691396753929145134",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:5721016640676324168",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "5:328400464243724124",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:7754521729987274851",
+          "name": "startValue",
+          "type": 8
+        },
+        {
+          "id": "7:2392743113353443228",
+          "name": "endValue",
+          "type": 8
+        },
+        {
+          "id": "8:3570986555678440703",
+          "name": "color",
+          "type": 9
+        },
+        {
+          "id": "9:1145671377895933849",
+          "name": "displayName",
+          "type": 9
+        },
+        {
+          "id": "10:3195491578812732931",
+          "name": "legendSetId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "17:4674397307958643269",
+          "relationTarget": "D2LegendSet"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "7:5152220214672915316",
+      "lastPropertyId": "7:673253532199780863",
+      "name": "D2LegendSet",
+      "properties": [
+        {
+          "id": "1:3254488192838814860",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6777273904944908862",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:4771800969413055843",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:4730251236093935150",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "18:1664909886879743060"
+        },
+        {
+          "id": "5:5231835626321783831",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:2912573359924318250",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "7:673253532199780863",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "8:3440278051107611466",
+      "lastPropertyId": "9:1991964298813992300",
+      "name": "D2Option",
+      "properties": [
+        {
+          "id": "1:8042450422575648941",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6240340622858353771",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:5794335021986554722",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:7570433971775790505",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "5:7370910987499696494",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:3704086318405555005",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "7:2743432820014261425",
+          "name": "sortOrder",
+          "type": 6
+        },
+        {
+          "id": "8:738367721147612200",
+          "name": "optionSetId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "19:5285213498890461357",
+          "relationTarget": "D2OptionSet"
+        },
+        {
+          "id": "9:1991964298813992300",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "9:9082883332790728482",
+      "lastPropertyId": "8:7231723498248849574",
+      "name": "D2OptionSet",
+      "properties": [
+        {
+          "id": "1:6878962419739641046",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3127629290596169674",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:7301264099353490125",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:3592700303337531551",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "5:1337581440173823332",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:1056098708703226379",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "7:8826849092590111752",
+          "name": "valueType",
+          "type": 9
+        },
+        {
+          "id": "8:7231723498248849574",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": [
+        {
+          "id": "2:6008783994488891808",
+          "name": "options",
+          "targetId": "8:3440278051107611466"
+        }
+      ]
+    },
+    {
+      "id": "10:3215215508490411793",
+      "lastPropertyId": "9:6797950156177480470",
+      "name": "D2OrgUnit",
+      "properties": [
+        {
+          "id": "1:4440496167995322016",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6939092898044897588",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:5158681413378111215",
+          "name": "shortName",
+          "type": 9
+        },
+        {
+          "id": "4:2551184654426248886",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "20:6391036465527518778"
+        },
+        {
+          "id": "5:7193074824293401603",
+          "name": "path",
+          "type": 9
+        },
+        {
+          "id": "6:5311513888481018801",
+          "name": "level",
+          "type": 6
+        },
+        {
+          "id": "7:3417284599097850279",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "8:3183100027908423160",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "9:6797950156177480470",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "11:706025752050808245",
+      "lastPropertyId": "6:105353247729452539",
+      "name": "D2OrgUnitGroup",
+      "properties": [
+        {
+          "id": "1:4565218359889049505",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8398450072183542261",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:8461600308743987121",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "21:3594315161317991354"
+        },
+        {
+          "id": "4:563733049070092069",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "5:6207048713563351948",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "6:105353247729452539",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": [
+        {
+          "id": "3:5191637808498084310",
+          "name": "organisationUnits",
+          "targetId": "10:3215215508490411793"
+        }
+      ]
+    },
+    {
+      "id": "12:4845029629663650184",
+      "lastPropertyId": "7:412700322432031164",
+      "name": "D2OrganisationUnitLevel",
+      "properties": [
+        {
+          "id": "1:6415074213713321569",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4641716601052601232",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:6228311578707178848",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "22:7946463342032987765"
+        },
+        {
+          "id": "4:9097581029004154019",
+          "name": "level",
+          "type": 6
+        },
+        {
+          "id": "5:5437099508560140415",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "6:2624640919868138634",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "7:412700322432031164",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "13:842731617041164856",
+      "lastPropertyId": "12:7449116730149103320",
+      "name": "D2Program",
+      "properties": [
+        {
+          "id": "1:5796266798468866403",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7557975744344354772",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:4975015553594701696",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:8445743638218233780",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "23:4893896656739481576"
+        },
+        {
+          "id": "5:8975347843190994682",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:9135267250568238171",
+          "name": "shortName",
+          "type": 9
+        },
+        {
+          "id": "7:8545364360374923435",
+          "name": "accessLevel",
+          "type": 9
+        },
+        {
+          "id": "8:979309723244780430",
+          "name": "programType",
+          "type": 9
+        },
+        {
+          "id": "9:1019603819740191716",
+          "name": "onlyEnrollOnce",
+          "type": 1
+        },
+        {
+          "id": "10:2080108139226603951",
+          "name": "selectEnrollmentDatesInFuture",
+          "type": 1
+        },
+        {
+          "id": "11:2637736849672363872",
+          "name": "trackedEntityTypeId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "24:3109789638828809218",
+          "relationTarget": "D2TrackedEntityType"
+        },
+        {
+          "id": "12:7449116730149103320",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": [
+        {
+          "id": "4:1475297277782821880",
+          "name": "organisationUnits",
+          "targetId": "10:3215215508490411793"
+        }
+      ]
+    },
+    {
+      "id": "14:4258101311778128002",
+      "lastPropertyId": "9:2148657165772279005",
+      "name": "D2ProgramRule",
+      "properties": [
+        {
+          "id": "1:1890747001898228719",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1867093040478125362",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:5356623027574919400",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:2484549817705720866",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "5:8657380945059420649",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:6928821875919724350",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "7:8064030182138325829",
+          "name": "condition",
+          "type": 9
+        },
+        {
+          "id": "8:7262559057774666409",
+          "name": "programId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "25:2248942903548672394",
+          "relationTarget": "D2Program"
+        },
+        {
+          "id": "9:2148657165772279005",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "15:3635248881641408693",
+      "lastPropertyId": "14:7482510045107997199",
+      "name": "D2ProgramRuleAction",
+      "properties": [
+        {
+          "id": "1:8318597344307470359",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8951521401989523710",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:1664895316608852752",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:5849395369244046937",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "5:4732859653219002582",
+          "name": "programRuleActionType",
+          "type": 9
+        },
+        {
+          "id": "6:7025576301168880397",
+          "name": "content",
+          "type": 9
+        },
+        {
+          "id": "7:4412772321026025505",
+          "name": "data",
+          "type": 9
+        },
+        {
+          "id": "8:2803737659462511416",
+          "name": "location",
+          "type": 9
+        },
+        {
+          "id": "9:8334453323360731613",
+          "name": "programRuleId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "26:4298310230523124445",
+          "relationTarget": "D2ProgramRule"
+        },
+        {
+          "id": "10:4678717547749912571",
+          "name": "dataElementId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "27:7939182947485596438",
+          "relationTarget": "D2DataElement"
+        },
+        {
+          "id": "11:3685278557250284330",
+          "name": "programStageSectionId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "28:8250828384727859954",
+          "relationTarget": "D2ProgramStageSection"
+        },
+        {
+          "id": "12:8952915598049901814",
+          "name": "programSectionId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "29:8366458728023359043",
+          "relationTarget": "D2ProgramSection"
+        },
+        {
+          "id": "13:7835382958974976556",
+          "name": "trackedEntityAttributeId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "30:1288031782494056378",
+          "relationTarget": "D2TrackedEntityAttribute"
+        },
+        {
+          "id": "14:7482510045107997199",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "16:4390044886802248350",
+      "lastPropertyId": "13:5491634309828183709",
+      "name": "D2ProgramRuleVariable",
+      "properties": [
+        {
+          "id": "1:495344639792406703",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4629090775926704875",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:5613737137655986572",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:606029423586566691",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "31:3512958304890198422"
+        },
+        {
+          "id": "5:7068521787654800649",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:6618721389398657029",
+          "name": "programRuleVariableSourceType",
+          "type": 9
+        },
+        {
+          "id": "7:5667343641163738678",
+          "name": "valueType",
+          "type": 9
+        },
+        {
+          "id": "8:6494410749326240166",
+          "name": "useCodeForOptionSet",
+          "type": 1
+        },
+        {
+          "id": "9:3149065812034899150",
+          "name": "trackedEntityAttributeId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "32:2474192404727638582",
+          "relationTarget": "D2TrackedEntityAttribute"
+        },
+        {
+          "id": "10:856562463165113941",
+          "name": "dataElementId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "33:4426809406728920492",
+          "relationTarget": "D2DataElement"
+        },
+        {
+          "id": "11:3611520673901123388",
+          "name": "programStageId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "34:3791869431635888508",
+          "relationTarget": "D2ProgramStage"
+        },
+        {
+          "id": "12:2706776351868736000",
+          "name": "programId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "35:63939993003839629",
+          "relationTarget": "D2Program"
+        },
+        {
+          "id": "13:5491634309828183709",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "17:5463551211377194682",
+      "lastPropertyId": "8:8484997233559929775",
+      "name": "D2ProgramSection",
+      "properties": [
+        {
+          "id": "1:5206667642629542458",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4651756235660011858",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:553658082629040873",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:1284453538693177781",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "36:4205058270902357616"
+        },
+        {
+          "id": "5:4074401005419906894",
+          "name": "sortOrder",
+          "type": 6
+        },
+        {
+          "id": "6:7677728518457530093",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "7:5982227536593825117",
+          "name": "programId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "37:690470734372984836",
+          "relationTarget": "D2Program"
+        },
+        {
+          "id": "8:8484997233559929775",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": [
+        {
+          "id": "5:4201769785617098886",
+          "name": "trackedEntityAttributes",
+          "targetId": "26:4451857861000713264"
+        }
+      ]
+    },
+    {
+      "id": "18:121682375555937529",
+      "lastPropertyId": "12:4533741753760510500",
+      "name": "D2ProgramStage",
+      "properties": [
+        {
+          "id": "1:700749772046612090",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1977478457349114299",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:2450753146566850213",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:5824472449467342655",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "38:7078479877298589559"
+        },
+        {
+          "id": "5:5722130305460855862",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:8463700978006244260",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "7:6604079108980642053",
+          "name": "sortOrder",
+          "type": 6
+        },
+        {
+          "id": "8:6627666332572839431",
+          "name": "validationStrategy",
+          "type": 9
+        },
+        {
+          "id": "9:3358020660394135861",
+          "name": "featureType",
+          "type": 9
+        },
+        {
+          "id": "10:1901649358736133541",
+          "name": "reportDateToUse",
+          "type": 9
+        },
+        {
+          "id": "11:6927484236074989792",
+          "name": "programId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "39:5460732382124656440",
+          "relationTarget": "D2Program"
+        },
+        {
+          "id": "12:4533741753760510500",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "19:7771080830110018479",
+      "lastPropertyId": "9:6286914972137088111",
+      "name": "D2ProgramStageDataElement",
+      "properties": [
+        {
+          "id": "1:173120693701859508",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "2:3482458021663301386",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "3:6766193534012760810",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:4709791126630553405",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "5:1428676960389173619",
+          "name": "compulsory",
+          "type": 1
+        },
+        {
+          "id": "6:8881192316393409677",
+          "name": "sortOrder",
+          "type": 6
+        },
+        {
+          "id": "7:8506750635802431463",
+          "name": "programStageId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "40:9126103669369147453",
+          "relationTarget": "D2ProgramStage"
+        },
+        {
+          "id": "8:1159232257330208244",
+          "name": "dataElementId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "41:4841480228644203129",
+          "relationTarget": "D2DataElement"
+        },
+        {
+          "id": "9:6286914972137088111",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "20:3530342227070237870",
+      "lastPropertyId": "8:1853306064958335410",
+      "name": "D2ProgramStageSection",
+      "properties": [
+        {
+          "id": "1:4972475521463642565",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7398658602475201640",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:9049533593249943995",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:3990403860976948172",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "42:5241473389221072004"
+        },
+        {
+          "id": "5:3657491104484315949",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:6847645503740476583",
+          "name": "sortOrder",
+          "type": 6
+        },
+        {
+          "id": "7:2718697931595402351",
+          "name": "programStageId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "43:7141247526240994425",
+          "relationTarget": "D2ProgramStage"
+        },
+        {
+          "id": "8:1853306064958335410",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": [
+        {
+          "id": "6:8156621821863788414",
+          "name": "dataElements",
+          "targetId": "2:257964529443086557"
+        }
+      ]
+    },
+    {
+      "id": "21:8176256693588210311",
+      "lastPropertyId": "12:7058330380099126670",
+      "name": "D2ProgramTrackedEntityAttribute",
+      "properties": [
+        {
+          "id": "1:2480146465660459979",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "2:7231371731504039016",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "3:7891260624184087316",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:5069052424265057531",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "5:8226400725564911022",
+          "name": "sortOrder",
+          "type": 6
+        },
+        {
+          "id": "6:3087587644709438214",
+          "name": "displayInList",
+          "type": 1
+        },
+        {
+          "id": "7:7744298821219015129",
+          "name": "mandatory",
+          "type": 1
+        },
+        {
+          "id": "8:414763273977654675",
+          "name": "searchable",
+          "type": 1
+        },
+        {
+          "id": "9:1878604429089188814",
+          "name": "renderOptionAsRadio",
+          "type": 1
+        },
+        {
+          "id": "10:3777505509652756977",
+          "name": "programId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "44:2787195353366423576",
+          "relationTarget": "D2Program"
+        },
+        {
+          "id": "11:3861877867078695623",
+          "name": "trackedEntityAttributeId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "45:6785587349605976907",
+          "relationTarget": "D2TrackedEntityAttribute"
+        },
+        {
+          "id": "12:7058330380099126670",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "22:4637318393876658704",
+      "lastPropertyId": "12:3662279762014119659",
+      "name": "D2Relationship",
+      "properties": [
+        {
+          "id": "1:1507393808644840344",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6750531160107442027",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "3:2638055582887119886",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "4:6758442424505852995",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "46:8827756791993416355"
+        },
+        {
+          "id": "5:1013386498153126121",
+          "name": "relationshipName",
+          "type": 9
+        },
+        {
+          "id": "6:1905093920360157246",
+          "name": "bidirectional",
+          "type": 1
+        },
+        {
+          "id": "7:7551662551121750868",
+          "name": "relationshipType",
+          "type": 9
+        },
+        {
+          "id": "8:2757668174962345588",
+          "name": "fromType",
+          "type": 9
+        },
+        {
+          "id": "9:8610114683020996062",
+          "name": "fromId",
+          "type": 9
+        },
+        {
+          "id": "10:8359984440455480973",
+          "name": "toType",
+          "type": 9
+        },
+        {
+          "id": "11:8484778602190939555",
+          "name": "toId",
+          "type": 9
+        },
+        {
+          "id": "12:3662279762014119659",
+          "name": "synced",
+          "type": 1
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "23:104194260996720853",
+      "lastPropertyId": "19:5196592178333850910",
+      "name": "D2RelationshipType",
+      "properties": [
+        {
+          "id": "1:8796408638586062010",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2026689558394873640",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:5977155824982858024",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "4:585196036540056001",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "5:6200252033878624520",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "47:6095107736683062997"
+        },
+        {
+          "id": "6:3187866603987842549",
+          "name": "displayName",
+          "type": 9
+        },
+        {
+          "id": "7:5618766291346827953",
+          "name": "fromToName",
+          "type": 9
+        },
+        {
+          "id": "8:1097546316646771357",
+          "name": "toFromName",
+          "type": 9
+        },
+        {
+          "id": "9:4354407531186020227",
+          "name": "displayFromToName",
+          "type": 9
+        },
+        {
+          "id": "10:327149412207372100",
+          "name": "displayToFromName",
+          "type": 9
+        },
+        {
+          "id": "11:5216254346495451488",
+          "name": "referral",
+          "type": 1
+        },
+        {
+          "id": "12:7637883951810828896",
+          "name": "fromRelationshipEntity",
+          "type": 9
+        },
+        {
+          "id": "13:3963607746501401220",
+          "name": "toRelationshipEntity",
+          "type": 9
+        },
+        {
+          "id": "14:4226745157366761168",
+          "name": "fromTrackedEntityTypeId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "48:8853401604678662253",
+          "relationTarget": "D2TrackedEntityType"
+        },
+        {
+          "id": "15:4710230640797643360",
+          "name": "fromProgramId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "49:3552615975764845296",
+          "relationTarget": "D2Program"
+        },
+        {
+          "id": "16:6104375559942949439",
+          "name": "fromProgramStageId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "50:826252574858097647",
+          "relationTarget": "D2ProgramStage"
+        },
+        {
+          "id": "17:1212276724463987827",
+          "name": "toTrackedEntityTypeId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "51:728278201152570124",
+          "relationTarget": "D2TrackedEntityType"
+        },
+        {
+          "id": "18:2261167559753000168",
+          "name": "toProgramId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "52:3951138221494014961",
+          "relationTarget": "D2Program"
+        },
+        {
+          "id": "19:5196592178333850910",
+          "name": "toProgramStageId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "53:7592223155403911848",
+          "relationTarget": "D2ProgramStage"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "24:6737931168367355762",
+      "lastPropertyId": "12:4405154523199013265",
+      "name": "D2SystemInfo",
+      "properties": [
+        {
+          "id": "1:4757526042603035557",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7973755255564615983",
+          "name": "version",
+          "type": 9
+        },
+        {
+          "id": "3:8505633995214477516",
+          "name": "revision",
+          "type": 9
+        },
+        {
+          "id": "4:6819100664347824565",
+          "name": "calendar",
+          "type": 9
+        },
+        {
+          "id": "5:906158965744249743",
+          "name": "dateFormat",
+          "type": 9
+        },
+        {
+          "id": "6:2224358836466063190",
+          "name": "contextPath",
+          "type": 9
+        },
+        {
+          "id": "7:1429551893171658461",
+          "name": "systemId",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "54:6896595641911410496"
+        },
+        {
+          "id": "8:3198060534423758316",
+          "name": "systemName",
+          "type": 9,
+          "flags": 2048,
+          "indexId": "55:7877853528126679245"
+        },
+        {
+          "id": "9:4135668808872359626",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "10:6284145052005234508",
+          "name": "displayName",
+          "type": 9
+        },
+        {
+          "id": "11:8175247112811475616",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "12:4405154523199013265",
+          "name": "uid",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "25:1166612924871214481",
+      "lastPropertyId": "10:1163365172542588476",
+      "name": "D2TrackedEntity",
+      "properties": [
+        {
+          "id": "1:3365827048728592204",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7075037152131437865",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "3:8896250478318082709",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "4:6519836259827035386",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "56:485147582339564770"
+        },
+        {
+          "id": "5:8252439599906310185",
+          "name": "potentialDuplicate",
+          "type": 1
+        },
+        {
+          "id": "6:6606220388848912510",
+          "name": "deleted",
+          "type": 1
+        },
+        {
+          "id": "7:3195243455655773102",
+          "name": "inactive",
+          "type": 1
+        },
+        {
+          "id": "8:2787547684027315016",
+          "name": "orgUnitId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "57:1682445336648991798",
+          "relationTarget": "D2OrgUnit"
+        },
+        {
+          "id": "9:2414621884730497005",
+          "name": "trackedEntityTypeId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "58:4696403960282200937",
+          "relationTarget": "D2TrackedEntityType"
+        },
+        {
+          "id": "10:1163365172542588476",
+          "name": "synced",
+          "type": 1
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "26:4451857861000713264",
+      "lastPropertyId": "15:3616080732928313106",
+      "name": "D2TrackedEntityAttribute",
+      "properties": [
+        {
+          "id": "1:6045668979333708188",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5995464662941974320",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:8689089168178641885",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:4445944246031099177",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "59:4078697152801742943"
+        },
+        {
+          "id": "5:9090446137694028781",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:6000216017625025535",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "7:444342145939966527",
+          "name": "formName",
+          "type": 9
+        },
+        {
+          "id": "8:6241161081116937496",
+          "name": "shortName",
+          "type": 9
+        },
+        {
+          "id": "9:4182461393557125134",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "10:7059066101331986557",
+          "name": "aggregationType",
+          "type": 9
+        },
+        {
+          "id": "11:5222736872163780473",
+          "name": "valueType",
+          "type": 9
+        },
+        {
+          "id": "12:8774654946226260490",
+          "name": "zeroIsSignificant",
+          "type": 1
+        },
+        {
+          "id": "13:920333930584683803",
+          "name": "optionSetId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "60:2855556399843561833",
+          "relationTarget": "D2OptionSet"
+        },
+        {
+          "id": "14:9064924076801349532",
+          "name": "displayName",
+          "type": 9
+        },
+        {
+          "id": "15:3616080732928313106",
+          "name": "displayFormName",
+          "type": 9
+        }
+      ],
+      "relations": [
+        {
+          "id": "7:3336721929950946895",
+          "name": "legendSets",
+          "targetId": "7:5152220214672915316"
+        }
+      ]
+    },
+    {
+      "id": "27:8981732063320211832",
+      "lastPropertyId": "8:1238827266834063869",
+      "name": "D2TrackedEntityAttributeValue",
+      "properties": [
+        {
+          "id": "1:2916741794383362278",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4802117248970431183",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "3:7484900370578249727",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "61:4222440197778972870"
+        },
+        {
+          "id": "4:7168256261698621896",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "5:8657150215060576371",
+          "name": "value",
+          "type": 9
+        },
+        {
+          "id": "6:4174755296461533737",
+          "name": "trackedEntityAttributeId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "62:6480444501372053029",
+          "relationTarget": "D2TrackedEntityAttribute"
+        },
+        {
+          "id": "7:803536149589728735",
+          "name": "trackedEntityId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "63:1739666982818415992",
+          "relationTarget": "D2TrackedEntity"
+        },
+        {
+          "id": "8:1238827266834063869",
+          "name": "synced",
+          "type": 1
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "28:1209295019665505610",
+      "lastPropertyId": "7:2099970049795632206",
+      "name": "D2TrackedEntityType",
+      "properties": [
+        {
+          "id": "1:5016251845866849029",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6996653241249515700",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:3236050338080462136",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:1101132811077643984",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "64:57342927295499545"
+        },
+        {
+          "id": "5:2669446666180372771",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:5503609864254158918",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "7:2099970049795632206",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": [
+        {
+          "id": "8:6448349618794226793",
+          "name": "trackedEntityTypeAttributes",
+          "targetId": "29:7155727716405423708"
+        }
+      ]
+    },
+    {
+      "id": "29:7155727716405423708",
+      "lastPropertyId": "10:3202040791371241033",
+      "name": "D2TrackedEntityTypeAttribute",
+      "properties": [
+        {
+          "id": "1:8680764138198813660",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5208723843338827542",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:8317843247711290430",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:1894428459071486796",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "5:4989251224833721661",
+          "name": "trackedEntityTypeId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "65:2184578746272812346",
+          "relationTarget": "D2TrackedEntityType"
+        },
+        {
+          "id": "6:2562206030898062379",
+          "name": "trackedEntityAttributeId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "66:8845498364021398089",
+          "relationTarget": "D2TrackedEntityAttribute"
+        },
+        {
+          "id": "7:7838629750352241797",
+          "name": "valueType",
+          "type": 9
+        },
+        {
+          "id": "8:8219730699853825707",
+          "name": "displayName",
+          "type": 9
+        },
+        {
+          "id": "9:7961988445759278483",
+          "name": "displayShortName",
+          "type": 9
+        },
+        {
+          "id": "10:3202040791371241033",
+          "name": "mandatory",
+          "type": 1
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "30:8739732033039739531",
+      "lastPropertyId": "12:4190986765747073936",
+      "name": "D2User",
+      "properties": [
+        {
+          "id": "1:8226481274348487967",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3636548085929603442",
+          "name": "username",
+          "type": 9
+        },
+        {
+          "id": "3:5633091521168488134",
+          "name": "firstName",
+          "type": 9
+        },
+        {
+          "id": "4:256284997693516270",
+          "name": "surname",
+          "type": 9
+        },
+        {
+          "id": "5:5966032446923824751",
+          "name": "email",
+          "type": 9
+        },
+        {
+          "id": "6:4412298893468348565",
+          "name": "authorities",
+          "type": 30
+        },
+        {
+          "id": "7:3311738061129051158",
+          "name": "programs",
+          "type": 30
+        },
+        {
+          "id": "8:4081418367053510287",
+          "name": "organisationUnits",
+          "type": 30
+        },
+        {
+          "id": "9:8236251270734463729",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "67:5705804901119620011"
+        },
+        {
+          "id": "10:6036841595841102195",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "11:1539866203557126825",
+          "name": "displayName",
+          "type": 9
+        },
+        {
+          "id": "12:4190986765747073936",
+          "name": "lastUpdated",
+          "type": 10
+        }
+      ],
+      "relations": [
+        {
+          "id": "9:5180005030396526611",
+          "name": "userRoles",
+          "targetId": "32:2044275874082927084"
+        },
+        {
+          "id": "10:1465890458454070528",
+          "name": "userGroups",
+          "targetId": "31:7377016446438924329"
+        }
+      ]
+    },
+    {
+      "id": "31:7377016446438924329",
+      "lastPropertyId": "6:6385054299913270516",
+      "name": "D2UserGroup",
+      "properties": [
+        {
+          "id": "1:2196541485058262237",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1983270154761235686",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "68:4223273538522777819"
+        },
+        {
+          "id": "3:1430502270482947160",
+          "name": "name",
+          "type": 9,
+          "flags": 2048,
+          "indexId": "69:6390616192519478232"
+        },
+        {
+          "id": "4:6876881715870006751",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "5:1831747813657788463",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "6:6385054299913270516",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "32:2044275874082927084",
+      "lastPropertyId": "7:8775410099576669004",
+      "name": "D2UserRole",
+      "properties": [
+        {
+          "id": "1:6615128188141283909",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2377139748929987471",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "70:2026140254398246579"
+        },
+        {
+          "id": "3:5468164197337040756",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "4:3480324743382076735",
+          "name": "authorities",
+          "type": 30
+        },
+        {
+          "id": "5:5260223838217333130",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "6:8184635973814615725",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "7:8775410099576669004",
+          "name": "displayName",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "32:2044275874082927084",
+  "lastIndexId": "70:2026140254398246579",
+  "lastRelationId": "10:1465890458454070528",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
