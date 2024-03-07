@@ -36,7 +36,7 @@ class D2ProgramSection extends D2MetaResource {
       required this.name,
       required this.sortOrder});
 
-  D2ProgramSection.fromMap(ObjectBox db, Map json)
+  D2ProgramSection.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),
         uid = json["id"],

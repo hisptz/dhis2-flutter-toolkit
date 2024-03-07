@@ -58,7 +58,7 @@ class D2Relationship extends SyncDataSource implements SyncableData {
       this.toId,
       this.synced);
 
-  D2Relationship.fromMap(ObjectBox db, Map json)
+  D2Relationship.fromMap(D2ObjectBox db, Map json)
       : createdAt = DateTime.parse(json["createdAt"]),
         updatedAt = DateTime.parse(json["updatedAt"]),
         uid = json["relationship"],
@@ -84,7 +84,7 @@ class D2Relationship extends SyncDataSource implements SyncableData {
   bool synced;
 
   @override
-  Future<Map<String, dynamic>> toMap({ObjectBox? db}) async {
+  Future<Map<String, dynamic>> toMap({D2ObjectBox? db}) async {
     if (db == null) {
       throw "ObjectBox instance is required";
     }

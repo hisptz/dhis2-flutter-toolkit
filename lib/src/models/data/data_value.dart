@@ -32,7 +32,7 @@ class D2DataValue extends D2DataResource implements SyncableData {
   D2DataValue(this.uid, this.id, this.createdAt, this.updatedAt, this.value,
       this.providedElsewhere, this.synced);
 
-  D2DataValue.fromMap(ObjectBox db, Map json, String eventId)
+  D2DataValue.fromMap(D2ObjectBox db, Map json, String eventId)
       : updatedAt = DateTime.parse(json["updatedAt"]),
         createdAt = DateTime.parse(json["createdAt"]),
         uid = "$eventId-${json["dataElement"]}",
@@ -50,7 +50,7 @@ class D2DataValue extends D2DataResource implements SyncableData {
   bool synced = true;
 
   @override
-  Future<Map<String, dynamic>> toMap({ObjectBox? db}) async {
+  Future<Map<String, dynamic>> toMap({D2ObjectBox? db}) async {
     return {"dataElement": dataElement.target?.uid, "value": value};
   }
 }

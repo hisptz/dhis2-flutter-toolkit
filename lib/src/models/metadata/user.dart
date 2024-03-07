@@ -34,7 +34,7 @@ class D2User extends D2MetaResource {
       required this.programs,
       required this.organisationUnits});
 
-  D2User.fromMap(ObjectBox db, Map<String, dynamic> json)
+  D2User.fromMap(D2ObjectBox db, Map<String, dynamic> json)
       : uid = json["id"],
         username = json["username"],
         firstName = json["firstName"],

@@ -11,7 +11,7 @@ import '../../utils/download_status.dart';
 import '../client/client.dart';
 
 class D2TrackerDataDownloadService {
-  ObjectBox db;
+  D2ObjectBox db;
   D2ClientService client;
   StreamController<DownloadStatus> downloadController =
       StreamController<DownloadStatus>();

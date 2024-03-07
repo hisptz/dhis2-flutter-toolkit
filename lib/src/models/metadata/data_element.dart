@@ -51,7 +51,7 @@ class D2DataElement extends D2MetaResource {
       this.displayFormName,
       this.displayName);
 
-  D2DataElement.fromMap(ObjectBox db, Map json)
+  D2DataElement.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),
         uid = json["id"],

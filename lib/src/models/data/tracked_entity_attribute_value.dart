@@ -33,7 +33,7 @@ class D2TrackedEntityAttributeValue extends D2DataResource
       this.uid, this.createdAt, this.updatedAt, this.value, this.synced);
 
   D2TrackedEntityAttributeValue.fromMap(
-      ObjectBox db, Map json, String trackedEntityId)
+      D2ObjectBox db, Map json, String trackedEntityId)
       : createdAt = DateTime.parse(json["createdAt"]),
         updatedAt = DateTime.parse(json["updatedAt"]),
         uid = "$trackedEntityId-${json["attribute"]}",
@@ -52,7 +52,7 @@ class D2TrackedEntityAttributeValue extends D2DataResource
   bool synced;
 
   @override
-  Future<Map<String, dynamic>> toMap({ObjectBox? db}) async {
+  Future<Map<String, dynamic>> toMap({D2ObjectBox? db}) async {
     return {"attribute": trackedEntityAttribute.target?.uid, "value": value};
   }
 }

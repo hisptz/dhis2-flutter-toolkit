@@ -13,7 +13,7 @@ import '../client/client.dart';
 
 
 class D2TrackerDataUploadService {
-  ObjectBox db;
+  D2ObjectBox db;
   D2ClientService client;
   StreamController<DownloadStatus> uploadController =
       StreamController<DownloadStatus>();

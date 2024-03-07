@@ -51,7 +51,7 @@ class D2ProgramRuleAction extends D2MetaResource {
       this.data,
       this.location);
 
-  D2ProgramRuleAction.fromMap(ObjectBox db, Map json)
+  D2ProgramRuleAction.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),
         uid = json["id"],

@@ -34,7 +34,7 @@ class D2ProgramRule extends D2MetaResource {
   D2ProgramRule(this.id, this.displayName, this.created, this.lastUpdated,
       this.uid, this.name, this.description, this.condition);
 
-  D2ProgramRule.fromMap(ObjectBox db, Map json)
+  D2ProgramRule.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),
         uid = json["id"],

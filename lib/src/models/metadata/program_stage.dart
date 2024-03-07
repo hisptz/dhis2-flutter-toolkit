@@ -54,7 +54,7 @@ class D2ProgramStage extends D2MetaResource {
     this.description,
   );
 
-  D2ProgramStage.fromMap(ObjectBox db, Map json)
+  D2ProgramStage.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),
         uid = json["id"],

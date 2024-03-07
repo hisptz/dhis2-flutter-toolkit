@@ -28,7 +28,7 @@ class D2Option extends D2MetaResource {
   D2Option(this.id, this.created, this.lastUpdated, this.uid, this.name,
       this.code, this.sortOrder, this.displayName);
 
-  D2Option.fromMap(ObjectBox db, Map json)
+  D2Option.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),
         uid = json["id"],

@@ -1,5 +1,6 @@
 library dhis2_flutter_toolkit;
 
+export 'objectbox.dart' show D2ObjectBox;
 //Data Models
 export "src/models/data/data_value.dart" show D2DataValue;
 export "src/models/data/enrollment.dart" show D2Enrollment;
@@ -86,7 +87,8 @@ export "src/repositories/metadata/tracked_entity_type_attribute.dart"
     show D2TrackedEntityTypeAttributeRepository;
 export "src/repositories/metadata/user.dart" show D2UserRepository;
 export "src/repositories/metadata/user_group.dart" show D2UserGroupRepository;
-export "src/repositories/metadata/user_role.dart" show D2UserRoleRepository;//Services
+export "src/repositories/metadata/user_role.dart"
+    show D2UserRoleRepository; //Services
 export "src/services/auth_service/auth_service.dart" show D2AuthService;
 export "src/services/auth_service/credentials.dart" show D2UserCredential;
 export "src/services/client/client.dart" show D2ClientService;

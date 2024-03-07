@@ -23,7 +23,7 @@ class D2UserRole extends D2MetaResource {
   D2UserRole(this.displayName, this.uid, this.name, this.authorities,
       this.created, this.lastUpdated);
 
-  D2UserRole.fromMap(ObjectBox db, Map json)
+  D2UserRole.fromMap(D2ObjectBox db, Map json)
       : uid = json["id"],
         name = json["name"],
         displayName = json["displayName"],

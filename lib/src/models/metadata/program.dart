@@ -63,7 +63,7 @@ class D2Program extends D2MetaResource {
       this.onlyEnrollOnce,
       this.displayName);
 
-  D2Program.fromMap(ObjectBox db, Map json)
+  D2Program.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),
         uid = json["id"],

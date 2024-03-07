@@ -48,7 +48,7 @@ class D2TrackedEntity extends SyncDataSource implements SyncableData {
   D2TrackedEntity(this.uid, this.createdAt, this.updatedAt, this.deleted,
       this.potentialDuplicate, this.inactive, this.synced);
 
-  D2TrackedEntity.fromMap(ObjectBox db, Map json)
+  D2TrackedEntity.fromMap(D2ObjectBox db, Map json)
       : uid = json["trackedEntity"],
         createdAt = DateTime.parse(json["createdAt"]),
         updatedAt = DateTime.parse(json["updatedAt"]),
@@ -66,7 +66,7 @@ class D2TrackedEntity extends SyncDataSource implements SyncableData {
   bool synced;
 
   @override
-  Future<Map<String, dynamic>> toMap({ObjectBox? db}) async {
+  Future<Map<String, dynamic>> toMap({D2ObjectBox? db}) async {
     if (db == null) {
       throw "ObjectBox instance is required";
     }

@@ -32,7 +32,7 @@ class D2ProgramStageSection extends D2MetaResource {
   D2ProgramStageSection(
       this.created, this.lastUpdated, this.uid, this.name, this.sortOrder);
 
-  D2ProgramStageSection.fromMap(ObjectBox db, Map json)
+  D2ProgramStageSection.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),
         uid = json["id"],

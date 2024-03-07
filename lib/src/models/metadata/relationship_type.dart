@@ -44,7 +44,7 @@ class D2RelationshipType extends D2MetaResource {
   final toProgram = ToOne<D2Program>();
   final toProgramStage = ToOne<D2ProgramStage>();
 
-  void getFromConstraints(ObjectBox db, Map constraints) {
+  void getFromConstraints(D2ObjectBox db, Map constraints) {
     if (constraints["program"] != null) {
       fromProgram.target =
           D2ProgramRepository(db).getByUid(constraints["program"]["id"]);
@@ -59,7 +59,7 @@ class D2RelationshipType extends D2MetaResource {
     }
   }
 
-  void getToConstraints(ObjectBox db, Map constraints) {
+  void getToConstraints(D2ObjectBox db, Map constraints) {
     if (constraints["program"] != null) {
       toProgram.target =
           D2ProgramRepository(db).getByUid(constraints["program"]["id"]);
@@ -89,7 +89,7 @@ class D2RelationshipType extends D2MetaResource {
       this.created,
       this.uid);
 
-  D2RelationshipType.fromMap(ObjectBox db, Map json)
+  D2RelationshipType.fromMap(D2ObjectBox db, Map json)
       : name = json["name"],
         uid = json["id"],
         created = DateTime.parse(json["created"]),

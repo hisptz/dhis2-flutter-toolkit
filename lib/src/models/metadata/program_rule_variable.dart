@@ -48,7 +48,7 @@ class D2ProgramRuleVariable extends D2MetaResource {
       this.valueType,
       this.useCodeForOptionSet);
 
-  D2ProgramRuleVariable.fromMap(ObjectBox db, Map json)
+  D2ProgramRuleVariable.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),
         uid = json["id"],

@@ -24,7 +24,7 @@ class D2OrgUnitLevel implements D2MetaResource {
   D2OrgUnitLevel(this.id, this.displayName, this.name, this.uid,
       this.level, this.created, this.lastUpdated);
 
-  D2OrgUnitLevel.fromMap(ObjectBox db, Map json)
+  D2OrgUnitLevel.fromMap(D2ObjectBox db, Map json)
       : name = json["name"],
         uid = json["id"],
         level = json["level"],

@@ -64,7 +64,7 @@ class D2Event extends SyncDataSource implements SyncableData {
       this.occurredAt,
       this.synced);
 
-  D2Event.fromMap(ObjectBox db, Map json)
+  D2Event.fromMap(D2ObjectBox db, Map json)
       : attributeCategoryOptions = json["attributeCategoryOptions"],
         attributeOptionCombo = json["attributeOptionCombo"],
         updatedAt = DateTime.parse(json["updatedAt"]),
@@ -99,7 +99,7 @@ class D2Event extends SyncDataSource implements SyncableData {
   bool synced;
 
   @override
-  Future<Map<String, dynamic>> toMap({ObjectBox? db}) async {
+  Future<Map<String, dynamic>> toMap({D2ObjectBox? db}) async {
     if (db == null) {
       throw "ObjectBox instance is required";
     }

@@ -6,7 +6,7 @@ import '../../../objectbox.dart';
 import '../../utils/download_status.dart';
 
 class D2MetadataDownloadService {
-  ObjectBox db;
+  D2ObjectBox db;
   D2ClientService client;
   StreamController<DownloadStatus> controller =
       StreamController<DownloadStatus>();

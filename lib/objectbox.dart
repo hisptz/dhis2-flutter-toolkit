@@ -7,29 +7,29 @@ import 'objectbox.g.dart'; // created by `flutter pub run build_runner build`
 
 // ObjectBox? db;
 
-class ObjectBox {
+class D2ObjectBox {
   /// The Store of this app.
   final Store store;
   final String storeId;
 
-  ObjectBox._create(this.store, this.storeId) {
+  D2ObjectBox._create(this.store, this.storeId) {
     // Add any additional setup code, e.g. build queries.
   }
 
-  static Future<ObjectBox> createTest() async {
+  static Future<D2ObjectBox> createTest() async {
     final store = await openStore(
       directory: "memory:test-db",
     );
-    return ObjectBox._create(store, "test");
+    return D2ObjectBox._create(store, "test");
   }
 
   /// Create an instance of ObjectBox to use throughout the app.
-  static Future<ObjectBox> create(D2UserCredential credentials) async {
+  static Future<D2ObjectBox> create(D2UserCredential credentials) async {
     String storeId = credentials.id;
     final docsDir = await getApplicationDocumentsDirectory();
     final store = await openStore(
       directory: p.join(docsDir.path, storeId),
     );
-    return ObjectBox._create(store, storeId);
+    return D2ObjectBox._create(store, storeId);
   }
 }

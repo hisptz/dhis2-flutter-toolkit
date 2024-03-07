@@ -23,7 +23,7 @@ class D2UserGroup extends D2MetaResource {
   D2UserGroup(this.id, this.uid, this.displayName, this.name, this.created,
       this.lastUpdated);
 
-  D2UserGroup.fromMap(ObjectBox db, Map json)
+  D2UserGroup.fromMap(D2ObjectBox db, Map json)
       : uid = json["id"],
         name = json["name"],
         displayName = json["displayName"],

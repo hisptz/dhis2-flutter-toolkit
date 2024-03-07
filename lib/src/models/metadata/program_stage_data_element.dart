@@ -31,7 +31,7 @@ class D2ProgramStageDataElement extends D2MetaResource {
   D2ProgramStageDataElement(this.created, this.id, this.lastUpdated, this.uid,
       this.compulsory, this.sortOrder);
 
-  D2ProgramStageDataElement.fromMap(ObjectBox db, Map json)
+  D2ProgramStageDataElement.fromMap(D2ObjectBox db, Map json)
       : uid = json["id"],
         created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),

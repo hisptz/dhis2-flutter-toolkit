@@ -6,7 +6,7 @@ import '../../models/data/base.dart';
 import '../../models/metadata/program.dart';
 
 abstract class BaseDataRepository<T extends D2DataResource> {
-  ObjectBox db;
+  D2ObjectBox db;
   D2Program? program;
 
   Box<T> get box {

@@ -21,7 +21,7 @@ class D2SystemInfo extends D2MetaResource {
   D2SystemInfo(this.id, this.version, this.revision, this.calendar,
       this.dateFormat, this.contextPath, this.systemId, this.systemName);
 
-  D2SystemInfo.fromMap(ObjectBox db, Map json)
+  D2SystemInfo.fromMap(D2ObjectBox db, Map json)
       : calendar = json["calendar"],
         revision = json["revision"],
         dateFormat = json["dateFormat"],

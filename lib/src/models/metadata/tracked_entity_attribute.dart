@@ -46,7 +46,7 @@ class D2TrackedEntityAttribute extends D2MetaResource {
       this.valueType,
       this.zeroIsSignificant);
 
-  D2TrackedEntityAttribute.fromMap(ObjectBox db, Map json)
+  D2TrackedEntityAttribute.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),
         uid = json["id"],

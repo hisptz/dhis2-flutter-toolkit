@@ -28,7 +28,7 @@ class D2LegendSet extends D2MetaResource {
   D2LegendSet(this.id, this.created, this.lastUpdated, this.uid, this.name,
       this.code, this.displayName);
 
-  D2LegendSet.fromMap(ObjectBox db, Map json)
+  D2LegendSet.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),
         uid = json["id"],

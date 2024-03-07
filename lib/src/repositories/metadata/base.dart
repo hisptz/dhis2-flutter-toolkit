@@ -4,7 +4,7 @@ import '../../../objectbox.dart';
 import '../../models/metadata/base.dart';
 
 abstract class BaseMetaRepository<T extends D2MetaResource> {
-  ObjectBox db;
+  D2ObjectBox db;
 
   Box<T> get box {
     return db.store.box<T>();

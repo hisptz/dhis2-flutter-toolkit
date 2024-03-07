@@ -33,7 +33,7 @@ class D2Legend extends D2MetaResource {
   D2Legend(this.created, this.lastUpdated, this.uid, this.name, this.startValue,
       this.endValue, this.color, this.displayName);
 
-  D2Legend.fromMap(ObjectBox db, Map json)
+  D2Legend.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),
         uid = json["id"],

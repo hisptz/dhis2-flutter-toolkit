@@ -25,7 +25,7 @@ class D2OrgUnitGroup implements D2MetaResource {
   D2OrgUnitGroup(this.id, this.displayName, this.name, this.uid, this.created,
       this.lastUpdated);
 
-  D2OrgUnitGroup.fromMap(ObjectBox db, Map json)
+  D2OrgUnitGroup.fromMap(D2ObjectBox db, Map json)
       : name = json["name"],
         uid = json["id"],
         displayName = json["displayName"],
