@@ -5,7 +5,7 @@ import '../../../models/metadata/organisationUnitLevel.dart';
 import 'base_meta_download_mixin.dart';
 
 mixin D2OrgUnitLevelDownloadServiceMixin
-    on BaseMetaDownloadServiceMixin<D2OrganisationUnitLevel> {
+    on BaseMetaDownloadServiceMixin<D2OrgUnitLevel> {
   @override
   String label = "Organisation Unit Levels";
 

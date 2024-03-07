@@ -66,7 +66,7 @@ class D2Relationship extends SyncDataSource implements SyncableData {
         relationshipName = json["relationshipName"],
         relationshipType = json["relationshipType"],
         bidirectional = json["bidirectional"] {
-    id = RelationshipRepository(db).getIdByUid(json["relationship"]) ?? 0;
+    id = D2RelationshipRepository(db).getIdByUid(json["relationship"]) ?? 0;
 
     Map from = json["from"];
     Map to = json["to"];

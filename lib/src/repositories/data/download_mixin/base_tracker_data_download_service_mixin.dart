@@ -106,7 +106,7 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
       relationships.addAll(relations);
     }
 
-    await RelationshipRepository(db).saveEntities(relationships);
+    await D2RelationshipRepository(db).saveEntities(relationships);
   }
 
   Future downloadPage(int page) async {

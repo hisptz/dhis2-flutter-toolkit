@@ -5,7 +5,7 @@ import '../../repositories/metadata/orgUnitLevel.dart';
 import 'base.dart';
 
 @Entity()
-class D2OrganisationUnitLevel implements D2MetaResource {
+class D2OrgUnitLevel implements D2MetaResource {
   @override
   int id = 0;
 
@@ -21,10 +21,10 @@ class D2OrganisationUnitLevel implements D2MetaResource {
   @override
   DateTime lastUpdated;
 
-  D2OrganisationUnitLevel(this.id, this.displayName, this.name, this.uid,
+  D2OrgUnitLevel(this.id, this.displayName, this.name, this.uid,
       this.level, this.created, this.lastUpdated);
 
-  D2OrganisationUnitLevel.fromMap(ObjectBox db, Map json)
+  D2OrgUnitLevel.fromMap(ObjectBox db, Map json)
       : name = json["name"],
         uid = json["id"],
         level = json["level"],

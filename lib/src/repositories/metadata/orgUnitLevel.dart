@@ -8,21 +8,21 @@ import 'download_mixins/org_unit_level_download_mixin.dart';
 
 
 class D2OrgUnitLevelRepository
-    extends BaseMetaRepository<D2OrganisationUnitLevel>
+    extends BaseMetaRepository<D2OrgUnitLevel>
     with
-        BaseMetaDownloadServiceMixin<D2OrganisationUnitLevel>,
+        BaseMetaDownloadServiceMixin<D2OrgUnitLevel>,
         D2OrgUnitLevelDownloadServiceMixin {
   D2OrgUnitLevelRepository(super.db);
 
   @override
-  D2OrganisationUnitLevel? getByUid(String uid) {
-    Query<D2OrganisationUnitLevel> query =
+  D2OrgUnitLevel? getByUid(String uid) {
+    Query<D2OrgUnitLevel> query =
         box.query(D2OrganisationUnitLevel_.uid.equals(uid)).build();
     return query.findFirst();
   }
 
   @override
-  D2OrganisationUnitLevel mapper(Map<String, dynamic> json) {
-    return D2OrganisationUnitLevel.fromMap(db, json);
+  D2OrgUnitLevel mapper(Map<String, dynamic> json) {
+    return D2OrgUnitLevel.fromMap(db, json);
   }
 }

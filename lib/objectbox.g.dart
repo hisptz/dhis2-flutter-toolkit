@@ -3009,15 +3009,15 @@ obx_int.ModelDefinition getObjectBoxModel() {
               obx_int.RelInfo<D2OrgUnitGroup>.toMany(3, object.id));
           return object;
         }),
-    D2OrganisationUnitLevel: obx_int.EntityDefinition<D2OrganisationUnitLevel>(
+    D2OrgUnitLevel: obx_int.EntityDefinition<D2OrgUnitLevel>(
         model: _entities[11],
-        toOneRelations: (D2OrganisationUnitLevel object) => [],
-        toManyRelations: (D2OrganisationUnitLevel object) => {},
-        getId: (D2OrganisationUnitLevel object) => object.id,
-        setId: (D2OrganisationUnitLevel object, int id) {
+        toOneRelations: (D2OrgUnitLevel object) => [],
+        toManyRelations: (D2OrgUnitLevel object) => {},
+        getId: (D2OrgUnitLevel object) => object.id,
+        setId: (D2OrgUnitLevel object, int id) {
           object.id = id;
         },
-        objectToFB: (D2OrganisationUnitLevel object, fb.Builder fbb) {
+        objectToFB: (D2OrgUnitLevel object, fb.Builder fbb) {
           final nameOffset = fbb.writeString(object.name);
           final uidOffset = fbb.writeString(object.uid);
           final displayNameOffset = object.displayName == null
@@ -3052,7 +3052,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0));
           final lastUpdatedParam = DateTime.fromMillisecondsSinceEpoch(
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0));
-          final object = D2OrganisationUnitLevel(idParam, displayNameParam,
+          final object = D2OrgUnitLevel(idParam, displayNameParam,
               nameParam, uidParam, levelParam, createdParam, lastUpdatedParam);
 
           return object;
@@ -5142,34 +5142,34 @@ class D2OrgUnitGroup_ {
           _entities[10].relations[0]);
 }
 
-/// [D2OrganisationUnitLevel] entity fields to define ObjectBox queries.
+/// [D2OrgUnitLevel] entity fields to define ObjectBox queries.
 class D2OrganisationUnitLevel_ {
-  /// see [D2OrganisationUnitLevel.id]
-  static final id = obx.QueryIntegerProperty<D2OrganisationUnitLevel>(
+  /// see [D2OrgUnitLevel.id]
+  static final id = obx.QueryIntegerProperty<D2OrgUnitLevel>(
       _entities[11].properties[0]);
 
-  /// see [D2OrganisationUnitLevel.name]
-  static final name = obx.QueryStringProperty<D2OrganisationUnitLevel>(
+  /// see [D2OrgUnitLevel.name]
+  static final name = obx.QueryStringProperty<D2OrgUnitLevel>(
       _entities[11].properties[1]);
 
-  /// see [D2OrganisationUnitLevel.uid]
-  static final uid = obx.QueryStringProperty<D2OrganisationUnitLevel>(
+  /// see [D2OrgUnitLevel.uid]
+  static final uid = obx.QueryStringProperty<D2OrgUnitLevel>(
       _entities[11].properties[2]);
 
-  /// see [D2OrganisationUnitLevel.level]
-  static final level = obx.QueryIntegerProperty<D2OrganisationUnitLevel>(
+  /// see [D2OrgUnitLevel.level]
+  static final level = obx.QueryIntegerProperty<D2OrgUnitLevel>(
       _entities[11].properties[3]);
 
-  /// see [D2OrganisationUnitLevel.created]
-  static final created = obx.QueryDateProperty<D2OrganisationUnitLevel>(
+  /// see [D2OrgUnitLevel.created]
+  static final created = obx.QueryDateProperty<D2OrgUnitLevel>(
       _entities[11].properties[4]);
 
-  /// see [D2OrganisationUnitLevel.lastUpdated]
-  static final lastUpdated = obx.QueryDateProperty<D2OrganisationUnitLevel>(
+  /// see [D2OrgUnitLevel.lastUpdated]
+  static final lastUpdated = obx.QueryDateProperty<D2OrgUnitLevel>(
       _entities[11].properties[5]);
 
-  /// see [D2OrganisationUnitLevel.displayName]
-  static final displayName = obx.QueryStringProperty<D2OrganisationUnitLevel>(
+  /// see [D2OrgUnitLevel.displayName]
+  static final displayName = obx.QueryStringProperty<D2OrgUnitLevel>(
       _entities[11].properties[6]);
 }
 

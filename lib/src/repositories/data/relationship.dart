@@ -7,10 +7,10 @@ import '../../utils/download_status.dart';
 import 'base.dart';
 import 'upload_mixin/base_tracker_data_upload_service_mixin.dart';
 
-class RelationshipRepository extends BaseDataRepository<D2Relationship>
+class D2RelationshipRepository extends BaseDataRepository<D2Relationship>
     with BaseTrackerDataUploadServiceMixin<D2Relationship>
      {
-  RelationshipRepository(super.db);
+  D2RelationshipRepository(super.db);
 
   StreamController<DownloadStatus> controller =
       StreamController<DownloadStatus>();
