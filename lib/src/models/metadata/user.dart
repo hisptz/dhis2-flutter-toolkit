@@ -4,8 +4,8 @@ import 'package:objectbox/objectbox.dart';
 import '../../../objectbox.dart';
 import '../../repositories/metadata/user.dart';
 import 'base.dart';
-import 'userGroup.dart';
-import 'userRole.dart';
+import 'user_group.dart';
+import 'user_role.dart';
 
 @Entity()
 class D2User extends D2MetaResource {

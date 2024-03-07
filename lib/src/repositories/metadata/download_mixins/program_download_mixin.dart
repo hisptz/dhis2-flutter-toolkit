@@ -1,22 +1,22 @@
 import '../../../../dhis2_flutter_toolkit.dart';
 import '../../../models/metadata/program.dart';
 import '../../../utils/download_status.dart';
-import '../dataElement.dart';
+import '../data_element.dart';
 import '../legend.dart';
-import '../legendSet.dart';
+import '../legend_set.dart';
 import '../option.dart';
-import '../optionSet.dart';
+import '../option_set.dart';
 import '../program.dart';
-import '../programRule.dart';
-import '../programRuleAction.dart';
-import '../programRuleVariable.dart';
-import '../programSection.dart';
-import '../programStage.dart';
-import '../programStageDataElement.dart';
-import '../programStageSection.dart';
-import '../programTrackedEntityAttribute.dart';
-import '../trackedEntityAttribute.dart';
-import '../trackedEntityType.dart';
+import '../program_rule.dart';
+import '../program_rule_action.dart';
+import '../program_rule_variable.dart';
+import '../program_section.dart';
+import '../program_stage.dart';
+import '../program_stage_data_element.dart';
+import '../program_stage_section.dart';
+import '../program_tracked_entity_attribute.dart';
+import '../tracked_entity_attribute.dart';
+import '../tracked_entity_type.dart';
 import 'base_meta_download_mixin.dart';
 
 mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {

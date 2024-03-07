@@ -1,9 +1,9 @@
 
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
-import '../../../models/data/trackedEntity.dart';
-import '../../../models/data/trackedEntityAttributeValue.dart';
-import '../trackedEntityAttributeValue.dart';
+import '../../../models/data/tracked_entity.dart';
+import '../../../models/data/tracked_entity_attribute_value.dart';
+import '../tracked_entity_attribute_value.dart';
 import 'base_tracker_data_download_service_mixin.dart';
 
 mixin TrackedEntityDataDownloadServiceMixin

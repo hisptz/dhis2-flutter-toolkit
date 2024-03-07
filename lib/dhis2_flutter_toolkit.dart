@@ -1,92 +1,92 @@
 library dhis2_flutter_toolkit;
 
 //Data Models
-export "src/models/data/dataValue.dart" show D2DataValue;
+export "src/models/data/data_value.dart" show D2DataValue;
 export "src/models/data/enrollment.dart" show D2Enrollment;
 export "src/models/data/event.dart" show D2Event;
 export "src/models/data/relationship.dart" show D2Relationship;
-export "src/models/data/trackedEntity.dart" show D2TrackedEntity;
-export "src/models/data/trackedEntityAttributeValue.dart"
+export "src/models/data/tracked_entity.dart" show D2TrackedEntity;
+export "src/models/data/tracked_entity_attribute_value.dart"
     show D2TrackedEntityAttributeValue;
 //Metadata Models
-export "src/models/metadata/dataElement.dart" show D2DataElement;
+export "src/models/metadata/data_element.dart" show D2DataElement;
 export "src/models/metadata/legend.dart" show D2Legend;
-export "src/models/metadata/legendSet.dart" show D2LegendSet;
+export "src/models/metadata/legend_set.dart" show D2LegendSet;
 export "src/models/metadata/option.dart" show D2Option;
-export "src/models/metadata/optionSet.dart" show D2OptionSet;
-export "src/models/metadata/organisationUnit.dart" show D2OrgUnit;
-export "src/models/metadata/organisationUnitGroup.dart" show D2OrgUnitGroup;
-export "src/models/metadata/organisationUnitLevel.dart" show D2OrgUnitLevel;
+export "src/models/metadata/option_set.dart" show D2OptionSet;
+export "src/models/metadata/org_unit.dart" show D2OrgUnit;
+export "src/models/metadata/org_unit_group.dart" show D2OrgUnitGroup;
+export "src/models/metadata/org_unit_level.dart" show D2OrgUnitLevel;
 export "src/models/metadata/program.dart" show D2Program;
-export "src/models/metadata/programRuleAction.dart" show D2ProgramRuleAction;
-export "src/models/metadata/programRuleVariable.dart"
+export "src/models/metadata/program_rule_action.dart" show D2ProgramRuleAction;
+export "src/models/metadata/program_rule_variable.dart"
     show D2ProgramRuleVariable;
-export "src/models/metadata/programSection.dart" show D2ProgramSection;
-export "src/models/metadata/programStage.dart" show D2ProgramStage;
-export "src/models/metadata/programStageDataElement.dart"
+export "src/models/metadata/program_section.dart" show D2ProgramSection;
+export "src/models/metadata/program_stage.dart" show D2ProgramStage;
+export "src/models/metadata/program_stage_data_element.dart"
     show D2ProgramStageDataElement;
-export "src/models/metadata/programStageSection.dart"
+export "src/models/metadata/program_stage_section.dart"
     show D2ProgramStageSection;
-export "src/models/metadata/programTrackedEntityAttribute.dart"
+export "src/models/metadata/program_tracked_entity_attribute.dart"
     show D2ProgramTrackedEntityAttribute;
-export "src/models/metadata/relationshipType.dart" show D2RelationshipType;
-export "src/models/metadata/systemInfo.dart" show D2SystemInfo;
-export "src/models/metadata/trackedEntityAttributes.dart"
+export "src/models/metadata/relationship_type.dart" show D2RelationshipType;
+export "src/models/metadata/system_info.dart" show D2SystemInfo;
+export "src/models/metadata/tracked_entity_attribute.dart"
     show D2TrackedEntityAttribute;
-export "src/models/metadata/trackedEntityType.dart" show D2TrackedEntityType;
-export "src/models/metadata/trackedEntityTypeAttribute.dart"
+export "src/models/metadata/tracked_entity_type.dart" show D2TrackedEntityType;
+export "src/models/metadata/tracked_entity_type_attribute.dart"
     show D2TrackedEntityTypeAttribute;
 export "src/models/metadata/user.dart" show D2User;
-export "src/models/metadata/userGroup.dart" show D2UserGroup;
-export "src/models/metadata/userRole.dart" show D2UserRole;
+export "src/models/metadata/user_group.dart" show D2UserGroup;
+export "src/models/metadata/user_role.dart" show D2UserRole;
 //Data Repositories
-export "src/repositories/data/dataValue.dart" show D2DataValueRepository;
+export "src/repositories/data/data_value.dart" show D2DataValueRepository;
 export "src/repositories/data/enrollment.dart" show D2EnrollmentRepository;
 export "src/repositories/data/event.dart" show D2EventRepository;
 export "src/repositories/data/relationship.dart" show D2RelationshipRepository;
-export "src/repositories/data/trackedEntity.dart"
+export "src/repositories/data/tracked_entity.dart"
     show D2TrackedEntityRepository;
-export "src/repositories/data/trackedEntityAttributeValue.dart"
+export "src/repositories/data/tracked_entity_attribute_value.dart"
     show D2TrackedEntityAttributeValueRepository;
 //Metadata Repositories
-export "src/repositories/metadata/dataElement.dart"
+export "src/repositories/metadata/data_element.dart"
     show D2DataElementRepository;
 export "src/repositories/metadata/legend.dart" show D2LegendRepository;
-export "src/repositories/metadata/legendSet.dart" show D2LegendSetRepository;
+export "src/repositories/metadata/legend_set.dart" show D2LegendSetRepository;
 export "src/repositories/metadata/option.dart" show D2OptionRepository;
-export "src/repositories/metadata/optionSet.dart" show D2OptionSetRepository;
-export "src/repositories/metadata/orgUnit.dart" show D2OrgUnitRepository;
-export "src/repositories/metadata/orgUnitGroup.dart"
+export "src/repositories/metadata/option_set.dart" show D2OptionSetRepository;
+export "src/repositories/metadata/org_unit.dart" show D2OrgUnitRepository;
+export "src/repositories/metadata/org_unit_group.dart"
     show D2OrgUnitGroupRepository;
-export "src/repositories/metadata/orgUnitLevel.dart"
+export "src/repositories/metadata/org_unit_level.dart"
     show D2OrgUnitLevelRepository;
 export "src/repositories/metadata/program.dart" show D2ProgramRepository;
-export "src/repositories/metadata/programRuleAction.dart"
+export "src/repositories/metadata/program_rule_action.dart"
     show D2ProgramRuleActionRepository;
-export "src/repositories/metadata/programRuleVariable.dart"
+export "src/repositories/metadata/program_rule_variable.dart"
     show D2ProgramRuleVariableRepository;
-export "src/repositories/metadata/programSection.dart"
+export "src/repositories/metadata/program_section.dart"
     show D2ProgramSectionRepository;
-export "src/repositories/metadata/programStage.dart"
+export "src/repositories/metadata/program_stage.dart"
     show D2ProgramStageRepository;
-export "src/repositories/metadata/programStageDataElement.dart"
+export "src/repositories/metadata/program_stage_data_element.dart"
     show D2ProgramStageDataElementRepository;
-export "src/repositories/metadata/programStageSection.dart"
+export "src/repositories/metadata/program_stage_section.dart"
     show D2ProgramStageSectionRepository;
-export "src/repositories/metadata/programTrackedEntityAttribute.dart"
+export "src/repositories/metadata/program_tracked_entity_attribute.dart"
     show D2ProgramTrackedEntityAttributeRepository;
-export "src/repositories/metadata/relationshipType.dart"
+export "src/repositories/metadata/relationship_type.dart"
     show D2RelationshipTypeRepository;
-export "src/repositories/metadata/systemInfo.dart" show D2SystemInfoRepository;
-export "src/repositories/metadata/trackedEntityAttribute.dart"
+export "src/repositories/metadata/system_info.dart" show D2SystemInfoRepository;
+export "src/repositories/metadata/tracked_entity_attribute.dart"
     show D2TrackedEntityAttributeRepository;
-export "src/repositories/metadata/trackedEntityType.dart"
+export "src/repositories/metadata/tracked_entity_type.dart"
     show D2TrackedEntityTypeRepository;
-export "src/repositories/metadata/trackedEntityTypeAttribute.dart"
+export "src/repositories/metadata/tracked_entity_type_attribute.dart"
     show D2TrackedEntityTypeAttributeRepository;
 export "src/repositories/metadata/user.dart" show D2UserRepository;
-export "src/repositories/metadata/userGroup.dart" show D2UserGroupRepository;
-export "src/repositories/metadata/userRole.dart" show D2UserRoleRepository;
+export "src/repositories/metadata/user_group.dart" show D2UserGroupRepository;
+export "src/repositories/metadata/user_role.dart" show D2UserRoleRepository;
 
 
 //Services

@@ -1,6 +1,6 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
-import '../../../models/metadata/organisationUnit.dart';
+import '../../../models/metadata/org_unit.dart';
 import 'base_meta_download_mixin.dart';
 
 mixin D2OrgUnitDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2OrgUnit> {

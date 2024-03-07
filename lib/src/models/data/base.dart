@@ -1,5 +1,5 @@
 
-import 'uploadBase.dart';
+import 'upload_base.dart';
 
 abstract class D2DataResource {
   abstract int id;

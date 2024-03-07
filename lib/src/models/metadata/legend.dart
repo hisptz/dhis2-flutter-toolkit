@@ -3,9 +3,9 @@ import 'package:dhis2_flutter_toolkit/objectbox.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../repositories/metadata/legend.dart';
-import '../../repositories/metadata/legendSet.dart';
+import '../../repositories/metadata/legend_set.dart';
 import 'base.dart';
-import 'legendSet.dart';
+import 'legend_set.dart';
 
 @Entity()
 class D2Legend extends D2MetaResource {

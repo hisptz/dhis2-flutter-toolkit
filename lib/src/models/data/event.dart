@@ -5,18 +5,18 @@ import 'package:objectbox/objectbox.dart';
 import '../../../objectbox.dart';
 import '../../repositories/data/enrollment.dart';
 import '../../repositories/data/event.dart';
-import '../../repositories/data/trackedEntity.dart';
-import '../../repositories/metadata/orgUnit.dart';
+import '../../repositories/data/tracked_entity.dart';
+import '../../repositories/metadata/org_unit.dart';
 import '../../repositories/metadata/program.dart';
-import '../../repositories/metadata/programStage.dart';
-import '../metadata/organisationUnit.dart';
+import '../../repositories/metadata/program_stage.dart';
+import '../metadata/org_unit.dart';
 import '../metadata/program.dart';
-import '../metadata/programStage.dart';
+import '../metadata/program_stage.dart';
 import 'base.dart';
-import 'dataValue.dart';
+import 'data_value.dart';
 import 'enrollment.dart';
-import 'trackedEntity.dart';
-import 'uploadBase.dart';
+import 'tracked_entity.dart';
+import 'upload_base.dart';
 
 @Entity()
 class D2Event extends SyncDataSource implements SyncableData {

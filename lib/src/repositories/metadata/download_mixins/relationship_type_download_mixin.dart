@@ -1,6 +1,6 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
-import '../../../models/metadata/relationshipType.dart';
+import '../../../models/metadata/relationship_type.dart';
 import 'base_meta_download_mixin.dart';
 
 mixin D2RelationshipTypeDownloadMixin

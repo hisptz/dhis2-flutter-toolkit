@@ -4,7 +4,7 @@ import 'package:objectbox/objectbox.dart';
 
 import '../../repositories/data/relationship.dart';
 import 'base.dart';
-import 'uploadBase.dart';
+import 'upload_base.dart';
 
 Map getRelationshipConstraints(Map json) {
   if (json["trackedEntity"] != null) {
