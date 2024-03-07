@@ -1,15 +1,16 @@
 import 'dart:async';
-import '../../../services/client/client.dart';
-import '../../../utils/sync_status.dart';
-import '../../../utils/pagination.dart';
-import '../base.dart';
 
 import '../../../models/metadata/base.dart';
+import '../../../services/client/client.dart';
+import '../../../utils/pagination.dart';
+import '../../../utils/sync_status.dart';
+import '../base.dart';
 
 mixin BaseMetaDownloadServiceMixin<T extends D2MetaResource>
     on BaseMetaRepository<T> {
   D2ClientService? client;
   StreamController<D2SyncStatus> downloadController = StreamController();
+  int pageSize = 100;
   abstract String resource;
   abstract String label;
   List<String> downloadFields = [];
@@ -26,7 +27,7 @@ mixin BaseMetaDownloadServiceMixin<T extends D2MetaResource>
     Map<String, String> params = {
       ...(extraParams ?? {}),
       "page": "1",
-      "pageSize": "50",
+      "pageSize": "$pageSize",
       "totalPages": "true"
     };
     if (downloadFields.isNotEmpty) {
@@ -40,6 +41,11 @@ mixin BaseMetaDownloadServiceMixin<T extends D2MetaResource>
 
   get downloadStream {
     return downloadController.stream;
+  }
+
+  BaseMetaDownloadServiceMixin<T> setPageSize(int pageSize) {
+    this.pageSize = pageSize;
+    return this;
   }
 
   BaseMetaDownloadServiceMixin<T> setClient(D2ClientService client) {
@@ -108,7 +114,7 @@ mixin BaseMetaDownloadServiceMixin<T extends D2MetaResource>
       downloadController.add(status.increment());
     }
     downloadController.add(status.complete());
-    downloadController.close();
+    await downloadController.close();
   }
 
   /*

@@ -5,8 +5,8 @@ import 'package:collection/collection.dart';
 import '../../../models/data/base.dart';
 import '../../../models/data/relationship.dart';
 import '../../../services/client/client.dart';
-import '../../../utils/sync_status.dart';
 import '../../../utils/pagination.dart';
+import '../../../utils/sync_status.dart';
 import '../base.dart';
 import '../relationship.dart';
 
@@ -16,6 +16,7 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
   StreamController<D2SyncStatus> downloadController =
       StreamController<D2SyncStatus>();
   abstract String downloadResource;
+  int downloadPageSize = 100;
   List<String> fields = [];
   List<String> filters = [];
   Map<String, dynamic>? extraParams;
@@ -31,7 +32,7 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
     Map<String, String> params = {
       ...(extraParams ?? {}),
       "page": "1",
-      "pageSize": "200",
+      "pageSize": "$downloadPageSize",
       "totalPages": "true",
       "program": program!.uid,
       "ouMode": "ACCESSIBLE",
@@ -55,16 +56,24 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
     return entity != null;
   }
 
+  setDownloadPageSize(int pageSize) {
+    this.downloadPageSize = pageSize;
+    return this;
+  }
+
   setClient(D2ClientService client) {
     this.client = client;
+    return this;
   }
 
   setFilters(List<String> filters) {
     this.filters = filters;
+    return this;
   }
 
   setFields(List<String> fields) {
     this.fields = fields;
+    return this;
   }
 
   Future<Pagination> getPagination() async {
@@ -124,20 +133,25 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
   }
 
   Future initializeDownload() async {
-    Pagination pagination = await getPagination();
-    D2SyncStatus status = D2SyncStatus(
-        synced: 0,
-        total: pagination.pageCount,
-        status: D2SyncStatusEnum.initialized,
-        label: "$label for ${program!.name} program");
-    downloadController.add(status);
-
-    for (int page = 1; page <= pagination.pageCount.clamp(1, 5); page++) {
-      await downloadPage(page);
-      downloadController.add(status.increment());
+    try {
+      D2SyncStatus status = D2SyncStatus(
+          status: D2SyncStatusEnum.initialized,
+          label: "$label for ${program!.name} program");
+      downloadController.add(status);
+      Pagination pagination = await getPagination();
+      status.setTotal(pagination.total);
+      downloadController.add(status);
+      status.updateStatus(D2SyncStatusEnum.syncing);
+      for (int page = 1; page <= pagination.pageCount.clamp(1, 5); page++) {
+        await downloadPage(page);
+        downloadController.add(status.increment());
+      }
+      downloadController.add(status.complete());
+      await downloadController.close();
+    } catch (e) {
+      downloadController.addError(e);
+      rethrow;
     }
-    downloadController.add(status.complete());
-    downloadController.close();
   }
 
   /*

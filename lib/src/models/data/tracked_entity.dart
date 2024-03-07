@@ -1,4 +1,3 @@
-
 import 'package:dhis2_flutter_toolkit/objectbox.dart';
 import 'package:objectbox/objectbox.dart';
 
@@ -42,7 +41,7 @@ class D2TrackedEntity extends SyncDataSource implements SyncableData {
 
   final trackedEntityType = ToOne<D2TrackedEntityType>();
 
-  @Backlink()
+  @Backlink("trackedEntity")
   final events = ToMany<D2Event>();
 
   D2TrackedEntity(this.uid, this.createdAt, this.updatedAt, this.deleted,

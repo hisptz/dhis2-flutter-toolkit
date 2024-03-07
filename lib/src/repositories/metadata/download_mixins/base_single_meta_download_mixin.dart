@@ -70,6 +70,6 @@ mixin BaseSingleMetaDownloadServiceMixin<T extends D2MetaResource>
     box.put(entity);
     status.increment();
     downloadController.add(status.complete());
-    downloadController.close();
+    await downloadController.close();
   }
 }

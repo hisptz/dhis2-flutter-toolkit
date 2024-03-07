@@ -1,4 +1,5 @@
 
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/objectbox.dart';
 
 import 'package:objectbox/objectbox.dart';
@@ -40,7 +41,7 @@ class D2TrackedEntityAttributeValue extends D2DataResource
         synced = true,
         value = json["value"] {
     String uid = "$trackedEntityId-${json["attribute"]}";
-    id = D2TrackedEntityAttributeRepository(db).getIdByUid(uid) ?? 0;
+    id = D2TrackedEntityAttributeValueRepository(db).getIdByUid(uid) ?? 0;
 
     trackedEntityAttribute.target =
         D2TrackedEntityAttributeRepository(db).getByUid(json["attribute"]);
