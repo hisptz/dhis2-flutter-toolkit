@@ -78,7 +78,7 @@ class D2AuthService {
     D2UserCredential? updatedUser = users
         .firstWhereOrNull((D2UserCredential user) => user.id == credentials.id);
     if (updatedUser != null) {
-      int index = users.indexOf(credentials);
+      int index = users.indexWhere((element) => credentials.id == element.id);
       users[index] = credentials;
     }
     users.add(credentials);
