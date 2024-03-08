@@ -43,7 +43,7 @@ mixin BaseMetaDownloadServiceMixin<T extends D2MetaResource>
     return downloadController.stream;
   }
 
-  BaseMetaDownloadServiceMixin<T> setPageSize(int pageSize) {
+  setPageSize(int pageSize) {
     this.pageSize = pageSize;
     return this;
   }
@@ -101,20 +101,24 @@ mixin BaseMetaDownloadServiceMixin<T extends D2MetaResource>
   }
 
   Future initializeDownload() async {
-    Pagination pagination = await getPagination();
-    D2SyncStatus status = D2SyncStatus(
-        synced: 0,
-        total: pagination.pageCount,
-        status: D2SyncStatusEnum.initialized,
-        label: label);
-    downloadController.add(status);
-
-    for (int page = 1; page <= pagination.pageCount; page++) {
-      await downloadPage(page);
-      downloadController.add(status.increment());
+    try {
+      D2SyncStatus status =
+          D2SyncStatus(status: D2SyncStatusEnum.initialized, label: label);
+      downloadController.add(status);
+      Pagination pagination = await getPagination();
+      status.setTotal(pagination.total);
+      downloadController.add(status);
+      status.updateStatus(D2SyncStatusEnum.syncing);
+      for (int page = 1; page <= pagination.pageCount; page++) {
+        await downloadPage(page);
+        downloadController.add(status.increment());
+      }
+      downloadController.add(status.complete());
+      downloadController.close();
+    } catch (e) {
+      downloadController.addError(e);
+      rethrow;
     }
-    downloadController.add(status.complete());
-    await downloadController.close();
   }
 
   /*

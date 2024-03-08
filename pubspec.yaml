@@ -18,7 +18,6 @@ dependencies:
   objectbox_flutter_libs: ^2.5.1
   path_provider: ^2.1.2
   provider: ^6.1.2
-  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:

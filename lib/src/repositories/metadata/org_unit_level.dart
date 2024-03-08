@@ -17,7 +17,7 @@ class D2OrgUnitLevelRepository
   @override
   D2OrgUnitLevel? getByUid(String uid) {
     Query<D2OrgUnitLevel> query =
-        box.query(D2OrganisationUnitLevel_.uid.equals(uid)).build();
+        box.query(D2OrgUnitLevel_.uid.equals(uid)).build();
     return query.findFirst();
   }
 

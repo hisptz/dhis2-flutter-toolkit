@@ -1,4 +1,3 @@
-
 import 'package:objectbox/objectbox.dart';
 
 import '../../../objectbox.dart';
@@ -20,6 +19,10 @@ class D2User extends D2MetaResource {
 
   final userRoles = ToMany<D2UserRole>();
   final userGroups = ToMany<D2UserGroup>();
+
+  get fullName {
+    return "$firstName $surname";
+  }
 
   @Unique()
   String uid;

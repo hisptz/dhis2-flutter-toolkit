@@ -1,15 +1,7 @@
-import 'package:dhis2_flutter_toolkit/objectbox.dart';
-
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../repositories/metadata/program.dart';
-import '../../repositories/metadata/program_stage.dart';
-import '../../repositories/metadata/tracked_entity_type.dart';
 import 'base.dart';
-import 'program.dart';
-import 'program_stage.dart';
-import 'tracked_entity_type.dart';
-
 
 @Entity()
 class D2RelationshipType extends D2MetaResource {
@@ -31,7 +23,7 @@ class D2RelationshipType extends D2MetaResource {
   String? toFromName;
   String? displayFromToName;
   String? displayToFromName;
-  bool referral;
+  bool? referral;
 
   String fromRelationshipEntity;
   String toRelationshipEntity;
@@ -102,6 +94,7 @@ class D2RelationshipType extends D2MetaResource {
         referral = json["referral"],
         fromRelationshipEntity = json["fromConstraint"]["relationshipEntity"],
         toRelationshipEntity = json["toConstraint"]["relationshipEntity"] {
+    id = D2RelationshipTypeRepository(db).getIdByUid(json["id"]) ?? 0;
     Map fromConstraint = json["fromConstraint"];
     Map toConstraint = json["toConstraint"];
 

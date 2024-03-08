@@ -142,7 +142,7 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
       status.setTotal(pagination.total);
       downloadController.add(status);
       status.updateStatus(D2SyncStatusEnum.syncing);
-      for (int page = 1; page <= pagination.pageCount.clamp(1, 5); page++) {
+      for (int page = 1; page <= pagination.pageCount; page++) {
         await downloadPage(page);
         downloadController.add(status.increment());
       }

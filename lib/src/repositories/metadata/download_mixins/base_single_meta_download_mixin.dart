@@ -57,9 +57,12 @@ mixin BaseSingleMetaDownloadServiceMixin<T extends D2MetaResource>
     return await client!.httpGet<D>(url, queryParameters: queryParams);
   }
 
-  void download() async {
+  Future<void> download() async {
     D2SyncStatus status = D2SyncStatus(
-        synced: 0, total: 1, status: D2SyncStatusEnum.initialized, label: label);
+        synced: 0,
+        total: 1,
+        status: D2SyncStatusEnum.initialized,
+        label: label);
     downloadController.add(status);
     Map<String, dynamic>? data = await getData<Map<String, dynamic>>();
     if (data == null) {
@@ -70,6 +73,6 @@ mixin BaseSingleMetaDownloadServiceMixin<T extends D2MetaResource>
     box.put(entity);
     status.increment();
     downloadController.add(status.complete());
-    await downloadController.close();
+    downloadController.close();
   }
 }

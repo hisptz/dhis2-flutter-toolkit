@@ -756,51 +756,6 @@ final _entities = <obx_int.ModelEntity>[
       ],
       backlinks: <obx_int.ModelBacklink>[]),
   obx_int.ModelEntity(
-      id: const obx_int.IdUid(12, 4845029629663650184),
-      name: 'D2OrganisationUnitLevel',
-      lastPropertyId: const obx_int.IdUid(7, 412700322432031164),
-      flags: 0,
-      properties: <obx_int.ModelProperty>[
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(1, 6415074213713321569),
-            name: 'id',
-            type: 6,
-            flags: 1),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(2, 4641716601052601232),
-            name: 'name',
-            type: 9,
-            flags: 0),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(3, 6228311578707178848),
-            name: 'uid',
-            type: 9,
-            flags: 2080,
-            indexId: const obx_int.IdUid(22, 7946463342032987765)),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(4, 9097581029004154019),
-            name: 'level',
-            type: 6,
-            flags: 0),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(5, 5437099508560140415),
-            name: 'created',
-            type: 10,
-            flags: 0),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(6, 2624640919868138634),
-            name: 'lastUpdated',
-            type: 10,
-            flags: 0),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(7, 412700322432031164),
-            name: 'displayName',
-            type: 9,
-            flags: 0)
-      ],
-      relations: <obx_int.ModelRelation>[],
-      backlinks: <obx_int.ModelBacklink>[]),
-  obx_int.ModelEntity(
       id: const obx_int.IdUid(13, 842731617041164856),
       name: 'D2Program',
       lastPropertyId: const obx_int.IdUid(12, 7449116730149103320),
@@ -1784,7 +1739,7 @@ final _entities = <obx_int.ModelEntity>[
             srcEntity: 'D2TrackedEntityAttributeValue',
             srcField: 'trackedEntity'),
         obx_int.ModelBacklink(
-            name: 'events', srcEntity: 'D2Event', srcField: '')
+            name: 'events', srcEntity: 'D2Event', srcField: 'trackedEntity')
       ]),
   obx_int.ModelEntity(
       id: const obx_int.IdUid(26, 4451857861000713264),
@@ -2209,6 +2164,51 @@ final _entities = <obx_int.ModelEntity>[
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[]),
+  obx_int.ModelEntity(
+      id: const obx_int.IdUid(33, 3327197192716612547),
+      name: 'D2OrgUnitLevel',
+      lastPropertyId: const obx_int.IdUid(7, 2126850791002745722),
+      flags: 0,
+      properties: <obx_int.ModelProperty>[
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(1, 8650771910894773542),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(2, 366328069862592838),
+            name: 'name',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(3, 2532805928008673945),
+            name: 'uid',
+            type: 9,
+            flags: 2080,
+            indexId: const obx_int.IdUid(71, 9070600766487288194)),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(4, 2844152692637361491),
+            name: 'level',
+            type: 6,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(5, 2528686574584781048),
+            name: 'created',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(6, 2541852377183638900),
+            name: 'lastUpdated',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(7, 2126850791002745722),
+            name: 'displayName',
+            type: 9,
+            flags: 0)
+      ],
+      relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[])
 ];
 
@@ -2247,13 +2247,21 @@ Future<obx.Store> openStore(
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
-      lastEntityId: const obx_int.IdUid(32, 2044275874082927084),
-      lastIndexId: const obx_int.IdUid(70, 2026140254398246579),
+      lastEntityId: const obx_int.IdUid(33, 3327197192716612547),
+      lastIndexId: const obx_int.IdUid(71, 9070600766487288194),
       lastRelationId: const obx_int.IdUid(10, 1465890458454070528),
       lastSequenceId: const obx_int.IdUid(0, 0),
-      retiredEntityUids: const [],
+      retiredEntityUids: const [4845029629663650184],
       retiredIndexUids: const [],
-      retiredPropertyUids: const [],
+      retiredPropertyUids: const [
+        6415074213713321569,
+        4641716601052601232,
+        6228311578707178848,
+        9097581029004154019,
+        5437099508560140415,
+        2624640919868138634,
+        412700322432031164
+      ],
       retiredRelationUids: const [],
       modelVersion: 5,
       modelVersionParserMinimum: 5,
@@ -3009,56 +3017,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
               obx_int.RelInfo<D2OrgUnitGroup>.toMany(3, object.id));
           return object;
         }),
-    D2OrgUnitLevel: obx_int.EntityDefinition<D2OrgUnitLevel>(
-        model: _entities[11],
-        toOneRelations: (D2OrgUnitLevel object) => [],
-        toManyRelations: (D2OrgUnitLevel object) => {},
-        getId: (D2OrgUnitLevel object) => object.id,
-        setId: (D2OrgUnitLevel object, int id) {
-          object.id = id;
-        },
-        objectToFB: (D2OrgUnitLevel object, fb.Builder fbb) {
-          final nameOffset = fbb.writeString(object.name);
-          final uidOffset = fbb.writeString(object.uid);
-          final displayNameOffset = object.displayName == null
-              ? null
-              : fbb.writeString(object.displayName!);
-          fbb.startTable(8);
-          fbb.addInt64(0, object.id);
-          fbb.addOffset(1, nameOffset);
-          fbb.addOffset(2, uidOffset);
-          fbb.addInt64(3, object.level);
-          fbb.addInt64(4, object.created.millisecondsSinceEpoch);
-          fbb.addInt64(5, object.lastUpdated.millisecondsSinceEpoch);
-          fbb.addOffset(6, displayNameOffset);
-          fbb.finish(fbb.endTable());
-          return object.id;
-        },
-        objectFromFB: (obx.Store store, ByteData fbData) {
-          final buffer = fb.BufferContext(fbData);
-          final rootOffset = buffer.derefObject(0);
-          final idParam =
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
-          final displayNameParam =
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGetNullable(buffer, rootOffset, 16);
-          final nameParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 6, '');
-          final uidParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 8, '');
-          final levelParam =
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0);
-          final createdParam = DateTime.fromMillisecondsSinceEpoch(
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0));
-          final lastUpdatedParam = DateTime.fromMillisecondsSinceEpoch(
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0));
-          final object = D2OrgUnitLevel(idParam, displayNameParam,
-              nameParam, uidParam, levelParam, createdParam, lastUpdatedParam);
-
-          return object;
-        }),
     D2Program: obx_int.EntityDefinition<D2Program>(
-        model: _entities[12],
+        model: _entities[11],
         toOneRelations: (D2Program object) => [object.trackedEntityType],
         toManyRelations: (D2Program object) => {
               obx_int.RelInfo<D2Program>.toMany(4, object.id):
@@ -3177,7 +3137,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           return object;
         }),
     D2ProgramRule: obx_int.EntityDefinition<D2ProgramRule>(
-        model: _entities[13],
+        model: _entities[12],
         toOneRelations: (D2ProgramRule object) => [object.program],
         toManyRelations: (D2ProgramRule object) => {
               obx_int.RelInfo<D2ProgramRuleAction>.toOneBacklink(9, object.id,
@@ -3250,7 +3210,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           return object;
         }),
     D2ProgramRuleAction: obx_int.EntityDefinition<D2ProgramRuleAction>(
-        model: _entities[14],
+        model: _entities[13],
         toOneRelations: (D2ProgramRuleAction object) => [
               object.programRule,
               object.dataElement,
@@ -3346,7 +3306,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           return object;
         }),
     D2ProgramRuleVariable: obx_int.EntityDefinition<D2ProgramRuleVariable>(
-        model: _entities[15],
+        model: _entities[14],
         toOneRelations: (D2ProgramRuleVariable object) => [
               object.trackedEntityAttribute,
               object.dataElement,
@@ -3432,7 +3392,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           return object;
         }),
     D2ProgramSection: obx_int.EntityDefinition<D2ProgramSection>(
-        model: _entities[16],
+        model: _entities[15],
         toOneRelations: (D2ProgramSection object) => [object.program],
         toManyRelations: (D2ProgramSection object) => {
               obx_int.RelInfo<D2ProgramSection>.toMany(5, object.id):
@@ -3492,7 +3452,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           return object;
         }),
     D2ProgramStage: obx_int.EntityDefinition<D2ProgramStage>(
-        model: _entities[17],
+        model: _entities[16],
         toOneRelations: (D2ProgramStage object) => [object.program],
         toManyRelations: (D2ProgramStage object) => {
               obx_int.RelInfo<D2ProgramStageDataElement>.toOneBacklink(
@@ -3613,7 +3573,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         }),
     D2ProgramStageDataElement: obx_int.EntityDefinition<
             D2ProgramStageDataElement>(
-        model: _entities[18],
+        model: _entities[17],
         toOneRelations: (D2ProgramStageDataElement object) =>
             [object.programStage, object.dataElement],
         toManyRelations: (D2ProgramStageDataElement object) => {},
@@ -3667,7 +3627,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           return object;
         }),
     D2ProgramStageSection: obx_int.EntityDefinition<D2ProgramStageSection>(
-        model: _entities[19],
+        model: _entities[18],
         toOneRelations: (D2ProgramStageSection object) => [object.programStage],
         toManyRelations: (D2ProgramStageSection object) => {
               obx_int.RelInfo<D2ProgramStageSection>.toMany(6, object.id):
@@ -3724,7 +3684,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         }),
     D2ProgramTrackedEntityAttribute: obx_int.EntityDefinition<
             D2ProgramTrackedEntityAttribute>(
-        model: _entities[20],
+        model: _entities[19],
         toOneRelations: (D2ProgramTrackedEntityAttribute object) =>
             [object.program, object.trackedEntityAttribute],
         toManyRelations: (D2ProgramTrackedEntityAttribute object) => {},
@@ -3795,7 +3755,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           return object;
         }),
     D2Relationship: obx_int.EntityDefinition<D2Relationship>(
-        model: _entities[21],
+        model: _entities[20],
         toOneRelations: (D2Relationship object) => [],
         toManyRelations: (D2Relationship object) => {},
         getId: (D2Relationship object) => object.id,
@@ -3874,7 +3834,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           return object;
         }),
     D2RelationshipType: obx_int.EntityDefinition<D2RelationshipType>(
-        model: _entities[22],
+        model: _entities[21],
         toOneRelations: (D2RelationshipType object) => [
               object.fromTrackedEntityType,
               object.fromProgram,
@@ -3954,7 +3914,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.StringReader(asciiOptimization: true)
                   .vTableGetNullable(buffer, rootOffset, 22);
           final referralParam =
-              const fb.BoolReader().vTableGet(buffer, rootOffset, 24, false);
+              const fb.BoolReader().vTableGetNullable(buffer, rootOffset, 24);
           final fromRelationshipEntityParam =
               const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 26, '');
@@ -4002,7 +3962,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           return object;
         }),
     D2SystemInfo: obx_int.EntityDefinition<D2SystemInfo>(
-        model: _entities[23],
+        model: _entities[22],
         toOneRelations: (D2SystemInfo object) => [],
         toManyRelations: (D2SystemInfo object) => {},
         getId: (D2SystemInfo object) => object.id,
@@ -4078,7 +4038,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           return object;
         }),
     D2TrackedEntity: obx_int.EntityDefinition<D2TrackedEntity>(
-        model: _entities[24],
+        model: _entities[23],
         toOneRelations: (D2TrackedEntity object) =>
             [object.orgUnit, object.trackedEntityType],
         toManyRelations: (D2TrackedEntity object) => {
@@ -4167,7 +4127,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         }),
     D2TrackedEntityAttribute: obx_int.EntityDefinition<
             D2TrackedEntityAttribute>(
-        model: _entities[25],
+        model: _entities[24],
         toOneRelations: (D2TrackedEntityAttribute object) => [object.optionSet],
         toManyRelations: (D2TrackedEntityAttribute object) => {
               obx_int.RelInfo<D2TrackedEntityAttribute>.toMany(7, object.id):
@@ -4271,7 +4231,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         }),
     D2TrackedEntityAttributeValue: obx_int.EntityDefinition<
             D2TrackedEntityAttributeValue>(
-        model: _entities[26],
+        model: _entities[25],
         toOneRelations: (D2TrackedEntityAttributeValue object) =>
             [object.trackedEntityAttribute, object.trackedEntity],
         toManyRelations: (D2TrackedEntityAttributeValue object) => {},
@@ -4319,7 +4279,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           return object;
         }),
     D2TrackedEntityType: obx_int.EntityDefinition<D2TrackedEntityType>(
-        model: _entities[27],
+        model: _entities[26],
         toOneRelations: (D2TrackedEntityType object) => [],
         toManyRelations: (D2TrackedEntityType object) => {
               obx_int.RelInfo<D2TrackedEntityType>.toMany(8, object.id):
@@ -4384,7 +4344,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         }),
     D2TrackedEntityTypeAttribute:
         obx_int.EntityDefinition<D2TrackedEntityTypeAttribute>(
-            model: _entities[28],
+            model: _entities[27],
             toOneRelations: (D2TrackedEntityTypeAttribute object) =>
                 [object.trackedEntityType, object.trackedEntityAttribute],
             toManyRelations: (D2TrackedEntityTypeAttribute object) => {},
@@ -4454,7 +4414,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
               return object;
             }),
     D2User: obx_int.EntityDefinition<D2User>(
-        model: _entities[29],
+        model: _entities[28],
         toOneRelations: (D2User object) => [],
         toManyRelations: (D2User object) => {
               obx_int.RelInfo<D2User>.toMany(9, object.id): object.userRoles,
@@ -4545,7 +4505,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           return object;
         }),
     D2UserGroup: obx_int.EntityDefinition<D2UserGroup>(
-        model: _entities[30],
+        model: _entities[29],
         toOneRelations: (D2UserGroup object) => [],
         toManyRelations: (D2UserGroup object) => {},
         getId: (D2UserGroup object) => object.id,
@@ -4590,7 +4550,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           return object;
         }),
     D2UserRole: obx_int.EntityDefinition<D2UserRole>(
-        model: _entities[31],
+        model: _entities[30],
         toOneRelations: (D2UserRole object) => [],
         toManyRelations: (D2UserRole object) => {},
         getId: (D2UserRole object) => object.id,
@@ -4637,6 +4597,54 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final object = D2UserRole(displayNameParam, uidParam, nameParam,
               authoritiesParam, createdParam, lastUpdatedParam)
             ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+
+          return object;
+        }),
+    D2OrgUnitLevel: obx_int.EntityDefinition<D2OrgUnitLevel>(
+        model: _entities[31],
+        toOneRelations: (D2OrgUnitLevel object) => [],
+        toManyRelations: (D2OrgUnitLevel object) => {},
+        getId: (D2OrgUnitLevel object) => object.id,
+        setId: (D2OrgUnitLevel object, int id) {
+          object.id = id;
+        },
+        objectToFB: (D2OrgUnitLevel object, fb.Builder fbb) {
+          final nameOffset = fbb.writeString(object.name);
+          final uidOffset = fbb.writeString(object.uid);
+          final displayNameOffset = object.displayName == null
+              ? null
+              : fbb.writeString(object.displayName!);
+          fbb.startTable(8);
+          fbb.addInt64(0, object.id);
+          fbb.addOffset(1, nameOffset);
+          fbb.addOffset(2, uidOffset);
+          fbb.addInt64(3, object.level);
+          fbb.addInt64(4, object.created.millisecondsSinceEpoch);
+          fbb.addInt64(5, object.lastUpdated.millisecondsSinceEpoch);
+          fbb.addOffset(6, displayNameOffset);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (obx.Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+          final idParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+          final displayNameParam =
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGetNullable(buffer, rootOffset, 16);
+          final nameParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 6, '');
+          final uidParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 8, '');
+          final levelParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0);
+          final createdParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0));
+          final lastUpdatedParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0));
+          final object = D2OrgUnitLevel(idParam, displayNameParam, nameParam,
+              uidParam, levelParam, createdParam, lastUpdatedParam);
 
           return object;
         })
@@ -5142,91 +5150,60 @@ class D2OrgUnitGroup_ {
           _entities[10].relations[0]);
 }
 
-/// [D2OrgUnitLevel] entity fields to define ObjectBox queries.
-class D2OrganisationUnitLevel_ {
-  /// see [D2OrgUnitLevel.id]
-  static final id = obx.QueryIntegerProperty<D2OrgUnitLevel>(
-      _entities[11].properties[0]);
-
-  /// see [D2OrgUnitLevel.name]
-  static final name = obx.QueryStringProperty<D2OrgUnitLevel>(
-      _entities[11].properties[1]);
-
-  /// see [D2OrgUnitLevel.uid]
-  static final uid = obx.QueryStringProperty<D2OrgUnitLevel>(
-      _entities[11].properties[2]);
-
-  /// see [D2OrgUnitLevel.level]
-  static final level = obx.QueryIntegerProperty<D2OrgUnitLevel>(
-      _entities[11].properties[3]);
-
-  /// see [D2OrgUnitLevel.created]
-  static final created = obx.QueryDateProperty<D2OrgUnitLevel>(
-      _entities[11].properties[4]);
-
-  /// see [D2OrgUnitLevel.lastUpdated]
-  static final lastUpdated = obx.QueryDateProperty<D2OrgUnitLevel>(
-      _entities[11].properties[5]);
-
-  /// see [D2OrgUnitLevel.displayName]
-  static final displayName = obx.QueryStringProperty<D2OrgUnitLevel>(
-      _entities[11].properties[6]);
-}
-
 /// [D2Program] entity fields to define ObjectBox queries.
 class D2Program_ {
   /// see [D2Program.id]
   static final id =
-      obx.QueryIntegerProperty<D2Program>(_entities[12].properties[0]);
+      obx.QueryIntegerProperty<D2Program>(_entities[11].properties[0]);
 
   /// see [D2Program.created]
   static final created =
-      obx.QueryDateProperty<D2Program>(_entities[12].properties[1]);
+      obx.QueryDateProperty<D2Program>(_entities[11].properties[1]);
 
   /// see [D2Program.lastUpdated]
   static final lastUpdated =
-      obx.QueryDateProperty<D2Program>(_entities[12].properties[2]);
+      obx.QueryDateProperty<D2Program>(_entities[11].properties[2]);
 
   /// see [D2Program.uid]
   static final uid =
-      obx.QueryStringProperty<D2Program>(_entities[12].properties[3]);
+      obx.QueryStringProperty<D2Program>(_entities[11].properties[3]);
 
   /// see [D2Program.name]
   static final name =
-      obx.QueryStringProperty<D2Program>(_entities[12].properties[4]);
+      obx.QueryStringProperty<D2Program>(_entities[11].properties[4]);
 
   /// see [D2Program.shortName]
   static final shortName =
-      obx.QueryStringProperty<D2Program>(_entities[12].properties[5]);
+      obx.QueryStringProperty<D2Program>(_entities[11].properties[5]);
 
   /// see [D2Program.accessLevel]
   static final accessLevel =
-      obx.QueryStringProperty<D2Program>(_entities[12].properties[6]);
+      obx.QueryStringProperty<D2Program>(_entities[11].properties[6]);
 
   /// see [D2Program.programType]
   static final programType =
-      obx.QueryStringProperty<D2Program>(_entities[12].properties[7]);
+      obx.QueryStringProperty<D2Program>(_entities[11].properties[7]);
 
   /// see [D2Program.onlyEnrollOnce]
   static final onlyEnrollOnce =
-      obx.QueryBooleanProperty<D2Program>(_entities[12].properties[8]);
+      obx.QueryBooleanProperty<D2Program>(_entities[11].properties[8]);
 
   /// see [D2Program.selectEnrollmentDatesInFuture]
   static final selectEnrollmentDatesInFuture =
-      obx.QueryBooleanProperty<D2Program>(_entities[12].properties[9]);
+      obx.QueryBooleanProperty<D2Program>(_entities[11].properties[9]);
 
   /// see [D2Program.trackedEntityType]
   static final trackedEntityType =
       obx.QueryRelationToOne<D2Program, D2TrackedEntityType>(
-          _entities[12].properties[10]);
+          _entities[11].properties[10]);
 
   /// see [D2Program.displayName]
   static final displayName =
-      obx.QueryStringProperty<D2Program>(_entities[12].properties[11]);
+      obx.QueryStringProperty<D2Program>(_entities[11].properties[11]);
 
   /// see [D2Program.organisationUnits]
   static final organisationUnits =
-      obx.QueryRelationToMany<D2Program, D2OrgUnit>(_entities[12].relations[0]);
+      obx.QueryRelationToMany<D2Program, D2OrgUnit>(_entities[11].relations[0]);
 
   /// see [D2Program.programStages]
   static final programStages =
@@ -5252,39 +5229,39 @@ class D2Program_ {
 class D2ProgramRule_ {
   /// see [D2ProgramRule.id]
   static final id =
-      obx.QueryIntegerProperty<D2ProgramRule>(_entities[13].properties[0]);
+      obx.QueryIntegerProperty<D2ProgramRule>(_entities[12].properties[0]);
 
   /// see [D2ProgramRule.created]
   static final created =
-      obx.QueryDateProperty<D2ProgramRule>(_entities[13].properties[1]);
+      obx.QueryDateProperty<D2ProgramRule>(_entities[12].properties[1]);
 
   /// see [D2ProgramRule.lastUpdated]
   static final lastUpdated =
-      obx.QueryDateProperty<D2ProgramRule>(_entities[13].properties[2]);
+      obx.QueryDateProperty<D2ProgramRule>(_entities[12].properties[2]);
 
   /// see [D2ProgramRule.uid]
   static final uid =
-      obx.QueryStringProperty<D2ProgramRule>(_entities[13].properties[3]);
+      obx.QueryStringProperty<D2ProgramRule>(_entities[12].properties[3]);
 
   /// see [D2ProgramRule.name]
   static final name =
-      obx.QueryStringProperty<D2ProgramRule>(_entities[13].properties[4]);
+      obx.QueryStringProperty<D2ProgramRule>(_entities[12].properties[4]);
 
   /// see [D2ProgramRule.description]
   static final description =
-      obx.QueryStringProperty<D2ProgramRule>(_entities[13].properties[5]);
+      obx.QueryStringProperty<D2ProgramRule>(_entities[12].properties[5]);
 
   /// see [D2ProgramRule.condition]
   static final condition =
-      obx.QueryStringProperty<D2ProgramRule>(_entities[13].properties[6]);
+      obx.QueryStringProperty<D2ProgramRule>(_entities[12].properties[6]);
 
   /// see [D2ProgramRule.program]
   static final program = obx.QueryRelationToOne<D2ProgramRule, D2Program>(
-      _entities[13].properties[7]);
+      _entities[12].properties[7]);
 
   /// see [D2ProgramRule.displayName]
   static final displayName =
-      obx.QueryStringProperty<D2ProgramRule>(_entities[13].properties[8]);
+      obx.QueryStringProperty<D2ProgramRule>(_entities[12].properties[8]);
 
   /// see [D2ProgramRule.programRuleActions]
   static final programRuleActions =
@@ -5296,216 +5273,216 @@ class D2ProgramRule_ {
 class D2ProgramRuleAction_ {
   /// see [D2ProgramRuleAction.id]
   static final id = obx.QueryIntegerProperty<D2ProgramRuleAction>(
-      _entities[14].properties[0]);
+      _entities[13].properties[0]);
 
   /// see [D2ProgramRuleAction.created]
   static final created =
-      obx.QueryDateProperty<D2ProgramRuleAction>(_entities[14].properties[1]);
+      obx.QueryDateProperty<D2ProgramRuleAction>(_entities[13].properties[1]);
 
   /// see [D2ProgramRuleAction.lastUpdated]
   static final lastUpdated =
-      obx.QueryDateProperty<D2ProgramRuleAction>(_entities[14].properties[2]);
+      obx.QueryDateProperty<D2ProgramRuleAction>(_entities[13].properties[2]);
 
   /// see [D2ProgramRuleAction.uid]
   static final uid =
-      obx.QueryStringProperty<D2ProgramRuleAction>(_entities[14].properties[3]);
+      obx.QueryStringProperty<D2ProgramRuleAction>(_entities[13].properties[3]);
 
   /// see [D2ProgramRuleAction.programRuleActionType]
   static final programRuleActionType =
-      obx.QueryStringProperty<D2ProgramRuleAction>(_entities[14].properties[4]);
+      obx.QueryStringProperty<D2ProgramRuleAction>(_entities[13].properties[4]);
 
   /// see [D2ProgramRuleAction.content]
   static final content =
-      obx.QueryStringProperty<D2ProgramRuleAction>(_entities[14].properties[5]);
+      obx.QueryStringProperty<D2ProgramRuleAction>(_entities[13].properties[5]);
 
   /// see [D2ProgramRuleAction.data]
   static final data =
-      obx.QueryStringProperty<D2ProgramRuleAction>(_entities[14].properties[6]);
+      obx.QueryStringProperty<D2ProgramRuleAction>(_entities[13].properties[6]);
 
   /// see [D2ProgramRuleAction.location]
   static final location =
-      obx.QueryStringProperty<D2ProgramRuleAction>(_entities[14].properties[7]);
+      obx.QueryStringProperty<D2ProgramRuleAction>(_entities[13].properties[7]);
 
   /// see [D2ProgramRuleAction.programRule]
   static final programRule =
       obx.QueryRelationToOne<D2ProgramRuleAction, D2ProgramRule>(
-          _entities[14].properties[8]);
+          _entities[13].properties[8]);
 
   /// see [D2ProgramRuleAction.dataElement]
   static final dataElement =
       obx.QueryRelationToOne<D2ProgramRuleAction, D2DataElement>(
-          _entities[14].properties[9]);
+          _entities[13].properties[9]);
 
   /// see [D2ProgramRuleAction.programStageSection]
   static final programStageSection =
       obx.QueryRelationToOne<D2ProgramRuleAction, D2ProgramStageSection>(
-          _entities[14].properties[10]);
+          _entities[13].properties[10]);
 
   /// see [D2ProgramRuleAction.programSection]
   static final programSection =
       obx.QueryRelationToOne<D2ProgramRuleAction, D2ProgramSection>(
-          _entities[14].properties[11]);
+          _entities[13].properties[11]);
 
   /// see [D2ProgramRuleAction.trackedEntityAttribute]
   static final trackedEntityAttribute =
       obx.QueryRelationToOne<D2ProgramRuleAction, D2TrackedEntityAttribute>(
-          _entities[14].properties[12]);
+          _entities[13].properties[12]);
 
   /// see [D2ProgramRuleAction.displayName]
   static final displayName = obx.QueryStringProperty<D2ProgramRuleAction>(
-      _entities[14].properties[13]);
+      _entities[13].properties[13]);
 }
 
 /// [D2ProgramRuleVariable] entity fields to define ObjectBox queries.
 class D2ProgramRuleVariable_ {
   /// see [D2ProgramRuleVariable.id]
   static final id = obx.QueryIntegerProperty<D2ProgramRuleVariable>(
-      _entities[15].properties[0]);
+      _entities[14].properties[0]);
 
   /// see [D2ProgramRuleVariable.created]
   static final created =
-      obx.QueryDateProperty<D2ProgramRuleVariable>(_entities[15].properties[1]);
+      obx.QueryDateProperty<D2ProgramRuleVariable>(_entities[14].properties[1]);
 
   /// see [D2ProgramRuleVariable.lastUpdated]
   static final lastUpdated =
-      obx.QueryDateProperty<D2ProgramRuleVariable>(_entities[15].properties[2]);
+      obx.QueryDateProperty<D2ProgramRuleVariable>(_entities[14].properties[2]);
 
   /// see [D2ProgramRuleVariable.uid]
   static final uid = obx.QueryStringProperty<D2ProgramRuleVariable>(
-      _entities[15].properties[3]);
+      _entities[14].properties[3]);
 
   /// see [D2ProgramRuleVariable.name]
   static final name = obx.QueryStringProperty<D2ProgramRuleVariable>(
-      _entities[15].properties[4]);
+      _entities[14].properties[4]);
 
   /// see [D2ProgramRuleVariable.programRuleVariableSourceType]
   static final programRuleVariableSourceType =
       obx.QueryStringProperty<D2ProgramRuleVariable>(
-          _entities[15].properties[5]);
+          _entities[14].properties[5]);
 
   /// see [D2ProgramRuleVariable.valueType]
   static final valueType = obx.QueryStringProperty<D2ProgramRuleVariable>(
-      _entities[15].properties[6]);
+      _entities[14].properties[6]);
 
   /// see [D2ProgramRuleVariable.useCodeForOptionSet]
   static final useCodeForOptionSet =
       obx.QueryBooleanProperty<D2ProgramRuleVariable>(
-          _entities[15].properties[7]);
+          _entities[14].properties[7]);
 
   /// see [D2ProgramRuleVariable.trackedEntityAttribute]
   static final trackedEntityAttribute =
       obx.QueryRelationToOne<D2ProgramRuleVariable, D2TrackedEntityAttribute>(
-          _entities[15].properties[8]);
+          _entities[14].properties[8]);
 
   /// see [D2ProgramRuleVariable.dataElement]
   static final dataElement =
       obx.QueryRelationToOne<D2ProgramRuleVariable, D2DataElement>(
-          _entities[15].properties[9]);
+          _entities[14].properties[9]);
 
   /// see [D2ProgramRuleVariable.programStage]
   static final programStage =
       obx.QueryRelationToOne<D2ProgramRuleVariable, D2ProgramStage>(
-          _entities[15].properties[10]);
+          _entities[14].properties[10]);
 
   /// see [D2ProgramRuleVariable.program]
   static final program =
       obx.QueryRelationToOne<D2ProgramRuleVariable, D2Program>(
-          _entities[15].properties[11]);
+          _entities[14].properties[11]);
 
   /// see [D2ProgramRuleVariable.displayName]
   static final displayName = obx.QueryStringProperty<D2ProgramRuleVariable>(
-      _entities[15].properties[12]);
+      _entities[14].properties[12]);
 }
 
 /// [D2ProgramSection] entity fields to define ObjectBox queries.
 class D2ProgramSection_ {
   /// see [D2ProgramSection.id]
   static final id =
-      obx.QueryIntegerProperty<D2ProgramSection>(_entities[16].properties[0]);
+      obx.QueryIntegerProperty<D2ProgramSection>(_entities[15].properties[0]);
 
   /// see [D2ProgramSection.created]
   static final created =
-      obx.QueryDateProperty<D2ProgramSection>(_entities[16].properties[1]);
+      obx.QueryDateProperty<D2ProgramSection>(_entities[15].properties[1]);
 
   /// see [D2ProgramSection.lastUpdated]
   static final lastUpdated =
-      obx.QueryDateProperty<D2ProgramSection>(_entities[16].properties[2]);
+      obx.QueryDateProperty<D2ProgramSection>(_entities[15].properties[2]);
 
   /// see [D2ProgramSection.uid]
   static final uid =
-      obx.QueryStringProperty<D2ProgramSection>(_entities[16].properties[3]);
+      obx.QueryStringProperty<D2ProgramSection>(_entities[15].properties[3]);
 
   /// see [D2ProgramSection.sortOrder]
   static final sortOrder =
-      obx.QueryIntegerProperty<D2ProgramSection>(_entities[16].properties[4]);
+      obx.QueryIntegerProperty<D2ProgramSection>(_entities[15].properties[4]);
 
   /// see [D2ProgramSection.name]
   static final name =
-      obx.QueryStringProperty<D2ProgramSection>(_entities[16].properties[5]);
+      obx.QueryStringProperty<D2ProgramSection>(_entities[15].properties[5]);
 
   /// see [D2ProgramSection.program]
   static final program = obx.QueryRelationToOne<D2ProgramSection, D2Program>(
-      _entities[16].properties[6]);
+      _entities[15].properties[6]);
 
   /// see [D2ProgramSection.displayName]
   static final displayName =
-      obx.QueryStringProperty<D2ProgramSection>(_entities[16].properties[7]);
+      obx.QueryStringProperty<D2ProgramSection>(_entities[15].properties[7]);
 
   /// see [D2ProgramSection.trackedEntityAttributes]
   static final trackedEntityAttributes =
       obx.QueryRelationToMany<D2ProgramSection, D2TrackedEntityAttribute>(
-          _entities[16].relations[0]);
+          _entities[15].relations[0]);
 }
 
 /// [D2ProgramStage] entity fields to define ObjectBox queries.
 class D2ProgramStage_ {
   /// see [D2ProgramStage.id]
   static final id =
-      obx.QueryIntegerProperty<D2ProgramStage>(_entities[17].properties[0]);
+      obx.QueryIntegerProperty<D2ProgramStage>(_entities[16].properties[0]);
 
   /// see [D2ProgramStage.created]
   static final created =
-      obx.QueryDateProperty<D2ProgramStage>(_entities[17].properties[1]);
+      obx.QueryDateProperty<D2ProgramStage>(_entities[16].properties[1]);
 
   /// see [D2ProgramStage.lastUpdated]
   static final lastUpdated =
-      obx.QueryDateProperty<D2ProgramStage>(_entities[17].properties[2]);
+      obx.QueryDateProperty<D2ProgramStage>(_entities[16].properties[2]);
 
   /// see [D2ProgramStage.uid]
   static final uid =
-      obx.QueryStringProperty<D2ProgramStage>(_entities[17].properties[3]);
+      obx.QueryStringProperty<D2ProgramStage>(_entities[16].properties[3]);
 
   /// see [D2ProgramStage.name]
   static final name =
-      obx.QueryStringProperty<D2ProgramStage>(_entities[17].properties[4]);
+      obx.QueryStringProperty<D2ProgramStage>(_entities[16].properties[4]);
 
   /// see [D2ProgramStage.description]
   static final description =
-      obx.QueryStringProperty<D2ProgramStage>(_entities[17].properties[5]);
+      obx.QueryStringProperty<D2ProgramStage>(_entities[16].properties[5]);
 
   /// see [D2ProgramStage.sortOrder]
   static final sortOrder =
-      obx.QueryIntegerProperty<D2ProgramStage>(_entities[17].properties[6]);
+      obx.QueryIntegerProperty<D2ProgramStage>(_entities[16].properties[6]);
 
   /// see [D2ProgramStage.validationStrategy]
   static final validationStrategy =
-      obx.QueryStringProperty<D2ProgramStage>(_entities[17].properties[7]);
+      obx.QueryStringProperty<D2ProgramStage>(_entities[16].properties[7]);
 
   /// see [D2ProgramStage.featureType]
   static final featureType =
-      obx.QueryStringProperty<D2ProgramStage>(_entities[17].properties[8]);
+      obx.QueryStringProperty<D2ProgramStage>(_entities[16].properties[8]);
 
   /// see [D2ProgramStage.reportDateToUse]
   static final reportDateToUse =
-      obx.QueryStringProperty<D2ProgramStage>(_entities[17].properties[9]);
+      obx.QueryStringProperty<D2ProgramStage>(_entities[16].properties[9]);
 
   /// see [D2ProgramStage.program]
   static final program = obx.QueryRelationToOne<D2ProgramStage, D2Program>(
-      _entities[17].properties[10]);
+      _entities[16].properties[10]);
 
   /// see [D2ProgramStage.displayName]
   static final displayName =
-      obx.QueryStringProperty<D2ProgramStage>(_entities[17].properties[11]);
+      obx.QueryStringProperty<D2ProgramStage>(_entities[16].properties[11]);
 
   /// see [D2ProgramStage.programStageDataElements]
   static final programStageDataElements =
@@ -5526,373 +5503,373 @@ class D2ProgramStage_ {
 class D2ProgramStageDataElement_ {
   /// see [D2ProgramStageDataElement.created]
   static final created = obx.QueryDateProperty<D2ProgramStageDataElement>(
-      _entities[18].properties[0]);
+      _entities[17].properties[0]);
 
   /// see [D2ProgramStageDataElement.id]
   static final id = obx.QueryIntegerProperty<D2ProgramStageDataElement>(
-      _entities[18].properties[1]);
+      _entities[17].properties[1]);
 
   /// see [D2ProgramStageDataElement.lastUpdated]
   static final lastUpdated = obx.QueryDateProperty<D2ProgramStageDataElement>(
-      _entities[18].properties[2]);
+      _entities[17].properties[2]);
 
   /// see [D2ProgramStageDataElement.uid]
   static final uid = obx.QueryStringProperty<D2ProgramStageDataElement>(
-      _entities[18].properties[3]);
+      _entities[17].properties[3]);
 
   /// see [D2ProgramStageDataElement.compulsory]
   static final compulsory = obx.QueryBooleanProperty<D2ProgramStageDataElement>(
-      _entities[18].properties[4]);
+      _entities[17].properties[4]);
 
   /// see [D2ProgramStageDataElement.sortOrder]
   static final sortOrder = obx.QueryIntegerProperty<D2ProgramStageDataElement>(
-      _entities[18].properties[5]);
+      _entities[17].properties[5]);
 
   /// see [D2ProgramStageDataElement.programStage]
   static final programStage =
       obx.QueryRelationToOne<D2ProgramStageDataElement, D2ProgramStage>(
-          _entities[18].properties[6]);
+          _entities[17].properties[6]);
 
   /// see [D2ProgramStageDataElement.dataElement]
   static final dataElement =
       obx.QueryRelationToOne<D2ProgramStageDataElement, D2DataElement>(
-          _entities[18].properties[7]);
+          _entities[17].properties[7]);
 
   /// see [D2ProgramStageDataElement.displayName]
   static final displayName = obx.QueryStringProperty<D2ProgramStageDataElement>(
-      _entities[18].properties[8]);
+      _entities[17].properties[8]);
 }
 
 /// [D2ProgramStageSection] entity fields to define ObjectBox queries.
 class D2ProgramStageSection_ {
   /// see [D2ProgramStageSection.id]
   static final id = obx.QueryIntegerProperty<D2ProgramStageSection>(
-      _entities[19].properties[0]);
+      _entities[18].properties[0]);
 
   /// see [D2ProgramStageSection.created]
   static final created =
-      obx.QueryDateProperty<D2ProgramStageSection>(_entities[19].properties[1]);
+      obx.QueryDateProperty<D2ProgramStageSection>(_entities[18].properties[1]);
 
   /// see [D2ProgramStageSection.lastUpdated]
   static final lastUpdated =
-      obx.QueryDateProperty<D2ProgramStageSection>(_entities[19].properties[2]);
+      obx.QueryDateProperty<D2ProgramStageSection>(_entities[18].properties[2]);
 
   /// see [D2ProgramStageSection.uid]
   static final uid = obx.QueryStringProperty<D2ProgramStageSection>(
-      _entities[19].properties[3]);
+      _entities[18].properties[3]);
 
   /// see [D2ProgramStageSection.name]
   static final name = obx.QueryStringProperty<D2ProgramStageSection>(
-      _entities[19].properties[4]);
+      _entities[18].properties[4]);
 
   /// see [D2ProgramStageSection.sortOrder]
   static final sortOrder = obx.QueryIntegerProperty<D2ProgramStageSection>(
-      _entities[19].properties[5]);
+      _entities[18].properties[5]);
 
   /// see [D2ProgramStageSection.programStage]
   static final programStage =
       obx.QueryRelationToOne<D2ProgramStageSection, D2ProgramStage>(
-          _entities[19].properties[6]);
+          _entities[18].properties[6]);
 
   /// see [D2ProgramStageSection.displayName]
   static final displayName = obx.QueryStringProperty<D2ProgramStageSection>(
-      _entities[19].properties[7]);
+      _entities[18].properties[7]);
 
   /// see [D2ProgramStageSection.dataElements]
   static final dataElements =
       obx.QueryRelationToMany<D2ProgramStageSection, D2DataElement>(
-          _entities[19].relations[0]);
+          _entities[18].relations[0]);
 }
 
 /// [D2ProgramTrackedEntityAttribute] entity fields to define ObjectBox queries.
 class D2ProgramTrackedEntityAttribute_ {
   /// see [D2ProgramTrackedEntityAttribute.created]
   static final created = obx.QueryDateProperty<D2ProgramTrackedEntityAttribute>(
-      _entities[20].properties[0]);
+      _entities[19].properties[0]);
 
   /// see [D2ProgramTrackedEntityAttribute.id]
   static final id = obx.QueryIntegerProperty<D2ProgramTrackedEntityAttribute>(
-      _entities[20].properties[1]);
+      _entities[19].properties[1]);
 
   /// see [D2ProgramTrackedEntityAttribute.lastUpdated]
   static final lastUpdated =
       obx.QueryDateProperty<D2ProgramTrackedEntityAttribute>(
-          _entities[20].properties[2]);
+          _entities[19].properties[2]);
 
   /// see [D2ProgramTrackedEntityAttribute.uid]
   static final uid = obx.QueryStringProperty<D2ProgramTrackedEntityAttribute>(
-      _entities[20].properties[3]);
+      _entities[19].properties[3]);
 
   /// see [D2ProgramTrackedEntityAttribute.sortOrder]
   static final sortOrder =
       obx.QueryIntegerProperty<D2ProgramTrackedEntityAttribute>(
-          _entities[20].properties[4]);
+          _entities[19].properties[4]);
 
   /// see [D2ProgramTrackedEntityAttribute.displayInList]
   static final displayInList =
       obx.QueryBooleanProperty<D2ProgramTrackedEntityAttribute>(
-          _entities[20].properties[5]);
+          _entities[19].properties[5]);
 
   /// see [D2ProgramTrackedEntityAttribute.mandatory]
   static final mandatory =
       obx.QueryBooleanProperty<D2ProgramTrackedEntityAttribute>(
-          _entities[20].properties[6]);
+          _entities[19].properties[6]);
 
   /// see [D2ProgramTrackedEntityAttribute.searchable]
   static final searchable =
       obx.QueryBooleanProperty<D2ProgramTrackedEntityAttribute>(
-          _entities[20].properties[7]);
+          _entities[19].properties[7]);
 
   /// see [D2ProgramTrackedEntityAttribute.renderOptionAsRadio]
   static final renderOptionAsRadio =
       obx.QueryBooleanProperty<D2ProgramTrackedEntityAttribute>(
-          _entities[20].properties[8]);
+          _entities[19].properties[8]);
 
   /// see [D2ProgramTrackedEntityAttribute.program]
   static final program =
       obx.QueryRelationToOne<D2ProgramTrackedEntityAttribute, D2Program>(
-          _entities[20].properties[9]);
+          _entities[19].properties[9]);
 
   /// see [D2ProgramTrackedEntityAttribute.trackedEntityAttribute]
   static final trackedEntityAttribute = obx.QueryRelationToOne<
       D2ProgramTrackedEntityAttribute,
-      D2TrackedEntityAttribute>(_entities[20].properties[10]);
+      D2TrackedEntityAttribute>(_entities[19].properties[10]);
 
   /// see [D2ProgramTrackedEntityAttribute.displayName]
   static final displayName =
       obx.QueryStringProperty<D2ProgramTrackedEntityAttribute>(
-          _entities[20].properties[11]);
+          _entities[19].properties[11]);
 }
 
 /// [D2Relationship] entity fields to define ObjectBox queries.
 class D2Relationship_ {
   /// see [D2Relationship.id]
   static final id =
-      obx.QueryIntegerProperty<D2Relationship>(_entities[21].properties[0]);
+      obx.QueryIntegerProperty<D2Relationship>(_entities[20].properties[0]);
 
   /// see [D2Relationship.createdAt]
   static final createdAt =
-      obx.QueryDateProperty<D2Relationship>(_entities[21].properties[1]);
+      obx.QueryDateProperty<D2Relationship>(_entities[20].properties[1]);
 
   /// see [D2Relationship.updatedAt]
   static final updatedAt =
-      obx.QueryDateProperty<D2Relationship>(_entities[21].properties[2]);
+      obx.QueryDateProperty<D2Relationship>(_entities[20].properties[2]);
 
   /// see [D2Relationship.uid]
   static final uid =
-      obx.QueryStringProperty<D2Relationship>(_entities[21].properties[3]);
+      obx.QueryStringProperty<D2Relationship>(_entities[20].properties[3]);
 
   /// see [D2Relationship.relationshipName]
   static final relationshipName =
-      obx.QueryStringProperty<D2Relationship>(_entities[21].properties[4]);
+      obx.QueryStringProperty<D2Relationship>(_entities[20].properties[4]);
 
   /// see [D2Relationship.bidirectional]
   static final bidirectional =
-      obx.QueryBooleanProperty<D2Relationship>(_entities[21].properties[5]);
+      obx.QueryBooleanProperty<D2Relationship>(_entities[20].properties[5]);
 
   /// see [D2Relationship.relationshipType]
   static final relationshipType =
-      obx.QueryStringProperty<D2Relationship>(_entities[21].properties[6]);
+      obx.QueryStringProperty<D2Relationship>(_entities[20].properties[6]);
 
   /// see [D2Relationship.fromType]
   static final fromType =
-      obx.QueryStringProperty<D2Relationship>(_entities[21].properties[7]);
+      obx.QueryStringProperty<D2Relationship>(_entities[20].properties[7]);
 
   /// see [D2Relationship.fromId]
   static final fromId =
-      obx.QueryStringProperty<D2Relationship>(_entities[21].properties[8]);
+      obx.QueryStringProperty<D2Relationship>(_entities[20].properties[8]);
 
   /// see [D2Relationship.toType]
   static final toType =
-      obx.QueryStringProperty<D2Relationship>(_entities[21].properties[9]);
+      obx.QueryStringProperty<D2Relationship>(_entities[20].properties[9]);
 
   /// see [D2Relationship.toId]
   static final toId =
-      obx.QueryStringProperty<D2Relationship>(_entities[21].properties[10]);
+      obx.QueryStringProperty<D2Relationship>(_entities[20].properties[10]);
 
   /// see [D2Relationship.synced]
   static final synced =
-      obx.QueryBooleanProperty<D2Relationship>(_entities[21].properties[11]);
+      obx.QueryBooleanProperty<D2Relationship>(_entities[20].properties[11]);
 }
 
 /// [D2RelationshipType] entity fields to define ObjectBox queries.
 class D2RelationshipType_ {
   /// see [D2RelationshipType.id]
   static final id =
-      obx.QueryIntegerProperty<D2RelationshipType>(_entities[22].properties[0]);
+      obx.QueryIntegerProperty<D2RelationshipType>(_entities[21].properties[0]);
 
   /// see [D2RelationshipType.name]
   static final name =
-      obx.QueryStringProperty<D2RelationshipType>(_entities[22].properties[1]);
+      obx.QueryStringProperty<D2RelationshipType>(_entities[21].properties[1]);
 
   /// see [D2RelationshipType.created]
   static final created =
-      obx.QueryDateProperty<D2RelationshipType>(_entities[22].properties[2]);
+      obx.QueryDateProperty<D2RelationshipType>(_entities[21].properties[2]);
 
   /// see [D2RelationshipType.lastUpdated]
   static final lastUpdated =
-      obx.QueryDateProperty<D2RelationshipType>(_entities[22].properties[3]);
+      obx.QueryDateProperty<D2RelationshipType>(_entities[21].properties[3]);
 
   /// see [D2RelationshipType.uid]
   static final uid =
-      obx.QueryStringProperty<D2RelationshipType>(_entities[22].properties[4]);
+      obx.QueryStringProperty<D2RelationshipType>(_entities[21].properties[4]);
 
   /// see [D2RelationshipType.displayName]
   static final displayName =
-      obx.QueryStringProperty<D2RelationshipType>(_entities[22].properties[5]);
+      obx.QueryStringProperty<D2RelationshipType>(_entities[21].properties[5]);
 
   /// see [D2RelationshipType.fromToName]
   static final fromToName =
-      obx.QueryStringProperty<D2RelationshipType>(_entities[22].properties[6]);
+      obx.QueryStringProperty<D2RelationshipType>(_entities[21].properties[6]);
 
   /// see [D2RelationshipType.toFromName]
   static final toFromName =
-      obx.QueryStringProperty<D2RelationshipType>(_entities[22].properties[7]);
+      obx.QueryStringProperty<D2RelationshipType>(_entities[21].properties[7]);
 
   /// see [D2RelationshipType.displayFromToName]
   static final displayFromToName =
-      obx.QueryStringProperty<D2RelationshipType>(_entities[22].properties[8]);
+      obx.QueryStringProperty<D2RelationshipType>(_entities[21].properties[8]);
 
   /// see [D2RelationshipType.displayToFromName]
   static final displayToFromName =
-      obx.QueryStringProperty<D2RelationshipType>(_entities[22].properties[9]);
+      obx.QueryStringProperty<D2RelationshipType>(_entities[21].properties[9]);
 
   /// see [D2RelationshipType.referral]
   static final referral = obx.QueryBooleanProperty<D2RelationshipType>(
-      _entities[22].properties[10]);
+      _entities[21].properties[10]);
 
   /// see [D2RelationshipType.fromRelationshipEntity]
   static final fromRelationshipEntity =
-      obx.QueryStringProperty<D2RelationshipType>(_entities[22].properties[11]);
+      obx.QueryStringProperty<D2RelationshipType>(_entities[21].properties[11]);
 
   /// see [D2RelationshipType.toRelationshipEntity]
   static final toRelationshipEntity =
-      obx.QueryStringProperty<D2RelationshipType>(_entities[22].properties[12]);
+      obx.QueryStringProperty<D2RelationshipType>(_entities[21].properties[12]);
 
   /// see [D2RelationshipType.fromTrackedEntityType]
   static final fromTrackedEntityType =
       obx.QueryRelationToOne<D2RelationshipType, D2TrackedEntityType>(
-          _entities[22].properties[13]);
+          _entities[21].properties[13]);
 
   /// see [D2RelationshipType.fromProgram]
   static final fromProgram =
       obx.QueryRelationToOne<D2RelationshipType, D2Program>(
-          _entities[22].properties[14]);
+          _entities[21].properties[14]);
 
   /// see [D2RelationshipType.fromProgramStage]
   static final fromProgramStage =
       obx.QueryRelationToOne<D2RelationshipType, D2ProgramStage>(
-          _entities[22].properties[15]);
+          _entities[21].properties[15]);
 
   /// see [D2RelationshipType.toTrackedEntityType]
   static final toTrackedEntityType =
       obx.QueryRelationToOne<D2RelationshipType, D2TrackedEntityType>(
-          _entities[22].properties[16]);
+          _entities[21].properties[16]);
 
   /// see [D2RelationshipType.toProgram]
   static final toProgram =
       obx.QueryRelationToOne<D2RelationshipType, D2Program>(
-          _entities[22].properties[17]);
+          _entities[21].properties[17]);
 
   /// see [D2RelationshipType.toProgramStage]
   static final toProgramStage =
       obx.QueryRelationToOne<D2RelationshipType, D2ProgramStage>(
-          _entities[22].properties[18]);
+          _entities[21].properties[18]);
 }
 
 /// [D2SystemInfo] entity fields to define ObjectBox queries.
 class D2SystemInfo_ {
   /// see [D2SystemInfo.id]
   static final id =
-      obx.QueryIntegerProperty<D2SystemInfo>(_entities[23].properties[0]);
+      obx.QueryIntegerProperty<D2SystemInfo>(_entities[22].properties[0]);
 
   /// see [D2SystemInfo.version]
   static final version =
-      obx.QueryStringProperty<D2SystemInfo>(_entities[23].properties[1]);
+      obx.QueryStringProperty<D2SystemInfo>(_entities[22].properties[1]);
 
   /// see [D2SystemInfo.revision]
   static final revision =
-      obx.QueryStringProperty<D2SystemInfo>(_entities[23].properties[2]);
+      obx.QueryStringProperty<D2SystemInfo>(_entities[22].properties[2]);
 
   /// see [D2SystemInfo.calendar]
   static final calendar =
-      obx.QueryStringProperty<D2SystemInfo>(_entities[23].properties[3]);
+      obx.QueryStringProperty<D2SystemInfo>(_entities[22].properties[3]);
 
   /// see [D2SystemInfo.dateFormat]
   static final dateFormat =
-      obx.QueryStringProperty<D2SystemInfo>(_entities[23].properties[4]);
+      obx.QueryStringProperty<D2SystemInfo>(_entities[22].properties[4]);
 
   /// see [D2SystemInfo.contextPath]
   static final contextPath =
-      obx.QueryStringProperty<D2SystemInfo>(_entities[23].properties[5]);
+      obx.QueryStringProperty<D2SystemInfo>(_entities[22].properties[5]);
 
   /// see [D2SystemInfo.systemId]
   static final systemId =
-      obx.QueryStringProperty<D2SystemInfo>(_entities[23].properties[6]);
+      obx.QueryStringProperty<D2SystemInfo>(_entities[22].properties[6]);
 
   /// see [D2SystemInfo.systemName]
   static final systemName =
-      obx.QueryStringProperty<D2SystemInfo>(_entities[23].properties[7]);
+      obx.QueryStringProperty<D2SystemInfo>(_entities[22].properties[7]);
 
   /// see [D2SystemInfo.created]
   static final created =
-      obx.QueryDateProperty<D2SystemInfo>(_entities[23].properties[8]);
+      obx.QueryDateProperty<D2SystemInfo>(_entities[22].properties[8]);
 
   /// see [D2SystemInfo.displayName]
   static final displayName =
-      obx.QueryStringProperty<D2SystemInfo>(_entities[23].properties[9]);
+      obx.QueryStringProperty<D2SystemInfo>(_entities[22].properties[9]);
 
   /// see [D2SystemInfo.lastUpdated]
   static final lastUpdated =
-      obx.QueryDateProperty<D2SystemInfo>(_entities[23].properties[10]);
+      obx.QueryDateProperty<D2SystemInfo>(_entities[22].properties[10]);
 
   /// see [D2SystemInfo.uid]
   static final uid =
-      obx.QueryStringProperty<D2SystemInfo>(_entities[23].properties[11]);
+      obx.QueryStringProperty<D2SystemInfo>(_entities[22].properties[11]);
 }
 
 /// [D2TrackedEntity] entity fields to define ObjectBox queries.
 class D2TrackedEntity_ {
   /// see [D2TrackedEntity.id]
   static final id =
-      obx.QueryIntegerProperty<D2TrackedEntity>(_entities[24].properties[0]);
+      obx.QueryIntegerProperty<D2TrackedEntity>(_entities[23].properties[0]);
 
   /// see [D2TrackedEntity.createdAt]
   static final createdAt =
-      obx.QueryDateProperty<D2TrackedEntity>(_entities[24].properties[1]);
+      obx.QueryDateProperty<D2TrackedEntity>(_entities[23].properties[1]);
 
   /// see [D2TrackedEntity.updatedAt]
   static final updatedAt =
-      obx.QueryDateProperty<D2TrackedEntity>(_entities[24].properties[2]);
+      obx.QueryDateProperty<D2TrackedEntity>(_entities[23].properties[2]);
 
   /// see [D2TrackedEntity.uid]
   static final uid =
-      obx.QueryStringProperty<D2TrackedEntity>(_entities[24].properties[3]);
+      obx.QueryStringProperty<D2TrackedEntity>(_entities[23].properties[3]);
 
   /// see [D2TrackedEntity.potentialDuplicate]
   static final potentialDuplicate =
-      obx.QueryBooleanProperty<D2TrackedEntity>(_entities[24].properties[4]);
+      obx.QueryBooleanProperty<D2TrackedEntity>(_entities[23].properties[4]);
 
   /// see [D2TrackedEntity.deleted]
   static final deleted =
-      obx.QueryBooleanProperty<D2TrackedEntity>(_entities[24].properties[5]);
+      obx.QueryBooleanProperty<D2TrackedEntity>(_entities[23].properties[5]);
 
   /// see [D2TrackedEntity.inactive]
   static final inactive =
-      obx.QueryBooleanProperty<D2TrackedEntity>(_entities[24].properties[6]);
+      obx.QueryBooleanProperty<D2TrackedEntity>(_entities[23].properties[6]);
 
   /// see [D2TrackedEntity.orgUnit]
   static final orgUnit = obx.QueryRelationToOne<D2TrackedEntity, D2OrgUnit>(
-      _entities[24].properties[7]);
+      _entities[23].properties[7]);
 
   /// see [D2TrackedEntity.trackedEntityType]
   static final trackedEntityType =
       obx.QueryRelationToOne<D2TrackedEntity, D2TrackedEntityType>(
-          _entities[24].properties[8]);
+          _entities[23].properties[8]);
 
   /// see [D2TrackedEntity.synced]
   static final synced =
-      obx.QueryBooleanProperty<D2TrackedEntity>(_entities[24].properties[9]);
+      obx.QueryBooleanProperty<D2TrackedEntity>(_entities[23].properties[9]);
 
   /// see [D2TrackedEntity.enrollments]
   static final enrollments =
@@ -5913,310 +5890,341 @@ class D2TrackedEntity_ {
 class D2TrackedEntityAttribute_ {
   /// see [D2TrackedEntityAttribute.id]
   static final id = obx.QueryIntegerProperty<D2TrackedEntityAttribute>(
-      _entities[25].properties[0]);
+      _entities[24].properties[0]);
 
   /// see [D2TrackedEntityAttribute.created]
   static final created = obx.QueryDateProperty<D2TrackedEntityAttribute>(
-      _entities[25].properties[1]);
+      _entities[24].properties[1]);
 
   /// see [D2TrackedEntityAttribute.lastUpdated]
   static final lastUpdated = obx.QueryDateProperty<D2TrackedEntityAttribute>(
-      _entities[25].properties[2]);
+      _entities[24].properties[2]);
 
   /// see [D2TrackedEntityAttribute.uid]
   static final uid = obx.QueryStringProperty<D2TrackedEntityAttribute>(
-      _entities[25].properties[3]);
+      _entities[24].properties[3]);
 
   /// see [D2TrackedEntityAttribute.name]
   static final name = obx.QueryStringProperty<D2TrackedEntityAttribute>(
-      _entities[25].properties[4]);
+      _entities[24].properties[4]);
 
   /// see [D2TrackedEntityAttribute.code]
   static final code = obx.QueryStringProperty<D2TrackedEntityAttribute>(
-      _entities[25].properties[5]);
+      _entities[24].properties[5]);
 
   /// see [D2TrackedEntityAttribute.formName]
   static final formName = obx.QueryStringProperty<D2TrackedEntityAttribute>(
-      _entities[25].properties[6]);
+      _entities[24].properties[6]);
 
   /// see [D2TrackedEntityAttribute.shortName]
   static final shortName = obx.QueryStringProperty<D2TrackedEntityAttribute>(
-      _entities[25].properties[7]);
+      _entities[24].properties[7]);
 
   /// see [D2TrackedEntityAttribute.description]
   static final description = obx.QueryStringProperty<D2TrackedEntityAttribute>(
-      _entities[25].properties[8]);
+      _entities[24].properties[8]);
 
   /// see [D2TrackedEntityAttribute.aggregationType]
   static final aggregationType =
       obx.QueryStringProperty<D2TrackedEntityAttribute>(
-          _entities[25].properties[9]);
+          _entities[24].properties[9]);
 
   /// see [D2TrackedEntityAttribute.valueType]
   static final valueType = obx.QueryStringProperty<D2TrackedEntityAttribute>(
-      _entities[25].properties[10]);
+      _entities[24].properties[10]);
 
   /// see [D2TrackedEntityAttribute.zeroIsSignificant]
   static final zeroIsSignificant =
       obx.QueryBooleanProperty<D2TrackedEntityAttribute>(
-          _entities[25].properties[11]);
+          _entities[24].properties[11]);
 
   /// see [D2TrackedEntityAttribute.optionSet]
   static final optionSet =
       obx.QueryRelationToOne<D2TrackedEntityAttribute, D2OptionSet>(
-          _entities[25].properties[12]);
+          _entities[24].properties[12]);
 
   /// see [D2TrackedEntityAttribute.displayName]
   static final displayName = obx.QueryStringProperty<D2TrackedEntityAttribute>(
-      _entities[25].properties[13]);
+      _entities[24].properties[13]);
 
   /// see [D2TrackedEntityAttribute.displayFormName]
   static final displayFormName =
       obx.QueryStringProperty<D2TrackedEntityAttribute>(
-          _entities[25].properties[14]);
+          _entities[24].properties[14]);
 
   /// see [D2TrackedEntityAttribute.legendSets]
   static final legendSets =
       obx.QueryRelationToMany<D2TrackedEntityAttribute, D2LegendSet>(
-          _entities[25].relations[0]);
+          _entities[24].relations[0]);
 }
 
 /// [D2TrackedEntityAttributeValue] entity fields to define ObjectBox queries.
 class D2TrackedEntityAttributeValue_ {
   /// see [D2TrackedEntityAttributeValue.id]
   static final id = obx.QueryIntegerProperty<D2TrackedEntityAttributeValue>(
-      _entities[26].properties[0]);
+      _entities[25].properties[0]);
 
   /// see [D2TrackedEntityAttributeValue.createdAt]
   static final createdAt = obx.QueryDateProperty<D2TrackedEntityAttributeValue>(
-      _entities[26].properties[1]);
+      _entities[25].properties[1]);
 
   /// see [D2TrackedEntityAttributeValue.uid]
   static final uid = obx.QueryStringProperty<D2TrackedEntityAttributeValue>(
-      _entities[26].properties[2]);
+      _entities[25].properties[2]);
 
   /// see [D2TrackedEntityAttributeValue.updatedAt]
   static final updatedAt = obx.QueryDateProperty<D2TrackedEntityAttributeValue>(
-      _entities[26].properties[3]);
+      _entities[25].properties[3]);
 
   /// see [D2TrackedEntityAttributeValue.value]
   static final value = obx.QueryStringProperty<D2TrackedEntityAttributeValue>(
-      _entities[26].properties[4]);
+      _entities[25].properties[4]);
 
   /// see [D2TrackedEntityAttributeValue.trackedEntityAttribute]
   static final trackedEntityAttribute = obx.QueryRelationToOne<
       D2TrackedEntityAttributeValue,
-      D2TrackedEntityAttribute>(_entities[26].properties[5]);
+      D2TrackedEntityAttribute>(_entities[25].properties[5]);
 
   /// see [D2TrackedEntityAttributeValue.trackedEntity]
   static final trackedEntity =
       obx.QueryRelationToOne<D2TrackedEntityAttributeValue, D2TrackedEntity>(
-          _entities[26].properties[6]);
+          _entities[25].properties[6]);
 
   /// see [D2TrackedEntityAttributeValue.synced]
   static final synced = obx.QueryBooleanProperty<D2TrackedEntityAttributeValue>(
-      _entities[26].properties[7]);
+      _entities[25].properties[7]);
 }
 
 /// [D2TrackedEntityType] entity fields to define ObjectBox queries.
 class D2TrackedEntityType_ {
   /// see [D2TrackedEntityType.id]
   static final id = obx.QueryIntegerProperty<D2TrackedEntityType>(
-      _entities[27].properties[0]);
+      _entities[26].properties[0]);
 
   /// see [D2TrackedEntityType.created]
   static final created =
-      obx.QueryDateProperty<D2TrackedEntityType>(_entities[27].properties[1]);
+      obx.QueryDateProperty<D2TrackedEntityType>(_entities[26].properties[1]);
 
   /// see [D2TrackedEntityType.lastUpdated]
   static final lastUpdated =
-      obx.QueryDateProperty<D2TrackedEntityType>(_entities[27].properties[2]);
+      obx.QueryDateProperty<D2TrackedEntityType>(_entities[26].properties[2]);
 
   /// see [D2TrackedEntityType.uid]
   static final uid =
-      obx.QueryStringProperty<D2TrackedEntityType>(_entities[27].properties[3]);
+      obx.QueryStringProperty<D2TrackedEntityType>(_entities[26].properties[3]);
 
   /// see [D2TrackedEntityType.name]
   static final name =
-      obx.QueryStringProperty<D2TrackedEntityType>(_entities[27].properties[4]);
+      obx.QueryStringProperty<D2TrackedEntityType>(_entities[26].properties[4]);
 
   /// see [D2TrackedEntityType.description]
   static final description =
-      obx.QueryStringProperty<D2TrackedEntityType>(_entities[27].properties[5]);
+      obx.QueryStringProperty<D2TrackedEntityType>(_entities[26].properties[5]);
 
   /// see [D2TrackedEntityType.displayName]
   static final displayName =
-      obx.QueryStringProperty<D2TrackedEntityType>(_entities[27].properties[6]);
+      obx.QueryStringProperty<D2TrackedEntityType>(_entities[26].properties[6]);
 
   /// see [D2TrackedEntityType.trackedEntityTypeAttributes]
   static final trackedEntityTypeAttributes = obx.QueryRelationToMany<
       D2TrackedEntityType,
-      D2TrackedEntityTypeAttribute>(_entities[27].relations[0]);
+      D2TrackedEntityTypeAttribute>(_entities[26].relations[0]);
 }
 
 /// [D2TrackedEntityTypeAttribute] entity fields to define ObjectBox queries.
 class D2TrackedEntityTypeAttribute_ {
   /// see [D2TrackedEntityTypeAttribute.id]
   static final id = obx.QueryIntegerProperty<D2TrackedEntityTypeAttribute>(
-      _entities[28].properties[0]);
+      _entities[27].properties[0]);
 
   /// see [D2TrackedEntityTypeAttribute.created]
   static final created = obx.QueryDateProperty<D2TrackedEntityTypeAttribute>(
-      _entities[28].properties[1]);
+      _entities[27].properties[1]);
 
   /// see [D2TrackedEntityTypeAttribute.lastUpdated]
   static final lastUpdated =
       obx.QueryDateProperty<D2TrackedEntityTypeAttribute>(
-          _entities[28].properties[2]);
+          _entities[27].properties[2]);
 
   /// see [D2TrackedEntityTypeAttribute.uid]
   static final uid = obx.QueryStringProperty<D2TrackedEntityTypeAttribute>(
-      _entities[28].properties[3]);
+      _entities[27].properties[3]);
 
   /// see [D2TrackedEntityTypeAttribute.trackedEntityType]
   static final trackedEntityType =
       obx.QueryRelationToOne<D2TrackedEntityTypeAttribute, D2TrackedEntityType>(
-          _entities[28].properties[4]);
+          _entities[27].properties[4]);
 
   /// see [D2TrackedEntityTypeAttribute.trackedEntityAttribute]
   static final trackedEntityAttribute = obx.QueryRelationToOne<
       D2TrackedEntityTypeAttribute,
-      D2TrackedEntityAttribute>(_entities[28].properties[5]);
+      D2TrackedEntityAttribute>(_entities[27].properties[5]);
 
   /// see [D2TrackedEntityTypeAttribute.valueType]
   static final valueType =
       obx.QueryStringProperty<D2TrackedEntityTypeAttribute>(
-          _entities[28].properties[6]);
+          _entities[27].properties[6]);
 
   /// see [D2TrackedEntityTypeAttribute.displayName]
   static final displayName =
       obx.QueryStringProperty<D2TrackedEntityTypeAttribute>(
-          _entities[28].properties[7]);
+          _entities[27].properties[7]);
 
   /// see [D2TrackedEntityTypeAttribute.displayShortName]
   static final displayShortName =
       obx.QueryStringProperty<D2TrackedEntityTypeAttribute>(
-          _entities[28].properties[8]);
+          _entities[27].properties[8]);
 
   /// see [D2TrackedEntityTypeAttribute.mandatory]
   static final mandatory =
       obx.QueryBooleanProperty<D2TrackedEntityTypeAttribute>(
-          _entities[28].properties[9]);
+          _entities[27].properties[9]);
 }
 
 /// [D2User] entity fields to define ObjectBox queries.
 class D2User_ {
   /// see [D2User.id]
   static final id =
-      obx.QueryIntegerProperty<D2User>(_entities[29].properties[0]);
+      obx.QueryIntegerProperty<D2User>(_entities[28].properties[0]);
 
   /// see [D2User.username]
   static final username =
-      obx.QueryStringProperty<D2User>(_entities[29].properties[1]);
+      obx.QueryStringProperty<D2User>(_entities[28].properties[1]);
 
   /// see [D2User.firstName]
   static final firstName =
-      obx.QueryStringProperty<D2User>(_entities[29].properties[2]);
+      obx.QueryStringProperty<D2User>(_entities[28].properties[2]);
 
   /// see [D2User.surname]
   static final surname =
-      obx.QueryStringProperty<D2User>(_entities[29].properties[3]);
+      obx.QueryStringProperty<D2User>(_entities[28].properties[3]);
 
   /// see [D2User.email]
   static final email =
-      obx.QueryStringProperty<D2User>(_entities[29].properties[4]);
+      obx.QueryStringProperty<D2User>(_entities[28].properties[4]);
 
   /// see [D2User.authorities]
   static final authorities =
-      obx.QueryStringVectorProperty<D2User>(_entities[29].properties[5]);
+      obx.QueryStringVectorProperty<D2User>(_entities[28].properties[5]);
 
   /// see [D2User.programs]
   static final programs =
-      obx.QueryStringVectorProperty<D2User>(_entities[29].properties[6]);
+      obx.QueryStringVectorProperty<D2User>(_entities[28].properties[6]);
 
   /// see [D2User.organisationUnits]
   static final organisationUnits =
-      obx.QueryStringVectorProperty<D2User>(_entities[29].properties[7]);
+      obx.QueryStringVectorProperty<D2User>(_entities[28].properties[7]);
 
   /// see [D2User.uid]
   static final uid =
-      obx.QueryStringProperty<D2User>(_entities[29].properties[8]);
+      obx.QueryStringProperty<D2User>(_entities[28].properties[8]);
 
   /// see [D2User.created]
   static final created =
-      obx.QueryDateProperty<D2User>(_entities[29].properties[9]);
+      obx.QueryDateProperty<D2User>(_entities[28].properties[9]);
 
   /// see [D2User.displayName]
   static final displayName =
-      obx.QueryStringProperty<D2User>(_entities[29].properties[10]);
+      obx.QueryStringProperty<D2User>(_entities[28].properties[10]);
 
   /// see [D2User.lastUpdated]
   static final lastUpdated =
-      obx.QueryDateProperty<D2User>(_entities[29].properties[11]);
+      obx.QueryDateProperty<D2User>(_entities[28].properties[11]);
 
   /// see [D2User.userRoles]
   static final userRoles =
-      obx.QueryRelationToMany<D2User, D2UserRole>(_entities[29].relations[0]);
+      obx.QueryRelationToMany<D2User, D2UserRole>(_entities[28].relations[0]);
 
   /// see [D2User.userGroups]
   static final userGroups =
-      obx.QueryRelationToMany<D2User, D2UserGroup>(_entities[29].relations[1]);
+      obx.QueryRelationToMany<D2User, D2UserGroup>(_entities[28].relations[1]);
 }
 
 /// [D2UserGroup] entity fields to define ObjectBox queries.
 class D2UserGroup_ {
   /// see [D2UserGroup.id]
   static final id =
-      obx.QueryIntegerProperty<D2UserGroup>(_entities[30].properties[0]);
+      obx.QueryIntegerProperty<D2UserGroup>(_entities[29].properties[0]);
 
   /// see [D2UserGroup.uid]
   static final uid =
-      obx.QueryStringProperty<D2UserGroup>(_entities[30].properties[1]);
+      obx.QueryStringProperty<D2UserGroup>(_entities[29].properties[1]);
 
   /// see [D2UserGroup.name]
   static final name =
-      obx.QueryStringProperty<D2UserGroup>(_entities[30].properties[2]);
+      obx.QueryStringProperty<D2UserGroup>(_entities[29].properties[2]);
 
   /// see [D2UserGroup.created]
   static final created =
-      obx.QueryDateProperty<D2UserGroup>(_entities[30].properties[3]);
+      obx.QueryDateProperty<D2UserGroup>(_entities[29].properties[3]);
 
   /// see [D2UserGroup.lastUpdated]
   static final lastUpdated =
-      obx.QueryDateProperty<D2UserGroup>(_entities[30].properties[4]);
+      obx.QueryDateProperty<D2UserGroup>(_entities[29].properties[4]);
 
   /// see [D2UserGroup.displayName]
   static final displayName =
-      obx.QueryStringProperty<D2UserGroup>(_entities[30].properties[5]);
+      obx.QueryStringProperty<D2UserGroup>(_entities[29].properties[5]);
 }
 
 /// [D2UserRole] entity fields to define ObjectBox queries.
 class D2UserRole_ {
   /// see [D2UserRole.id]
   static final id =
-      obx.QueryIntegerProperty<D2UserRole>(_entities[31].properties[0]);
+      obx.QueryIntegerProperty<D2UserRole>(_entities[30].properties[0]);
 
   /// see [D2UserRole.uid]
   static final uid =
-      obx.QueryStringProperty<D2UserRole>(_entities[31].properties[1]);
+      obx.QueryStringProperty<D2UserRole>(_entities[30].properties[1]);
 
   /// see [D2UserRole.name]
   static final name =
-      obx.QueryStringProperty<D2UserRole>(_entities[31].properties[2]);
+      obx.QueryStringProperty<D2UserRole>(_entities[30].properties[2]);
 
   /// see [D2UserRole.authorities]
   static final authorities =
-      obx.QueryStringVectorProperty<D2UserRole>(_entities[31].properties[3]);
+      obx.QueryStringVectorProperty<D2UserRole>(_entities[30].properties[3]);
 
   /// see [D2UserRole.created]
   static final created =
-      obx.QueryDateProperty<D2UserRole>(_entities[31].properties[4]);
+      obx.QueryDateProperty<D2UserRole>(_entities[30].properties[4]);
 
   /// see [D2UserRole.lastUpdated]
   static final lastUpdated =
-      obx.QueryDateProperty<D2UserRole>(_entities[31].properties[5]);
+      obx.QueryDateProperty<D2UserRole>(_entities[30].properties[5]);
 
   /// see [D2UserRole.displayName]
   static final displayName =
-      obx.QueryStringProperty<D2UserRole>(_entities[31].properties[6]);
+      obx.QueryStringProperty<D2UserRole>(_entities[30].properties[6]);
+}
+
+/// [D2OrgUnitLevel] entity fields to define ObjectBox queries.
+class D2OrgUnitLevel_ {
+  /// see [D2OrgUnitLevel.id]
+  static final id =
+      obx.QueryIntegerProperty<D2OrgUnitLevel>(_entities[31].properties[0]);
+
+  /// see [D2OrgUnitLevel.name]
+  static final name =
+      obx.QueryStringProperty<D2OrgUnitLevel>(_entities[31].properties[1]);
+
+  /// see [D2OrgUnitLevel.uid]
+  static final uid =
+      obx.QueryStringProperty<D2OrgUnitLevel>(_entities[31].properties[2]);
+
+  /// see [D2OrgUnitLevel.level]
+  static final level =
+      obx.QueryIntegerProperty<D2OrgUnitLevel>(_entities[31].properties[3]);
+
+  /// see [D2OrgUnitLevel.created]
+  static final created =
+      obx.QueryDateProperty<D2OrgUnitLevel>(_entities[31].properties[4]);
+
+  /// see [D2OrgUnitLevel.lastUpdated]
+  static final lastUpdated =
+      obx.QueryDateProperty<D2OrgUnitLevel>(_entities[31].properties[5]);
+
+  /// see [D2OrgUnitLevel.displayName]
+  static final displayName =
+      obx.QueryStringProperty<D2OrgUnitLevel>(_entities[31].properties[6]);
 }
