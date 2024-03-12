@@ -1,9 +1,5 @@
-
-import 'package:dhis2_flutter_toolkit/objectbox.dart';
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
-
-import '../../models/data/base.dart';
-import '../../models/metadata/program.dart';
 
 abstract class BaseDataRepository<T extends D2DataResource> {
   D2ObjectBox db;
@@ -35,8 +31,23 @@ abstract class BaseDataRepository<T extends D2DataResource> {
     return box.putManyAsync(entities);
   }
 
-  BaseDataRepository<T> setProgram(D2Program program) {
-    this.program = program;
+  updateQueryCondition(Condition<T> condition) {
+    if (queryConditions != null) {
+      queryConditions!.and(condition);
+    } else {
+      queryConditions = condition;
+    }
+  }
+
+  BaseDataRepository<T> setProgram(D2Program program);
+
+  BaseDataRepository<T> setProgramFromId(String programId) {
+    D2Program? program = D2ProgramRepository(db).getByUid(programId);
+
+    if (program == null) {
+      throw "Program with id $programId does not exist";
+    }
+    setProgram(program);
     return this;
   }
 

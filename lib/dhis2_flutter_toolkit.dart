@@ -2,6 +2,7 @@ library dhis2_flutter_toolkit;
 
 export 'objectbox.dart' show D2ObjectBox;
 //Data Models
+export "src/models/data/base.dart" show D2DataResource;
 export "src/models/data/data_value.dart" show D2DataValue;
 export "src/models/data/enrollment.dart" show D2Enrollment;
 export "src/models/data/event.dart" show D2Event;
@@ -41,6 +42,7 @@ export "src/models/metadata/user.dart" show D2User;
 export "src/models/metadata/user_group.dart" show D2UserGroup;
 export "src/models/metadata/user_role.dart" show D2UserRole;
 //Data Repositories
+export "src/repositories/data/base.dart" show BaseDataRepository;
 export "src/repositories/data/data_value.dart" show D2DataValueRepository;
 export "src/repositories/data/enrollment.dart" show D2EnrollmentRepository;
 export "src/repositories/data/event.dart" show D2EventRepository;

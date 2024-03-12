@@ -1,4 +1,4 @@
-import 'package:objectbox/objectbox.dart';
+import 'package:dhis2_flutter_toolkit/src/models/metadata/program.dart';
 
 import '../../../objectbox.g.dart';
 import '../../models/data/enrollment.dart';
@@ -12,7 +12,7 @@ class D2EnrollmentRepository extends BaseDataRepository<D2Enrollment>
         BaseTrackerDataDownloadServiceMixin<D2Enrollment>,
         D2EnrollmentDownloadServiceMixin,
         BaseTrackerDataUploadServiceMixin<D2Enrollment> {
-  D2EnrollmentRepository(super.db);
+  D2EnrollmentRepository(super.db, {super.program});
 
   @override
   D2Enrollment? getByUid(String uid) {
@@ -41,10 +41,13 @@ class D2EnrollmentRepository extends BaseDataRepository<D2Enrollment>
 
   @override
   setUnSyncedQuery() {
-    if (queryConditions != null) {
-      queryConditions!.and(D2Enrollment_.synced.equals(true));
-    } else {
-      queryConditions = D2Enrollment_.synced.equals(true);
-    }
+    updateQueryCondition(D2Enrollment_.synced.equals(true));
+  }
+
+  @override
+  BaseDataRepository<D2Enrollment> setProgram(D2Program program) {
+    this.program = program;
+    updateQueryCondition(D2Enrollment_.program.equals(program.id));
+    return this;
   }
 }

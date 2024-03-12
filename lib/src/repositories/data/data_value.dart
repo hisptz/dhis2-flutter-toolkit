@@ -1,3 +1,4 @@
+import 'package:dhis2_flutter_toolkit/src/models/metadata/program.dart';
 
 import '../../../objectbox.g.dart';
 import '../../models/data/data_value.dart';
@@ -30,5 +31,11 @@ class D2DataValueRepository extends BaseDataRepository<D2DataValue> {
   @override
   Future saveEntities(List<D2DataValue> entities) async {
     return box.putManyAsync(entities);
+  }
+
+  @override
+  BaseDataRepository<D2DataValue> setProgram(D2Program program) {
+    this.program;
+    return this;
   }
 }

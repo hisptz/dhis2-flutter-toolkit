@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:objectbox/objectbox.dart';
+import 'package:dhis2_flutter_toolkit/src/models/metadata/program.dart';
 
 import '../../../objectbox.g.dart';
 import '../../models/data/event.dart';
@@ -8,7 +8,6 @@ import '../../utils/sync_status.dart';
 import 'base.dart';
 import 'download_mixin/base_tracker_data_download_service_mixin.dart';
 import 'download_mixin/event_data_download_service_mixin.dart';
-import 'sync.dart';
 import 'upload_mixin/base_tracker_data_upload_service_mixin.dart';
 
 class D2EventRepository extends BaseDataRepository<D2Event>
@@ -16,10 +15,9 @@ class D2EventRepository extends BaseDataRepository<D2Event>
         BaseTrackerDataDownloadServiceMixin<D2Event>,
         D2EventDataDownloadServiceMixin,
         BaseTrackerDataUploadServiceMixin<D2Event> {
-  D2EventRepository(super.db);
+  D2EventRepository(super.db, {super.program});
 
-  StreamController<D2SyncStatus> controller =
-      StreamController<D2SyncStatus>();
+  StreamController<D2SyncStatus> controller = StreamController<D2SyncStatus>();
 
   @override
   D2Event? getByUid(String uid) {
@@ -57,5 +55,12 @@ class D2EventRepository extends BaseDataRepository<D2Event>
     } else {
       queryConditions = D2Event_.synced.equals(true);
     }
+  }
+
+  @override
+  BaseDataRepository<D2Event> setProgram(D2Program program) {
+    this.program = program;
+    updateQueryCondition(D2Event_.program.equals(program.id));
+    return this;
   }
 }

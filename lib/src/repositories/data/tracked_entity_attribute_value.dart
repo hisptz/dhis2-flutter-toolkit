@@ -1,3 +1,4 @@
+import 'package:dhis2_flutter_toolkit/src/models/metadata/program.dart';
 
 import '../../../objectbox.g.dart';
 import '../../models/data/tracked_entity_attribute_value.dart';
@@ -31,5 +32,12 @@ class D2TrackedEntityAttributeValueRepository
   @override
   D2TrackedEntityAttributeValue mapper(Map<String, dynamic> json) {
     return D2TrackedEntityAttributeValue.fromMap(db, json, "");
+  }
+
+  @override
+  BaseDataRepository<D2TrackedEntityAttributeValue> setProgram(
+      D2Program program) {
+    this.program;
+    return this;
   }
 }

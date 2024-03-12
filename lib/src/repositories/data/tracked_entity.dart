@@ -1,12 +1,13 @@
 import 'dart:async';
 
+import 'package:dhis2_flutter_toolkit/src/models/metadata/program.dart';
+
 import '../../../objectbox.g.dart';
 import '../../models/data/tracked_entity.dart';
 import '../../utils/sync_status.dart';
 import 'base.dart';
 import 'download_mixin/base_tracker_data_download_service_mixin.dart';
 import 'download_mixin/tracked_entity_data_download_service_mixin.dart';
-import 'tracked_entity_attribute_value.dart';
 import 'upload_mixin/base_tracker_data_upload_service_mixin.dart';
 
 class D2TrackedEntityRepository extends BaseDataRepository<D2TrackedEntity>
@@ -14,7 +15,7 @@ class D2TrackedEntityRepository extends BaseDataRepository<D2TrackedEntity>
         BaseTrackerDataDownloadServiceMixin<D2TrackedEntity>,
         TrackedEntityDataDownloadServiceMixin,
         BaseTrackerDataUploadServiceMixin<D2TrackedEntity> {
-  D2TrackedEntityRepository(super.db);
+  D2TrackedEntityRepository(super.db, {super.program});
 
   StreamController<D2SyncStatus> controller = StreamController<D2SyncStatus>();
 
@@ -35,40 +36,17 @@ class D2TrackedEntityRepository extends BaseDataRepository<D2TrackedEntity>
     return D2TrackedEntity.fromMap(db, json);
   }
 
-  D2TrackedEntityRepository byIdentifiableToken(String keyword) {
-    final trackedEntities = box.getAll();
-
-    final matchingEntities = trackedEntities.where((trackedEntity) {
-      final attributeEntities = D2TrackedEntityAttributeValueRepository(db)
-          .byTrackedEntity(trackedEntity.id)
-          .find();
-
-      final nameAttributes = attributeEntities.where((attribute) =>
-          (attribute.trackedEntityAttribute.target?.name == "First name") ||
-          (attribute.trackedEntityAttribute.target?.name == "Last name"));
-
-      return nameAttributes.any((attribute) =>
-          attribute.value.toLowerCase().contains(keyword.toLowerCase()));
-    });
-
-    final uidList = matchingEntities.map((entity) => entity.uid).toList();
-
-    queryConditions = D2TrackedEntity_.uid
-        .oneOf(uidList.isNotEmpty ? uidList : ["null"], caseSensitive: false);
-
-    return this;
-  }
-
-
   @override
   String uploadDataKey = "trackedEntities";
 
   @override
   setUnSyncedQuery() {
-    if (queryConditions != null) {
-      queryConditions!.and(D2TrackedEntity_.synced.equals(true));
-    } else {
-      queryConditions = D2TrackedEntity_.synced.equals(true);
-    }
+    updateQueryCondition(D2TrackedEntity_.synced.equals(true));
+  }
+
+  @override
+  BaseDataRepository<D2TrackedEntity> setProgram(D2Program program) {
+    this.program;
+    return this;
   }
 }
