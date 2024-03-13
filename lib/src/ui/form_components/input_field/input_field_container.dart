@@ -30,12 +30,18 @@ class InputFieldContainer extends StatefulWidget {
 }
 
 class _InputFieldContainerState extends State<InputFieldContainer> {
+  late Color color;
 
   final BoxConstraints iconConstraints = const BoxConstraints(
       maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
 
   @override
   void initState() {
+    if (widget.error != null) {
+      color = Colors.red;
+    } else {
+      color = widget.color;
+    }
     super.initState();
   }
 
@@ -43,7 +49,7 @@ class _InputFieldContainerState extends State<InputFieldContainer> {
     if (widget.input.options != null) {
       return SelectInput(
           input: widget.input,
-          color: widget.color,
+          color: color,
           onChange: widget.onChange,
           value: widget.value);
     }
@@ -53,7 +59,7 @@ class _InputFieldContainerState extends State<InputFieldContainer> {
           onChange: widget.onChange,
           value: widget.value,
           input: widget.input,
-          color: widget.color,
+          color: color,
           textInputType: TextInputType.text,
         );
       case InputFieldType.number:
@@ -66,14 +72,14 @@ class _InputFieldContainerState extends State<InputFieldContainer> {
             input: widget.input,
             value: widget.value,
             onChange: widget.onChange,
-            color: widget.color);
+            color: color);
 
       case InputFieldType.date:
       case InputFieldType.dateAndTime:
         return TextInput(
             textInputType: TextInputType.datetime,
             input: widget.input,
-            color: widget.color,
+            color: color,
             onChange: widget.onChange);
       default:
         throw "${widget.input.type} is currently not supported";
@@ -85,8 +91,8 @@ class _InputFieldContainerState extends State<InputFieldContainer> {
       return Container(
         constraints: iconConstraints,
         child: InputFieldIcon(
-          backgroundColor: widget.color,
-          iconColor: widget.color,
+          backgroundColor: color,
+          iconColor: color,
           iconData: widget.input.icon,
           svgIcon: widget.input.svgIconAsset,
         ),
@@ -99,14 +105,28 @@ class _InputFieldContainerState extends State<InputFieldContainer> {
   Widget _getSuffixIcon() {
     switch (widget.input.type) {
       case InputFieldType.dateAndTime:
+        return Container(
+          constraints: iconConstraints,
+          child: InputFieldIcon(
+              backgroundColor: color,
+              iconColor: color,
+              iconData: Icons.calendar_today),
+        );
       case InputFieldType.date:
+        return Container(
+          constraints: iconConstraints,
+          child: InputFieldIcon(
+              backgroundColor: color,
+              iconColor: color,
+              iconData: Icons.calendar_today),
+        );
       case InputFieldType.dateRange:
         return Container(
           constraints: iconConstraints,
           child: InputFieldIcon(
-              backgroundColor: widget.color,
-              iconColor: widget.color,
-              iconData: Icons.calendar_month),
+              backgroundColor: color,
+              iconColor: color,
+              iconData: Icons.date_range),
         );
       default:
         return Container();
@@ -132,15 +152,16 @@ class _InputFieldContainerState extends State<InputFieldContainer> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       decoration: BoxDecoration(
-          color: widget.color.withOpacity(0.07),
+          color: color.withOpacity(0.07),
           border: Border(
               left: BorderSide.none,
               right: BorderSide.none,
               top: BorderSide.none,
-              bottom: BorderSide(width: 2, color: widget.color)),
+              bottom: BorderSide(width: 2, color: color)),
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(4.0), topRight: Radius.circular(4.0))),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
@@ -149,7 +170,7 @@ class _InputFieldContainerState extends State<InputFieldContainer> {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color: widget.color,
+                  color: color,
                 ),
               )
             ],
@@ -161,6 +182,12 @@ class _InputFieldContainerState extends State<InputFieldContainer> {
               _getSuffix()
             ],
           ),
+          widget.error != null
+              ? Text(
+                  widget.error!,
+                  style: TextStyle(color: color, fontSize: 12),
+                )
+              : Container()
         ],
       ),
     );
