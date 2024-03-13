@@ -24,7 +24,7 @@ class D2ProgramStage extends D2MetaResource {
   String uid;
   String name;
   String? description;
-  int sortOrder;
+  int? sortOrder;
   String? validationStrategy;
   String? featureType;
   String? reportDateToUse;

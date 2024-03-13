@@ -3523,7 +3523,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final nameParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 12, '');
           final sortOrderParam =
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0);
+              const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 16);
           final validationStrategyParam =
               const fb.StringReader(asciiOptimization: true)
                   .vTableGetNullable(buffer, rootOffset, 18);
