@@ -12,6 +12,7 @@ class InputFieldContainer extends StatelessWidget {
   final Color color;
   final String? error;
   final String? warning;
+  final bool disabled;
 
   final TextEditingController _controller = TextEditingController();
 
@@ -22,6 +23,7 @@ class InputFieldContainer extends StatelessWidget {
       required this.onChange,
       required this.color,
       this.error,
+      this.disabled = false,
       this.warning});
 
   BaseInput _getInput() {
