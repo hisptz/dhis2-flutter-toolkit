@@ -804,7 +804,7 @@
     },
     {
       "id": "14:4258101311778128002",
-      "lastPropertyId": "9:2148657165772279005",
+      "lastPropertyId": "10:4550334781923146221",
       "name": "D2ProgramRule",
       "properties": [
         {
@@ -855,6 +855,11 @@
           "id": "9:2148657165772279005",
           "name": "displayName",
           "type": 9
+        },
+        {
+          "id": "10:4550334781923146221",
+          "name": "priority",
+          "type": 6
         }
       ],
       "relations": []

@@ -8,7 +8,6 @@ import 'base.dart';
 import 'program.dart';
 import 'program_rule_action.dart';
 
-
 @Entity()
 class D2ProgramRule extends D2MetaResource {
   @override
@@ -25,14 +24,24 @@ class D2ProgramRule extends D2MetaResource {
   String name;
   String description;
   String condition;
+  int? priority;
 
   var program = ToOne<D2Program>();
 
   @Backlink("programRule")
   final programRuleActions = ToMany<D2ProgramRuleAction>();
 
-  D2ProgramRule(this.id, this.displayName, this.created, this.lastUpdated,
-      this.uid, this.name, this.description, this.condition);
+  D2ProgramRule(
+    this.id,
+    this.displayName,
+    this.created,
+    this.lastUpdated,
+    this.uid,
+    this.name,
+    this.description,
+    this.condition,
+    this.priority,
+  );
 
   D2ProgramRule.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
@@ -41,6 +50,7 @@ class D2ProgramRule extends D2MetaResource {
         name = json["name"],
         description = json["description"],
         displayName = json["displayName"],
+        priority = json["priority"],
         condition = json["condition"] {
     id = D2ProgramRuleRepository(db).getIdByUid(json["id"]) ?? 0;
 

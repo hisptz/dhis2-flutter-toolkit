@@ -850,7 +850,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(14, 4258101311778128002),
       name: 'D2ProgramRule',
-      lastPropertyId: const obx_int.IdUid(9, 2148657165772279005),
+      lastPropertyId: const obx_int.IdUid(10, 4550334781923146221),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -899,6 +899,11 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(9, 2148657165772279005),
             name: 'displayName',
             type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(10, 4550334781923146221),
+            name: 'priority',
+            type: 6,
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
@@ -3156,7 +3161,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final displayNameOffset = object.displayName == null
               ? null
               : fbb.writeString(object.displayName!);
-          fbb.startTable(10);
+          fbb.startTable(11);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.created.millisecondsSinceEpoch);
           fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
@@ -3166,6 +3171,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addOffset(6, conditionOffset);
           fbb.addInt64(7, object.program.targetId);
           fbb.addOffset(8, displayNameOffset);
+          fbb.addInt64(9, object.priority);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -3190,6 +3196,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
                   .vTableGet(buffer, rootOffset, 14, '');
           final conditionParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 16, '');
+          final priorityParam =
+              const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 22);
           final object = D2ProgramRule(
               idParam,
               displayNameParam,
@@ -3198,7 +3206,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
               uidParam,
               nameParam,
               descriptionParam,
-              conditionParam);
+              conditionParam,
+              priorityParam);
           object.program.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
           object.program.attach(store);
@@ -5262,6 +5271,10 @@ class D2ProgramRule_ {
   /// see [D2ProgramRule.displayName]
   static final displayName =
       obx.QueryStringProperty<D2ProgramRule>(_entities[12].properties[8]);
+
+  /// see [D2ProgramRule.priority]
+  static final priority =
+      obx.QueryIntegerProperty<D2ProgramRule>(_entities[12].properties[9]);
 
   /// see [D2ProgramRule.programRuleActions]
   static final programRuleActions =
