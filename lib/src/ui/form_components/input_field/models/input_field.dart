@@ -49,6 +49,7 @@ class InputField {
   String label;
   InputFieldType type;
   bool mandatory;
+  bool clearable;
   IconData? icon;
   String? svgIconAsset;
   List<InputFieldOption>? options;
@@ -62,5 +63,6 @@ class InputField {
       this.icon,
       this.svgIconAsset,
       this.options,
-      this.legends});
+      this.legends,
+      this.clearable = false});
 }

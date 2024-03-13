@@ -7,7 +7,7 @@ import '../models/input_field.dart';
 import 'base_input.dart';
 
 class SelectInput extends BaseInput<String> {
-  SelectInput(
+  const SelectInput(
       {super.key,
       super.value,
       required super.input,
@@ -31,45 +31,31 @@ class SelectInput extends BaseInput<String> {
 
     InputFieldOption? valueOption = input.options!
         .firstWhereOrNull((InputFieldOption option) => option.code == value);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        prefixWidget != null
-            ? Container(
-                constraints: prefixIconConstraints,
-                child: prefixWidget,
-              )
-            : Container(),
-        Expanded(
-          child: DropdownButton<InputFieldOption>(
-            alignment: Alignment.centerLeft,
-            underline: Container(
-              height: 0,
-              color: Colors.transparent,
-            ),
-            iconEnabledColor: color,
-            selectedItemBuilder: (context) => input.options!
-                .map((e) => Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(e.name),
-                    ))
-                .toList(),
-            value: valueOption,
-            focusColor: color,
-            items: options,
-            icon: Transform.rotate(
-              angle: -(pi / 2),
-              child: const Icon(
-                Icons.chevron_left,
-                size: 32,
-              ),
-            ),
-            isExpanded: true,
-            onChanged: (InputFieldOption? selectedOption) {},
-          ),
-        )
-      ],
+    return DropdownButton<InputFieldOption>(
+      alignment: Alignment.centerLeft,
+      underline: Container(
+        height: 0,
+        color: Colors.transparent,
+      ),
+      iconEnabledColor: color,
+      selectedItemBuilder: (context) => input.options!
+          .map((e) => Align(
+                alignment: Alignment.centerLeft,
+                child: Text(e.name),
+              ))
+          .toList(),
+      value: valueOption,
+      focusColor: color,
+      items: options,
+      icon: Transform.rotate(
+        angle: -(pi / 2),
+        child: const Icon(
+          Icons.chevron_left,
+          size: 32,
+        ),
+      ),
+      isExpanded: true,
+      onChanged: (InputFieldOption? selectedOption) {},
     );
   }
 }

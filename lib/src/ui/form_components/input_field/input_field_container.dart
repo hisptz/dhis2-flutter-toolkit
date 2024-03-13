@@ -3,9 +3,10 @@ import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/compone
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/text_input.dart';
 import 'package:flutter/material.dart';
 
+import 'components/input_field_icon.dart';
 import 'models/input_field.dart';
 
-class InputFieldContainer extends StatelessWidget {
+class InputFieldContainer extends StatefulWidget {
   final InputField input;
   final OnChange<String> onChange;
   final dynamic value;
@@ -13,9 +14,8 @@ class InputFieldContainer extends StatelessWidget {
   final String? error;
   final String? warning;
   final bool disabled;
-  final TextEditingController _controller = TextEditingController();
 
-  InputFieldContainer(
+  const InputFieldContainer(
       {super.key,
       required this.input,
       this.value,
@@ -25,19 +25,35 @@ class InputFieldContainer extends StatelessWidget {
       this.disabled = false,
       this.warning});
 
-  BaseInput _getInput() {
-    if (input.options != null) {
-      return SelectInput(
-          input: input, color: color, onChange: onChange, value: value);
-    }
+  @override
+  State<InputFieldContainer> createState() => _InputFieldContainerState();
+}
 
-    switch (input.type) {
+class _InputFieldContainerState extends State<InputFieldContainer> {
+
+  final BoxConstraints iconConstraints = const BoxConstraints(
+      maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  BaseInput _getInput() {
+    if (widget.input.options != null) {
+      return SelectInput(
+          input: widget.input,
+          color: widget.color,
+          onChange: widget.onChange,
+          value: widget.value);
+    }
+    switch (widget.input.type) {
       case InputFieldType.text:
         return TextInput(
-          onChange: onChange,
-          value: value,
-          input: input,
-          color: color,
+          onChange: widget.onChange,
+          value: widget.value,
+          input: widget.input,
+          color: widget.color,
           textInputType: TextInputType.text,
         );
       case InputFieldType.number:
@@ -47,13 +63,68 @@ class InputFieldContainer extends StatelessWidget {
         return TextInput(
             textInputType:
                 const TextInputType.numberWithOptions(decimal: false),
-            input: input,
-            value: value,
-            onChange: onChange,
-            color: color);
+            input: widget.input,
+            value: widget.value,
+            onChange: widget.onChange,
+            color: widget.color);
+
+      case InputFieldType.date:
+      case InputFieldType.dateAndTime:
+        return TextInput(
+            textInputType: TextInputType.datetime,
+            input: widget.input,
+            color: widget.color,
+            onChange: widget.onChange);
       default:
-        throw "${input.type} is currently not supported";
+        throw "${widget.input.type} is currently not supported";
     }
+  }
+
+  Widget _getPrefix() {
+    if (widget.input.svgIconAsset != null || widget.input.icon != null) {
+      return Container(
+        constraints: iconConstraints,
+        child: InputFieldIcon(
+          backgroundColor: widget.color,
+          iconColor: widget.color,
+          iconData: widget.input.icon,
+          svgIcon: widget.input.svgIconAsset,
+        ),
+      );
+    } else {
+      return Container();
+    }
+  }
+
+  Widget _getSuffixIcon() {
+    switch (widget.input.type) {
+      case InputFieldType.dateAndTime:
+      case InputFieldType.date:
+      case InputFieldType.dateRange:
+        return Container(
+          constraints: iconConstraints,
+          child: InputFieldIcon(
+              backgroundColor: widget.color,
+              iconColor: widget.color,
+              iconData: Icons.calendar_month),
+        );
+      default:
+        return Container();
+    }
+  }
+
+  Widget _getSuffix() {
+    return Row(
+      children: [
+        widget.input.clearable
+            ? IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.clear),
+              )
+            : Container(),
+        _getSuffixIcon()
+      ],
+    );
   }
 
   @override
@@ -61,12 +132,12 @@ class InputFieldContainer extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       decoration: BoxDecoration(
-          color: color.withOpacity(0.07),
+          color: widget.color.withOpacity(0.07),
           border: Border(
               left: BorderSide.none,
               right: BorderSide.none,
               top: BorderSide.none,
-              bottom: BorderSide(width: 2, color: color)),
+              bottom: BorderSide(width: 2, color: widget.color)),
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(4.0), topRight: Radius.circular(4.0))),
       child: Column(
@@ -74,16 +145,22 @@ class InputFieldContainer extends StatelessWidget {
           Row(
             children: [
               Text(
-                input.label,
+                widget.input.label,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color: color,
+                  color: widget.color,
                 ),
               )
             ],
           ),
-          _getInput(),
+          Row(
+            children: [
+              _getPrefix(),
+              Expanded(child: _getInput()),
+              _getSuffix()
+            ],
+          ),
         ],
       ),
     );

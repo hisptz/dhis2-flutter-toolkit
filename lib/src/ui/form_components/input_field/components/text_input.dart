@@ -32,10 +32,9 @@ class TextInput extends BaseInput<String> {
         fontWeight: FontWeight.w500,
       ),
       textInputAction: TextInputAction.done,
-      decoration: InputDecoration(
-          border: InputBorder.none,
-          prefixIcon: prefixWidget,
-          prefixIconConstraints: prefixIconConstraints),
+      decoration: const InputDecoration(
+        border: InputBorder.none,
+      ),
     );
   }
 }
