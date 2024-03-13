@@ -123,7 +123,7 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
     D2SyncStatus status = D2SyncStatus(
         synced: 0,
         total: programIds.length,
-        status: D2SyncStatusEnum.initialized,
+        status: D2SyncStatusEnum.syncing,
         label: label);
     downloadController.add(status);
     for (final programId in programIds) {

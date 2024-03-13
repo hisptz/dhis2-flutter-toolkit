@@ -1,7 +1,6 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-
-import 'base_meta_download_mixin.dart';
 import '../../../models/metadata/tracked_entity_type.dart';
+import '../../../services/client/client.dart';
+import 'base_meta_download_mixin.dart';
 
 mixin D2TrackedEntityTypeDownloadServiceMixin
     on BaseMetaDownloadServiceMixin<D2TrackedEntityType> {
@@ -13,7 +12,8 @@ mixin D2TrackedEntityTypeDownloadServiceMixin
   @override
   String resource = "trackedEntityTypes";
 
-  D2TrackedEntityTypeDownloadServiceMixin setupDownload(D2ClientService client) {
+  D2TrackedEntityTypeDownloadServiceMixin setupDownload(
+      D2ClientService client) {
     setClient(client);
     setFields(["*"]);
     return this;
