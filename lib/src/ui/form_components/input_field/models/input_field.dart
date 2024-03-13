@@ -35,6 +35,11 @@ class InputFieldOption {
   String name;
 
   InputFieldOption({required this.code, required this.name});
+
+  @override
+  String toString() {
+    return code;
+  }
 }
 
 class InputFieldLegend {}

@@ -1,4 +1,5 @@
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/base_input.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/select_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/text_input.dart';
 import 'package:flutter/material.dart';
 
@@ -6,13 +7,12 @@ import 'models/input_field.dart';
 
 class InputFieldContainer extends StatelessWidget {
   final InputField input;
-  final Function onChange;
+  final OnChange<String> onChange;
   final dynamic value;
   final Color color;
   final String? error;
   final String? warning;
   final bool disabled;
-
   final TextEditingController _controller = TextEditingController();
 
   InputFieldContainer(
@@ -26,10 +26,16 @@ class InputFieldContainer extends StatelessWidget {
       this.warning});
 
   BaseInput _getInput() {
+    if (input.options != null) {
+      return SelectInput(
+          input: input, color: color, onChange: onChange, value: value);
+    }
+
     switch (input.type) {
       case InputFieldType.text:
         return TextInput(
-          controller: _controller,
+          onChange: onChange,
+          value: value,
           input: input,
           color: color,
           textInputType: TextInputType.text,
@@ -42,7 +48,8 @@ class InputFieldContainer extends StatelessWidget {
             textInputType:
                 const TextInputType.numberWithOptions(decimal: false),
             input: input,
-            controller: _controller,
+            value: value,
+            onChange: onChange,
             color: color);
       default:
         throw "${input.type} is currently not supported";

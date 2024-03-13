@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 import '../models/input_field.dart';
 
-abstract class BaseInput extends StatelessWidget {
+typedef OnChange<T> = void Function(T);
+
+abstract class BaseInput<ValueType> extends StatelessWidget {
   final InputField input;
-
   final Color color;
-
   Widget? prefixWidget;
-
-  final TextEditingController controller;
+  ValueType? value;
+  OnChange<ValueType> onChange;
 
   final BoxConstraints prefixIconConstraints = const BoxConstraints(
       maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
@@ -18,8 +18,9 @@ abstract class BaseInput extends StatelessWidget {
   BaseInput(
       {super.key,
       required this.input,
-      required this.controller,
-      required this.color}) {
+      required this.onChange,
+      required this.color,
+      this.value}) {
     if (input.svgIconAsset != null || input.icon != null) {
       prefixWidget = InputFieldIcon(
         backgroundColor: color,

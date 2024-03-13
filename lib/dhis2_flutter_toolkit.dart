@@ -107,6 +107,8 @@ export "src/ui/form_components/input_field/input_field_container.dart"
 export "src/ui/form_components/input_field/models/input_field.dart"
     show InputField;
 export "src/ui/form_components/input_field/models/input_field.dart"
+    show InputFieldOption;
+export "src/ui/form_components/input_field/models/input_field.dart"
     show InputFieldType;
 //Utils
 export "src/utils/sync_status.dart" show D2SyncStatus;

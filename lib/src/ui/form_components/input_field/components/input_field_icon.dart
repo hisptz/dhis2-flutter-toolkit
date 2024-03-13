@@ -16,9 +16,11 @@ class InputFieldIcon extends StatelessWidget {
 
   Widget _getIcon() {
     if (svgIcon != null) {
-      return SvgPicture.asset(
-        svgIcon!,
-      );
+      return SvgPicture.asset(svgIcon!,
+          colorFilter: ColorFilter.mode(
+            iconColor ?? Colors.black,
+            BlendMode.srcATop,
+          ));
     }
     if (iconData != null) {
       return Icon(
