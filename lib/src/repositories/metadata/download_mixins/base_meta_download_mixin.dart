@@ -106,7 +106,7 @@ mixin BaseMetaDownloadServiceMixin<T extends D2MetaResource>
           D2SyncStatus(status: D2SyncStatusEnum.initialized, label: label);
       downloadController.add(status);
       Pagination pagination = await getPagination();
-      status.setTotal(pagination.total);
+      status.setTotal(pagination.pageCount);
       downloadController.add(status);
       status.updateStatus(D2SyncStatusEnum.syncing);
       for (int page = 1; page <= pagination.pageCount; page++) {

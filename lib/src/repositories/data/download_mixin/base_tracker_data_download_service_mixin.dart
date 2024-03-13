@@ -139,7 +139,7 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
           label: "$label for ${program!.name} program");
       downloadController.add(status);
       Pagination pagination = await getPagination();
-      status.setTotal(pagination.total);
+      status.setTotal(pagination.pageCount);
       downloadController.add(status);
       status.updateStatus(D2SyncStatusEnum.syncing);
       for (int page = 1; page <= pagination.pageCount; page++) {
