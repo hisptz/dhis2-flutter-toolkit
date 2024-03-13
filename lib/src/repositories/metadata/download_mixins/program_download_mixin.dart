@@ -1,5 +1,5 @@
-import '../../../../dhis2_flutter_toolkit.dart';
 import '../../../models/metadata/program.dart';
+import '../../../services/client/client.dart';
 import '../../../utils/sync_status.dart';
 import '../data_element.dart';
 import '../legend.dart';
@@ -120,17 +120,22 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
 
   @override
   Future initializeDownload() async {
-    D2SyncStatus status = D2SyncStatus(
-        synced: 0,
-        total: programIds.length,
-        status: D2SyncStatusEnum.syncing,
-        label: label);
-    downloadController.add(status);
-    for (final programId in programIds) {
-      await syncProgram(programId);
-      downloadController.add(status.increment());
+    try {
+      D2SyncStatus status = D2SyncStatus(
+          synced: 0,
+          total: programIds.length,
+          status: D2SyncStatusEnum.syncing,
+          label: label);
+      downloadController.add(status);
+      for (final programId in programIds) {
+        await syncProgram(programId);
+        downloadController.add(status.increment());
+      }
+      downloadController.add(status.complete());
+      downloadController.close();
+    } catch (e) {
+      downloadController.addError(e);
+      rethrow;
     }
-    downloadController.add(status.complete());
-    downloadController.close();
   }
 }
