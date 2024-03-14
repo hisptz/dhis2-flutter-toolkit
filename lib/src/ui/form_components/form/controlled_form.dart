@@ -1,28 +1,18 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/form_section/form_section_container_with_controlled_inputs.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/form_controlled_field_container.dart';
 import 'package:flutter/material.dart';
 
+import '../form_section/models/form_section.dart';
+import '../input_field/models/input_field.dart';
+import '../state/form_state.dart';
 import 'models/form.dart';
 
-typedef OnFormFieldChange<T> = void Function(String key, T);
-
-class FormContainer extends StatelessWidget {
+class D2ControlledForm extends StatelessWidget {
   final D2Form form;
-  final Map<String, String?> errorState;
-  final Map<String, String?> values;
-  final Map<String, bool> mandatoryState;
-  final Map<String, bool> hiddenState;
+  final D2FormController controller;
 
-  final OnFormFieldChange<String?> onFormFieldChange;
-
-  const FormContainer({
-    super.key,
-    required this.form,
-    required this.errorState,
-    required this.values,
-    required this.mandatoryState,
-    required this.hiddenState,
-    required this.onFormFieldChange,
-  });
+  const D2ControlledForm(
+      {super.key, required this.form, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +44,9 @@ class FormContainer extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     FormSection section = form.sections![index];
-                    return FormSectionContainer(
+                    return FormSectionContainerWithControlledInputs(
                       section: section,
-                      onFieldChange: onFormFieldChange,
+                      controller: controller,
                     );
                   },
                   separatorBuilder: (context, index) => const Padding(
@@ -68,11 +58,10 @@ class FormContainer extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     InputField input = form.fields![index];
-                    return InputFieldContainer(
+                    return D2FormControlledInputField(
                       color: form.color,
                       input: input,
-                      onChange: (String? value) =>
-                          onFormFieldChange(input.name, value),
+                      controller: controller,
                     );
                   },
                   separatorBuilder: (context, index) => const Padding(
