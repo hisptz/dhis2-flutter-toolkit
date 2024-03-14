@@ -100,6 +100,8 @@ export "src/services/sync/tracker_data_download.dart"
     show D2TrackerDataDownloadService;
 export "src/services/sync/tracker_data_upload_service.dart"
     show D2TrackerDataUploadService;
+export "src/ui/form_components/form_section/form_section_container.dart"
+    show FormSectionContainer;
 //UI components
 //Forms
 export "src/ui/form_components/input_field/input_field_container.dart"
