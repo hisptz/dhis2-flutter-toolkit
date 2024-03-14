@@ -37,7 +37,7 @@ class _InputFieldContainerState extends State<InputFieldContainer> {
 
   @override
   void initState() {
-    if (widget.error != null) {
+    if (widget.error != null && widget.error!.isNotEmpty) {
       color = Colors.red;
     } else {
       color = widget.color;
