@@ -5,6 +5,7 @@ import 'base.dart';
 
 @Entity()
 class D2RelationshipType extends D2MetaResource {
+  @override
   int id = 0;
   String name;
   @override

@@ -103,3 +103,6 @@ export "src/services/sync/tracker_data_upload_service.dart"
 //Utils
 export "src/utils/sync_status.dart" show D2SyncStatus;
 export "src/utils/sync_status.dart" show D2SyncStatusEnum;
+
+// App Modal utils
+export "src/ui/app_modals/utils/d2_app_modal_util.dart" show D2AppModalUtil;

@@ -28,9 +28,8 @@ class D2AuthService {
       return [].cast<D2UserCredential>();
     }
     return users
-            .map<D2UserCredential>((user) => D2UserCredential.fromMap(user))
-            .toList() ??
-        [];
+        .map<D2UserCredential>((user) => D2UserCredential.fromMap(user))
+        .toList();
   }
 
   Future _setLoggedInUser(D2UserCredential credentials) async {

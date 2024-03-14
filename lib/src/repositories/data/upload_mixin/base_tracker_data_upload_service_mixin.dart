@@ -5,7 +5,6 @@ import 'package:objectbox/objectbox.dart';
 
 import '../../../../dhis2_flutter_toolkit.dart';
 import '../../../models/data/base.dart';
-import '../base.dart';
 
 mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     on BaseDataRepository<T> {

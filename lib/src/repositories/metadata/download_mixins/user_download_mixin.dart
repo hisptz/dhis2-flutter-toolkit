@@ -1,6 +1,5 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
-import '../../../models/metadata/user.dart';
 import 'base_single_meta_download_mixin.dart';
 
 mixin D2UserDownloadServiceMixin on BaseSingleMetaDownloadServiceMixin<D2User> {

@@ -1,5 +1,4 @@
 import 'package:dhis2_flutter_toolkit/objectbox.g.dart';
-import '../../../objectbox.g.dart';
 
 import '../../models/metadata/program_section.dart';
 import 'base.dart';

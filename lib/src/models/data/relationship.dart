@@ -31,6 +31,7 @@ class D2Relationship extends SyncDataSource implements SyncableData {
   @override
   DateTime updatedAt;
 
+  @override
   @Unique()
   String uid;
   String relationshipName;
