@@ -11,9 +11,9 @@ class TextFieldInputType {
 }
 
 class TextInput extends BaseInput<String> {
-  TextInputType textInputType;
+  final TextInputType textInputType;
 
-  TextInput(
+  const TextInput(
       {super.key,
       super.value,
       required this.textInputType,

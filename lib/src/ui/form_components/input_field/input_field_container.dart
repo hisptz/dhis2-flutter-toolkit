@@ -8,7 +8,7 @@ import 'models/input_field.dart';
 
 class InputFieldContainer extends StatefulWidget {
   final InputField input;
-  final OnChange<String> onChange;
+  final OnChange<String?> onChange;
   final dynamic value;
   final Color color;
   final String? error;
@@ -31,34 +31,47 @@ class InputFieldContainer extends StatefulWidget {
 
 class _InputFieldContainerState extends State<InputFieldContainer> {
   late Color color;
+  late InputField input;
+  late OnChange<String?> onChange;
+  late String? value;
+  late String? error;
 
   final BoxConstraints iconConstraints = const BoxConstraints(
       maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
 
+  _initialize() {
+    input = widget.input;
+    onChange = widget.onChange;
+    value = widget.value;
+    error = widget.error;
+    color = widget.color;
+
+    if (error != null && error!.isNotEmpty) {
+      color = Colors.red;
+    }
+  }
+
   @override
   void initState() {
-    if (widget.error != null && widget.error!.isNotEmpty) {
-      color = Colors.red;
-    } else {
-      color = widget.color;
-    }
+    _initialize();
     super.initState();
   }
 
+  void onClear() {
+    onChange(null);
+  }
+
   BaseInput _getInput() {
-    if (widget.input.options != null) {
+    if (input.options != null) {
       return SelectInput(
-          input: widget.input,
-          color: color,
-          onChange: widget.onChange,
-          value: widget.value);
+          input: input, color: color, onChange: onChange, value: value);
     }
-    switch (widget.input.type) {
+    switch (input.type) {
       case InputFieldType.text:
         return TextInput(
-          onChange: widget.onChange,
-          value: widget.value,
-          input: widget.input,
+          onChange: onChange,
+          value: value,
+          input: input,
           color: color,
           textInputType: TextInputType.text,
         );
@@ -69,32 +82,45 @@ class _InputFieldContainerState extends State<InputFieldContainer> {
         return TextInput(
             textInputType:
                 const TextInputType.numberWithOptions(decimal: false),
-            input: widget.input,
-            value: widget.value,
-            onChange: widget.onChange,
+            input: input,
+            value: value,
+            onChange: onChange,
             color: color);
 
+      case InputFieldType.email:
+        return TextInput(
+            textInputType: TextInputType.emailAddress,
+            input: input,
+            color: color,
+            onChange: onChange);
+      case InputFieldType.url:
+        return TextInput(
+            onChange: onChange,
+            color: color,
+            input: input,
+            textInputType: TextInputType.url,
+            value: value);
       case InputFieldType.date:
       case InputFieldType.dateAndTime:
         return TextInput(
             textInputType: TextInputType.datetime,
-            input: widget.input,
+            input: input,
             color: color,
-            onChange: widget.onChange);
+            onChange: onChange);
       default:
-        throw "${widget.input.type} is currently not supported";
+        throw "${input.type} is currently not supported";
     }
   }
 
   Widget _getPrefix() {
-    if (widget.input.svgIconAsset != null || widget.input.icon != null) {
+    if (input.svgIconAsset != null || input.icon != null) {
       return Container(
         constraints: iconConstraints,
         child: InputFieldIcon(
           backgroundColor: color,
           iconColor: color,
-          iconData: widget.input.icon,
-          svgIcon: widget.input.svgIconAsset,
+          iconData: input.icon,
+          svgIcon: input.svgIconAsset,
         ),
       );
     } else {
@@ -103,7 +129,7 @@ class _InputFieldContainerState extends State<InputFieldContainer> {
   }
 
   Widget _getSuffixIcon() {
-    switch (widget.input.type) {
+    switch (input.type) {
       case InputFieldType.dateAndTime:
         return Container(
           constraints: iconConstraints,
@@ -136,9 +162,9 @@ class _InputFieldContainerState extends State<InputFieldContainer> {
   Widget _getSuffix() {
     return Row(
       children: [
-        widget.input.clearable
+        input.clearable
             ? IconButton(
-                onPressed: () {},
+                onPressed: onClear,
                 icon: const Icon(Icons.clear),
               )
             : Container(),
@@ -166,7 +192,7 @@ class _InputFieldContainerState extends State<InputFieldContainer> {
           Row(
             children: [
               Text(
-                widget.input.label,
+                input.label,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
@@ -182,9 +208,9 @@ class _InputFieldContainerState extends State<InputFieldContainer> {
               _getSuffix()
             ],
           ),
-          widget.error != null
+          error != null
               ? Text(
-                  widget.error!,
+                  error!,
                   style: TextStyle(color: color, fontSize: 12),
                 )
               : Container()
