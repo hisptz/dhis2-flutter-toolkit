@@ -24,6 +24,7 @@ class D2Enrollment extends SyncDataSource implements SyncableData {
   @override
   DateTime updatedAt;
 
+  @override
   @Unique()
   String uid;
   DateTime enrolledAt;

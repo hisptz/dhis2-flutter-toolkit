@@ -1,14 +1,8 @@
 
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:dhis2_flutter_toolkit/objectbox.dart';
 
 import 'package:objectbox/objectbox.dart';
 
-import '../../repositories/data/tracked_entity.dart';
-import '../../repositories/metadata/tracked_entity_attribute.dart';
-import '../metadata/tracked_entity_attribute.dart';
-import 'base.dart';
-import 'tracked_entity.dart';
 import 'upload_base.dart';
 
 @Entity()

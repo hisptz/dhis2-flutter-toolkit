@@ -22,6 +22,7 @@ class D2TrackedEntity extends SyncDataSource implements SyncableData {
   @override
   DateTime updatedAt;
 
+  @override
   @Unique()
   String uid;
   bool potentialDuplicate;
