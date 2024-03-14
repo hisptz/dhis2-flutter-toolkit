@@ -3,20 +3,24 @@
 
 library;
 
+import 'package:flutter/foundation.dart';
+
+import '../../constants/dhis2_variables.dart';
 import '../../constants/string_constants.dart';
 import '../../models/metadata/program_rule.dart';
 import '../../models/metadata/program_rule_action.dart';
 import '../../models/metadata/program_rule_variable.dart';
+import '../string_utils.dart';
 import './constants/program_rule_actions_constants.dart';
 import './exceptions/program_rule_exception.dart';
 import './helpers/program_rule_helper.dart';
 
 //
-///`ProgramRuleEngine` is the engine class for evaluation of DHI2 program rules
+///`D2ProgramRuleEngine` is the engine class for evaluation of DHI2 program rules
 //
 class D2ProgramRuleEngine {
   //
-  ///`ProgramRuleEngine.evaluateProgramRule` is a helper function for evaluation of program rule on given form data object
+  ///`D2ProgramRuleEngine.evaluateProgramRule` is a helper function for evaluation of program rule on given form data object
   /// The function takes a list of `D2ProgramRule`, a list of `D2ProgramRuleVariable` and a `Map` of form data object to return a `Map` result
   /// The result from this function follows below format:
   ///```dart
@@ -44,8 +48,8 @@ class D2ProgramRuleEngine {
 
     if (programRules.isNotEmpty) {
       for (D2ProgramRule programRule in programRules) {
-        String condition = programRule.condition ?? '';
-        String sanitizedCondition = StringHelpers.escapeCharacter(
+        String condition = programRule.condition;
+        String sanitizedCondition = StringUtils.escapeCharacter(
           condition,
           escapeChar: StringConstants.escapedCharacters,
         );
@@ -69,22 +73,20 @@ class D2ProgramRuleEngine {
             String dataExpression = programRuleAction.data ?? '';
             String? programRuleActionType =
                 programRuleAction.programRuleActionType;
-            var dataElement = programRuleAction.dataElement;
-            var trackedEntityAttribute =
-                programRuleAction.trackedEntityAttribute;
-            var programStage = programRuleAction.programStage;
-            var programStageSection = programRuleAction.programStageSection;
+            String dataElement =
+                programRuleAction.dataElement.target?.uid ?? '';
+            String trackedEntityAttribute =
+                programRuleAction.trackedEntityAttribute.target?.uid ?? '';
+            String programStageSection =
+                programRuleAction.programStageSection.target?.uid ?? '';
 
-            String dataItemTargetedByProgramAction =
-                (dataElement ?? '').isNotEmpty
-                    ? dataElement!
-                    : (trackedEntityAttribute ?? '').isNotEmpty
-                        ? trackedEntityAttribute!
-                        : (programStage ?? '').isNotEmpty
-                            ? programStage!
-                            : (programStageSection ?? '').isNotEmpty
-                                ? programStageSection!
-                                : '';
+            String dataItemTargetedByProgramAction = dataElement.isNotEmpty
+                ? dataElement
+                : trackedEntityAttribute.isNotEmpty
+                    ? trackedEntityAttribute
+                    : programStageSection.isNotEmpty
+                        ? programStageSection
+                        : '';
 
             ///Decoding the expression with program rule variables
             dataExpression = decodeExpressionWithProgramRuleVariables(
@@ -110,7 +112,7 @@ class D2ProgramRuleEngine {
                       ProgramRuleHelper.evaluateLogicalCondition(
                     sanitizedDataExpression,
                   );
-                  var assignedValue = StringHelpers.escapeQuotes(
+                  var assignedValue = StringUtils.escapeQuotes(
                     '$evaluatedDataExpression',
                   );
                   assignedFields[dataItemTargetedByProgramAction] =
@@ -120,16 +122,9 @@ class D2ProgramRuleEngine {
             } else if (programRuleActionType ==
                     ProgramRuleActionsConstants.hideSection &&
                 evaluatedConditionResults.runtimeType == bool) {
-              if (programStageSection?.isNotEmpty == true) {
-                String sectionId = programStageSection!;
+              if (programStageSection.isNotEmpty == true) {
+                String sectionId = programStageSection;
                 hiddenSections[sectionId] = evaluatedConditionResults;
-              }
-            } else if (programRuleActionType ==
-                    ProgramRuleActionsConstants.hideProgramStage &&
-                evaluatedConditionResults.runtimeType == bool) {
-              if (programStage?.isNotEmpty == true) {
-                String stageId = programStage!;
-                hiddenSections[stageId] = evaluatedConditionResults;
               }
             } else if (evaluatedConditionResults.runtimeType == bool &&
                 evaluatedConditionResults == true &&
@@ -189,7 +184,7 @@ class D2ProgramRuleEngine {
         } catch (error) {
           var exception = ProgramRuleException(
               'evaluateProgramRule(${programRule.id}): $error');
-          print(exception.toString());
+          debugPrint(exception.toString());
         }
       }
     }
@@ -204,7 +199,7 @@ class D2ProgramRuleEngine {
   }
 
   //
-  ///`ProgramRuleEngine.decodeExpressionWithProgramRuleVariables` is a helper function that decodes and expression by replacing data object values with the program rule variables
+  ///`D2ProgramRuleEngine.decodeExpressionWithProgramRuleVariables` is a helper function that decodes and expression by replacing data object values with the program rule variables
   /// The function accepts `String` expression, `Map` data object and a `List` of `D2ProgramRuleVariable` .
   /// It returns a sanitized `String` expression
   static String decodeExpressionWithProgramRuleVariables({
@@ -216,16 +211,11 @@ class D2ProgramRuleEngine {
 
     for (D2ProgramRuleVariable programRuleVariable in programRuleVariables) {
       var value = "''";
-      if (programRuleVariable.name != null &&
-          sanitizedExpression.contains(programRuleVariable.name!)) {
+      if (sanitizedExpression.contains(programRuleVariable.name)) {
         String ruleVariableDataElementAttributeId =
-            programRuleVariable.dataElement != null &&
-                    programRuleVariable.dataElement != ''
-                ? programRuleVariable.dataElement!
-                : programRuleVariable.trackedEntityAttribute != null &&
-                        programRuleVariable.trackedEntityAttribute != ''
-                    ? programRuleVariable.trackedEntityAttribute!
-                    : '';
+            programRuleVariable.dataElement.target?.uid ??
+                programRuleVariable.trackedEntityAttribute.target?.uid ??
+                '';
 
         if (dataObject.isNotEmpty &&
             dataObject[ruleVariableDataElementAttributeId] != null) {
@@ -248,7 +238,7 @@ class D2ProgramRuleEngine {
 
         sanitizedExpression = ProgramRuleHelper.sanitizeExpression(
           expression: sanitizedExpression,
-          programRuleVariable: programRuleVariable.name!,
+          programRuleVariable: programRuleVariable.name,
           value: value,
         );
       }
@@ -269,7 +259,7 @@ class D2ProgramRuleEngine {
     )) {
       for (var variable in dhis2Variables) {
         String sanitizedVariable =
-            StringHelpers.convertSnakeCaseToCamelCase(variable);
+            StringUtils.convertSnakeCaseToCamelCase(variable);
         expression = dataObject.keys.contains(sanitizedVariable)
             ? ProgramRuleHelper.sanitizeExpression(
                 expression: expression,
@@ -284,7 +274,7 @@ class D2ProgramRuleEngine {
   }
 
   //
-  ///`ProgramRuleEngine._sortProgramRulesByPriority` is a  private helper function that sorts the program rules by priority
+  ///`D2ProgramRuleEngine._sortProgramRulesByPriority` is a  private helper function that sorts the program rules by priority
   ///The function accepts a `List` of `D2ProgramRule` and returns a sorted `List` of `D2ProgramRule`
   ///The function returns a sorted `List` of `D2ProgramRule`
   //
