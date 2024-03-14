@@ -1,5 +1,5 @@
-///Copyright (c) 2024, HISP Tanzania Developers.
-///All rights reserved. Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
+/// Copyright (c) 2024, HISP Tanzania Developers.
+/// All rights reserved. Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
 
 library;
 
@@ -9,8 +9,8 @@ import '../helpers/date.dart';
 import 'period_categories.dart';
 import 'period_types.dart';
 
-/// This is a list of all DHIS2 supported fixed period types
-/// Each individual period item from this list is a fixed period formatted onto a map necessary for different DHIS2 functionalities
+///  This is a list of all DHIS2 supported fixed period types
+///  Each individual period item from this list is a fixed period formatted onto a map necessary for different DHIS2 functionalities
 List<Map<String, dynamic>> d2FixedD2PeriodTypes = [
   {
     "id": D2PeriodTypes.weekly,
@@ -18,7 +18,7 @@ List<Map<String, dynamic>> d2FixedD2PeriodTypes = [
     "category": D2PeriodTypeCategory.fixed,
     "regex": RegExp(r'^(\d{4})W(\d{1,2})$'),
 
-    ///YYYY"W"[1-53]
+    /// YYYY"W"[1-53]
     "rank": 2,
     "unit": "week",
     "idGenerator": (Interval interval) =>
@@ -34,7 +34,7 @@ List<Map<String, dynamic>> d2FixedD2PeriodTypes = [
     "unit": "week",
     "regex": RegExp(r'^([0-9]{4})(Wed)W([0-9]{1,2})$'),
 
-    ///YYYY"WedW"[1-53]
+    /// YYYY"WedW"[1-53]
     "rank": 2,
     "offset": {
       "unit": "day",
@@ -53,7 +53,7 @@ List<Map<String, dynamic>> d2FixedD2PeriodTypes = [
     "unit": "week",
     "regex": RegExp(r'^([0-9]{4})(Thu)W([0-9]{1,2})$'),
 
-    ///YYYY"WedW"[1-53]
+    /// YYYY"WedW"[1-53]
     "rank": 2,
     "offset": {
       "unit": "day",
@@ -72,7 +72,7 @@ List<Map<String, dynamic>> d2FixedD2PeriodTypes = [
     "unit": "week",
     "regex": RegExp(r'^([0-9]{4})(Sat)W([0-9]{1,2})$'),
 
-    ///YYYY"WedW"[1-53]
+    /// YYYY"WedW"[1-53]
     "rank": 2,
     "offset": {
       "unit": "day",
@@ -91,7 +91,7 @@ List<Map<String, dynamic>> d2FixedD2PeriodTypes = [
     "unit": "week",
     "regex": RegExp(r'^([0-9]{4})(Sun)W([0-9]{1,2})$'),
 
-    ///YYYY"WedW"[1-53]
+    /// YYYY"WedW"[1-53]
     "rank": 2,
     "offset": {
       "unit": "day",
@@ -110,7 +110,7 @@ List<Map<String, dynamic>> d2FixedD2PeriodTypes = [
     "unit": "week",
     "regex": RegExp(r'^([0-9]{4})BiW([0-9]{1,2})$'),
 
-    ///YYYY"BiW"[1-27]
+    /// YYYY"BiW"[1-27]
     "rank": 3,
     "factor": 2,
     "startOfWeek": true,
@@ -126,7 +126,7 @@ List<Map<String, dynamic>> d2FixedD2PeriodTypes = [
     "unit": "month",
     "regex": RegExp(r'^([0-9]{4})([0-9]{2})$'),
 
-    ///YYYYMM,
+    /// YYYYMM,
     "rank": 4,
     "idGenerator": (Interval interval) =>
         "${interval.start.year}${interval.start.month.toString().padLeft(2, '0')}",
@@ -139,7 +139,7 @@ List<Map<String, dynamic>> d2FixedD2PeriodTypes = [
     "unit": "month",
     "regex": RegExp(r'^([0-9]{4})([0-9]{2})B$'),
 
-    ///YYYY0[1-6]"B"
+    /// YYYY0[1-6]"B"
     "rank": 5,
     "factor": 2,
     "idGenerator": (Interval interval) =>
@@ -154,7 +154,7 @@ List<Map<String, dynamic>> d2FixedD2PeriodTypes = [
     "unit": "quarter",
     "regex": RegExp(r'^([0-9]{4})Q([1234])$'),
 
-    ///YYYY"Q"[1-4]
+    /// YYYY"Q"[1-4]
     "rank": 6,
     "idGenerator": (Interval interval) =>
         "${interval.start.year}Q${(interval.start.getMonth / 3).floor() + 1}",
@@ -168,7 +168,7 @@ List<Map<String, dynamic>> d2FixedD2PeriodTypes = [
     "unit": "quarter",
     "regex": RegExp(r'^([0-9]{4})S([12])$'),
 
-    ///YYYY"S"[1/2]
+    /// YYYY"S"[1/2]
     "rank": 7,
     "factor": 2,
     "idGenerator": (Interval interval) =>
@@ -183,7 +183,7 @@ List<Map<String, dynamic>> d2FixedD2PeriodTypes = [
     "unit": "quarter",
     "regex": RegExp(r'^([0-9]{4})AprilS([12])$'),
 
-    ///YYYY"AprilS"[1/2]
+    /// YYYY"AprilS"[1/2]
     "rank": 7,
     "factor": 2,
     "offset": {"unit": "quarter", "value": 1},
@@ -199,7 +199,7 @@ List<Map<String, dynamic>> d2FixedD2PeriodTypes = [
     "unit": "year",
     "regex": RegExp(r'^([0-9]{4})$'),
 
-    ///YYYY
+    /// YYYY
     "rank": 8,
     "idGenerator": (Interval interval) => "${interval.start.year}",
     "nameGenerator": (Interval interval) => "${interval.start.year}",
@@ -211,7 +211,7 @@ List<Map<String, dynamic>> d2FixedD2PeriodTypes = [
     "unit": "year",
     "regex": RegExp(r'^([0-9]{4})Nov$'),
 
-    ///YYYY"Nov"
+    /// YYYY"Nov"
     "rank": 8,
     "offset": {"unit": "month", "value": 10},
     "idGenerator": (Interval interval) => "${interval.start.year}Nov",
@@ -225,7 +225,7 @@ List<Map<String, dynamic>> d2FixedD2PeriodTypes = [
     "unit": "year",
     "regex": RegExp(r'^([0-9]{4})Oct$'),
 
-    ///YYYY"Nov"
+    /// YYYY"Nov"
     "rank": 8,
     "offset": {"unit": "month", "value": 9},
     "idGenerator": (Interval interval) => "${interval.start.year}Oct",
@@ -239,7 +239,7 @@ List<Map<String, dynamic>> d2FixedD2PeriodTypes = [
     "unit": "year",
     "regex": RegExp(r'^([0-9]{4})July$'),
 
-    ///YYYY"Nov"
+    /// YYYY"Nov"
     "rank": 8,
     "offset": {"unit": "month", "value": 6},
     "idGenerator": (Interval interval) => "${interval.start.year}July",
@@ -253,7 +253,7 @@ List<Map<String, dynamic>> d2FixedD2PeriodTypes = [
     "unit": "year",
     "regex": RegExp(r'^([0-9]{4})April$'),
 
-    ///YYYY"Nov"
+    /// YYYY"Nov"
     "rank": 8,
     "offset": {"unit": "month", "value": 3},
     "idGenerator": (Interval interval) => "${interval.start.year}April",

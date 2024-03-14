@@ -103,3 +103,9 @@ export "src/services/sync/tracker_data_upload_service.dart"
 //Utils
 export "src/utils/sync_status.dart" show D2SyncStatus;
 export "src/utils/sync_status.dart" show D2SyncStatusEnum;
+
+//Period Engine
+export "src/utils/period_engine/models/period.dart" show D2Period;
+export "src/utils/period_engine/models/period_type.dart" show D2PeriodType;
+export "src/utils/period_engine/models/period_utility.dart"
+    show D2PeriodUtility;

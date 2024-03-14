@@ -1,12 +1,12 @@
-///Copyright (c) 2024, HISP Tanzania Developers.
-///All rights reserved. Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
+/// Copyright (c) 2024, HISP Tanzania Developers.
+/// All rights reserved. Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
 
 library;
 
 import 'period_categories.dart';
 import 'period_types.dart';
 
-///This is the list of the supported relative period types on DHIS2
+/// This is the list of the supported relative period types on DHIS2
 //
 
 List<Map<String, dynamic>> d2RelativePeriodTypes = [
@@ -76,8 +76,8 @@ List<Map<String, dynamic>> d2RelativePeriodTypes = [
 ];
 
 //
-///This is a getter function for the daily relative periods
-///It returns the list of Map of relative daily period types
+/// This is a getter function for the daily relative periods
+/// It returns the list of Map of relative daily period types
 //
 getDaysPeriodType() => [
       {"id": 'TODAY', "name": 'Today'},
@@ -92,8 +92,8 @@ getDaysPeriodType() => [
     ];
 
 //
-///This is a getter function for the weekly relative periods
-///It returns the list of Map of relative weekly period types
+/// This is a getter function for the weekly relative periods
+/// It returns the list of Map of relative weekly period types
 //
 getWeeksPeriodType() => [
       {"id": 'THIS_WEEK', "name": 'This week'},
@@ -105,8 +105,8 @@ getWeeksPeriodType() => [
     ];
 
 //
-///This is a getter function for the biweekly relative periods
-///It returns the list of Map of relative biweekly period types
+/// This is a getter function for the biweekly relative periods
+/// It returns the list of Map of relative biweekly period types
 //
 getBiWeeksPeriodType() => [
       {"id": 'THIS_BIWEEK', "name": 'This bi-week'},
@@ -115,8 +115,8 @@ getBiWeeksPeriodType() => [
     ];
 
 //
-///This is a getter function for the monthly relative periods
-///It returns the list of Map of relative monthly period types
+/// This is a getter function for the monthly relative periods
+/// It returns the list of Map of relative monthly period types
 //
 getMonthsPeriodType() => [
       {"id": 'THIS_MONTH', "name": 'This month'},
@@ -131,8 +131,8 @@ getMonthsPeriodType() => [
     ];
 
 //
-///This is a getter function for the bimonthly relative periods
-///It returns the list of Map of relative bimonthly period types
+/// This is a getter function for the bimonthly relative periods
+/// It returns the list of Map of relative bimonthly period types
 //
 getBiMonthsPeriodType() => [
       {"id": 'THIS_BIMONTH', "name": 'This bi-month'},
@@ -148,8 +148,8 @@ getBiMonthsPeriodType() => [
     ];
 
 //
-///This is a getter function for the quarterly relative periods
-///It returns the list of Map of relative quarterly period types
+/// This is a getter function for the quarterly relative periods
+/// It returns the list of Map of relative quarterly period types
 //
 getQuartersPeriodType() => [
       {"id": 'THIS_QUARTER', "name": 'This quarter'},
@@ -162,8 +162,8 @@ getQuartersPeriodType() => [
     ];
 
 //
-///This is a getter function for the six monthly relative periods
-///It returns the list of Map of relative six monthly period types
+/// This is a getter function for the six monthly relative periods
+/// It returns the list of Map of relative six monthly period types
 //
 getSixMonthsPeriodType() => [
       {"id": 'THIS_SIX_MONTH', "name": 'This six-month'},
@@ -175,8 +175,8 @@ getSixMonthsPeriodType() => [
     ];
 
 //
-///This is a getter function for the financial years relative periods
-///It returns the list of Map of relative financial years period types
+/// This is a getter function for the financial years relative periods
+/// It returns the list of Map of relative financial years period types
 //
 getFinancialYearsPeriodType() => [
       {
@@ -194,8 +194,8 @@ getFinancialYearsPeriodType() => [
     ];
 
 //
-///This is a getter function for the yearly relative periods
-///It returns the list of Map of relative yearly period types
+/// This is a getter function for the yearly relative periods
+/// It returns the list of Map of relative yearly period types
 //
 getYearsPeriodType() => [
       {"id": 'THIS_YEAR', "name": 'This year'},
