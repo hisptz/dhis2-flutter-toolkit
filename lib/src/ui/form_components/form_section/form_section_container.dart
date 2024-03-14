@@ -1,37 +1,32 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/form/form_container.dart';
 import 'package:flutter/material.dart';
 
 class FormSectionContainer extends StatelessWidget {
-  final String title;
-  final String? subtitle;
-  final List<InputField> fields;
-  final Color color;
+  final FormSection section;
+  final OnFormFieldChange<String?> onFieldChange;
 
   const FormSectionContainer(
-      {super.key,
-      required this.title,
-      this.subtitle,
-      required this.fields,
-      required this.color});
-
-  void onChange(String key, String? value) {}
+      {super.key, required this.section, required this.onFieldChange});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            color: color,
-            fontSize: 24,
-          ),
-        ),
-        const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
-        subtitle != null
+        section.title != null
             ? Text(
-                subtitle!,
+                section.title!,
+                style: TextStyle(
+                  color: section.color,
+                  fontSize: 24,
+                ),
+              )
+            : Container(),
+        const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
+        section.subtitle != null
+            ? Text(
+                section.subtitle!,
                 style: const TextStyle(color: Colors.blueGrey, fontSize: 16),
               )
             : Container(),
@@ -40,18 +35,18 @@ class FormSectionContainer extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              InputField input = fields[index];
+              InputField input = section.fields[index];
               return InputFieldContainer(
                   input: input,
                   onChange: (String? value) {
-                    return onChange(input.name, value);
+                    return onFieldChange(input.name, value);
                   },
-                  color: color);
+                  color: section.color);
             },
             separatorBuilder: (context, index) => const Padding(
                   padding: EdgeInsets.symmetric(vertical: 8.0),
                 ),
-            itemCount: fields.length)
+            itemCount: section.fields.length)
       ],
     );
   }
