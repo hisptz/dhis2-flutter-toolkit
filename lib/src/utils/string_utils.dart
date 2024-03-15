@@ -5,7 +5,7 @@ library;
 //
 ///`StringUtils` is a collection of custom helper functions for manipulating `String`
 //
-class StringUtils {
+class D2StringUtils {
   //
   ///`StringUtils.escapeCharacter` is a method that escapes specified characters from a `String` to return a
   ///The method accepts a `String` to be sanitized and a list of `String` characters to be escaped as parameters, and returns a sanitized `String`

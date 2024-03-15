@@ -76,7 +76,7 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
     return this;
   }
 
-  Future<Pagination> getPagination() async {
+  Future<D2Pagination> getPagination() async {
     Map<String, dynamic>? response = await client!
         .httpGetPagination<Map<String, dynamic>>(downloadURL,
             queryParameters: downloadQueryParams);
@@ -84,7 +84,7 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
       throw "Error getting pagination for data sync";
     }
 
-    final pagination = Pagination(
+    final pagination = D2Pagination(
         total: response["total"],
         pageSize: response["pageSize"],
         pageCount: response["pageCount"]);
@@ -138,7 +138,7 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
           status: D2SyncStatusEnum.initialized,
           label: "$label for ${program!.name} program");
       downloadController.add(status);
-      Pagination pagination = await getPagination();
+      D2Pagination pagination = await getPagination();
       status.setTotal(pagination.pageCount);
       downloadController.add(status);
       status.updateStatus(D2SyncStatusEnum.syncing);

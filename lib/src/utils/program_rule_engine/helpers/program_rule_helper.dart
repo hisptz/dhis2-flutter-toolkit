@@ -35,7 +35,7 @@ class ProgramRuleHelper {
   ///The function accepts a `String` condition and returns a `dynamic` evaluated value.
   //
   static dynamic evaluateLogicalConditionWithinBrackets(String condition) {
-    return MathematicalOperations.evaluateMathematicalOperation(
+    return D2MathematicalOperations.evaluateMathematicalOperation(
       condition,
       resolveToNumber: false,
     );

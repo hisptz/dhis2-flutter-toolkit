@@ -6,7 +6,7 @@ library;
 //
 ///`DateUtils` is a collection of helper functions that performs date related functions
 //
-class DateUtils {
+class D2DateUtils {
   //
   ///`DateUtils.calculateYearsBetweenDates` is the helper function that calculates the years between two dates
   ///It accepts the `DateTime` startDate and endDate and returns the `int` years between the dates

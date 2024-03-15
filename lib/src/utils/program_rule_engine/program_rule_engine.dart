@@ -49,7 +49,7 @@ class D2ProgramRuleEngine {
     if (programRules.isNotEmpty) {
       for (D2ProgramRule programRule in programRules) {
         String condition = programRule.condition;
-        String sanitizedCondition = StringUtils.escapeCharacter(
+        String sanitizedCondition = D2StringUtils.escapeCharacter(
           condition,
           escapeChar: StringConstants.escapedCharacters,
         );
@@ -112,7 +112,7 @@ class D2ProgramRuleEngine {
                       ProgramRuleHelper.evaluateLogicalCondition(
                     sanitizedDataExpression,
                   );
-                  var assignedValue = StringUtils.escapeQuotes(
+                  var assignedValue = D2StringUtils.escapeQuotes(
                     '$evaluatedDataExpression',
                   );
                   assignedFields[dataItemTargetedByProgramAction] =
@@ -259,7 +259,7 @@ class D2ProgramRuleEngine {
     )) {
       for (var variable in dhis2Variables) {
         String sanitizedVariable =
-            StringUtils.convertSnakeCaseToCamelCase(variable);
+            D2StringUtils.convertSnakeCaseToCamelCase(variable);
         expression = dataObject.keys.contains(sanitizedVariable)
             ? ProgramRuleHelper.sanitizeExpression(
                 expression: expression,
