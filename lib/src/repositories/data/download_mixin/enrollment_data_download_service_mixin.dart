@@ -1,6 +1,5 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
-import '../../../models/data/enrollment.dart';
 import 'base_tracker_data_download_service_mixin.dart';
 
 mixin D2EnrollmentDownloadServiceMixin

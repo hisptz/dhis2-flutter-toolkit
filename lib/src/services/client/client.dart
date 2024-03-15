@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../auth_service/credentials.dart';
@@ -106,7 +106,7 @@ class D2ClientService {
       try {
         return jsonDecode(response.body) as T;
       } catch (e) {
-        print(e);
+        debugPrint(e.toString());
         return null;
       }
     } else {
