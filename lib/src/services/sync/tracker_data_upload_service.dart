@@ -49,10 +49,10 @@ class D2TrackerDataUploadService {
         enrollmentRepository.setupUpload(client).upload();
         await uploadController.addStream(enrollmentRepository.uploadStream);
       }
-      D2EventRepository eventRepository = D2EventRepository(db);
-      eventRepository.setProgram(program);
-      eventRepository.setupUpload(client).upload();
-      await uploadController.addStream(eventRepository.uploadStream);
+      // D2EventRepository eventRepository = D2EventRepository(db);
+      // eventRepository.setProgram(program);
+      // eventRepository.setupUpload(client).upload();
+      // await uploadController.addStream(eventRepository.uploadStream);
     }
   }
 
