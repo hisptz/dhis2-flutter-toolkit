@@ -6,6 +6,7 @@ import 'base.dart';
 
 @Entity()
 class D2SystemInfo extends D2MetaResource {
+  @override
   int id = 0;
 
   String version;

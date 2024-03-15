@@ -28,6 +28,7 @@ class D2Event extends SyncDataSource implements SyncableData {
   @override
   DateTime updatedAt;
 
+  @override
   String uid;
   DateTime? scheduledAt;
   DateTime? occurredAt;
