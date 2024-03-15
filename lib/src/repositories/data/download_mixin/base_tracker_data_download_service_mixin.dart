@@ -87,7 +87,7 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
     final pagination = Pagination(
         total: response["total"],
         pageSize: response["pageSize"],
-        pageCount: response["pageCount"]);
+        pageCount: response["pageCount"] ?? 1);
 
     return pagination;
   }
