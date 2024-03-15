@@ -46,7 +46,7 @@ class D2TrackedEntityRepository extends BaseDataRepository<D2TrackedEntity>
 
   @override
   BaseDataRepository<D2TrackedEntity> setProgram(D2Program program) {
-    this.program;
+    this.program = program;
     return this;
   }
 }
