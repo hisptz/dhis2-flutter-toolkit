@@ -43,7 +43,7 @@ class D2RelationshipRepository extends BaseDataRepository<D2Relationship>
 
   @override
   BaseDataRepository<D2Relationship> setProgram(D2Program program) {
-    this.program;
+    this.program = program;
     return this;
   }
 }
