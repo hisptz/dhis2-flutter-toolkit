@@ -35,7 +35,7 @@ class D2DataValueRepository extends BaseDataRepository<D2DataValue> {
 
   @override
   BaseDataRepository<D2DataValue> setProgram(D2Program program) {
-    this.program;
+    this.program = program;
     return this;
   }
 }
