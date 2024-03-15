@@ -58,40 +58,42 @@ class D2AppActionSheetModalContainer extends StatelessWidget {
                 top: Radius.circular(topBorderRadius),
               ),
               child: Scaffold(
-                appBar: AppBar(
-                  backgroundColor: Colors.transparent,
-                  leading: Container(),
-                  leadingWidth: 0.0,
-                  elevation: 0.0,
-                  scrolledUnderElevation: 0.0,
-                  centerTitle: true,
-                  titleSpacing: 0.0,
-                  title: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: titleColor.withOpacity(0.1),
-                          width: 2.0,
+                appBar: title.isEmpty
+                    ? null
+                    : AppBar(
+                        backgroundColor: Colors.transparent,
+                        leading: Container(),
+                        leadingWidth: 0.0,
+                        elevation: 0.0,
+                        scrolledUnderElevation: 0.0,
+                        centerTitle: true,
+                        titleSpacing: 0.0,
+                        title: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: titleColor.withOpacity(0.1),
+                                width: 2.0,
+                              ),
+                            ), // Top border radius.
+                          ),
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 15.0,
+                            ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              title,
+                              style: const TextStyle().copyWith(
+                                color: titleColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ),
                         ),
-                      ), // Top border radius.
-                    ),
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 15.0,
                       ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        title,
-                        style: const TextStyle().copyWith(
-                          color: titleColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
                 body: SingleChildScrollView(
                   child: Padding(
                     padding: EdgeInsets.only(
