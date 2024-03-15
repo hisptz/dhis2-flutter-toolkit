@@ -25,7 +25,9 @@ class TextInput extends BaseInput<String> {
   Widget build(BuildContext context) {
     return TextFormField(
       initialValue: value,
-      onChanged: onChange,
+      onChanged: (String? value) {
+        onChange(value);
+      },
       keyboardType: textInputType,
       style: const TextStyle(
         fontSize: 14,

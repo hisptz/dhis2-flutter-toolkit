@@ -1,15 +1,20 @@
 import 'package:flutter/foundation.dart';
 
 mixin D2FormValueState on ChangeNotifier {
-  Map<String, String?> formValues = {};
+  final Map<String, String?> _formValues = {};
+
+  get formValues {
+    return Map.from(_formValues);
+  }
 
   setValue(String key, String? value) {
-    formValues.addAll({key: value});
+    _formValues[key] = value;
     notifyListeners();
   }
 
   clearValue(String key) {
-    formValues.remove(key);
+    _formValues.remove(key);
+    notifyListeners();
   }
 
   String? getValue(String key) {

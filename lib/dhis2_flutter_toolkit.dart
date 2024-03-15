@@ -100,7 +100,9 @@ export "src/services/sync/tracker_data_download.dart"
     show D2TrackerDataDownloadService;
 export "src/services/sync/tracker_data_upload_service.dart"
     show D2TrackerDataUploadService;
+export "src/ui/form_components/form/controlled_form.dart" show D2ControlledForm;
 export "src/ui/form_components/form/form_container.dart" show FormContainer;
+export "src/ui/form_components/form/models/form.dart" show D2Form;
 export "src/ui/form_components/form_section/form_section_container.dart"
     show FormSectionContainer;
 export "src/ui/form_components/form_section/models/form_section.dart"

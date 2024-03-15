@@ -7,8 +7,8 @@ typedef OnChange<T> = void Function(T);
 abstract class BaseInput<ValueType> extends StatelessWidget {
   final InputField input;
   final Color color;
-  final ValueType? value;
-  final OnChange<ValueType> onChange;
+  final String? value;
+  final OnChange<String?> onChange;
 
   const BaseInput({
     super.key,

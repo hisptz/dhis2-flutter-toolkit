@@ -22,8 +22,12 @@ class D2FormController extends ChangeNotifier
     String? error = getError(key);
     String? warning = getWarning(key);
 
+    void onChange(String? value) {
+      setValue(key, value);
+    }
+
     return FieldState(
-        onChange: (String? value) => setValue(key, value),
+        onChange: onChange,
         hidden: hidden,
         value: value,
         warning: warning,
