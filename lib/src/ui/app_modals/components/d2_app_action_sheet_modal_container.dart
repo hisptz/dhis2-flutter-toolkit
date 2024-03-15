@@ -81,6 +81,7 @@ class D2AppActionSheetModalContainer extends StatelessWidget {
                           child: Container(
                             margin: const EdgeInsets.symmetric(
                               vertical: 15.0,
+                              horizontal: 10.0,
                             ),
                             alignment: Alignment.center,
                             child: Text(
