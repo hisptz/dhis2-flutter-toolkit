@@ -37,7 +37,7 @@ class D2TrackedEntityAttributeValueRepository
   @override
   BaseDataRepository<D2TrackedEntityAttributeValue> setProgram(
       D2Program program) {
-    this.program;
+    this.program = program;
     return this;
   }
 }
