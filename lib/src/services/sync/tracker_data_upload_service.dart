@@ -43,7 +43,6 @@ class D2TrackerDataUploadService {
             D2EnrollmentRepository(db);
         trackedEntityRepository.setProgram(program);
         enrollmentRepository.setProgram(program);
-        print(trackedEntityRepository.program);
         trackedEntityRepository.setupUpload(client).upload();
         await uploadController.addStream(trackedEntityRepository.uploadStream);
         enrollmentRepository.setupUpload(client).upload();
