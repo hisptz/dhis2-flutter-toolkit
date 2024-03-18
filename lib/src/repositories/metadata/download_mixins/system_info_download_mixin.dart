@@ -1,6 +1,5 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
-import '../../../models/metadata/system_info.dart';
 import 'base_single_meta_download_mixin.dart';
 
 mixin D2SystemInfoDownloadServiceMixin

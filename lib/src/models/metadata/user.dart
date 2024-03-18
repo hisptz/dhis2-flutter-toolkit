@@ -8,6 +8,7 @@ import 'user_role.dart';
 
 @Entity()
 class D2User extends D2MetaResource {
+  @override
   int id = 0;
   String username;
   String firstName;
@@ -24,6 +25,7 @@ class D2User extends D2MetaResource {
     return "$firstName $surname";
   }
 
+  @override
   @Unique()
   String uid;
 

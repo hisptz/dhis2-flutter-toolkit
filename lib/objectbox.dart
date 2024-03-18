@@ -1,5 +1,4 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:objectbox/objectbox.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 

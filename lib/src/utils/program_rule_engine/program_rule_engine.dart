@@ -67,7 +67,7 @@ class D2ProgramRuleEngine {
               ProgramRuleHelper.evaluateLogicalCondition(sanitizedCondition);
 
           for (D2ProgramRuleAction programRuleAction
-              in programRule.programRuleActions ?? []) {
+              in programRule.programRuleActions) {
             String? data = programRuleAction.data;
             String? content = programRuleAction.content;
             String dataExpression = programRuleAction.data ?? '';
