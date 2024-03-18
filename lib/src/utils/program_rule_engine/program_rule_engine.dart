@@ -35,7 +35,7 @@ class D2ProgramRuleEngine {
   });
 
   ///`D2ProgramRuleEngine.evaluateProgramRule` is a helper function for evaluation of program rule on given form data object
-  /// The function takes a list of `D2ProgramRule`, a list of `D2ProgramRuleVariable` and a `Map` of form data object to return a `Map` result
+  /// The function takes aa `Map` of form data object and an optional `String` id of the input field in current evaluations to return a `Map` result
   /// The result from this function follows below format:
   ///```dart
   ///  {
@@ -43,11 +43,12 @@ class D2ProgramRuleEngine {
   ///    "assignedFields" : {...}
   ///    "hiddenSections" : {...}
   ///    "hiddenProgramStages" : {...}
-  ///    "errorOrWarningMessage" : {...}
+  ///    "errorOrWarningMessage" : {...} // TODO distinguish error from warning messages
   ///  }
   ///```
   Map evaluateProgramRule({
     Map dataObject = const {},
+    String inputFieldId = '',
   }) {
     var hiddenFields = {};
     var assignedFields = {};
@@ -55,7 +56,11 @@ class D2ProgramRuleEngine {
     var hiddenProgramStages = {};
     var errorOrWarningMessage = {};
 
-    List sortedProgramRules = _sortProgramRulesByPriority(programRules);
+    List<D2ProgramRule> sortedProgramRules = _sortProgramRulesByPriority(
+      inputFieldId.isEmpty
+          ? programRules
+          : _filterProgramRulesByFieldId(inputFieldId),
+    );
 
     if (sortedProgramRules.isNotEmpty) {
       for (D2ProgramRule programRule in sortedProgramRules) {
@@ -207,6 +212,23 @@ class D2ProgramRuleEngine {
       "hiddenProgramStages": hiddenProgramStages,
       "errorOrWarningMessage": errorOrWarningMessage
     };
+  }
+
+  /// `D2ProgramRuleEngine._filterProgramRulesByFieldId` is a private helper function that filters the program rules by the input field id
+  /// The function accepts a `String` input field id
+  /// The function returns a filtered `List` of `D2ProgramRule`
+  List<D2ProgramRule> _filterProgramRulesByFieldId(String inputFields) {
+    List<String> inputFieldProgramRuleVariables = programRuleVariables
+        .where((programVariable) =>
+            programVariable.dataElement.target?.uid == inputFields ||
+            programVariable.trackedEntityAttribute.target?.uid == inputFields)
+        .map((programVariable) => programVariable.name)
+        .toList();
+
+    return programRules
+        .where((programRule) =>
+            inputFieldProgramRuleVariables.contains(programRule.condition))
+        .toList();
   }
 
   //
