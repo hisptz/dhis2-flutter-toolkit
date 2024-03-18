@@ -308,25 +308,3 @@ class _PeriodSelectorState extends State<D2PeriodSelector>
   }
 }
 
-class AppConstants {}
-
-showPeriodFilter(BuildContext context,
-    {required onUpdate, D2PeriodSelection? selection}) {
-  onUpdateClick(D2PeriodSelection selection) {
-    onUpdate(selection);
-  }
-
-  showModalBottomSheet(
-      isScrollControlled: true,
-      backgroundColor: Colors.white,
-      context: context,
-      builder: (BuildContext context) => SizedBox(
-            height: MediaQuery.of(context).copyWith().size.height * 0.75,
-            child: D2PeriodSelector(
-              d2Color: Colors.blue,
-              d2initialSelection: selection,
-              d2excludePeriodTypes: const ['DAILY'],
-              d2onUpdate: onUpdateClick,
-            ),
-          ));
-}
