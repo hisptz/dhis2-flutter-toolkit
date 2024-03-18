@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../dhis2_flutter_toolkit.dart';
 import '../form/form_container.dart';
-import '../input_field/models/base_input_field.dart';
 
 class FormSectionContainer extends StatelessWidget {
   final FormSection section;
@@ -40,7 +39,7 @@ class FormSectionContainer extends StatelessWidget {
               D2BaseInputFieldConfig input = section.fields[index];
               return InputFieldContainer(
                   input: input,
-                  onChange: (String? value) {
+                  onChange: (value) {
                     return onFieldChange(input.name, value);
                   },
                   color: section.color);

@@ -1,8 +1,10 @@
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/base_input.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/date_range_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/select_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/text_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/date_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/date_range_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/number_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/select_input_field.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,7 @@ import 'models/text_input_field.dart';
 
 class InputFieldContainer extends StatelessWidget {
   final D2BaseInputFieldConfig input;
-  final OnChange<String?> onChange;
+  final OnChange<dynamic> onChange;
   final dynamic value;
   final Color color;
   final String? error;
@@ -55,6 +57,14 @@ class InputFieldContainer extends StatelessWidget {
         return DateInput(
           value: value,
           input: input as D2DateInputFieldConfig,
+          color: colorOverride,
+          onChange: onChange,
+        );
+      }
+      if (input is D2DateRangeInputFieldConfig) {
+        return DateRangeInput(
+          value: value,
+          input: input as D2DateRangeInputFieldConfig,
           color: colorOverride,
           onChange: onChange,
         );

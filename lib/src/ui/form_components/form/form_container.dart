@@ -70,7 +70,7 @@ class FormContainer extends StatelessWidget {
                     return InputFieldContainer(
                       color: form.color,
                       input: input,
-                      onChange: (String? value) =>
+                      onChange: (value) =>
                           onFormFieldChange(input.name, value),
                     );
                   },

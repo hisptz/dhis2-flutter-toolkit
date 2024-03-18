@@ -18,11 +18,11 @@ class D2FormController extends ChangeNotifier
   FieldState getFieldState(String key) {
     bool hidden = isFieldHidden(key);
     bool mandatory = isFieldMandatory(key);
-    String? value = getValue(key);
+    dynamic value = getValue(key);
     String? error = getError(key);
     String? warning = getWarning(key);
 
-    void onChange(String? value) {
+    void onChange(value) {
       setValue(key, value);
     }
 
