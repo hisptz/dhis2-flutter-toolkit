@@ -15,11 +15,25 @@ import './constants/program_rule_actions_constants.dart';
 import './exceptions/program_rule_exception.dart';
 import './helpers/program_rule_helper.dart';
 
-//
+///
 ///`D2ProgramRuleEngine` is the engine class for evaluation of DHI2 program rules
-//
+///
 class D2ProgramRuleEngine {
-  //
+  /// A list of `D2ProgramRule` to be evaluated
+  List<D2ProgramRule> programRules;
+
+  /// A list of `D2ProgramRuleVariable` to be used in evaluation of program rules
+  List<D2ProgramRuleVariable> programRuleVariables;
+
+  ///
+  ///`D2ProgramRuleEngine` is constructor for the `D2ProgramRuleEngine` class
+  /// The constructor takes a list of `D2ProgramRule` and a list of `D2ProgramRuleVariable` as required parameters
+  ///
+  D2ProgramRuleEngine({
+    required this.programRules,
+    required this.programRuleVariables,
+  });
+
   ///`D2ProgramRuleEngine.evaluateProgramRule` is a helper function for evaluation of program rule on given form data object
   /// The function takes a list of `D2ProgramRule`, a list of `D2ProgramRuleVariable` and a `Map` of form data object to return a `Map` result
   /// The result from this function follows below format:
@@ -32,10 +46,7 @@ class D2ProgramRuleEngine {
   ///    "errorOrWarningMessage" : {...}
   ///  }
   ///```
-  //
-  static Map evaluateProgramRule({
-    required List<D2ProgramRule> programRules,
-    required List<D2ProgramRuleVariable> programRuleVariables,
+  Map evaluateProgramRule({
     Map dataObject = const {},
   }) {
     var hiddenFields = {};
@@ -44,25 +55,25 @@ class D2ProgramRuleEngine {
     var hiddenProgramStages = {};
     var errorOrWarningMessage = {};
 
-    programRules = _sortProgramRulesByPriority(programRules);
+    List sortedProgramRules = _sortProgramRulesByPriority(programRules);
 
-    if (programRules.isNotEmpty) {
-      for (D2ProgramRule programRule in programRules) {
+    if (sortedProgramRules.isNotEmpty) {
+      for (D2ProgramRule programRule in sortedProgramRules) {
         String condition = programRule.condition;
         String sanitizedCondition = StringUtils.escapeCharacter(
           condition,
           escapeChar: StringConstants.escapedCharacters,
         );
 
-        ///Decoding the expression with program rule variables
-        sanitizedCondition = decodeExpressionWithProgramRuleVariables(
+        /// Decoding the expression with program rule variables
+        sanitizedCondition = _decodeExpressionWithProgramRuleVariables(
           programRuleVariables: programRuleVariables,
           expression: sanitizedCondition,
           dataObject: dataObject,
         );
 
         try {
-          ///Evaluating the logical condition
+          /// Evaluating the logical condition
           var evaluatedConditionResults =
               ProgramRuleHelper.evaluateLogicalCondition(sanitizedCondition);
 
@@ -88,8 +99,8 @@ class D2ProgramRuleEngine {
                         ? programStageSection
                         : '';
 
-            ///Decoding the expression with program rule variables
-            dataExpression = decodeExpressionWithProgramRuleVariables(
+            /// Decoding the expression with program rule variables
+            dataExpression = _decodeExpressionWithProgramRuleVariables(
               programRuleVariables: programRuleVariables,
               expression: dataExpression,
               dataObject: dataObject,
@@ -104,7 +115,7 @@ class D2ProgramRuleEngine {
                 evaluatedConditionResults.runtimeType == bool) {
               if (dataItemTargetedByProgramAction.isNotEmpty) {
                 if (evaluatedConditionResults) {
-                  var sanitizedDataExpression = escapeStandardDhis2Variables(
+                  var sanitizedDataExpression = _escapeStandardDhis2Variables(
                     expression: dataExpression,
                     dataObject: dataObject,
                   );
@@ -199,10 +210,10 @@ class D2ProgramRuleEngine {
   }
 
   //
-  ///`D2ProgramRuleEngine.decodeExpressionWithProgramRuleVariables` is a helper function that decodes and expression by replacing data object values with the program rule variables
+  /// `D2ProgramRuleEngine.decodeExpressionWithProgramRuleVariables` is a helper function that decodes and expression by replacing data object values with the program rule variables
   /// The function accepts `String` expression, `Map` data object and a `List` of `D2ProgramRuleVariable` .
   /// It returns a sanitized `String` expression
-  static String decodeExpressionWithProgramRuleVariables({
+  String _decodeExpressionWithProgramRuleVariables({
     required String expression,
     required List<D2ProgramRuleVariable> programRuleVariables,
     Map dataObject = const {},
@@ -230,7 +241,7 @@ class D2ProgramRuleEngine {
               value = "${dataObject[ruleVariableDataElementAttributeId]}";
             }
           }
-          sanitizedExpression = escapeStandardDhis2Variables(
+          sanitizedExpression = _escapeStandardDhis2Variables(
             dataObject: dataObject,
             expression: sanitizedExpression,
           );
@@ -247,9 +258,9 @@ class D2ProgramRuleEngine {
   }
 
   //
-  ///Replacing the DHIS2 standard variables with values from data object
+  /// Replacing the DHIS2 standard variables with values from data object
   //
-  static String escapeStandardDhis2Variables({
+  String _escapeStandardDhis2Variables({
     String expression = '',
     Map dataObject = const {},
   }) {
@@ -274,11 +285,11 @@ class D2ProgramRuleEngine {
   }
 
   //
-  ///`D2ProgramRuleEngine._sortProgramRulesByPriority` is a  private helper function that sorts the program rules by priority
-  ///The function accepts a `List` of `D2ProgramRule` and returns a sorted `List` of `D2ProgramRule`
-  ///The function returns a sorted `List` of `D2ProgramRule`
+  /// `D2ProgramRuleEngine._sortProgramRulesByPriority` is a  private helper function that sorts the program rules by priority
+  /// The function accepts a `List` of `D2ProgramRule` and returns a sorted `List` of `D2ProgramRule`
+  /// The function returns a sorted `List` of `D2ProgramRule`
   //
-  static List<D2ProgramRule> _sortProgramRulesByPriority(
+  List<D2ProgramRule> _sortProgramRulesByPriority(
       List<D2ProgramRule> programRules) {
     var prioritizedProgramRules = programRules
         .where((programRule) => programRule.priority != null)
