@@ -53,9 +53,11 @@ class InputFieldContainer extends StatelessWidget {
 
       if (input is D2DateInputFieldConfig) {
         return DateInput(
-            input: input as D2DateInputFieldConfig,
-            color: colorOverride,
-            onChange: onChange);
+          value: value,
+          input: input as D2DateInputFieldConfig,
+          color: colorOverride,
+          onChange: onChange,
+        );
       }
 
       if (input is D2NumberInputFieldConfig) {
@@ -143,37 +145,6 @@ class InputFieldContainer extends StatelessWidget {
       }
     }
 
-    Widget getSuffixIcon() {
-      switch (input.type) {
-        case D2InputFieldType.dateAndTime:
-          return Container(
-            constraints: iconConstraints,
-            child: InputFieldIcon(
-                backgroundColor: colorOverride,
-                iconColor: colorOverride,
-                iconData: Icons.calendar_today),
-          );
-        case D2InputFieldType.date:
-          return Container(
-            constraints: iconConstraints,
-            child: InputFieldIcon(
-                backgroundColor: colorOverride,
-                iconColor: colorOverride,
-                iconData: Icons.calendar_today),
-          );
-        case D2InputFieldType.dateRange:
-          return Container(
-            constraints: iconConstraints,
-            child: InputFieldIcon(
-                backgroundColor: colorOverride,
-                iconColor: colorOverride,
-                iconData: Icons.date_range),
-          );
-        default:
-          return Container();
-      }
-    }
-
     Widget getSuffix() {
       return Row(
         children: [
@@ -183,7 +154,6 @@ class InputFieldContainer extends StatelessWidget {
                   icon: const Icon(Icons.clear),
                 )
               : Container(),
-          getSuffixIcon()
         ],
       );
     }
