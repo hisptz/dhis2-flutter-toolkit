@@ -20,7 +20,7 @@ enum InputFieldType {
   percentage,
   integer,
   negativeInteger,
-  positiveOrZeroInteger,
+  integerZeroOrPositive,
   coordinate,
   organisationUnit,
   reference,
@@ -32,6 +32,19 @@ enum InputFieldType {
 
   static InputFieldType? fromName(String? name) {
     return values.firstWhereOrNull((e) => e.name == name);
+  }
+
+  static InputFieldType? fromDHIS2ValueType(String valueType) {
+    String sanitizedValueType = valueType
+        .toLowerCase()
+        .split("_")
+        .mapIndexed((int index, String word) =>
+    index == 0 ? word :
+    "${word[0].toUpperCase()}${word.substring(1).toLowerCase()}")
+        .join("");
+
+    return values
+        .firstWhereOrNull((element) => element.name == sanitizedValueType);
   }
 }
 
@@ -60,14 +73,13 @@ class InputField {
   List<InputFieldOption>? options;
   List<InputFieldLegend>? legends;
 
-  InputField(
-      {required this.label,
-      required this.type,
-      required this.name,
-      required this.mandatory,
-      this.icon,
-      this.svgIconAsset,
-      this.options,
-      this.legends,
-      this.clearable = false});
+  InputField({required this.label,
+    required this.type,
+    required this.name,
+    required this.mandatory,
+    this.icon,
+    this.svgIconAsset,
+    this.options,
+    this.legends,
+    this.clearable = false});
 }

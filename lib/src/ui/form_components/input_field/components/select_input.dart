@@ -55,7 +55,9 @@ class SelectInput extends BaseInput<String> {
         ),
       ),
       isExpanded: true,
-      onChanged: (InputFieldOption? selectedOption) {},
+      onChanged: (InputFieldOption? selectedOption) {
+        onChange(selectedOption?.code);
+      },
     );
   }
 }
