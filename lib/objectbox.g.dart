@@ -648,13 +648,11 @@ final _entities = <obx_int.ModelEntity>[
             type: 9,
             flags: 0)
       ],
-      relations: <obx_int.ModelRelation>[
-        obx_int.ModelRelation(
-            id: const obx_int.IdUid(2, 6008783994488891808),
-            name: 'options',
-            targetId: const obx_int.IdUid(8, 3440278051107611466))
-      ],
-      backlinks: <obx_int.ModelBacklink>[]),
+      relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[
+        obx_int.ModelBacklink(
+            name: 'options', srcEntity: 'D2Option', srcField: 'optionSet')
+      ]),
   obx_int.ModelEntity(
       id: const obx_int.IdUid(10, 3215215508490411793),
       name: 'D2OrgUnit',
@@ -2262,7 +2260,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         2624640919868138634,
         412700322432031164
       ],
-      retiredRelationUids: const [],
+      retiredRelationUids: const [6008783994488891808],
       modelVersion: 5,
       modelVersionParserMinimum: 5,
       version: 1);
@@ -2849,8 +2847,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2OptionSet: obx_int.EntityDefinition<D2OptionSet>(
         model: _entities[8],
         toOneRelations: (D2OptionSet object) => [],
-        toManyRelations: (D2OptionSet object) =>
-            {obx_int.RelInfo<D2OptionSet>.toMany(2, object.id): object.options},
+        toManyRelations: (D2OptionSet object) => {
+              obx_int.RelInfo<D2Option>.toOneBacklink(8, object.id,
+                  (D2Option srcObject) => srcObject.optionSet): object.options
+            },
         getId: (D2OptionSet object) => object.id,
         setId: (D2OptionSet object, int id) {
           object.id = id;
@@ -2898,8 +2898,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
               .vTableGet(buffer, rootOffset, 16, '');
           final object = D2OptionSet(idParam, displayNameParam, createdParam,
               lastUpdatedParam, uidParam, nameParam, codeParam, valueTypeParam);
-          obx_int.InternalToManyAccess.setRelInfo<D2OptionSet>(object.options,
-              store, obx_int.RelInfo<D2OptionSet>.toMany(2, object.id));
+          obx_int.InternalToManyAccess.setRelInfo<D2OptionSet>(
+              object.options,
+              store,
+              obx_int.RelInfo<D2Option>.toOneBacklink(
+                  8, object.id, (D2Option srcObject) => srcObject.optionSet));
           return object;
         }),
     D2OrgUnit: obx_int.EntityDefinition<D2OrgUnit>(
@@ -5076,7 +5079,7 @@ class D2OptionSet_ {
 
   /// see [D2OptionSet.options]
   static final options =
-      obx.QueryRelationToMany<D2OptionSet, D2Option>(_entities[8].relations[0]);
+      obx.QueryBacklinkToMany<D2Option, D2OptionSet>(D2Option_.optionSet);
 }
 
 /// [D2OrgUnit] entity fields to define ObjectBox queries.

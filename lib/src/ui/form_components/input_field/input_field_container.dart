@@ -15,15 +15,14 @@ class InputFieldContainer extends StatelessWidget {
   final String? warning;
   final bool disabled;
 
-  const InputFieldContainer(
-      {super.key,
-      required this.input,
-      this.value,
-      required this.onChange,
-      required this.color,
-      this.error,
-      this.disabled = false,
-      this.warning});
+  const InputFieldContainer({super.key,
+    required this.input,
+    this.value,
+    required this.onChange,
+    required this.color,
+    this.error,
+    this.disabled = false,
+    this.warning});
 
   final BoxConstraints iconConstraints = const BoxConstraints(
       maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
@@ -57,9 +56,10 @@ class InputFieldContainer extends StatelessWidget {
         case InputFieldType.integer:
         case InputFieldType.positiveInteger:
         case InputFieldType.negativeInteger:
+        case InputFieldType.integerZeroOrPositive:
           return TextInput(
               textInputType:
-                  const TextInputType.numberWithOptions(decimal: false),
+              const TextInputType.numberWithOptions(decimal: false),
               input: input,
               value: value,
               onChange: onChange,
@@ -86,7 +86,13 @@ class InputFieldContainer extends StatelessWidget {
               color: colorOverride,
               onChange: onChange);
         default:
-          throw "${input.type} is currently not supported";
+          return TextInput(
+            onChange: onChange,
+            value: value,
+            input: input,
+            color: colorOverride,
+            textInputType: TextInputType.text,
+          );
       }
     }
 
@@ -142,9 +148,9 @@ class InputFieldContainer extends StatelessWidget {
         children: [
           input.clearable
               ? IconButton(
-                  onPressed: onClear,
-                  icon: const Icon(Icons.clear),
-                )
+            onPressed: onClear,
+            icon: const Icon(Icons.clear),
+          )
               : Container(),
           getSuffixIcon()
         ],
@@ -182,9 +188,9 @@ class InputFieldContainer extends StatelessWidget {
           ),
           error != null
               ? Text(
-                  error!,
-                  style: TextStyle(color: colorOverride, fontSize: 12),
-                )
+            error!,
+            style: TextStyle(color: colorOverride, fontSize: 12),
+          )
               : Container()
         ],
       ),
