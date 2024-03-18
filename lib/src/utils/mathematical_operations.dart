@@ -3,6 +3,8 @@
 
 library;
 
+import 'package:flutter/foundation.dart';
+
 import './program_rule_engine/constants/default_values.dart';
 import '../constants/operators_constants.dart';
 
@@ -68,7 +70,6 @@ class MathematicalOperations {
       if (operatorIndex >= 0) {
         hasOperator = true;
 
-        ///TODO add a check for 0 and 1 in comparison
         String leftOperand = expression.substring(0, operatorIndex).trim();
         String rightOperand =
             expression.substring(operatorIndex + logicalOperator.length).trim();
@@ -87,7 +88,7 @@ class MathematicalOperations {
           );
           return val;
         } catch (e) {
-          print('Error: $e');
+          debugPrint('Error: $e');
           return false;
         }
       }

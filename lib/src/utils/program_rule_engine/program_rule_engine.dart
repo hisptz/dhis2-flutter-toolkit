@@ -43,7 +43,8 @@ class D2ProgramRuleEngine {
   ///    "assignedFields" : {...}
   ///    "hiddenSections" : {...}
   ///    "hiddenProgramStages" : {...}
-  ///    "errorOrWarningMessage" : {...} // TODO distinguish error from warning messages
+  ///    "errorMessages" : {...}
+  ///    "warningMessages" : {...}
   ///  }
   ///```
   Map evaluateProgramRule({
@@ -54,7 +55,8 @@ class D2ProgramRuleEngine {
     var assignedFields = {};
     var hiddenSections = {};
     var hiddenProgramStages = {};
-    var errorOrWarningMessage = {};
+    var errorMessages = {};
+    var warningMessages = {};
 
     List<D2ProgramRule> sortedProgramRules = _sortProgramRulesByPriority(
       inputFieldId.isEmpty
@@ -145,55 +147,46 @@ class D2ProgramRuleEngine {
             } else if (evaluatedConditionResults.runtimeType == bool &&
                 evaluatedConditionResults == true &&
                 (programRuleActionType ==
-                        ProgramRuleActionsConstants.showError ||
-                    programRuleActionType ==
                         ProgramRuleActionsConstants.showWarning ||
                     programRuleActionType ==
-                        ProgramRuleActionsConstants.warningOnComplete ||
-                    programRuleActionType ==
-                        ProgramRuleActionsConstants.errorOnComplete)) {
-              String messageType = programRuleActionType ==
-                          ProgramRuleActionsConstants.showError ||
-                      programRuleActionType ==
-                          ProgramRuleActionsConstants.errorOnComplete
-                  ? 'error'
-                  : 'warning';
+                        ProgramRuleActionsConstants.warningOnComplete)) {
               bool isOnComplete = programRuleActionType ==
                           ProgramRuleActionsConstants.warningOnComplete ||
                       programRuleActionType ==
                           ProgramRuleActionsConstants.errorOnComplete
                   ? true
                   : false;
-              errorOrWarningMessage[dataItemTargetedByProgramAction] = {
+              warningMessages[dataItemTargetedByProgramAction] = {
                 "message": content,
                 "isComplete": isOnComplete,
-                "messageType": messageType
+              };
+            } else if (evaluatedConditionResults.runtimeType == bool &&
+                evaluatedConditionResults == true &&
+                (programRuleActionType ==
+                        ProgramRuleActionsConstants.showError ||
+                    programRuleActionType ==
+                        ProgramRuleActionsConstants.errorOnComplete)) {
+              bool isOnComplete = programRuleActionType ==
+                          ProgramRuleActionsConstants.warningOnComplete ||
+                      programRuleActionType ==
+                          ProgramRuleActionsConstants.errorOnComplete
+                  ? true
+                  : false;
+              errorMessages[dataItemTargetedByProgramAction] = {
+                "message": content,
+                "isComplete": isOnComplete,
               };
             } else if (evaluatedConditionResults.runtimeType == bool &&
                 evaluatedConditionResults == true) {
               var message = '';
-              String messageType = programRuleActionType ==
-                          ProgramRuleActionsConstants.showError ||
-                      programRuleActionType ==
-                          ProgramRuleActionsConstants.errorOnComplete
-                  ? 'error'
-                  : 'warning';
-              bool isOnComplete = programRuleActionType ==
-                          ProgramRuleActionsConstants.warningOnComplete ||
-                      programRuleActionType ==
-                          ProgramRuleActionsConstants.errorOnComplete
-                  ? true
-                  : false;
               if (content != null) {
                 message += content;
               }
               if (data != null) {
                 message += ' $data';
               }
-              errorOrWarningMessage[dataItemTargetedByProgramAction] = {
+              errorMessages[dataItemTargetedByProgramAction] = {
                 message: message,
-                isOnComplete: isOnComplete,
-                messageType: messageType,
               };
             }
           }
@@ -210,7 +203,8 @@ class D2ProgramRuleEngine {
       "assignedFields": assignedFields,
       "hiddenSections": hiddenSections,
       "hiddenProgramStages": hiddenProgramStages,
-      "errorOrWarningMessage": errorOrWarningMessage
+      "warningMessages": warningMessages,
+      "errorMessages": errorMessages
     };
   }
 
