@@ -11,6 +11,7 @@ dependencies:
   collection: ^1.18.0
   connectivity_plus: ^5.0.2
   dart_date: ^1.3.2
+  dhis2_flutter_ui: ^1.1.9
   flutter:
     sdk: flutter
   flutter_secure_storage: ^9.0.0
@@ -20,6 +21,7 @@ dependencies:
   objectbox_flutter_libs: ^2.5.1
   path_provider: ^2.1.2
   provider: ^6.1.2
+  syncfusion_flutter_datepicker: ^24.2.9
 
 dev_dependencies:
   flutter_test:
