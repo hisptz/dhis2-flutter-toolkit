@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../input_field/models/input_field.dart';
+import '../../input_field/models/base_input_field.dart';
 
 class FormSection {
   final String id;
   final String? title;
   final String? subtitle;
-  final List<InputField> fields;
+  final List<D2BaseInputFieldConfig> fields;
   final Color color;
 
   FormSection(

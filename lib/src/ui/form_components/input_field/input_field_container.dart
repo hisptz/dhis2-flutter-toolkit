@@ -1,13 +1,19 @@
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/base_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/select_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/text_input.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/date_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/number_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/select_input_field.dart';
 import 'package:flutter/material.dart';
 
+import 'components/date_input.dart';
 import 'components/input_field_icon.dart';
-import 'models/input_field.dart';
+import 'models/input_field_type_enum.dart';
+import 'models/text_input_field.dart';
 
 class InputFieldContainer extends StatelessWidget {
-  final InputField input;
+  final D2BaseInputFieldConfig input;
   final OnChange<String?> onChange;
   final dynamic value;
   final Color color;
@@ -15,14 +21,15 @@ class InputFieldContainer extends StatelessWidget {
   final String? warning;
   final bool disabled;
 
-  const InputFieldContainer({super.key,
-    required this.input,
-    this.value,
-    required this.onChange,
-    required this.color,
-    this.error,
-    this.disabled = false,
-    this.warning});
+  const InputFieldContainer(
+      {super.key,
+      required this.input,
+      this.value,
+      required this.onChange,
+      required this.color,
+      this.error,
+      this.disabled = false,
+      this.warning});
 
   final BoxConstraints iconConstraints = const BoxConstraints(
       maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
@@ -36,64 +43,88 @@ class InputFieldContainer extends StatelessWidget {
     Color colorOverride = error != null ? Colors.red : color;
 
     BaseInput getInput() {
-      if (input.options != null) {
+      if (input is D2SelectInputFieldConfig) {
         return SelectInput(
-            input: input,
+            input: input as D2SelectInputFieldConfig,
             color: colorOverride,
             onChange: onChange,
             value: value);
       }
-      switch (input.type) {
-        case InputFieldType.text:
-          return TextInput(
-            onChange: onChange,
-            value: value,
-            input: input,
-            color: colorOverride,
-            textInputType: TextInputType.text,
-          );
-        case InputFieldType.number:
-        case InputFieldType.integer:
-        case InputFieldType.positiveInteger:
-        case InputFieldType.negativeInteger:
-        case InputFieldType.integerZeroOrPositive:
-          return TextInput(
-              textInputType:
-              const TextInputType.numberWithOptions(decimal: false),
-              input: input,
-              value: value,
-              onChange: onChange,
-              color: colorOverride);
 
-        case InputFieldType.email:
-          return TextInput(
-              textInputType: TextInputType.emailAddress,
-              input: input,
-              color: colorOverride,
-              onChange: onChange);
-        case InputFieldType.url:
-          return TextInput(
-              onChange: onChange,
-              color: colorOverride,
-              input: input,
-              textInputType: TextInputType.url,
-              value: value);
-        case InputFieldType.date:
-        case InputFieldType.dateAndTime:
-          return TextInput(
-              textInputType: TextInputType.datetime,
-              input: input,
-              color: colorOverride,
-              onChange: onChange);
-        default:
-          return TextInput(
-            onChange: onChange,
-            value: value,
-            input: input,
+      if (input is D2DateInputFieldConfig) {
+        return DateInput(
+            input: input as D2DateInputFieldConfig,
             color: colorOverride,
-            textInputType: TextInputType.text,
-          );
+            onChange: onChange);
       }
+
+      if (input is D2NumberInputFieldConfig) {
+        switch (input.type) {
+          case D2InputFieldType.number:
+          case D2InputFieldType.integer:
+          case D2InputFieldType.positiveInteger:
+          case D2InputFieldType.negativeInteger:
+          case D2InputFieldType.integerZeroOrPositive:
+            return TextInput(
+                textInputType:
+                    const TextInputType.numberWithOptions(decimal: false),
+                input: input,
+                value: value,
+                onChange: onChange,
+                color: colorOverride);
+          default:
+            return TextInput(
+                textInputType:
+                    const TextInputType.numberWithOptions(decimal: false),
+                input: input,
+                value: value,
+                onChange: onChange,
+                color: colorOverride);
+        }
+      }
+
+      if (input is D2TextInputFieldConfig) {
+        switch (input.type) {
+          case D2InputFieldType.text:
+            return TextInput(
+              onChange: onChange,
+              value: value,
+              input: input,
+              color: colorOverride,
+              textInputType: TextInputType.text,
+            );
+
+          case D2InputFieldType.email:
+            return TextInput(
+                textInputType: TextInputType.emailAddress,
+                input: input,
+                color: colorOverride,
+                onChange: onChange);
+          case D2InputFieldType.url:
+            return TextInput(
+                onChange: onChange,
+                color: colorOverride,
+                input: input,
+                textInputType: TextInputType.url,
+                value: value);
+          default:
+            return TextInput(
+              onChange: onChange,
+              value: value,
+              input: input,
+              color: colorOverride,
+              textInputType: TextInputType.text,
+            );
+        }
+      }
+
+      return TextInput(
+        onChange: onChange,
+        value: value,
+        input: input,
+        color: colorOverride,
+        textInputType: TextInputType.text,
+      );
     }
 
     Widget getPrefix() {
@@ -114,7 +145,7 @@ class InputFieldContainer extends StatelessWidget {
 
     Widget getSuffixIcon() {
       switch (input.type) {
-        case InputFieldType.dateAndTime:
+        case D2InputFieldType.dateAndTime:
           return Container(
             constraints: iconConstraints,
             child: InputFieldIcon(
@@ -122,7 +153,7 @@ class InputFieldContainer extends StatelessWidget {
                 iconColor: colorOverride,
                 iconData: Icons.calendar_today),
           );
-        case InputFieldType.date:
+        case D2InputFieldType.date:
           return Container(
             constraints: iconConstraints,
             child: InputFieldIcon(
@@ -130,7 +161,7 @@ class InputFieldContainer extends StatelessWidget {
                 iconColor: colorOverride,
                 iconData: Icons.calendar_today),
           );
-        case InputFieldType.dateRange:
+        case D2InputFieldType.dateRange:
           return Container(
             constraints: iconConstraints,
             child: InputFieldIcon(
@@ -148,9 +179,9 @@ class InputFieldContainer extends StatelessWidget {
         children: [
           input.clearable
               ? IconButton(
-            onPressed: onClear,
-            icon: const Icon(Icons.clear),
-          )
+                  onPressed: onClear,
+                  icon: const Icon(Icons.clear),
+                )
               : Container(),
           getSuffixIcon()
         ],
@@ -188,9 +219,9 @@ class InputFieldContainer extends StatelessWidget {
           ),
           error != null
               ? Text(
-            error!,
-            style: TextStyle(color: colorOverride, fontSize: 12),
-          )
+                  error!,
+                  style: TextStyle(color: colorOverride, fontSize: 12),
+                )
               : Container()
         ],
       ),

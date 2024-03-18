@@ -1,7 +1,12 @@
 import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/form/models/dhis2_form_options.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/date_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/select_input_field.dart';
 import 'package:flutter/material.dart';
+
+import '../input_field/models/input_field_option.dart';
+import '../input_field/models/input_field_type_enum.dart';
 
 class D2TrackerRegistrationForm extends StatelessWidget {
   final D2FormController controller;
@@ -14,7 +19,7 @@ class D2TrackerRegistrationForm extends StatelessWidget {
       required this.program,
       required this.options});
 
-  List<InputField> _getFields(List<D2TrackedEntityAttribute> attributes) {
+  List<D2BaseInputFieldConfig> _getFields(List<D2TrackedEntityAttribute> attributes) {
     return attributes.map((D2TrackedEntityAttribute attribute) {
       D2ProgramTrackedEntityAttribute? programAttribute =
           program.programTrackedEntityAttributes.firstWhereOrNull(
@@ -26,30 +31,40 @@ class D2TrackerRegistrationForm extends StatelessWidget {
         throw "Missing program attribute attribute for attribute ${attribute.uid}";
       }
 
-      InputFieldType? type =
-          InputFieldType.fromDHIS2ValueType(attribute.valueType);
+      D2InputFieldType? type =
+          D2InputFieldType.fromDHIS2ValueType(attribute.valueType);
 
       D2OptionSet? optionSet = attribute.optionSet.target;
 
-      List<InputFieldOption>? options = optionSet?.options
-          .map((D2Option option) => InputFieldOption(
+      List<D2InputFieldOption>? options = optionSet?.options
+          .map((D2Option option) => D2InputFieldOption(
               code: option.code, name: option.displayName ?? option.name))
           .toList();
 
-      return InputField(
+      if (options != null) {
+        return D2SelectInputFieldConfig(
+            options: options,
+            label: attribute.displayFormName ??
+                attribute.displayName ??
+                attribute.name,
+            type: type!,
+            name: attribute.uid,
+            mandatory: programAttribute.mandatory);
+      }
+
+      return D2BaseInputFieldConfig(
           label: attribute.displayFormName ??
               attribute.displayName ??
               attribute.name,
           type: type!,
           name: attribute.uid,
-          options: options,
           mandatory: programAttribute.mandatory);
     }).toList();
   }
 
   List<FormSection> _getFormSections() {
     return program.programSections.map((D2ProgramSection programSection) {
-      List<InputField> fields =
+      List<D2BaseInputFieldConfig> fields =
           _getFields(programSection.trackedEntityAttributes);
       return FormSection(
           fields: fields,
@@ -64,17 +79,17 @@ class D2TrackerRegistrationForm extends StatelessWidget {
     return FormSection(
         id: "meta",
         fields: [
-          InputField(
+          D2DateInputFieldConfig(
               name: "enrolledAt",
               mandatory: true,
-              type: InputFieldType.date,
+              type: D2InputFieldType.date,
               label:
                   "Registration Date" //TODO: Get this value from program config
               ),
-          InputField(
+          D2BaseInputFieldConfig(
               name: "orgUnit",
               mandatory: true,
-              type: InputFieldType.organisationUnit,
+              type: D2InputFieldType.organisationUnit,
               label:
                   "Registration Org unit" //TODO: Get this value from program config
               )

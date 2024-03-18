@@ -1,6 +1,8 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/form_controlled_field_container.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../dhis2_flutter_toolkit.dart';
+import '../input_field/form_controlled_field_container.dart';
+import '../input_field/models/base_input_field.dart';
 
 class FormSectionContainerWithControlledInputs extends StatelessWidget {
   final FormSection section;
@@ -35,7 +37,7 @@ class FormSectionContainerWithControlledInputs extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              InputField input = section.fields[index];
+              D2BaseInputFieldConfig input = section.fields[index];
               return D2FormControlledInputField(
                   input: input, controller: controller, color: section.color);
             },

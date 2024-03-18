@@ -117,12 +117,20 @@ export "src/ui/form_components/form_section/models/form_section.dart"
 //Forms
 export "src/ui/form_components/input_field/input_field_container.dart"
     show InputFieldContainer;
-export "src/ui/form_components/input_field/models/input_field.dart"
-    show InputField;
-export "src/ui/form_components/input_field/models/input_field.dart"
-    show InputFieldOption;
-export "src/ui/form_components/input_field/models/input_field.dart"
-    show InputFieldType;
+export "src/ui/form_components/input_field/models/base_input_field.dart"
+    show D2BaseInputFieldConfig;
+export "src/ui/form_components/input_field/models/date_input_field.dart"
+    show D2DateInputFieldConfig;
+export "src/ui/form_components/input_field/models/input_field_option.dart"
+    show D2InputFieldOption;
+export "src/ui/form_components/input_field/models/input_field_type_enum.dart"
+    show D2InputFieldType;
+export "src/ui/form_components/input_field/models/number_input_field.dart"
+    show D2NumberInputFieldConfig;
+export "src/ui/form_components/input_field/models/select_input_field.dart"
+    show D2SelectInputFieldConfig;
+export "src/ui/form_components/input_field/models/text_input_field.dart"
+    show D2TextInputFieldConfig;
 export "src/ui/form_components/state/form_state.dart" show D2FormController;
 //Period Engine
 export "src/utils/period_engine/models/period.dart" show D2Period;

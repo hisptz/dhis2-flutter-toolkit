@@ -1,7 +1,6 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
 import 'package:flutter/material.dart';
-
-import 'models/form.dart';
 
 typedef OnFormFieldChange<T> = void Function(String key, T);
 
@@ -67,7 +66,7 @@ class FormContainer extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    InputField input = form.fields![index];
+                    D2BaseInputFieldConfig input = form.fields![index];
                     return InputFieldContainer(
                       color: form.color,
                       input: input,

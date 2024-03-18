@@ -3,10 +3,11 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
-import '../models/input_field.dart';
+import '../models/input_field_option.dart';
+import '../models/select_input_field.dart';
 import 'base_input.dart';
 
-class SelectInput extends BaseInput<String> {
+class SelectInput extends BaseInput<D2SelectInputFieldConfig> {
   const SelectInput(
       {super.key,
       super.value,
@@ -16,10 +17,10 @@ class SelectInput extends BaseInput<String> {
 
   @override
   Widget build(BuildContext context) {
-    List<DropdownMenuItem<InputFieldOption>> options =
-        input.options?.map((InputFieldOption option) {
+    List<DropdownMenuItem<D2InputFieldOption>> options =
+        input.options?.map((D2InputFieldOption option) {
               bool isSelected = option.code == value;
-              return DropdownMenuItem<InputFieldOption>(
+              return DropdownMenuItem<D2InputFieldOption>(
                 value: option,
                 child: Text(
                   option.name,
@@ -27,11 +28,11 @@ class SelectInput extends BaseInput<String> {
                 ),
               );
             }).toList() ??
-            <DropdownMenuItem<InputFieldOption>>[];
+            <DropdownMenuItem<D2InputFieldOption>>[];
 
-    InputFieldOption? valueOption = input.options!
-        .firstWhereOrNull((InputFieldOption option) => option.code == value);
-    return DropdownButton<InputFieldOption>(
+    D2InputFieldOption? valueOption = input.options!
+        .firstWhereOrNull((D2InputFieldOption option) => option.code == value);
+    return DropdownButton<D2InputFieldOption>(
       alignment: Alignment.centerLeft,
       underline: Container(
         height: 0,
@@ -55,7 +56,7 @@ class SelectInput extends BaseInput<String> {
         ),
       ),
       isExpanded: true,
-      onChanged: (InputFieldOption? selectedOption) {
+      onChanged: (D2InputFieldOption? selectedOption) {
         onChange(selectedOption?.code);
       },
     );

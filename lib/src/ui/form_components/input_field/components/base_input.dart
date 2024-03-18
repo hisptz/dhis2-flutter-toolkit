@@ -1,11 +1,11 @@
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
 import 'package:flutter/material.dart';
-
-import '../models/input_field.dart';
 
 typedef OnChange<T> = void Function(T);
 
-abstract class BaseInput<ValueType> extends StatelessWidget {
-  final InputField input;
+abstract class BaseInput<FieldType extends D2BaseInputFieldConfig>
+    extends StatelessWidget {
+  final FieldType input;
   final Color color;
   final String? value;
   final OnChange<String?> onChange;

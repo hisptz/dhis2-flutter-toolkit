@@ -1,16 +1,17 @@
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
 import 'package:flutter/material.dart';
 
-import '../models/input_field.dart';
+import '../models/input_field_type_enum.dart';
 import 'base_input.dart';
 
 class TextFieldInputType {
-  InputFieldType type;
+  D2InputFieldType type;
   TextInputType inputType;
 
   TextFieldInputType({required this.type, required this.inputType});
 }
 
-class TextInput extends BaseInput<String> {
+class TextInput extends BaseInput<D2BaseInputFieldConfig> {
   final TextInputType textInputType;
 
   const TextInput(
