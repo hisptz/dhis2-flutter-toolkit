@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 typedef OnChange<T> = void Function(T);
 
-abstract class BaseInput<FieldType extends D2BaseInputFieldConfig>
+abstract class BaseInput<FieldType extends D2BaseInputFieldConfig, ValueType>
     extends StatelessWidget {
   final FieldType input;
   final Color color;
-  final String? value;
-  final OnChange<String?> onChange;
+  final ValueType? value;
+  final OnChange<ValueType?> onChange;
 
   const BaseInput({
     super.key,

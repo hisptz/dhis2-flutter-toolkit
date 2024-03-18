@@ -121,6 +121,8 @@ export "src/ui/form_components/input_field/models/base_input_field.dart"
     show D2BaseInputFieldConfig;
 export "src/ui/form_components/input_field/models/date_input_field.dart"
     show D2DateInputFieldConfig;
+export "src/ui/form_components/input_field/models/date_range_input_field.dart"
+    show D2DateRangeInputFieldConfig;
 export "src/ui/form_components/input_field/models/input_field_option.dart"
     show D2InputFieldOption;
 export "src/ui/form_components/input_field/models/input_field_type_enum.dart"

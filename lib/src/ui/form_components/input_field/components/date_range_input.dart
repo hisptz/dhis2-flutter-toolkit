@@ -1,12 +1,13 @@
 import 'package:dart_date/dart_date.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/date_input_field.dart';
 import 'package:flutter/material.dart';
 
+import '../models/date_range_input_field.dart';
 import 'base_input.dart';
 import 'input_field_icon.dart';
 
-class DateInput extends BaseInput<D2DateInputFieldConfig, String> {
-  DateInput(
+class DateRangeInput
+    extends BaseInput<D2DateRangeInputFieldConfig, DateTimeRange> {
+  DateRangeInput(
       {super.key,
       required super.input,
       required super.onChange,
@@ -14,14 +15,14 @@ class DateInput extends BaseInput<D2DateInputFieldConfig, String> {
       super.value});
 
   void onOpenDateSelection(context) async {
-    DateTime? selectedDateTime = await showDatePicker(
-        initialDate: value != null ? DateTime.tryParse(value!) : null,
+    DateTimeRange? selectedDateTime = await showDateRangePicker(
+        initialDateRange: value,
         context: context,
         firstDate: DateTime.fromMillisecondsSinceEpoch(0),
         lastDate: input.allowFutureDates
             ? DateTime.now().addYears(10)
             : DateTime.now());
-    onChange(selectedDateTime?.toIso8601String());
+    onChange(selectedDateTime);
   }
 
   late final TextEditingController controller;
@@ -32,7 +33,7 @@ class DateInput extends BaseInput<D2DateInputFieldConfig, String> {
   Widget build(BuildContext context) {
     controller = TextEditingController(
         text: value != null
-            ? DateTime.tryParse(value!)?.format("dd/MM/yyyy")
+            ? '${value!.start.format("dd/MM/yyyy")} - ${value!.end.format("dd/MM/yyyy")}'
             : null);
     return TextFormField(
         showCursor: false,
@@ -55,7 +56,7 @@ class DateInput extends BaseInput<D2DateInputFieldConfig, String> {
               icon: InputFieldIcon(
                   backgroundColor: color,
                   iconColor: color,
-                  iconData: Icons.calendar_today),
+                  iconData: Icons.date_range_sharp),
             )),
         onTap: () {
           onOpenDateSelection(context);

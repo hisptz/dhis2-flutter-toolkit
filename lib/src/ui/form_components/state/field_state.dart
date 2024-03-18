@@ -3,10 +3,10 @@ import '../input_field/components/base_input.dart';
 class FieldState {
   bool? hidden;
   bool? mandatory;
-  String? value;
+  dynamic value;
   String? error;
   String? warning;
-  OnChange<String?> onChange;
+  OnChange<dynamic> onChange;
 
   FieldState(
       {required this.onChange,
