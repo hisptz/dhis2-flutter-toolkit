@@ -11,6 +11,8 @@ class D2AppModalUtil {
   // display the action sheet.
   //
   // Parameters:
+  // - title: The title of the action sheet.
+  // - titleColor: The color for the title of the action sheet.
   // - context: The BuildContext required for the showModalBottomSheet method.
   // - actionSheetContainer: The widget that represents the content of the action
   //   sheet.
@@ -25,6 +27,8 @@ class D2AppModalUtil {
   static Future showActionSheetModal(
     BuildContext context, {
     required Widget actionSheetContainer,
+    String title = '',
+    Color titleColor = const Color(0xFF619E51),
     double initialHeightRatio = 0.3,
     double minHeightRatio = 0.1,
     double maxHeightRatio = 0.85,
@@ -44,6 +48,8 @@ class D2AppModalUtil {
       isScrollControlled: true, // Whether the bottom sheet can be scrolled.
       backgroundColor: Colors.transparent, // Transparent background color.
       builder: (context) => D2AppActionSheetModalContainer(
+        title: title,
+        titleColor: titleColor,
         actionSheetContainer: actionSheetContainer,
         initialHeightRatio: initialHeightRatio,
         minHeightRatio: minHeightRatio,
