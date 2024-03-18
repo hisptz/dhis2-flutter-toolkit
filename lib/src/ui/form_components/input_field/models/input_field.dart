@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 enum InputFieldType {
@@ -27,7 +28,11 @@ enum InputFieldType {
   url,
   file,
   image,
-  geoJson
+  geoJson;
+
+  static InputFieldType? fromName(String? name) {
+    return values.firstWhereOrNull((e) => e.name == name);
+  }
 }
 
 class InputFieldOption {
