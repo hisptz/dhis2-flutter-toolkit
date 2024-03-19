@@ -1,12 +1,16 @@
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/base_input.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/boolean_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/date_range_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/select_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/text_input.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/true_only_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/boolean_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/date_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/date_range_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/number_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/select_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/true_only_input_field.dart';
 import 'package:flutter/material.dart';
 
 import 'components/date_input.dart';
@@ -131,6 +135,14 @@ class InputFieldContainer extends StatelessWidget {
         }
       }
 
+      if (input is D2BooleanInputFieldConfig) {
+        return BooleanInput(
+          onChange: onChange,
+          value: value,
+          input: input as D2BooleanInputFieldConfig,
+          color: colorOverride,
+        );
+      }
       if (input is D2TrueOnlyInputFieldConfig) {
         return TrueOnlyInput(
           onChange: onChange,
