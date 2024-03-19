@@ -39,6 +39,7 @@ class D2PeriodSelection {
       selected = selection;
       category = period.category;
       type = period.type;
+      displayName = period.name;
     } else {
       category = D2PeriodTypeCategory.relative;
     }
