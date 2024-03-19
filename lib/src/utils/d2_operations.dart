@@ -48,16 +48,16 @@ class D2Operations {
         var condition =
             expressionSections.first.replaceAll("'", '').replaceAll("'", '');
         var conditionResults =
-            MathematicalOperations.evaluateMathematicalOperation(
+            D2MathematicalOperations.evaluateMathematicalOperation(
           condition,
           resolveToNumber: false,
         );
         var d2ExpressionValue = conditionResults == true
-            ? MathematicalOperations.evaluateMathematicalOperation(
+            ? D2MathematicalOperations.evaluateMathematicalOperation(
                 expressionSections[1],
                 resolveToNumber: true,
               )
-            : MathematicalOperations.evaluateMathematicalOperation(
+            : D2MathematicalOperations.evaluateMathematicalOperation(
                 expressionSections[2],
                 resolveToNumber: true,
               );
@@ -135,7 +135,7 @@ class D2Operations {
               DateTime.parse(expressionSections.first.replaceAll("'", ''));
           var endDate =
               DateTime.parse(expressionSections.last.replaceAll("'", ''));
-          int daysBetween = DateUtils.calculateDaysBetweenDates(
+          int daysBetween = D2DateUtils.calculateDaysBetweenDates(
             startDate: startDate,
             endDate: endDate,
           );
@@ -151,7 +151,7 @@ class D2Operations {
               DateTime.parse(expressionSections.first.replaceAll("'", ''));
           var endDate =
               DateTime.parse(expressionSections.last.replaceAll("'", ''));
-          int weeksBetween = DateUtils.calculateWeeksBetweenDates(
+          int weeksBetween = D2DateUtils.calculateWeeksBetweenDates(
             startDate: startDate,
             endDate: endDate,
           );
@@ -167,7 +167,7 @@ class D2Operations {
               DateTime.parse(expressionSections.first.replaceAll("'", ''));
           var endDate =
               DateTime.parse(expressionSections.last.replaceAll("'", ''));
-          int monthsBetween = DateUtils.calculateMonthsBetweenDates(
+          int monthsBetween = D2DateUtils.calculateMonthsBetweenDates(
             startDate: startDate,
             endDate: endDate,
           );
@@ -183,7 +183,7 @@ class D2Operations {
               DateTime.parse(expressionSections.first.replaceAll("'", ''));
           var endDate =
               DateTime.parse(expressionSections.last.replaceAll("'", ''));
-          int yearsBetween = DateUtils.calculateYearsBetweenDates(
+          int yearsBetween = D2DateUtils.calculateYearsBetweenDates(
             startDate: startDate,
             endDate: endDate,
           );

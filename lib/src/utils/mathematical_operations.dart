@@ -11,7 +11,7 @@ import '../constants/operators_constants.dart';
 //
 ///`MathematicalOperations` is a collection of utilities for performing mathematical operations
 //
-class MathematicalOperations {
+class D2MathematicalOperations {
   //
   ///`MathematicalOperations.sanitizeStringValue` sanitizes values ready for evaluations by other methods
   ///It takes in a `dynamic` value as input and returns a sanitized value
