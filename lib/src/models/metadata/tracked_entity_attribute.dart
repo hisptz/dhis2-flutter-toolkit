@@ -44,7 +44,8 @@ class D2TrackedEntityAttribute extends D2MetaResource {
       this.description,
       this.aggregationType,
       this.valueType,
-      this.zeroIsSignificant);
+      this.zeroIsSignificant,
+      );
 
   D2TrackedEntityAttribute.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
@@ -59,7 +60,8 @@ class D2TrackedEntityAttribute extends D2MetaResource {
         description = json["description"],
         aggregationType = json["aggregationType"],
         valueType = json["valueType"],
-        zeroIsSignificant = json["zeroIsSignificant"] {
+        zeroIsSignificant = json["zeroIsSignificant"]
+         {
     id = D2TrackedEntityAttributeRepository(db).getIdByUid(json["id"]) ?? 0;
     List<D2LegendSet> legendSet = json["attributeValues"]
         .cast<Map>()
