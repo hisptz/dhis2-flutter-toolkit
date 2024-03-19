@@ -13,14 +13,17 @@ class TextFieldInputType {
 
 class TextInput extends BaseInput<D2BaseInputFieldConfig, String> {
   final TextInputType textInputType;
+  final int? maxLines;
 
-  const TextInput(
-      {super.key,
-      super.value,
-      required this.textInputType,
-      required super.input,
-      required super.color,
-      required super.onChange});
+  const TextInput({
+    super.key,
+    super.value,
+    required this.textInputType,
+    required super.input,
+    required super.color,
+    required super.onChange,
+    this.maxLines = 1,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +32,7 @@ class TextInput extends BaseInput<D2BaseInputFieldConfig, String> {
       onChanged: (String? value) {
         onChange(value);
       },
+      maxLines: maxLines,
       keyboardType: textInputType,
       style: const TextStyle(
         fontSize: 14,
