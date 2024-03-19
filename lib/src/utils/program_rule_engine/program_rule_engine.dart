@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../constants/dhis2_variables.dart';
 import '../../constants/string_constants.dart';
+import '../../models/data/tracked_entity.dart';
 import '../../models/metadata/program_rule.dart';
 import '../../models/metadata/program_rule_action.dart';
 import '../../models/metadata/program_rule_variable.dart';
@@ -47,9 +48,12 @@ class D2ProgramRuleEngine {
   ///    "warningMessages" : {...}
   ///  }
   ///```
+
+  // TODO accept Tracked entity instance
   Map evaluateProgramRule({
     Map dataObject = const {},
     String inputFieldId = '',
+    D2TrackedEntity? trackedEntity,
   }) {
     var hiddenFields = {};
     var assignedFields = {};
@@ -111,6 +115,7 @@ class D2ProgramRuleEngine {
               programRuleVariables: programRuleVariables,
               expression: dataExpression,
               dataObject: dataObject,
+              trackedEntity: trackedEntity,
             );
             if (programRuleActionType ==
                     ProgramRuleActionsConstants.hideField &&
@@ -233,6 +238,7 @@ class D2ProgramRuleEngine {
     required String expression,
     required List<D2ProgramRuleVariable> programRuleVariables,
     Map dataObject = const {},
+    D2TrackedEntity? trackedEntity,
   }) {
     String sanitizedExpression = expression;
 
