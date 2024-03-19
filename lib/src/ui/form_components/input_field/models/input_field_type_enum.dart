@@ -1,29 +1,29 @@
 import 'package:collection/collection.dart';
 
 enum D2InputFieldType {
-  text,
-  longText,
+  text, //TODO:
+  longText, //TODO:
   letter,
   phoneNumber,
   email,
-  trueOnly,
-  trueOrFalse,
-  date,
-  dateRange,
-  dateAndTime,
+  trueOnly, //TODO:
+  boolean, //TODO;
+  date, //TODO:
+  dateRange, //TODO:
+  dateTime,
   time,
   password,
-  number,
+  number, //TODO:
   positiveInteger,
   unitInterval,
   percentage,
   integer,
   negativeInteger,
-  integerZeroOrPositive,
+  integerZeroOrPositive, //TODO:
   coordinate,
-  organisationUnit,
+  organisationUnit, //TODO:
   reference,
-  age,
+  age, //TODO:
   url,
   file,
   image,

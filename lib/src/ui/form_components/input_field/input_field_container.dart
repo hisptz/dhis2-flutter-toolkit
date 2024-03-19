@@ -105,7 +105,6 @@ class InputFieldContainer extends StatelessWidget {
               color: colorOverride,
               textInputType: TextInputType.text,
             );
-
           case D2InputFieldType.email:
             return TextInput(
                 textInputType: TextInputType.emailAddress,
