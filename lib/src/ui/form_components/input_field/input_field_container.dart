@@ -131,6 +131,15 @@ class InputFieldContainer extends StatelessWidget {
         }
       }
 
+      if (input is D2TrueOnlyInputFieldConfig) {
+        return TrueOnlyInput(
+          onChange: onChange,
+          value: value,
+          input: input as D2TrueOnlyInputFieldConfig,
+          color: colorOverride,
+        );
+      }
+
       return TextInput(
         onChange: onChange,
         value: value,
