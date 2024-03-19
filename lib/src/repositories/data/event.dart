@@ -68,6 +68,8 @@ class D2EventRepository extends BaseDataRepository<D2Event>
 
   @override
   void addProgramToQuery() {
-    // TODO: implement addProgramToQuery
+    if(program != null) {
+
+    }
   }
 }

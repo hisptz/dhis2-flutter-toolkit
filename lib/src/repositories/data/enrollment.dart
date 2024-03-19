@@ -49,12 +49,13 @@ class D2EnrollmentRepository extends BaseDataRepository<D2Enrollment>
   @override
   BaseDataRepository<D2Enrollment> setProgram(D2Program program) {
     this.program = program;
-    updateQueryCondition(D2Enrollment_.program.equals(program.id));
     return this;
   }
 
   @override
   void addProgramToQuery() {
-    // TODO: implement addProgramToQuery
+    if (program != null) {
+      updateQueryCondition(D2Enrollment_.program.equals(program!.id));
+    }
   }
 }
