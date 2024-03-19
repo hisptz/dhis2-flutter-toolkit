@@ -27,6 +27,9 @@ class TrueOnlyInput extends BaseInput<D2TrueOnlyInputFieldConfig, String> {
         trackOutlineColor: MaterialStatePropertyAll(
           isSelected() ? color : const Color(0xFF94A0B1),
         ),
+        thumbColor: MaterialStatePropertyAll(
+          isSelected() ? Colors.white : const Color(0xFF94A0B1),
+        ),
         thumbIcon: MaterialStateProperty.all(
           Icon(
             isSelected() ? Icons.check : Icons.close,
