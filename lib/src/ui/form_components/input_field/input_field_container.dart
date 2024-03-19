@@ -18,7 +18,7 @@ class InputFieldContainer extends StatelessWidget {
   final D2BaseInputFieldConfig input;
   final OnChange<dynamic> onChange;
   final dynamic value;
-  final Color color;
+  final Color? color;
   final String? error;
   final String? warning;
   final bool disabled;
@@ -42,7 +42,8 @@ class InputFieldContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color colorOverride = error != null ? Colors.red : color;
+    Color? colorOverride =
+        error != null ? Colors.red : color ?? Theme.of(context).primaryColor;
 
     BaseInput getInput() {
       if (input is D2SelectInputFieldConfig) {

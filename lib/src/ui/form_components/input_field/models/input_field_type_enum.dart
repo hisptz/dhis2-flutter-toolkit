@@ -45,4 +45,20 @@ enum D2InputFieldType {
     return values
         .firstWhereOrNull((element) => element.name == sanitizedValueType);
   }
+
+  static bool isDateType(D2InputFieldType type) {
+    return [D2InputFieldType.date, D2InputFieldType.dateTime].contains(type);
+  }
+
+  static bool isDateRange(D2InputFieldType type) {
+    return [D2InputFieldType.dateRange].contains(type);
+  }
+
+  static bool isText(D2InputFieldType type) {
+    return [
+      D2InputFieldType.text,
+      D2InputFieldType.longText,
+      D2InputFieldType.letter,
+    ].contains(type);
+  }
 }

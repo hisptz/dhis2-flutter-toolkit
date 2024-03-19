@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class D2FormControlledInputField extends StatelessWidget {
   final D2BaseInputFieldConfig input;
-  final Color color;
+  final Color? color;
   final D2FormController controller;
   final bool? disabled;
 

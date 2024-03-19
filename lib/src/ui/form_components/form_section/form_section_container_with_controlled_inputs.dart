@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../../../dhis2_flutter_toolkit.dart';
 import '../input_field/form_controlled_field_container.dart';
-import '../input_field/models/base_input_field.dart';
 
 class FormSectionContainerWithControlledInputs extends StatelessWidget {
   final FormSection section;
   final D2FormController controller;
+  final Color? color;
 
   const FormSectionContainerWithControlledInputs(
-      {super.key, required this.section, required this.controller});
+      {super.key, required this.section, required this.controller, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class FormSectionContainerWithControlledInputs extends StatelessWidget {
             ? Text(
                 section.title!,
                 style: TextStyle(
-                  color: section.color,
+                  color: color,
                   fontSize: 24,
                 ),
               )
@@ -39,7 +39,7 @@ class FormSectionContainerWithControlledInputs extends StatelessWidget {
             itemBuilder: (context, index) {
               D2BaseInputFieldConfig input = section.fields[index];
               return D2FormControlledInputField(
-                  input: input, controller: controller, color: section.color);
+                  input: input, controller: controller, color: color);
             },
             separatorBuilder: (context, index) => const Padding(
                   padding: EdgeInsets.symmetric(vertical: 8.0),

@@ -6,9 +6,13 @@ import '../form/form_container.dart';
 class FormSectionContainer extends StatelessWidget {
   final FormSection section;
   final OnFormFieldChange<String?> onFieldChange;
+  final Color? color;
 
   const FormSectionContainer(
-      {super.key, required this.section, required this.onFieldChange});
+      {super.key,
+      required this.section,
+      required this.onFieldChange,
+      this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,7 @@ class FormSectionContainer extends StatelessWidget {
             ? Text(
                 section.title!,
                 style: TextStyle(
-                  color: section.color,
+                  color: color,
                   fontSize: 24,
                 ),
               )
@@ -42,7 +46,7 @@ class FormSectionContainer extends StatelessWidget {
                   onChange: (value) {
                     return onFieldChange(input.name, value);
                   },
-                  color: section.color);
+                  color: color);
             },
             separatorBuilder: (context, index) => const Padding(
                   padding: EdgeInsets.symmetric(vertical: 8.0),
