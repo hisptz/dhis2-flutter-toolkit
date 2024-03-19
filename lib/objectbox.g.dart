@@ -648,13 +648,11 @@ final _entities = <obx_int.ModelEntity>[
             type: 9,
             flags: 0)
       ],
-      relations: <obx_int.ModelRelation>[
-        obx_int.ModelRelation(
-            id: const obx_int.IdUid(2, 6008783994488891808),
-            name: 'options',
-            targetId: const obx_int.IdUid(8, 3440278051107611466))
-      ],
-      backlinks: <obx_int.ModelBacklink>[]),
+      relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[
+        obx_int.ModelBacklink(
+            name: 'options', srcEntity: 'D2Option', srcField: 'optionSet')
+      ]),
   obx_int.ModelEntity(
       id: const obx_int.IdUid(10, 3215215508490411793),
       name: 'D2OrgUnit',
@@ -1728,7 +1726,12 @@ final _entities = <obx_int.ModelEntity>[
             type: 1,
             flags: 0)
       ],
-      relations: <obx_int.ModelRelation>[],
+      relations: <obx_int.ModelRelation>[
+        obx_int.ModelRelation(
+            id: const obx_int.IdUid(11, 7737513459837759207),
+            name: 'enrollmentsForQuery',
+            targetId: const obx_int.IdUid(4, 8139154496331483919))
+      ],
       backlinks: <obx_int.ModelBacklink>[
         obx_int.ModelBacklink(
             name: 'enrollments',
@@ -2249,7 +2252,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
       entities: _entities,
       lastEntityId: const obx_int.IdUid(33, 3327197192716612547),
       lastIndexId: const obx_int.IdUid(71, 9070600766487288194),
-      lastRelationId: const obx_int.IdUid(10, 1465890458454070528),
+      lastRelationId: const obx_int.IdUid(11, 7737513459837759207),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [4845029629663650184],
       retiredIndexUids: const [],
@@ -2262,7 +2265,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         2624640919868138634,
         412700322432031164
       ],
-      retiredRelationUids: const [],
+      retiredRelationUids: const [6008783994488891808],
       modelVersion: 5,
       modelVersionParserMinimum: 5,
       version: 1);
@@ -2849,8 +2852,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2OptionSet: obx_int.EntityDefinition<D2OptionSet>(
         model: _entities[8],
         toOneRelations: (D2OptionSet object) => [],
-        toManyRelations: (D2OptionSet object) =>
-            {obx_int.RelInfo<D2OptionSet>.toMany(2, object.id): object.options},
+        toManyRelations: (D2OptionSet object) => {
+              obx_int.RelInfo<D2Option>.toOneBacklink(8, object.id,
+                  (D2Option srcObject) => srcObject.optionSet): object.options
+            },
         getId: (D2OptionSet object) => object.id,
         setId: (D2OptionSet object, int id) {
           object.id = id;
@@ -2898,8 +2903,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
               .vTableGet(buffer, rootOffset, 16, '');
           final object = D2OptionSet(idParam, displayNameParam, createdParam,
               lastUpdatedParam, uidParam, nameParam, codeParam, valueTypeParam);
-          obx_int.InternalToManyAccess.setRelInfo<D2OptionSet>(object.options,
-              store, obx_int.RelInfo<D2OptionSet>.toMany(2, object.id));
+          obx_int.InternalToManyAccess.setRelInfo<D2OptionSet>(
+              object.options,
+              store,
+              obx_int.RelInfo<D2Option>.toOneBacklink(
+                  8, object.id, (D2Option srcObject) => srcObject.optionSet));
           return object;
         }),
     D2OrgUnit: obx_int.EntityDefinition<D2OrgUnit>(
@@ -4042,6 +4050,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
         toOneRelations: (D2TrackedEntity object) =>
             [object.orgUnit, object.trackedEntityType],
         toManyRelations: (D2TrackedEntity object) => {
+              obx_int.RelInfo<D2TrackedEntity>.toMany(11, object.id):
+                  object.enrollmentsForQuery,
               obx_int.RelInfo<D2Enrollment>.toOneBacklink(11, object.id,
                       (D2Enrollment srcObject) => srcObject.trackedEntity):
                   object.enrollments,
@@ -4105,6 +4115,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.trackedEntityType.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0);
           object.trackedEntityType.attach(store);
+          obx_int.InternalToManyAccess.setRelInfo<D2TrackedEntity>(
+              object.enrollmentsForQuery,
+              store,
+              obx_int.RelInfo<D2TrackedEntity>.toMany(11, object.id));
           obx_int.InternalToManyAccess.setRelInfo<D2TrackedEntity>(
               object.enrollments,
               store,
@@ -5076,7 +5090,7 @@ class D2OptionSet_ {
 
   /// see [D2OptionSet.options]
   static final options =
-      obx.QueryRelationToMany<D2OptionSet, D2Option>(_entities[8].relations[0]);
+      obx.QueryBacklinkToMany<D2Option, D2OptionSet>(D2Option_.optionSet);
 }
 
 /// [D2OrgUnit] entity fields to define ObjectBox queries.
@@ -5870,6 +5884,11 @@ class D2TrackedEntity_ {
   /// see [D2TrackedEntity.synced]
   static final synced =
       obx.QueryBooleanProperty<D2TrackedEntity>(_entities[23].properties[9]);
+
+  /// see [D2TrackedEntity.enrollmentsForQuery]
+  static final enrollmentsForQuery =
+      obx.QueryRelationToMany<D2TrackedEntity, D2Enrollment>(
+          _entities[23].relations[0]);
 
   /// see [D2TrackedEntity.enrollments]
   static final enrollments =

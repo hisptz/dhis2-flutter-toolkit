@@ -22,6 +22,7 @@ class D2TrackedEntity extends SyncDataSource implements SyncableData {
   @override
   DateTime updatedAt;
 
+  @override
   @Unique()
   String uid;
   bool potentialDuplicate;
@@ -30,6 +31,8 @@ class D2TrackedEntity extends SyncDataSource implements SyncableData {
 
   @Backlink("trackedEntity")
   final enrollments = ToMany<D2Enrollment>();
+
+  final enrollmentsForQuery = ToMany<D2Enrollment>();
 
   //Disabled for now
   // final relationships = ToMany<D2Relationship>();

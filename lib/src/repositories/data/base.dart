@@ -4,7 +4,6 @@ import 'package:objectbox/objectbox.dart';
 abstract class BaseDataRepository<T extends D2DataResource> {
   D2ObjectBox db;
   D2Program? program;
-
   Box<T> get box {
     return db.store.box<T>();
   }
@@ -13,30 +12,12 @@ abstract class BaseDataRepository<T extends D2DataResource> {
 
   T mapper(Map<String, dynamic> json);
 
-  Condition<T>? queryConditions;
-
   int? getIdByUid(String uid) {
     return getByUid(uid)?.id;
   }
 
-  QueryBuilder<T> get queryBuilder {
-    return box.query(queryConditions);
-  }
-
-  Query<T> get query {
-    return queryBuilder.build();
-  }
-
   Future saveEntities(List<T> entities) {
     return box.putManyAsync(entities);
-  }
-
-  updateQueryCondition(Condition<T> condition) {
-    if (queryConditions != null) {
-      queryConditions!.and(condition);
-    } else {
-      queryConditions = condition;
-    }
   }
 
   BaseDataRepository<T> setProgram(D2Program program);
@@ -51,14 +32,6 @@ abstract class BaseDataRepository<T extends D2DataResource> {
     return this;
   }
 
-  List<T> find() {
-    return query.find();
-  }
-
-  Future<List<T>> findAsync() async {
-    return await query.findAsync();
-  }
-
   T? getById(int id) {
     return box.get(id);
   }
@@ -70,8 +43,4 @@ abstract class BaseDataRepository<T extends D2DataResource> {
     return box.putAndGetManyAsync(entities);
   }
 
-  BaseDataRepository<T> clearQuery() {
-    queryConditions = null;
-    return this;
-  }
 }

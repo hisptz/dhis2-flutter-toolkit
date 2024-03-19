@@ -23,6 +23,7 @@ dependencies:
   provider: ^6.1.2
   syncfusion_flutter_datepicker: ^24.2.9
 
+  path: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
