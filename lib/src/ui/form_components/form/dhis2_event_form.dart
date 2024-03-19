@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 import '../utils/tracker_enrollment_form_util.dart';
 
-class D2TrackerRegistrationForm extends StatelessWidget {
+class D2TrackerEventForm extends StatelessWidget {
   final D2FormController controller;
   final D2Program program;
   final D2TrackerFormOptions options;
   final Color? color;
 
-  const D2TrackerRegistrationForm(
+  const D2TrackerEventForm(
       {super.key,
       required this.controller,
       required this.program,
@@ -20,6 +20,7 @@ class D2TrackerRegistrationForm extends StatelessWidget {
   Widget build(BuildContext context) {
     List<FormSection> formSections =
         TrackerEnrollmentFormUtil(program: program).formSections;
+
     Color formColor = color ?? Theme.of(context).primaryColor;
 
     return D2ControlledForm(
