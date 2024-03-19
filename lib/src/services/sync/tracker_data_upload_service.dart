@@ -11,7 +11,6 @@ import '../../repositories/metadata/user.dart';
 import '../../utils/sync_status.dart';
 import '../client/client.dart';
 
-
 class D2TrackerDataUploadService {
   D2ObjectBox db;
   D2ClientService client;
@@ -58,7 +57,8 @@ class D2TrackerDataUploadService {
 
   Future<void> upload() async {
     await setupDataUpload();
-    uploadController.add(D2SyncStatus(status: D2SyncStatusEnum.complete, label: "All"));
+    uploadController
+        .add(D2SyncStatus(status: D2SyncStatusEnum.complete, label: "All"));
     uploadController.close();
   }
 }

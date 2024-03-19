@@ -1,4 +1,5 @@
 import 'package:dhis2_flutter_toolkit/src/models/metadata/program.dart';
+import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_query_mixin.dart';
 
 import '../../../objectbox.g.dart';
 import '../../models/data/enrollment.dart';
@@ -11,6 +12,7 @@ class D2EnrollmentRepository extends BaseDataRepository<D2Enrollment>
     with
         BaseTrackerDataDownloadServiceMixin<D2Enrollment>,
         D2EnrollmentDownloadServiceMixin,
+        BaseQueryMixin<D2Enrollment>,
         BaseTrackerDataUploadServiceMixin<D2Enrollment> {
   D2EnrollmentRepository(super.db, {super.program});
 
@@ -47,7 +49,13 @@ class D2EnrollmentRepository extends BaseDataRepository<D2Enrollment>
   @override
   BaseDataRepository<D2Enrollment> setProgram(D2Program program) {
     this.program = program;
-    updateQueryCondition(D2Enrollment_.program.equals(program.id));
     return this;
+  }
+
+  @override
+  void addProgramToQuery() {
+    if (program != null) {
+      updateQueryCondition(D2Enrollment_.program.equals(program!.id));
+    }
   }
 }

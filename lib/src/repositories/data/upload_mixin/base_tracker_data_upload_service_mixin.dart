@@ -1,13 +1,16 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_query_mixin.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../../../dhis2_flutter_toolkit.dart';
 import '../../../models/data/base.dart';
 
 mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
-    on BaseDataRepository<T> {
+    on BaseDataRepository<T>, BaseQueryMixin<T> {
+
+
   D2ClientService? client;
   int uploadPageSize = 10;
   String uploadResource = "tracker";
@@ -44,7 +47,7 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     return query.count();
   }
 
-  List<String> getErroredEntityUidFromImportSummary(
+  List<String> getItemsWithErrorsEntityUidFromImportSummary(
       Map<String, dynamic> importSummary) {
     List errorReports = importSummary["validationReport"]["errorReports"];
     return errorReports
@@ -68,7 +71,7 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
 
     if (response["status"] == "ERROR") {
       List<String> entitiesIdsWithErrors =
-          getErroredEntityUidFromImportSummary(response);
+          getItemsWithErrorsEntityUidFromImportSummary(response);
       List<T> entitiesWithoutErrors = entities
           .whereNot((T entity) => entitiesIdsWithErrors.contains(entity.uid))
           .toList();

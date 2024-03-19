@@ -22,7 +22,6 @@ class D2TrackerDataDownloadService {
     return downloadController.stream;
   }
 
-
   Future setupDataDownload() async {
     D2User? user = D2UserRepository(db).get();
     if (user == null) {
