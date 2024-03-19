@@ -38,7 +38,8 @@ class FormUtils {
           label: label,
           type: type,
           name: dataItem.uid,
-          mandatory: mandatory);
+          mandatory: mandatory,
+          renderOptionsAsRadio: renderOptionsAsRadio ?? false);
     }
 
     if (D2InputFieldType.isDateType(type)) {

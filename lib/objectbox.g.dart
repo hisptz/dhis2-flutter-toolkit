@@ -3773,7 +3773,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addBool(5, object.displayInList);
           fbb.addBool(6, object.mandatory);
           fbb.addBool(7, object.searchable);
-          fbb.addBool(8, object.renderOptionAsRadio);
+          fbb.addBool(8, object.renderOptionsAsRadio);
           fbb.addInt64(9, object.program.targetId);
           fbb.addInt64(10, object.trackedEntityAttribute.targetId);
           fbb.addOffset(11, displayNameOffset);
@@ -5729,7 +5729,7 @@ class D2ProgramTrackedEntityAttribute_ {
       obx.QueryBooleanProperty<D2ProgramTrackedEntityAttribute>(
           _entities[19].properties[7]);
 
-  /// see [D2ProgramTrackedEntityAttribute.renderOptionAsRadio]
+  /// see [D2ProgramTrackedEntityAttribute.renderOptionsAsRadio]
   static final renderOptionAsRadio =
       obx.QueryBooleanProperty<D2ProgramTrackedEntityAttribute>(
           _entities[19].properties[8]);

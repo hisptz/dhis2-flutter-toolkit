@@ -25,7 +25,7 @@ class D2ProgramTrackedEntityAttribute extends D2MetaResource {
   bool? displayInList;
   bool mandatory;
   bool? searchable;
-  bool? renderOptionAsRadio;
+  bool? renderOptionsAsRadio;
   bool allowFutureDate;
   bool optionSetValue;
 
@@ -41,7 +41,7 @@ class D2ProgramTrackedEntityAttribute extends D2MetaResource {
       this.displayInList,
       this.mandatory,
       this.searchable,
-      this.renderOptionAsRadio,
+      this.renderOptionsAsRadio,
       this.allowFutureDate,
       this.optionSetValue);
 
@@ -53,7 +53,7 @@ class D2ProgramTrackedEntityAttribute extends D2MetaResource {
         displayInList = json["displayInList"],
         mandatory = json["mandatory"],
         searchable = json["searchable"],
-        renderOptionAsRadio = json["renderOptionAsRadio"],
+        renderOptionsAsRadio = json["renderOptionsAsRadio"],
         allowFutureDate = json["allowFutureDate"],
         optionSetValue = json["optionSetValue"] {
     id = D2ProgramTrackedEntityAttributeRepository(db).getIdByUid(json["id"]) ??
