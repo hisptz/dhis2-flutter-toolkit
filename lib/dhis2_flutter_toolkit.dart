@@ -134,6 +134,7 @@ export "src/ui/form_components/input_field/models/select_input_field.dart"
 export "src/ui/form_components/input_field/models/text_input_field.dart"
     show D2TextInputFieldConfig;
 export "src/ui/form_components/state/form_state.dart" show D2FormController;
+export "src/ui/period/period_filter.dart" show D2PeriodSelector;
 //Period Engine
 export "src/utils/period_engine/models/period.dart" show D2Period;
 export "src/utils/period_engine/models/period_type.dart" show D2PeriodType;
