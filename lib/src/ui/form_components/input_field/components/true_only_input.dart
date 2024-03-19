@@ -24,10 +24,13 @@ class TrueOnlyInput extends BaseInput<D2TrueOnlyInputFieldConfig, String> {
       child: Switch(
         activeTrackColor: color,
         inactiveTrackColor: Colors.white,
+        trackOutlineColor: MaterialStatePropertyAll(
+          isSelected() ? color : const Color(0xFF94A0B1),
+        ),
         thumbIcon: MaterialStateProperty.all(
           Icon(
-            Icons.check,
-            color: isSelected() ? color : Colors.transparent,
+            isSelected() ? Icons.check : Icons.close,
+            color: isSelected() ? color : Colors.white,
           ),
         ),
         value: isSelected(),
