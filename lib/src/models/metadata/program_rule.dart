@@ -8,7 +8,6 @@ import 'base.dart';
 import 'program.dart';
 import 'program_rule_action.dart';
 
-
 @Entity()
 class D2ProgramRule extends D2MetaResource {
   @override
@@ -23,7 +22,7 @@ class D2ProgramRule extends D2MetaResource {
   String uid;
 
   String name;
-  String description;
+  String? description;
   String condition;
 
   var program = ToOne<D2Program>();

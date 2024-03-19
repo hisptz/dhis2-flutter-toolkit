@@ -139,6 +139,8 @@ export "src/ui/form_components/state/form_state.dart" show D2FormController;
 export "src/ui/period/period_filter.dart" show D2PeriodSelector;
 //Period Engine
 export "src/utils/period_engine/models/period.dart" show D2Period;
+export "src/utils/period_engine/models/period_filter_selection.dart"
+    show D2PeriodSelection;
 export "src/utils/period_engine/models/period_type.dart" show D2PeriodType;
 export "src/utils/period_engine/models/period_utility.dart"
     show D2PeriodUtility;
