@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dhis2_flutter_toolkit/src/models/metadata/program.dart';
+import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_query_mixin.dart';
 
 import '../../../objectbox.g.dart';
 import '../../models/data/tracked_entity.dart';
@@ -14,7 +15,9 @@ class D2TrackedEntityRepository extends BaseDataRepository<D2TrackedEntity>
     with
         BaseTrackerDataDownloadServiceMixin<D2TrackedEntity>,
         TrackedEntityDataDownloadServiceMixin,
-        BaseTrackerDataUploadServiceMixin<D2TrackedEntity> {
+        BaseQueryMixin<D2TrackedEntity>,
+        BaseTrackerDataUploadServiceMixin<D2TrackedEntity>
+{
   D2TrackedEntityRepository(super.db, {super.program});
 
   StreamController<D2SyncStatus> controller = StreamController<D2SyncStatus>();
@@ -45,8 +48,17 @@ class D2TrackedEntityRepository extends BaseDataRepository<D2TrackedEntity>
   }
 
   @override
-  BaseDataRepository<D2TrackedEntity> setProgram(D2Program program) {
+  D2TrackedEntityRepository setProgram(D2Program program) {
     this.program = program;
     return this;
+  }
+
+  @override
+  void addProgramToQuery() {
+    if (queryBuilder == null || program == null) {
+      return;
+    }
+    queryBuilder!.linkMany(D2TrackedEntity_.enrollmentsForQuery,
+        D2Enrollment_.program.equals(program!.id));
   }
 }

@@ -1697,7 +1697,13 @@
           "type": 1
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "id": "11:7737513459837759207",
+          "name": "enrollmentsForQuery",
+          "targetId": "4:8139154496331483919"
+        }
+      ]
     },
     {
       "id": "26:4451857861000713264",
@@ -2188,7 +2194,7 @@
   ],
   "lastEntityId": "33:3327197192716612547",
   "lastIndexId": "71:9070600766487288194",
-  "lastRelationId": "10:1465890458454070528",
+  "lastRelationId": "11:7737513459837759207",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,

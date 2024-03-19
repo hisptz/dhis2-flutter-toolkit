@@ -1,18 +1,16 @@
-import 'dart:async';
-
 import 'package:dhis2_flutter_toolkit/src/models/metadata/program.dart';
+import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_query_mixin.dart';
 
 import '../../../objectbox.g.dart';
 import '../../models/data/relationship.dart';
-import '../../utils/sync_status.dart';
 import 'base.dart';
 import 'upload_mixin/base_tracker_data_upload_service_mixin.dart';
 
 class D2RelationshipRepository extends BaseDataRepository<D2Relationship>
-    with BaseTrackerDataUploadServiceMixin<D2Relationship> {
+    with
+        BaseQueryMixin<D2Relationship>,
+        BaseTrackerDataUploadServiceMixin<D2Relationship> {
   D2RelationshipRepository(super.db, {super.program});
-
-  StreamController<D2SyncStatus> controller = StreamController<D2SyncStatus>();
 
   @override
   D2Relationship? getByUid(String uid) {
@@ -45,5 +43,10 @@ class D2RelationshipRepository extends BaseDataRepository<D2Relationship>
   BaseDataRepository<D2Relationship> setProgram(D2Program program) {
     this.program = program;
     return this;
+  }
+
+  @override
+  void addProgramToQuery() {
+    // TODO: implement addProgramToQuery
   }
 }
