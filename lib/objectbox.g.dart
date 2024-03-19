@@ -3159,7 +3159,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
         objectToFB: (D2ProgramRule object, fb.Builder fbb) {
           final uidOffset = fbb.writeString(object.uid);
           final nameOffset = fbb.writeString(object.name);
-          final descriptionOffset = fbb.writeString(object.description);
+          final descriptionOffset = object.description == null
+              ? null
+              : fbb.writeString(object.description!);
           final conditionOffset = fbb.writeString(object.condition);
           final displayNameOffset = object.displayName == null
               ? null
@@ -3195,7 +3197,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
               .vTableGet(buffer, rootOffset, 12, '');
           final descriptionParam =
               const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 14, '');
+                  .vTableGetNullable(buffer, rootOffset, 14);
           final conditionParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 16, '');
           final object = D2ProgramRule(
