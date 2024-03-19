@@ -23,6 +23,7 @@ class D2TrackedEntityAttribute extends D2MetaResource {
 
   String name;
   String? code;
+  String? pattern;
 
   String? formName;
   String shortName;
@@ -30,6 +31,8 @@ class D2TrackedEntityAttribute extends D2MetaResource {
   String aggregationType;
   String valueType;
   bool? zeroIsSignificant;
+  bool generated;
+  bool optionSetValue;
   final legendSets = ToMany<D2LegendSet>();
   final optionSet = ToOne<D2OptionSet>();
 
@@ -45,7 +48,9 @@ class D2TrackedEntityAttribute extends D2MetaResource {
       this.aggregationType,
       this.valueType,
       this.zeroIsSignificant,
-      );
+      this.generated,
+      this.pattern,
+      this.optionSetValue);
 
   D2TrackedEntityAttribute.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
@@ -60,8 +65,10 @@ class D2TrackedEntityAttribute extends D2MetaResource {
         description = json["description"],
         aggregationType = json["aggregationType"],
         valueType = json["valueType"],
-        zeroIsSignificant = json["zeroIsSignificant"]
-         {
+        zeroIsSignificant = json["zeroIsSignificant"],
+        generated = json["generated"],
+        pattern = json["pattern"],
+        optionSetValue = json["optionSetValue"] {
     id = D2TrackedEntityAttributeRepository(db).getIdByUid(json["id"]) ?? 0;
     List<D2LegendSet> legendSet = json["attributeValues"]
         .cast<Map>()

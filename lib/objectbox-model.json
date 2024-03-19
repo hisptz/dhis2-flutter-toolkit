@@ -1732,7 +1732,7 @@
     },
     {
       "id": "26:4451857861000713264",
-      "lastPropertyId": "15:3616080732928313106",
+      "lastPropertyId": "18:2053788943538647789",
       "name": "D2TrackedEntityAttribute",
       "properties": [
         {
@@ -1815,6 +1815,21 @@
           "id": "15:3616080732928313106",
           "name": "displayFormName",
           "type": 9
+        },
+        {
+          "id": "16:1292297697050911882",
+          "name": "pattern",
+          "type": 9
+        },
+        {
+          "id": "17:4002944897761445757",
+          "name": "generated",
+          "type": 1
+        },
+        {
+          "id": "18:2053788943538647789",
+          "name": "optionSetValue",
+          "type": 1
         }
       ],
       "relations": [

@@ -1772,7 +1772,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(26, 4451857861000713264),
       name: 'D2TrackedEntityAttribute',
-      lastPropertyId: const obx_int.IdUid(15, 3616080732928313106),
+      lastPropertyId: const obx_int.IdUid(18, 2053788943538647789),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -1852,6 +1852,21 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(15, 3616080732928313106),
             name: 'displayFormName',
             type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(16, 1292297697050911882),
+            name: 'pattern',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(17, 4002944897761445757),
+            name: 'generated',
+            type: 1,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(18, 2053788943538647789),
+            name: 'optionSetValue',
+            type: 1,
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[
@@ -4223,7 +4238,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final displayFormNameOffset = object.displayFormName == null
               ? null
               : fbb.writeString(object.displayFormName!);
-          fbb.startTable(16);
+          final patternOffset =
+              object.pattern == null ? null : fbb.writeString(object.pattern!);
+          fbb.startTable(19);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.created.millisecondsSinceEpoch);
           fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
@@ -4239,6 +4256,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addInt64(12, object.optionSet.targetId);
           fbb.addOffset(13, displayNameOffset);
           fbb.addOffset(14, displayFormNameOffset);
+          fbb.addOffset(15, patternOffset);
+          fbb.addBool(16, object.generated);
+          fbb.addBool(17, object.optionSetValue);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -4269,6 +4289,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
               .vTableGet(buffer, rootOffset, 24, '');
           final zeroIsSignificantParam =
               const fb.BoolReader().vTableGetNullable(buffer, rootOffset, 26);
+          final generatedParam =
+              const fb.BoolReader().vTableGet(buffer, rootOffset, 36, false);
+          final patternParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGetNullable(buffer, rootOffset, 34);
+          final optionSetValueParam =
+              const fb.BoolReader().vTableGet(buffer, rootOffset, 38, false);
           final object = D2TrackedEntityAttribute(
               createdParam,
               lastUpdatedParam,
@@ -4280,7 +4306,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
               descriptionParam,
               aggregationTypeParam,
               valueTypeParam,
-              zeroIsSignificantParam)
+              zeroIsSignificantParam,
+              generatedParam,
+              patternParam,
+              optionSetValueParam)
             ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0)
             ..displayName = const fb.StringReader(asciiOptimization: true)
                 .vTableGetNullable(buffer, rootOffset, 30)
@@ -6046,6 +6075,19 @@ class D2TrackedEntityAttribute_ {
   static final displayFormName =
       obx.QueryStringProperty<D2TrackedEntityAttribute>(
           _entities[24].properties[14]);
+
+  /// see [D2TrackedEntityAttribute.pattern]
+  static final pattern = obx.QueryStringProperty<D2TrackedEntityAttribute>(
+      _entities[24].properties[15]);
+
+  /// see [D2TrackedEntityAttribute.generated]
+  static final generated = obx.QueryBooleanProperty<D2TrackedEntityAttribute>(
+      _entities[24].properties[16]);
+
+  /// see [D2TrackedEntityAttribute.optionSetValue]
+  static final optionSetValue =
+      obx.QueryBooleanProperty<D2TrackedEntityAttribute>(
+          _entities[24].properties[17]);
 
   /// see [D2TrackedEntityAttribute.legendSets]
   static final legendSets =
