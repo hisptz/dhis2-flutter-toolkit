@@ -133,6 +133,10 @@ export "src/ui/form_components/input_field/models/select_input_field.dart"
     show D2SelectInputFieldConfig;
 export "src/ui/form_components/input_field/models/text_input_field.dart"
     show D2TextInputFieldConfig;
+export "src/ui/form_components/input_field/models/true_only_input_field.dart"
+    show D2TrueOnlyInputFieldConfig;
+export "src/ui/form_components/input_field/models/boolean_input_field.dart"
+    show D2BooleanInputFieldConfig;
 export "src/ui/form_components/state/form_state.dart" show D2FormController;
 export "src/ui/period/period_filter.dart" show D2PeriodSelector;
 //Period Engine
