@@ -170,38 +170,69 @@ class InputFieldContainer extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16.0,
+        vertical: 8.0,
+      ),
       decoration: BoxDecoration(
-          color: colorOverride.withOpacity(0.07),
-          border: Border(
-              left: BorderSide.none,
-              right: BorderSide.none,
-              top: BorderSide.none,
-              bottom: BorderSide(width: 2, color: colorOverride)),
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(4.0), topRight: Radius.circular(4.0))),
+        color: colorOverride.withOpacity(0.07),
+        border: Border(
+          left: BorderSide.none,
+          right: BorderSide.none,
+          top: BorderSide.none,
+          bottom: BorderSide(
+            width: 2,
+            color: colorOverride,
+          ),
+        ),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(4.0),
+          topRight: Radius.circular(4.0),
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Text(
-                input.label,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: colorOverride,
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: input.label,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: colorOverride,
+                      ),
+                    ),
+                    TextSpan(
+                      text: input.mandatory ? ' *' : '',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.redAccent,
+                      ),
+                    )
+                  ],
                 ),
-              )
+              ),
             ],
           ),
           Row(
-            children: [getPrefix(), Expanded(child: getInput()), getSuffix()],
+            children: [
+              getPrefix(),
+              Expanded(child: getInput()),
+              getSuffix(),
+            ],
           ),
           error != null
               ? Text(
                   error!,
-                  style: TextStyle(color: colorOverride, fontSize: 12),
+                  style: TextStyle(
+                    color: colorOverride,
+                    fontSize: 12.0,
+                  ),
                 )
               : Container()
         ],
