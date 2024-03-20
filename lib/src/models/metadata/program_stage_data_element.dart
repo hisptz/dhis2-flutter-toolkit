@@ -24,8 +24,8 @@ class D2ProgramStageDataElement extends D2MetaResource {
 
   bool compulsory;
   int? sortOrder;
-  bool allowFutureDate;
-  bool renderOptionsAsRadio;
+  bool? allowFutureDate;
+  bool? renderOptionsAsRadio;
 
   final programStage = ToOne<D2ProgramStage>();
   final dataElement = ToOne<D2DataElement>();

@@ -26,8 +26,8 @@ class D2ProgramTrackedEntityAttribute extends D2MetaResource {
   bool mandatory;
   bool? searchable;
   bool? renderOptionsAsRadio;
-  bool allowFutureDate;
-  bool optionSetValue;
+  bool? allowFutureDate;
+  bool? optionSetValue;
 
   final program = ToOne<D2Program>();
   final trackedEntityAttribute = ToOne<D2TrackedEntityAttribute>();

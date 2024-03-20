@@ -28,11 +28,11 @@ class D2TrackedEntityAttribute extends D2MetaResource {
   String? formName;
   String shortName;
   String? description;
-  String aggregationType;
+  String? aggregationType;
   String valueType;
   bool? zeroIsSignificant;
-  bool generated;
-  bool optionSetValue;
+  bool? generated;
+  bool? optionSetValue;
   final legendSets = ToMany<D2LegendSet>();
   final optionSet = ToOne<D2OptionSet>();
 

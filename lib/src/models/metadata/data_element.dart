@@ -31,7 +31,7 @@ class D2DataElement extends D2MetaResource {
   String valueType;
   String domainType;
   bool? zeroIsSignificant;
-  bool optionSetValue;
+  bool? optionSetValue;
   final legendSets = ToMany<D2LegendSet>();
   final optionSet = ToOne<D2OptionSet>();
 
