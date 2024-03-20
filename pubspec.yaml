@@ -24,6 +24,7 @@ dependencies:
   syncfusion_flutter_datepicker: ^24.2.9
 
   path: any
+  animated_tree_view: ^2.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,6 +1,7 @@
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/base_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/boolean_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/date_range_input.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/org_unit_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/select_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/text_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/true_only_input.dart';
@@ -9,6 +10,7 @@ import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/date_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/date_range_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/number_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/org_unit_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/select_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/true_only_input_field.dart';
 import 'package:flutter/material.dart';
@@ -50,8 +52,9 @@ class InputFieldContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color? colorOverride =
-        error != null ? Colors.red : color ?? Theme.of(context).primaryColor;
+    Color? colorOverride = (error != null && error!.isNotEmpty)
+        ? Colors.red
+        : color ?? Theme.of(context).primaryColor;
 
     BaseInput getInput() {
       if (input is D2SelectInputFieldConfig) {
@@ -151,6 +154,10 @@ class InputFieldContainer extends StatelessWidget {
           input: input as D2TrueOnlyInputFieldConfig,
           color: colorOverride,
         );
+      }
+      if (input is D2OrgUnitInputFieldConfig) {
+        return OrgUnitInput(
+            input: input, color: colorOverride, onChange: onChange);
       }
 
       return TextInput(
