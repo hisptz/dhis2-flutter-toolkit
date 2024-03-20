@@ -1,5 +1,4 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
 import 'package:flutter/material.dart';
 
 typedef OnFormFieldChange<T> = void Function(String key, T);
@@ -10,18 +9,19 @@ class FormContainer extends StatelessWidget {
   final Map<String, String?> values;
   final Map<String, bool> mandatoryState;
   final Map<String, bool> hiddenState;
+  final Color? color;
 
   final OnFormFieldChange<String?> onFormFieldChange;
 
-  const FormContainer({
-    super.key,
-    required this.form,
-    required this.errorState,
-    required this.values,
-    required this.mandatoryState,
-    required this.hiddenState,
-    required this.onFormFieldChange,
-  });
+  const FormContainer(
+      {super.key,
+      required this.form,
+      required this.errorState,
+      required this.values,
+      required this.mandatoryState,
+      required this.hiddenState,
+      required this.onFormFieldChange,
+      this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class FormContainer extends StatelessWidget {
               ? Text(
                   form.title!,
                   style: TextStyle(
-                    color: form.color,
+                    color: color,
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
                   ),
@@ -68,10 +68,9 @@ class FormContainer extends StatelessWidget {
                   itemBuilder: (context, index) {
                     D2BaseInputFieldConfig input = form.fields![index];
                     return InputFieldContainer(
-                      color: form.color,
+                      color: color,
                       input: input,
-                      onChange: (value) =>
-                          onFormFieldChange(input.name, value),
+                      onChange: (value) => onFormFieldChange(input.name, value),
                     );
                   },
                   separatorBuilder: (context, index) => const Padding(

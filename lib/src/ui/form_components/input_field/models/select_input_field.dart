@@ -3,6 +3,7 @@ import 'input_field_option.dart';
 
 class D2SelectInputFieldConfig extends D2BaseInputFieldConfig {
   List<D2InputFieldOption>? options;
+  bool renderOptionsAsRadio;
 
   D2SelectInputFieldConfig(
       {required this.options,
@@ -13,5 +14,6 @@ class D2SelectInputFieldConfig extends D2BaseInputFieldConfig {
       super.clearable,
       super.icon,
       super.legends,
-      super.svgIconAsset});
+      super.svgIconAsset,
+      this.renderOptionsAsRadio = false});
 }

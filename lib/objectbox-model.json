@@ -35,7 +35,7 @@
     },
     {
       "id": "2:257964529443086557",
-      "lastPropertyId": "16:5768982099937524890",
+      "lastPropertyId": "17:5152172433851122799",
       "name": "D2DataElement",
       "properties": [
         {
@@ -123,6 +123,11 @@
           "name": "id",
           "type": 6,
           "flags": 1
+        },
+        {
+          "id": "17:5152172433851122799",
+          "name": "optionSetValue",
+          "type": 1
         }
       ],
       "relations": [
@@ -1171,7 +1176,7 @@
     },
     {
       "id": "19:7771080830110018479",
-      "lastPropertyId": "9:6286914972137088111",
+      "lastPropertyId": "11:4031633498396257565",
       "name": "D2ProgramStageDataElement",
       "properties": [
         {
@@ -1225,6 +1230,16 @@
           "id": "9:6286914972137088111",
           "name": "displayName",
           "type": 9
+        },
+        {
+          "id": "10:797603925743904998",
+          "name": "allowFutureDate",
+          "type": 1
+        },
+        {
+          "id": "11:4031633498396257565",
+          "name": "renderOptionsAsRadio",
+          "type": 1
         }
       ],
       "relations": []
@@ -1291,7 +1306,7 @@
     },
     {
       "id": "21:8176256693588210311",
-      "lastPropertyId": "12:7058330380099126670",
+      "lastPropertyId": "14:1611049976442991980",
       "name": "D2ProgramTrackedEntityAttribute",
       "properties": [
         {
@@ -1360,6 +1375,16 @@
           "id": "12:7058330380099126670",
           "name": "displayName",
           "type": 9
+        },
+        {
+          "id": "13:8733715484143347923",
+          "name": "allowFutureDate",
+          "type": 1
+        },
+        {
+          "id": "14:1611049976442991980",
+          "name": "optionSetValue",
+          "type": 1
         }
       ],
       "relations": []
@@ -1707,7 +1732,7 @@
     },
     {
       "id": "26:4451857861000713264",
-      "lastPropertyId": "15:3616080732928313106",
+      "lastPropertyId": "18:2053788943538647789",
       "name": "D2TrackedEntityAttribute",
       "properties": [
         {
@@ -1790,6 +1815,21 @@
           "id": "15:3616080732928313106",
           "name": "displayFormName",
           "type": 9
+        },
+        {
+          "id": "16:1292297697050911882",
+          "name": "pattern",
+          "type": 9
+        },
+        {
+          "id": "17:4002944897761445757",
+          "name": "generated",
+          "type": 1
+        },
+        {
+          "id": "18:2053788943538647789",
+          "name": "optionSetValue",
+          "type": 1
         }
       ],
       "relations": [

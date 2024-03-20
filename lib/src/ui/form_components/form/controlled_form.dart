@@ -10,9 +10,10 @@ import 'models/form.dart';
 class D2ControlledForm extends StatelessWidget {
   final D2Form form;
   final D2FormController controller;
+  final Color? color;
 
   const D2ControlledForm(
-      {super.key, required this.form, required this.controller});
+      {super.key, required this.form, required this.controller, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class D2ControlledForm extends StatelessWidget {
               ? Text(
                   form.title!,
                   style: TextStyle(
-                    color: form.color,
+                    color: color,
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
                   ),
@@ -47,6 +48,7 @@ class D2ControlledForm extends StatelessWidget {
                     return FormSectionContainerWithControlledInputs(
                       section: section,
                       controller: controller,
+                      color: color,
                     );
                   },
                   separatorBuilder: (context, index) => const Padding(
@@ -59,7 +61,7 @@ class D2ControlledForm extends StatelessWidget {
                   itemBuilder: (context, index) {
                     D2BaseInputFieldConfig input = form.fields![index];
                     return D2FormControlledInputField(
-                      color: form.color,
+                      color: color,
                       input: input,
                       controller: controller,
                     );

@@ -18,7 +18,7 @@ class InputFieldContainer extends StatelessWidget {
   final D2BaseInputFieldConfig input;
   final OnChange<dynamic> onChange;
   final dynamic value;
-  final Color color;
+  final Color? color;
   final String? error;
   final String? warning;
   final bool disabled;
@@ -34,7 +34,11 @@ class InputFieldContainer extends StatelessWidget {
       this.warning});
 
   final BoxConstraints iconConstraints = const BoxConstraints(
-      maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
+    maxHeight: 45.0,
+    minHeight: 42.0,
+    maxWidth: 45.0,
+    minWidth: 42.0,
+  );
 
   void onClear() {
     onChange(null);
@@ -42,7 +46,8 @@ class InputFieldContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color colorOverride = error != null ? Colors.red : color;
+    Color? colorOverride =
+        error != null ? Colors.red : color ?? Theme.of(context).primaryColor;
 
     BaseInput getInput() {
       if (input is D2SelectInputFieldConfig) {
@@ -98,26 +103,24 @@ class InputFieldContainer extends StatelessWidget {
       if (input is D2TextInputFieldConfig) {
         switch (input.type) {
           case D2InputFieldType.text:
+          case D2InputFieldType.longText:
+          case D2InputFieldType.email:
+          case D2InputFieldType.url:
             return TextInput(
               onChange: onChange,
               value: value,
               input: input,
               color: colorOverride,
-              textInputType: TextInputType.text,
+              maxLines: D2InputFieldType.longText == input.type ? null : 1,
+              textInputType: [D2InputFieldType.text, D2InputFieldType.longText]
+                      .contains(input.type)
+                  ? TextInputType.text
+                  : [D2InputFieldType.email].contains(input.type)
+                      ? TextInputType.emailAddress
+                      : [D2InputFieldType.url].contains(input.type)
+                          ? TextInputType.url
+                          : TextInputType.text,
             );
-          case D2InputFieldType.email:
-            return TextInput(
-                textInputType: TextInputType.emailAddress,
-                input: input,
-                color: colorOverride,
-                onChange: onChange);
-          case D2InputFieldType.url:
-            return TextInput(
-                onChange: onChange,
-                color: colorOverride,
-                input: input,
-                textInputType: TextInputType.url,
-                value: value);
           default:
             return TextInput(
               onChange: onChange,
