@@ -1,13 +1,18 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/form/form_container.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../dhis2_flutter_toolkit.dart';
+import '../form/form_container.dart';
 
 class FormSectionContainer extends StatelessWidget {
   final FormSection section;
   final OnFormFieldChange<String?> onFieldChange;
+  final Color? color;
 
   const FormSectionContainer(
-      {super.key, required this.section, required this.onFieldChange});
+      {super.key,
+      required this.section,
+      required this.onFieldChange,
+      this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +23,7 @@ class FormSectionContainer extends StatelessWidget {
             ? Text(
                 section.title!,
                 style: TextStyle(
-                  color: section.color,
+                  color: color,
                   fontSize: 24,
                 ),
               )
@@ -35,13 +40,13 @@ class FormSectionContainer extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              InputField input = section.fields[index];
+              D2BaseInputFieldConfig input = section.fields[index];
               return InputFieldContainer(
                   input: input,
-                  onChange: (String? value) {
+                  onChange: (value) {
                     return onFieldChange(input.name, value);
                   },
-                  color: section.color);
+                  color: color);
             },
             separatorBuilder: (context, index) => const Padding(
                   padding: EdgeInsets.symmetric(vertical: 8.0),

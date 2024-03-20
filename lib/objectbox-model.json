@@ -35,7 +35,7 @@
     },
     {
       "id": "2:257964529443086557",
-      "lastPropertyId": "16:5768982099937524890",
+      "lastPropertyId": "17:5152172433851122799",
       "name": "D2DataElement",
       "properties": [
         {
@@ -123,6 +123,11 @@
           "name": "id",
           "type": 6,
           "flags": 1
+        },
+        {
+          "id": "17:5152172433851122799",
+          "name": "optionSetValue",
+          "type": 1
         }
       ],
       "relations": [
@@ -611,13 +616,7 @@
           "type": 9
         }
       ],
-      "relations": [
-        {
-          "id": "2:6008783994488891808",
-          "name": "options",
-          "targetId": "8:3440278051107611466"
-        }
-      ]
+      "relations": []
     },
     {
       "id": "10:3215215508490411793",
@@ -1182,7 +1181,7 @@
     },
     {
       "id": "19:7771080830110018479",
-      "lastPropertyId": "9:6286914972137088111",
+      "lastPropertyId": "11:4031633498396257565",
       "name": "D2ProgramStageDataElement",
       "properties": [
         {
@@ -1236,6 +1235,16 @@
           "id": "9:6286914972137088111",
           "name": "displayName",
           "type": 9
+        },
+        {
+          "id": "10:797603925743904998",
+          "name": "allowFutureDate",
+          "type": 1
+        },
+        {
+          "id": "11:4031633498396257565",
+          "name": "renderOptionsAsRadio",
+          "type": 1
         }
       ],
       "relations": []
@@ -1302,7 +1311,7 @@
     },
     {
       "id": "21:8176256693588210311",
-      "lastPropertyId": "12:7058330380099126670",
+      "lastPropertyId": "15:247008769906904472",
       "name": "D2ProgramTrackedEntityAttribute",
       "properties": [
         {
@@ -1347,11 +1356,6 @@
           "type": 1
         },
         {
-          "id": "9:1878604429089188814",
-          "name": "renderOptionAsRadio",
-          "type": 1
-        },
-        {
           "id": "10:3777505509652756977",
           "name": "programId",
           "type": 11,
@@ -1371,6 +1375,21 @@
           "id": "12:7058330380099126670",
           "name": "displayName",
           "type": 9
+        },
+        {
+          "id": "13:8733715484143347923",
+          "name": "allowFutureDate",
+          "type": 1
+        },
+        {
+          "id": "14:1611049976442991980",
+          "name": "optionSetValue",
+          "type": 1
+        },
+        {
+          "id": "15:247008769906904472",
+          "name": "renderOptionsAsRadio",
+          "type": 1
         }
       ],
       "relations": []
@@ -1708,11 +1727,17 @@
           "type": 1
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "id": "11:7737513459837759207",
+          "name": "enrollmentsForQuery",
+          "targetId": "4:8139154496331483919"
+        }
+      ]
     },
     {
       "id": "26:4451857861000713264",
-      "lastPropertyId": "15:3616080732928313106",
+      "lastPropertyId": "18:2053788943538647789",
       "name": "D2TrackedEntityAttribute",
       "properties": [
         {
@@ -1795,6 +1820,21 @@
           "id": "15:3616080732928313106",
           "name": "displayFormName",
           "type": 9
+        },
+        {
+          "id": "16:1292297697050911882",
+          "name": "pattern",
+          "type": 9
+        },
+        {
+          "id": "17:4002944897761445757",
+          "name": "generated",
+          "type": 1
+        },
+        {
+          "id": "18:2053788943538647789",
+          "name": "optionSetValue",
+          "type": 1
         }
       ],
       "relations": [
@@ -2199,7 +2239,7 @@
   ],
   "lastEntityId": "33:3327197192716612547",
   "lastIndexId": "71:9070600766487288194",
-  "lastRelationId": "10:1465890458454070528",
+  "lastRelationId": "11:7737513459837759207",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
@@ -2214,8 +2254,11 @@
     9097581029004154019,
     5437099508560140415,
     2624640919868138634,
-    412700322432031164
+    412700322432031164,
+    1878604429089188814
   ],
-  "retiredRelationUids": [],
+  "retiredRelationUids": [
+    6008783994488891808
+  ],
   "version": 1
 }

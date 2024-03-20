@@ -24,19 +24,31 @@ class D2ProgramStageDataElement extends D2MetaResource {
 
   bool compulsory;
   int? sortOrder;
+  bool? allowFutureDate;
+  bool? renderOptionsAsRadio;
 
   final programStage = ToOne<D2ProgramStage>();
   final dataElement = ToOne<D2DataElement>();
 
-  D2ProgramStageDataElement(this.created, this.id, this.lastUpdated, this.uid,
-      this.compulsory, this.sortOrder);
+  D2ProgramStageDataElement(
+      this.created,
+      this.id,
+      this.lastUpdated,
+      this.uid,
+      this.compulsory,
+      this.sortOrder,
+      this.allowFutureDate,
+      this.displayName,
+      this.renderOptionsAsRadio);
 
   D2ProgramStageDataElement.fromMap(D2ObjectBox db, Map json)
       : uid = json["id"],
         created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),
         compulsory = json["compulsory"],
-        sortOrder = json["sortOrder"] {
+        sortOrder = json["sortOrder"],
+        allowFutureDate = json["allowFutureDate"],
+        renderOptionsAsRadio = json["renderOptionsAsRadio"] {
     id = D2ProgramStageDataElementRepository(db).getIdByUid(json["id"]) ?? 0;
     dataElement.target =
         D2DataElementRepository(db).getByUid(json["dataElement"]["id"]);

@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
 
 mixin D2FormValueState on ChangeNotifier {
-  final Map<String, String?> _formValues = {};
+  final Map<String, dynamic> _formValues = {};
 
   get formValues {
     return Map.from(_formValues);
   }
 
-  setValue(String key, String? value) {
+  setValue(String key, value) {
     _formValues[key] = value;
     notifyListeners();
   }
@@ -17,7 +17,7 @@ mixin D2FormValueState on ChangeNotifier {
     notifyListeners();
   }
 
-  String? getValue(String key) {
+  getValue(String key) {
     return formValues[key];
   }
 }

@@ -1,25 +1,29 @@
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
 import 'package:flutter/material.dart';
 
-import '../models/input_field.dart';
+import '../models/input_field_type_enum.dart';
 import 'base_input.dart';
 
 class TextFieldInputType {
-  InputFieldType type;
+  D2InputFieldType type;
   TextInputType inputType;
 
   TextFieldInputType({required this.type, required this.inputType});
 }
 
-class TextInput extends BaseInput<String> {
+class TextInput extends BaseInput<D2BaseInputFieldConfig, String> {
   final TextInputType textInputType;
+  final int? maxLines;
 
-  const TextInput(
-      {super.key,
-      super.value,
-      required this.textInputType,
-      required super.input,
-      required super.color,
-      required super.onChange});
+  const TextInput({
+    super.key,
+    super.value,
+    required this.textInputType,
+    required super.input,
+    required super.color,
+    required super.onChange,
+    this.maxLines = 1,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +32,7 @@ class TextInput extends BaseInput<String> {
       onChanged: (String? value) {
         onChange(value);
       },
+      maxLines: maxLines,
       keyboardType: textInputType,
       style: const TextStyle(
         fontSize: 14,

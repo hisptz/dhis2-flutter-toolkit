@@ -25,22 +25,25 @@ class D2ProgramTrackedEntityAttribute extends D2MetaResource {
   bool? displayInList;
   bool mandatory;
   bool? searchable;
-  bool? renderOptionAsRadio;
+  bool? renderOptionsAsRadio;
+  bool? allowFutureDate;
+  bool? optionSetValue;
 
   final program = ToOne<D2Program>();
   final trackedEntityAttribute = ToOne<D2TrackedEntityAttribute>();
 
   D2ProgramTrackedEntityAttribute(
-    this.created,
-    this.id,
-    this.lastUpdated,
-    this.uid,
-    this.sortOrder,
-    this.displayInList,
-    this.mandatory,
-    this.searchable,
-    this.renderOptionAsRadio,
-  );
+      this.created,
+      this.id,
+      this.lastUpdated,
+      this.uid,
+      this.sortOrder,
+      this.displayInList,
+      this.mandatory,
+      this.searchable,
+      this.renderOptionsAsRadio,
+      this.allowFutureDate,
+      this.optionSetValue);
 
   D2ProgramTrackedEntityAttribute.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
@@ -50,7 +53,9 @@ class D2ProgramTrackedEntityAttribute extends D2MetaResource {
         displayInList = json["displayInList"],
         mandatory = json["mandatory"],
         searchable = json["searchable"],
-        renderOptionAsRadio = json["renderOptionAsRadio"] {
+        renderOptionsAsRadio = json["renderOptionsAsRadio"],
+        allowFutureDate = json["allowFutureDate"],
+        optionSetValue = json["optionSetValue"] {
     id = D2ProgramTrackedEntityAttributeRepository(db).getIdByUid(json["id"]) ??
         0;
     D2TrackedEntityAttribute? attribute = D2TrackedEntityAttributeRepository(db)

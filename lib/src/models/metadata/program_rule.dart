@@ -22,7 +22,7 @@ class D2ProgramRule extends D2MetaResource {
   String uid;
 
   String name;
-  String description;
+  String? description;
   String condition;
   int? priority;
 

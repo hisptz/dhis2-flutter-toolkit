@@ -82,7 +82,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(2, 257964529443086557),
       name: 'D2DataElement',
-      lastPropertyId: const obx_int.IdUid(16, 5768982099937524890),
+      lastPropertyId: const obx_int.IdUid(17, 5152172433851122799),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -167,7 +167,12 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(16, 5768982099937524890),
             name: 'id',
             type: 6,
-            flags: 1)
+            flags: 1),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(17, 5152172433851122799),
+            name: 'optionSetValue',
+            type: 1,
+            flags: 0)
       ],
       relations: <obx_int.ModelRelation>[
         obx_int.ModelRelation(
@@ -648,13 +653,11 @@ final _entities = <obx_int.ModelEntity>[
             type: 9,
             flags: 0)
       ],
-      relations: <obx_int.ModelRelation>[
-        obx_int.ModelRelation(
-            id: const obx_int.IdUid(2, 6008783994488891808),
-            name: 'options',
-            targetId: const obx_int.IdUid(8, 3440278051107611466))
-      ],
-      backlinks: <obx_int.ModelBacklink>[]),
+      relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[
+        obx_int.ModelBacklink(
+            name: 'options', srcEntity: 'D2Option', srcField: 'optionSet')
+      ]),
   obx_int.ModelEntity(
       id: const obx_int.IdUid(10, 3215215508490411793),
       name: 'D2OrgUnit',
@@ -1228,7 +1231,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(19, 7771080830110018479),
       name: 'D2ProgramStageDataElement',
-      lastPropertyId: const obx_int.IdUid(9, 6286914972137088111),
+      lastPropertyId: const obx_int.IdUid(11, 4031633498396257565),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -1279,6 +1282,16 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(9, 6286914972137088111),
             name: 'displayName',
             type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(10, 797603925743904998),
+            name: 'allowFutureDate',
+            type: 1,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(11, 4031633498396257565),
+            name: 'renderOptionsAsRadio',
+            type: 1,
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
@@ -1343,7 +1356,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(21, 8176256693588210311),
       name: 'D2ProgramTrackedEntityAttribute',
-      lastPropertyId: const obx_int.IdUid(12, 7058330380099126670),
+      lastPropertyId: const obx_int.IdUid(15, 247008769906904472),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -1387,11 +1400,6 @@ final _entities = <obx_int.ModelEntity>[
             type: 1,
             flags: 0),
         obx_int.ModelProperty(
-            id: const obx_int.IdUid(9, 1878604429089188814),
-            name: 'renderOptionAsRadio',
-            type: 1,
-            flags: 0),
-        obx_int.ModelProperty(
             id: const obx_int.IdUid(10, 3777505509652756977),
             name: 'programId',
             type: 11,
@@ -1409,6 +1417,21 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(12, 7058330380099126670),
             name: 'displayName',
             type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(13, 8733715484143347923),
+            name: 'allowFutureDate',
+            type: 1,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(14, 1611049976442991980),
+            name: 'optionSetValue',
+            type: 1,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(15, 247008769906904472),
+            name: 'renderOptionsAsRadio',
+            type: 1,
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
@@ -1733,7 +1756,12 @@ final _entities = <obx_int.ModelEntity>[
             type: 1,
             flags: 0)
       ],
-      relations: <obx_int.ModelRelation>[],
+      relations: <obx_int.ModelRelation>[
+        obx_int.ModelRelation(
+            id: const obx_int.IdUid(11, 7737513459837759207),
+            name: 'enrollmentsForQuery',
+            targetId: const obx_int.IdUid(4, 8139154496331483919))
+      ],
       backlinks: <obx_int.ModelBacklink>[
         obx_int.ModelBacklink(
             name: 'enrollments',
@@ -1749,7 +1777,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(26, 4451857861000713264),
       name: 'D2TrackedEntityAttribute',
-      lastPropertyId: const obx_int.IdUid(15, 3616080732928313106),
+      lastPropertyId: const obx_int.IdUid(18, 2053788943538647789),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -1829,6 +1857,21 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(15, 3616080732928313106),
             name: 'displayFormName',
             type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(16, 1292297697050911882),
+            name: 'pattern',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(17, 4002944897761445757),
+            name: 'generated',
+            type: 1,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(18, 2053788943538647789),
+            name: 'optionSetValue',
+            type: 1,
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[
@@ -2254,7 +2297,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
       entities: _entities,
       lastEntityId: const obx_int.IdUid(33, 3327197192716612547),
       lastIndexId: const obx_int.IdUid(71, 9070600766487288194),
-      lastRelationId: const obx_int.IdUid(10, 1465890458454070528),
+      lastRelationId: const obx_int.IdUid(11, 7737513459837759207),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [4845029629663650184],
       retiredIndexUids: const [],
@@ -2265,9 +2308,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
         9097581029004154019,
         5437099508560140415,
         2624640919868138634,
-        412700322432031164
+        412700322432031164,
+        1878604429089188814
       ],
-      retiredRelationUids: const [],
+      retiredRelationUids: const [6008783994488891808],
       modelVersion: 5,
       modelVersionParserMinimum: 5,
       version: 1);
@@ -2336,7 +2380,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final aggregationTypeOffset = fbb.writeString(object.aggregationType);
           final valueTypeOffset = fbb.writeString(object.valueType);
           final domainTypeOffset = fbb.writeString(object.domainType);
-          fbb.startTable(17);
+          fbb.startTable(18);
           fbb.addInt64(0, object.created.millisecondsSinceEpoch);
           fbb.addInt64(1, object.lastUpdated.millisecondsSinceEpoch);
           fbb.addOffset(2, uidOffset);
@@ -2353,6 +2397,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addBool(13, object.zeroIsSignificant);
           fbb.addInt64(14, object.optionSet.targetId);
           fbb.addInt64(15, object.id);
+          fbb.addBool(16, object.optionSetValue);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -2391,6 +2436,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final displayNameParam =
               const fb.StringReader(asciiOptimization: true)
                   .vTableGetNullable(buffer, rootOffset, 16);
+          final optionSetValueParam =
+              const fb.BoolReader().vTableGetNullable(buffer, rootOffset, 36);
           final object = D2DataElement(
               createdParam,
               lastUpdatedParam,
@@ -2405,7 +2452,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
               domainTypeParam,
               zeroIsSignificantParam,
               displayFormNameParam,
-              displayNameParam)
+              displayNameParam,
+              optionSetValueParam)
             ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 34, 0);
           object.optionSet.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 32, 0);
@@ -2854,8 +2902,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2OptionSet: obx_int.EntityDefinition<D2OptionSet>(
         model: _entities[8],
         toOneRelations: (D2OptionSet object) => [],
-        toManyRelations: (D2OptionSet object) =>
-            {obx_int.RelInfo<D2OptionSet>.toMany(2, object.id): object.options},
+        toManyRelations: (D2OptionSet object) => {
+              obx_int.RelInfo<D2Option>.toOneBacklink(8, object.id,
+                  (D2Option srcObject) => srcObject.optionSet): object.options
+            },
         getId: (D2OptionSet object) => object.id,
         setId: (D2OptionSet object, int id) {
           object.id = id;
@@ -2903,8 +2953,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
               .vTableGet(buffer, rootOffset, 16, '');
           final object = D2OptionSet(idParam, displayNameParam, createdParam,
               lastUpdatedParam, uidParam, nameParam, codeParam, valueTypeParam);
-          obx_int.InternalToManyAccess.setRelInfo<D2OptionSet>(object.options,
-              store, obx_int.RelInfo<D2OptionSet>.toMany(2, object.id));
+          obx_int.InternalToManyAccess.setRelInfo<D2OptionSet>(
+              object.options,
+              store,
+              obx_int.RelInfo<D2Option>.toOneBacklink(
+                  8, object.id, (D2Option srcObject) => srcObject.optionSet));
           return object;
         }),
     D2OrgUnit: obx_int.EntityDefinition<D2OrgUnit>(
@@ -3156,7 +3209,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
         objectToFB: (D2ProgramRule object, fb.Builder fbb) {
           final uidOffset = fbb.writeString(object.uid);
           final nameOffset = fbb.writeString(object.name);
-          final descriptionOffset = fbb.writeString(object.description);
+          final descriptionOffset = object.description == null
+              ? null
+              : fbb.writeString(object.description!);
           final conditionOffset = fbb.writeString(object.condition);
           final displayNameOffset = object.displayName == null
               ? null
@@ -3193,7 +3248,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
               .vTableGet(buffer, rootOffset, 12, '');
           final descriptionParam =
               const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 14, '');
+                  .vTableGetNullable(buffer, rootOffset, 14);
           final conditionParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 16, '');
           final priorityParam =
@@ -3595,7 +3650,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final displayNameOffset = object.displayName == null
               ? null
               : fbb.writeString(object.displayName!);
-          fbb.startTable(10);
+          fbb.startTable(12);
           fbb.addInt64(0, object.created.millisecondsSinceEpoch);
           fbb.addInt64(1, object.id);
           fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
@@ -3605,6 +3660,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addInt64(6, object.programStage.targetId);
           fbb.addInt64(7, object.dataElement.targetId);
           fbb.addOffset(8, displayNameOffset);
+          fbb.addBool(9, object.allowFutureDate);
+          fbb.addBool(10, object.renderOptionsAsRadio);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -3623,10 +3680,23 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.BoolReader().vTableGet(buffer, rootOffset, 12, false);
           final sortOrderParam =
               const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 14);
-          final object = D2ProgramStageDataElement(createdParam, idParam,
-              lastUpdatedParam, uidParam, compulsoryParam, sortOrderParam)
-            ..displayName = const fb.StringReader(asciiOptimization: true)
-                .vTableGetNullable(buffer, rootOffset, 20);
+          final allowFutureDateParam =
+              const fb.BoolReader().vTableGetNullable(buffer, rootOffset, 22);
+          final displayNameParam =
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGetNullable(buffer, rootOffset, 20);
+          final renderOptionsAsRadioParam =
+              const fb.BoolReader().vTableGetNullable(buffer, rootOffset, 24);
+          final object = D2ProgramStageDataElement(
+              createdParam,
+              idParam,
+              lastUpdatedParam,
+              uidParam,
+              compulsoryParam,
+              sortOrderParam,
+              allowFutureDateParam,
+              displayNameParam,
+              renderOptionsAsRadioParam);
           object.programStage.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0);
           object.programStage.attach(store);
@@ -3706,7 +3776,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final displayNameOffset = object.displayName == null
               ? null
               : fbb.writeString(object.displayName!);
-          fbb.startTable(13);
+          fbb.startTable(16);
           fbb.addInt64(0, object.created.millisecondsSinceEpoch);
           fbb.addInt64(1, object.id);
           fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
@@ -3715,10 +3785,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addBool(5, object.displayInList);
           fbb.addBool(6, object.mandatory);
           fbb.addBool(7, object.searchable);
-          fbb.addBool(8, object.renderOptionAsRadio);
           fbb.addInt64(9, object.program.targetId);
           fbb.addInt64(10, object.trackedEntityAttribute.targetId);
           fbb.addOffset(11, displayNameOffset);
+          fbb.addBool(12, object.allowFutureDate);
+          fbb.addBool(13, object.optionSetValue);
+          fbb.addBool(14, object.renderOptionsAsRadio);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -3741,8 +3813,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.BoolReader().vTableGet(buffer, rootOffset, 16, false);
           final searchableParam =
               const fb.BoolReader().vTableGetNullable(buffer, rootOffset, 18);
-          final renderOptionAsRadioParam =
-              const fb.BoolReader().vTableGetNullable(buffer, rootOffset, 20);
+          final renderOptionsAsRadioParam =
+              const fb.BoolReader().vTableGetNullable(buffer, rootOffset, 32);
+          final allowFutureDateParam =
+              const fb.BoolReader().vTableGetNullable(buffer, rootOffset, 28);
+          final optionSetValueParam =
+              const fb.BoolReader().vTableGetNullable(buffer, rootOffset, 30);
           final object = D2ProgramTrackedEntityAttribute(
               createdParam,
               idParam,
@@ -3752,7 +3828,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
               displayInListParam,
               mandatoryParam,
               searchableParam,
-              renderOptionAsRadioParam)
+              renderOptionsAsRadioParam,
+              allowFutureDateParam,
+              optionSetValueParam)
             ..displayName = const fb.StringReader(asciiOptimization: true)
                 .vTableGetNullable(buffer, rootOffset, 26);
           object.program.targetId =
@@ -4051,6 +4129,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
         toOneRelations: (D2TrackedEntity object) =>
             [object.orgUnit, object.trackedEntityType],
         toManyRelations: (D2TrackedEntity object) => {
+              obx_int.RelInfo<D2TrackedEntity>.toMany(11, object.id):
+                  object.enrollmentsForQuery,
               obx_int.RelInfo<D2Enrollment>.toOneBacklink(11, object.id,
                       (D2Enrollment srcObject) => srcObject.trackedEntity):
                   object.enrollments,
@@ -4115,6 +4195,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0);
           object.trackedEntityType.attach(store);
           obx_int.InternalToManyAccess.setRelInfo<D2TrackedEntity>(
+              object.enrollmentsForQuery,
+              store,
+              obx_int.RelInfo<D2TrackedEntity>.toMany(11, object.id));
+          obx_int.InternalToManyAccess.setRelInfo<D2TrackedEntity>(
               object.enrollments,
               store,
               obx_int.RelInfo<D2Enrollment>.toOneBacklink(11, object.id,
@@ -4158,7 +4242,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final descriptionOffset = object.description == null
               ? null
               : fbb.writeString(object.description!);
-          final aggregationTypeOffset = fbb.writeString(object.aggregationType);
+          final aggregationTypeOffset = object.aggregationType == null
+              ? null
+              : fbb.writeString(object.aggregationType!);
           final valueTypeOffset = fbb.writeString(object.valueType);
           final displayNameOffset = object.displayName == null
               ? null
@@ -4166,7 +4252,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final displayFormNameOffset = object.displayFormName == null
               ? null
               : fbb.writeString(object.displayFormName!);
-          fbb.startTable(16);
+          final patternOffset =
+              object.pattern == null ? null : fbb.writeString(object.pattern!);
+          fbb.startTable(19);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.created.millisecondsSinceEpoch);
           fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
@@ -4182,6 +4270,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addInt64(12, object.optionSet.targetId);
           fbb.addOffset(13, displayNameOffset);
           fbb.addOffset(14, displayFormNameOffset);
+          fbb.addOffset(15, patternOffset);
+          fbb.addBool(16, object.generated);
+          fbb.addBool(17, object.optionSetValue);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -4207,11 +4298,17 @@ obx_int.ModelDefinition getObjectBoxModel() {
                   .vTableGetNullable(buffer, rootOffset, 20);
           final aggregationTypeParam =
               const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 22, '');
+                  .vTableGetNullable(buffer, rootOffset, 22);
           final valueTypeParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 24, '');
           final zeroIsSignificantParam =
               const fb.BoolReader().vTableGetNullable(buffer, rootOffset, 26);
+          final generatedParam =
+              const fb.BoolReader().vTableGetNullable(buffer, rootOffset, 36);
+          final patternParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGetNullable(buffer, rootOffset, 34);
+          final optionSetValueParam =
+              const fb.BoolReader().vTableGetNullable(buffer, rootOffset, 38);
           final object = D2TrackedEntityAttribute(
               createdParam,
               lastUpdatedParam,
@@ -4223,7 +4320,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
               descriptionParam,
               aggregationTypeParam,
               valueTypeParam,
-              zeroIsSignificantParam)
+              zeroIsSignificantParam,
+              generatedParam,
+              patternParam,
+              optionSetValueParam)
             ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0)
             ..displayName = const fb.StringReader(asciiOptimization: true)
                 .vTableGetNullable(buffer, rootOffset, 30)
@@ -4745,6 +4845,10 @@ class D2DataElement_ {
   static final id =
       obx.QueryIntegerProperty<D2DataElement>(_entities[1].properties[15]);
 
+  /// see [D2DataElement.optionSetValue]
+  static final optionSetValue =
+      obx.QueryBooleanProperty<D2DataElement>(_entities[1].properties[16]);
+
   /// see [D2DataElement.legendSets]
   static final legendSets = obx.QueryRelationToMany<D2DataElement, D2LegendSet>(
       _entities[1].relations[0]);
@@ -5085,7 +5189,7 @@ class D2OptionSet_ {
 
   /// see [D2OptionSet.options]
   static final options =
-      obx.QueryRelationToMany<D2OptionSet, D2Option>(_entities[8].relations[0]);
+      obx.QueryBacklinkToMany<D2Option, D2OptionSet>(D2Option_.optionSet);
 }
 
 /// [D2OrgUnit] entity fields to define ObjectBox queries.
@@ -5551,6 +5655,16 @@ class D2ProgramStageDataElement_ {
   /// see [D2ProgramStageDataElement.displayName]
   static final displayName = obx.QueryStringProperty<D2ProgramStageDataElement>(
       _entities[17].properties[8]);
+
+  /// see [D2ProgramStageDataElement.allowFutureDate]
+  static final allowFutureDate =
+      obx.QueryBooleanProperty<D2ProgramStageDataElement>(
+          _entities[17].properties[9]);
+
+  /// see [D2ProgramStageDataElement.renderOptionsAsRadio]
+  static final renderOptionsAsRadio =
+      obx.QueryBooleanProperty<D2ProgramStageDataElement>(
+          _entities[17].properties[10]);
 }
 
 /// [D2ProgramStageSection] entity fields to define ObjectBox queries.
@@ -5633,25 +5747,35 @@ class D2ProgramTrackedEntityAttribute_ {
       obx.QueryBooleanProperty<D2ProgramTrackedEntityAttribute>(
           _entities[19].properties[7]);
 
-  /// see [D2ProgramTrackedEntityAttribute.renderOptionAsRadio]
-  static final renderOptionAsRadio =
-      obx.QueryBooleanProperty<D2ProgramTrackedEntityAttribute>(
-          _entities[19].properties[8]);
-
   /// see [D2ProgramTrackedEntityAttribute.program]
   static final program =
       obx.QueryRelationToOne<D2ProgramTrackedEntityAttribute, D2Program>(
-          _entities[19].properties[9]);
+          _entities[19].properties[8]);
 
   /// see [D2ProgramTrackedEntityAttribute.trackedEntityAttribute]
   static final trackedEntityAttribute = obx.QueryRelationToOne<
       D2ProgramTrackedEntityAttribute,
-      D2TrackedEntityAttribute>(_entities[19].properties[10]);
+      D2TrackedEntityAttribute>(_entities[19].properties[9]);
 
   /// see [D2ProgramTrackedEntityAttribute.displayName]
   static final displayName =
       obx.QueryStringProperty<D2ProgramTrackedEntityAttribute>(
+          _entities[19].properties[10]);
+
+  /// see [D2ProgramTrackedEntityAttribute.allowFutureDate]
+  static final allowFutureDate =
+      obx.QueryBooleanProperty<D2ProgramTrackedEntityAttribute>(
           _entities[19].properties[11]);
+
+  /// see [D2ProgramTrackedEntityAttribute.optionSetValue]
+  static final optionSetValue =
+      obx.QueryBooleanProperty<D2ProgramTrackedEntityAttribute>(
+          _entities[19].properties[12]);
+
+  /// see [D2ProgramTrackedEntityAttribute.renderOptionsAsRadio]
+  static final renderOptionsAsRadio =
+      obx.QueryBooleanProperty<D2ProgramTrackedEntityAttribute>(
+          _entities[19].properties[13]);
 }
 
 /// [D2Relationship] entity fields to define ObjectBox queries.
@@ -5884,6 +6008,11 @@ class D2TrackedEntity_ {
   static final synced =
       obx.QueryBooleanProperty<D2TrackedEntity>(_entities[23].properties[9]);
 
+  /// see [D2TrackedEntity.enrollmentsForQuery]
+  static final enrollmentsForQuery =
+      obx.QueryRelationToMany<D2TrackedEntity, D2Enrollment>(
+          _entities[23].relations[0]);
+
   /// see [D2TrackedEntity.enrollments]
   static final enrollments =
       obx.QueryBacklinkToMany<D2Enrollment, D2TrackedEntity>(
@@ -5964,6 +6093,19 @@ class D2TrackedEntityAttribute_ {
   static final displayFormName =
       obx.QueryStringProperty<D2TrackedEntityAttribute>(
           _entities[24].properties[14]);
+
+  /// see [D2TrackedEntityAttribute.pattern]
+  static final pattern = obx.QueryStringProperty<D2TrackedEntityAttribute>(
+      _entities[24].properties[15]);
+
+  /// see [D2TrackedEntityAttribute.generated]
+  static final generated = obx.QueryBooleanProperty<D2TrackedEntityAttribute>(
+      _entities[24].properties[16]);
+
+  /// see [D2TrackedEntityAttribute.optionSetValue]
+  static final optionSetValue =
+      obx.QueryBooleanProperty<D2TrackedEntityAttribute>(
+          _entities[24].properties[17]);
 
   /// see [D2TrackedEntityAttribute.legendSets]
   static final legendSets =

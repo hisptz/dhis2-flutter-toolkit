@@ -1,4 +1,3 @@
-
 import 'package:objectbox/objectbox.dart';
 
 import '../../../objectbox.dart';
@@ -32,6 +31,7 @@ class D2DataElement extends D2MetaResource {
   String valueType;
   String domainType;
   bool? zeroIsSignificant;
+  bool? optionSetValue;
   final legendSets = ToMany<D2LegendSet>();
   final optionSet = ToOne<D2OptionSet>();
 
@@ -49,7 +49,8 @@ class D2DataElement extends D2MetaResource {
       this.domainType,
       this.zeroIsSignificant,
       this.displayFormName,
-      this.displayName);
+      this.displayName,
+      this.optionSetValue);
 
   D2DataElement.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
@@ -65,7 +66,8 @@ class D2DataElement extends D2MetaResource {
         domainType = json["domainType"],
         displayFormName = json["displayFormName"],
         displayName = json["displayName"],
-        zeroIsSignificant = json["zeroIsSignificant"] {
+        zeroIsSignificant = json["zeroIsSignificant"],
+        optionSetValue = json["optionSetValue"] {
     id = D2DataElementRepository(db).getIdByUid(json["id"]) ?? 0;
 
     if (json["optionSet"] != null) {

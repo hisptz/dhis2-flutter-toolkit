@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dhis2_flutter_toolkit/src/models/metadata/program.dart';
+import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_query_mixin.dart';
 
 import '../../../objectbox.g.dart';
 import '../../models/data/event.dart';
@@ -14,6 +15,7 @@ class D2EventRepository extends BaseDataRepository<D2Event>
     with
         BaseTrackerDataDownloadServiceMixin<D2Event>,
         D2EventDataDownloadServiceMixin,
+        BaseQueryMixin<D2Event>,
         BaseTrackerDataUploadServiceMixin<D2Event> {
   D2EventRepository(super.db, {super.program});
 
@@ -62,5 +64,12 @@ class D2EventRepository extends BaseDataRepository<D2Event>
     this.program = program;
     updateQueryCondition(D2Event_.program.equals(program.id));
     return this;
+  }
+
+  @override
+  void addProgramToQuery() {
+    if(program != null) {
+
+    }
   }
 }

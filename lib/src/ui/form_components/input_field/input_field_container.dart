@@ -1,16 +1,28 @@
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/base_input.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/boolean_input.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/date_range_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/select_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/text_input.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/true_only_input.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/boolean_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/date_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/date_range_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/number_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/select_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/true_only_input_field.dart';
 import 'package:flutter/material.dart';
 
+import 'components/date_input.dart';
 import 'components/input_field_icon.dart';
-import 'models/input_field.dart';
+import 'models/input_field_type_enum.dart';
+import 'models/text_input_field.dart';
 
 class InputFieldContainer extends StatelessWidget {
-  final InputField input;
-  final OnChange<String?> onChange;
+  final D2BaseInputFieldConfig input;
+  final OnChange<dynamic> onChange;
   final dynamic value;
-  final Color color;
+  final Color? color;
   final String? error;
   final String? warning;
   final bool disabled;
@@ -26,7 +38,11 @@ class InputFieldContainer extends StatelessWidget {
       this.warning});
 
   final BoxConstraints iconConstraints = const BoxConstraints(
-      maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
+    maxHeight: 45.0,
+    minHeight: 42.0,
+    maxWidth: 45.0,
+    minWidth: 42.0,
+  );
 
   void onClear() {
     onChange(null);
@@ -34,60 +50,116 @@ class InputFieldContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color colorOverride = error != null ? Colors.red : color;
+    Color? colorOverride =
+        error != null ? Colors.red : color ?? Theme.of(context).primaryColor;
 
     BaseInput getInput() {
-      if (input.options != null) {
+      if (input is D2SelectInputFieldConfig) {
         return SelectInput(
-            input: input,
+            input: input as D2SelectInputFieldConfig,
             color: colorOverride,
             onChange: onChange,
             value: value);
       }
-      switch (input.type) {
-        case InputFieldType.text:
-          return TextInput(
-            onChange: onChange,
-            value: value,
-            input: input,
-            color: colorOverride,
-            textInputType: TextInputType.text,
-          );
-        case InputFieldType.number:
-        case InputFieldType.integer:
-        case InputFieldType.positiveInteger:
-        case InputFieldType.negativeInteger:
-          return TextInput(
-              textInputType:
-                  const TextInputType.numberWithOptions(decimal: false),
-              input: input,
-              value: value,
-              onChange: onChange,
-              color: colorOverride);
 
-        case InputFieldType.email:
-          return TextInput(
-              textInputType: TextInputType.emailAddress,
-              input: input,
-              color: colorOverride,
-              onChange: onChange);
-        case InputFieldType.url:
-          return TextInput(
-              onChange: onChange,
-              color: colorOverride,
-              input: input,
-              textInputType: TextInputType.url,
-              value: value);
-        case InputFieldType.date:
-        case InputFieldType.dateAndTime:
-          return TextInput(
-              textInputType: TextInputType.datetime,
-              input: input,
-              color: colorOverride,
-              onChange: onChange);
-        default:
-          throw "${input.type} is currently not supported";
+      if (input is D2DateInputFieldConfig) {
+        return DateInput(
+          value: value,
+          input: input as D2DateInputFieldConfig,
+          color: colorOverride,
+          onChange: onChange,
+        );
       }
+      if (input is D2DateRangeInputFieldConfig) {
+        return DateRangeInput(
+          value: value,
+          input: input as D2DateRangeInputFieldConfig,
+          color: colorOverride,
+          onChange: onChange,
+        );
+      }
+
+      if (input is D2NumberInputFieldConfig) {
+        switch (input.type) {
+          case D2InputFieldType.number:
+          case D2InputFieldType.integer:
+          case D2InputFieldType.positiveInteger:
+          case D2InputFieldType.negativeInteger:
+          case D2InputFieldType.integerZeroOrPositive:
+            return TextInput(
+                textInputType:
+                    const TextInputType.numberWithOptions(decimal: false),
+                input: input,
+                value: value,
+                onChange: onChange,
+                color: colorOverride);
+          default:
+            return TextInput(
+                textInputType:
+                    const TextInputType.numberWithOptions(decimal: false),
+                input: input,
+                value: value,
+                onChange: onChange,
+                color: colorOverride);
+        }
+      }
+
+      if (input is D2TextInputFieldConfig) {
+        switch (input.type) {
+          case D2InputFieldType.text:
+          case D2InputFieldType.longText:
+          case D2InputFieldType.email:
+          case D2InputFieldType.url:
+            return TextInput(
+              onChange: onChange,
+              value: value,
+              input: input,
+              color: colorOverride,
+              maxLines: D2InputFieldType.longText == input.type ? null : 1,
+              textInputType: [D2InputFieldType.text, D2InputFieldType.longText]
+                      .contains(input.type)
+                  ? TextInputType.text
+                  : [D2InputFieldType.email].contains(input.type)
+                      ? TextInputType.emailAddress
+                      : [D2InputFieldType.url].contains(input.type)
+                          ? TextInputType.url
+                          : TextInputType.text,
+            );
+          default:
+            return TextInput(
+              onChange: onChange,
+              value: value,
+              input: input,
+              color: colorOverride,
+              textInputType: TextInputType.text,
+            );
+        }
+      }
+
+      if (input is D2BooleanInputFieldConfig) {
+        return BooleanInput(
+          onChange: onChange,
+          value: value,
+          input: input as D2BooleanInputFieldConfig,
+          color: colorOverride,
+        );
+      }
+      if (input is D2TrueOnlyInputFieldConfig) {
+        return TrueOnlyInput(
+          onChange: onChange,
+          value: value,
+          input: input as D2TrueOnlyInputFieldConfig,
+          color: colorOverride,
+        );
+      }
+
+      return TextInput(
+        onChange: onChange,
+        value: value,
+        input: input,
+        color: colorOverride,
+        textInputType: TextInputType.text,
+      );
     }
 
     Widget getPrefix() {
@@ -106,37 +178,6 @@ class InputFieldContainer extends StatelessWidget {
       }
     }
 
-    Widget getSuffixIcon() {
-      switch (input.type) {
-        case InputFieldType.dateAndTime:
-          return Container(
-            constraints: iconConstraints,
-            child: InputFieldIcon(
-                backgroundColor: colorOverride,
-                iconColor: colorOverride,
-                iconData: Icons.calendar_today),
-          );
-        case InputFieldType.date:
-          return Container(
-            constraints: iconConstraints,
-            child: InputFieldIcon(
-                backgroundColor: colorOverride,
-                iconColor: colorOverride,
-                iconData: Icons.calendar_today),
-          );
-        case InputFieldType.dateRange:
-          return Container(
-            constraints: iconConstraints,
-            child: InputFieldIcon(
-                backgroundColor: colorOverride,
-                iconColor: colorOverride,
-                iconData: Icons.date_range),
-          );
-        default:
-          return Container();
-      }
-    }
-
     Widget getSuffix() {
       return Row(
         children: [
@@ -146,44 +187,74 @@ class InputFieldContainer extends StatelessWidget {
                   icon: const Icon(Icons.clear),
                 )
               : Container(),
-          getSuffixIcon()
         ],
       );
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16.0,
+        vertical: 8.0,
+      ),
       decoration: BoxDecoration(
-          color: colorOverride.withOpacity(0.07),
-          border: Border(
-              left: BorderSide.none,
-              right: BorderSide.none,
-              top: BorderSide.none,
-              bottom: BorderSide(width: 2, color: colorOverride)),
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(4.0), topRight: Radius.circular(4.0))),
+        color: colorOverride.withOpacity(0.07),
+        border: Border(
+          left: BorderSide.none,
+          right: BorderSide.none,
+          top: BorderSide.none,
+          bottom: BorderSide(
+            width: 2,
+            color: colorOverride,
+          ),
+        ),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(4.0),
+          topRight: Radius.circular(4.0),
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Text(
-                input.label,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: colorOverride,
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: input.label,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: colorOverride,
+                      ),
+                    ),
+                    TextSpan(
+                      text: input.mandatory ? ' *' : '',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.redAccent,
+                      ),
+                    )
+                  ],
                 ),
-              )
+              ),
             ],
           ),
           Row(
-            children: [getPrefix(), Expanded(child: getInput()), getSuffix()],
+            children: [
+              getPrefix(),
+              Expanded(child: getInput()),
+              getSuffix(),
+            ],
           ),
           error != null
               ? Text(
                   error!,
-                  style: TextStyle(color: colorOverride, fontSize: 12),
+                  style: TextStyle(
+                    color: colorOverride,
+                    fontSize: 12.0,
+                  ),
                 )
               : Container()
         ],

@@ -24,6 +24,7 @@ class D2OptionSet extends D2MetaResource {
 
   String valueType;
 
+  @Backlink("optionSet")
   final options = ToMany<D2Option>();
 
   D2OptionSet(this.id, this.displayName, this.created, this.lastUpdated,
