@@ -8,13 +8,11 @@ class D2Form {
   String? subtitle;
   List<D2BaseInputFieldConfig>? fields;
   List<FormSection>? sections;
-  Color color;
-
   D2Form(
       {this.title,
       this.subtitle,
       this.fields,
       this.sections,
-      required this.color})
+      })
       : assert(fields != null || sections != null);
 }

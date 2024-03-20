@@ -23,8 +23,8 @@ class D2TrackerRegistrationForm extends StatelessWidget {
     Color formColor = color ?? Theme.of(context).primaryColor;
 
     return D2ControlledForm(
+        color: formColor,
         form: D2Form(
-            color: formColor,
             title: options.showTitle
                 ? program.displayName ?? program.shortName
                 : null,
