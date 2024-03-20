@@ -1,12 +1,16 @@
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/base_input.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/boolean_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/date_range_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/select_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/text_input.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/true_only_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/boolean_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/date_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/date_range_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/number_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/select_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/true_only_input_field.dart';
 import 'package:flutter/material.dart';
 
 import 'components/date_input.dart';
@@ -132,6 +136,23 @@ class InputFieldContainer extends StatelessWidget {
         }
       }
 
+      if (input is D2BooleanInputFieldConfig) {
+        return BooleanInput(
+          onChange: onChange,
+          value: value,
+          input: input as D2BooleanInputFieldConfig,
+          color: colorOverride,
+        );
+      }
+      if (input is D2TrueOnlyInputFieldConfig) {
+        return TrueOnlyInput(
+          onChange: onChange,
+          value: value,
+          input: input as D2TrueOnlyInputFieldConfig,
+          color: colorOverride,
+        );
+      }
+
       return TextInput(
         onChange: onChange,
         value: value,
@@ -171,38 +192,69 @@ class InputFieldContainer extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16.0,
+        vertical: 8.0,
+      ),
       decoration: BoxDecoration(
-          color: colorOverride.withOpacity(0.07),
-          border: Border(
-              left: BorderSide.none,
-              right: BorderSide.none,
-              top: BorderSide.none,
-              bottom: BorderSide(width: 2, color: colorOverride)),
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(4.0), topRight: Radius.circular(4.0))),
+        color: colorOverride.withOpacity(0.07),
+        border: Border(
+          left: BorderSide.none,
+          right: BorderSide.none,
+          top: BorderSide.none,
+          bottom: BorderSide(
+            width: 2,
+            color: colorOverride,
+          ),
+        ),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(4.0),
+          topRight: Radius.circular(4.0),
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Text(
-                input.label,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: colorOverride,
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: input.label,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: colorOverride,
+                      ),
+                    ),
+                    TextSpan(
+                      text: input.mandatory ? ' *' : '',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.redAccent,
+                      ),
+                    )
+                  ],
                 ),
-              )
+              ),
             ],
           ),
           Row(
-            children: [getPrefix(), Expanded(child: getInput()), getSuffix()],
+            children: [
+              getPrefix(),
+              Expanded(child: getInput()),
+              getSuffix(),
+            ],
           ),
           error != null
               ? Text(
                   error!,
-                  style: TextStyle(color: colorOverride, fontSize: 12),
+                  style: TextStyle(
+                    color: colorOverride,
+                    fontSize: 12.0,
+                  ),
                 )
               : Container()
         ],
