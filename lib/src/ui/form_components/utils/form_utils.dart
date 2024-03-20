@@ -1,6 +1,7 @@
 import '../../../models/metadata/option.dart';
 import '../../../models/metadata/option_set.dart';
 import '../input_field/models/base_input_field.dart';
+import '../input_field/models/date_input_field.dart';
 import '../input_field/models/date_range_input_field.dart';
 import '../input_field/models/input_field_option.dart';
 import '../input_field/models/input_field_type_enum.dart';
@@ -43,7 +44,7 @@ class FormUtils {
     }
 
     if (D2InputFieldType.isDateType(type)) {
-      return D2DateRangeInputFieldConfig(
+      return D2DateInputFieldConfig(
           label: label,
           type: type,
           name: name,

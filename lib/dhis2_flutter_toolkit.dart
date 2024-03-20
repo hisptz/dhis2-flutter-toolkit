@@ -103,13 +103,13 @@ export "src/services/sync/tracker_data_upload_service.dart"
 // App Modal utils
 export "src/ui/app_modals/utils/d2_app_modal_util.dart" show D2AppModalUtil;
 export "src/ui/form_components/form/controlled_form.dart" show D2ControlledForm;
+export "src/ui/form_components/form/models/dhis2_form_options.dart" show D2TrackerFormOptions;
 export "src/ui/form_components/form/dhis2_event_form.dart"
     show D2TrackerEventForm;
 export "src/ui/form_components/form/dhis2_registration_form.dart"
     show D2TrackerRegistrationForm;
 export "src/ui/form_components/form/form_container.dart" show FormContainer;
-export "src/ui/form_components/form/models/dhis2_form_options.dart"
-    show D2TrackerFormOptions;
+
 export "src/ui/form_components/form/models/form.dart" show D2Form;
 export "src/ui/form_components/form_section/form_section_container.dart"
     show FormSectionContainer;
