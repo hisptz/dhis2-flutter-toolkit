@@ -7,6 +7,7 @@ class FormUtils {
     bool? allowFutureDates,
     bool? renderOptionsAsRadio,
   }) {
+    // if (dataItem is D2TrackedEntityAttribute) {
     D2InputFieldType? type =
         D2InputFieldType.fromDHIS2ValueType(dataItem.valueType);
     if (type == null) {
@@ -20,7 +21,7 @@ class FormUtils {
 
     String name = dataItem.uid;
 
-    if (dataItem.optionSetValue) {
+    if (dataItem.optionSet.target != null) {
       D2OptionSet optionSet = dataItem.optionSet.target!;
       List<D2InputFieldOption> options = optionSet.options
           .map<D2InputFieldOption>((D2Option option) => D2InputFieldOption(
@@ -68,4 +69,5 @@ class FormUtils {
             label: label, type: type, name: name, mandatory: mandatory);
     }
   }
+// }
 }
