@@ -40,7 +40,9 @@ class D2OrgUnit implements D2MetaResource {
         displayName = json["displayName"],
         lastUpdated = DateTime.parse(json["lastUpdated"]) {
     id = D2OrgUnitRepository(db).getIdByUid(json["id"]) ?? 0;
-    parent.target = D2OrgUnitRepository(db).getByUid(json["parent"]["id"]);
+    if (json["parent"] != null) {
+      parent.target = D2OrgUnitRepository(db).getByUid(json["parent"]["id"]);
+    }
     level.target = D2OrgUnitLevelRepository(db).getByLevel(json["level"]);
   }
 
