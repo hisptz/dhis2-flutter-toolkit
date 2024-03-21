@@ -21,18 +21,21 @@ import './helpers/program_rule_helper.dart';
 ///
 class D2ProgramRuleEngine {
   /// A list of `D2ProgramRule` to be evaluated
-  List<D2ProgramRule> programRules;
+  final List<D2ProgramRule> programRules;
 
   /// A list of `D2ProgramRuleVariable` to be used in evaluation of program rules
-  List<D2ProgramRuleVariable> programRuleVariables;
+  final List<D2ProgramRuleVariable> programRuleVariables;
+
+  final D2TrackedEntity? trackedEntity;
 
   ///
   ///`D2ProgramRuleEngine` is constructor for the `D2ProgramRuleEngine` class
-  /// The constructor takes a list of `D2ProgramRule` and a list of `D2ProgramRuleVariable` as required parameters
+  /// The constructor takes a list of `D2ProgramRule` and a list of `D2ProgramRuleVariable` as required parameters and an optional `D2TrackedEntity` object
   ///
   D2ProgramRuleEngine({
     required this.programRules,
     required this.programRuleVariables,
+    this.trackedEntity,
   });
 
   ///`D2ProgramRuleEngine.evaluateProgramRule` is a helper function for evaluation of program rule on given form data object
@@ -48,12 +51,9 @@ class D2ProgramRuleEngine {
   ///    "warningMessages" : {...}
   ///  }
   ///```
-
-  // TODO accept Tracked entity instance
   Map evaluateProgramRule({
-    Map dataObject = const {},
+    Map formDataObject = const {},
     String inputFieldId = '',
-    D2TrackedEntity? trackedEntity,
   }) {
     var hiddenFields = {};
     var assignedFields = {};
@@ -80,7 +80,7 @@ class D2ProgramRuleEngine {
         sanitizedCondition = _decodeExpressionWithProgramRuleVariables(
           programRuleVariables: programRuleVariables,
           expression: sanitizedCondition,
-          dataObject: dataObject,
+          formDataObject: formDataObject,
         );
 
         try {
@@ -114,8 +114,7 @@ class D2ProgramRuleEngine {
             dataExpression = _decodeExpressionWithProgramRuleVariables(
               programRuleVariables: programRuleVariables,
               expression: dataExpression,
-              dataObject: dataObject,
-              trackedEntity: trackedEntity,
+              formDataObject: formDataObject,
             );
             if (programRuleActionType ==
                     ProgramRuleActionsConstants.hideField &&
@@ -129,7 +128,7 @@ class D2ProgramRuleEngine {
                 if (evaluatedConditionResults) {
                   var sanitizedDataExpression = _escapeStandardDhis2Variables(
                     expression: dataExpression,
-                    dataObject: dataObject,
+                    formDataObject: formDataObject,
                   );
                   var evaluatedDataExpression =
                       ProgramRuleHelper.evaluateLogicalCondition(
@@ -231,44 +230,38 @@ class D2ProgramRuleEngine {
   }
 
   //
-  /// `D2ProgramRuleEngine.decodeExpressionWithProgramRuleVariables` is a helper function that decodes and expression by replacing data object values with the program rule variables
+  /// `D2ProgramRuleEngine._decodeExpressionWithProgramRuleVariables` is a helper function that decodes and expression by replacing data object values with the program rule variables
   /// The function accepts `String` expression, `Map` data object and a `List` of `D2ProgramRuleVariable` .
   /// It returns a sanitized `String` expression
-  String _decodeExpressionWithProgramRuleVariables({
-    required String expression,
-    required List<D2ProgramRuleVariable> programRuleVariables,
-    Map dataObject = const {},
-    D2TrackedEntity? trackedEntity,
-  }) {
+  String _decodeExpressionWithProgramRuleVariables(
+      {required String expression,
+      required List<D2ProgramRuleVariable> programRuleVariables,
+      Map formDataObject = const {}}) {
     String sanitizedExpression = expression;
+
+    // TODO Find better means for handling the standard variables as properties of tracked entities or events
+    // Sanitizing the expression by removing DHIS2 standard variables
+    sanitizedExpression = _escapeStandardDhis2Variables(
+      formDataObject: formDataObject,
+      expression: sanitizedExpression,
+    );
 
     for (D2ProgramRuleVariable programRuleVariable in programRuleVariables) {
       var value = "''";
       if (sanitizedExpression.contains(programRuleVariable.name)) {
-        String ruleVariableDataElementAttributeId =
-            programRuleVariable.dataElement.target?.uid ??
-                programRuleVariable.trackedEntityAttribute.target?.uid ??
-                '';
-
-        if (dataObject.isNotEmpty &&
-            dataObject[ruleVariableDataElementAttributeId] != null) {
-          try {
-            double doubleValue = double.parse(
-              dataObject[ruleVariableDataElementAttributeId] ?? '0.0',
-            );
-            value = doubleValue as String;
-          } catch (error) {
-            value = "${dataObject[ruleVariableDataElementAttributeId]}";
-            if (dataObject[ruleVariableDataElementAttributeId] != '') {
-              value = "${dataObject[ruleVariableDataElementAttributeId]}";
-            }
-          }
-          sanitizedExpression = _escapeStandardDhis2Variables(
-            dataObject: dataObject,
-            expression: sanitizedExpression,
+        if (trackedEntity != null) {
+          value = ProgramRuleHelper
+              .getProgramVariableValueFromTrackedEntityInstance(
+            programRuleVariable: programRuleVariable,
+            trackedEntity: trackedEntity!,
+            formDataObject: formDataObject,
+          );
+        } else {
+          value = ProgramRuleHelper.getProgramVariableValueFromFormDataObject(
+            programRuleVariable: programRuleVariable,
+            formDataObject: formDataObject,
           );
         }
-
         sanitizedExpression = ProgramRuleHelper.sanitizeExpression(
           expression: sanitizedExpression,
           programRuleVariable: programRuleVariable.name,
@@ -284,7 +277,7 @@ class D2ProgramRuleEngine {
   //
   String _escapeStandardDhis2Variables({
     String expression = '',
-    Map dataObject = const {},
+    Map formDataObject = const {},
   }) {
     var dhis2Variables = Dhis2Variables.getStandardVariables();
     if (dhis2Variables.any(
@@ -293,11 +286,11 @@ class D2ProgramRuleEngine {
       for (var variable in dhis2Variables) {
         String sanitizedVariable =
             D2StringUtils.convertSnakeCaseToCamelCase(variable);
-        expression = dataObject.keys.contains(sanitizedVariable)
+        expression = formDataObject.keys.contains(sanitizedVariable)
             ? ProgramRuleHelper.sanitizeExpression(
                 expression: expression,
                 programRuleVariable: variable,
-                value: dataObject[sanitizedVariable],
+                value: formDataObject[sanitizedVariable],
               )
             : expression;
       }
