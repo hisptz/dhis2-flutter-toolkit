@@ -10,7 +10,7 @@ class OrgUnitInput
     extends BaseStatefulInput<D2OrgUnitInputFieldConfig, List<String>> {
   final int? maxLines;
 
-  OrgUnitInput({
+  const OrgUnitInput({
     super.key,
     super.value,
     required super.input,
@@ -48,23 +48,23 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
   }
 
   Future loadSelectedNames(List<String>? selected) async {
-    if (widget.value != null) {
-      controller.text = "...";
-      List<OrgUnitData> orgUnits =
-          await widget.input.service.getOrgUnitDataFromId(selected ?? []);
-      setState(() {
-        selectedOrgUnitData = orgUnits;
-        controller.text = selectedOrgUnitData
-            .map((OrgUnitData orgUnit) => orgUnit.displayName)
-            .join(", ");
-      });
-    }
+    controller.text = "...";
+    List<OrgUnitData> orgUnits =
+        await widget.input.service.getOrgUnitDataFromId(selected ?? []);
+    setState(() {
+      selectedOrgUnitData = orgUnits;
+      controller.text = selectedOrgUnitData
+          .map((OrgUnitData orgUnit) => orgUnit.displayName)
+          .join(", ");
+    });
   }
 
   @override
   void initState() {
     controller = TextEditingController();
-    loadSelectedNames(widget.value);
+    if (widget.value != null) {
+      loadSelectedNames(widget.value);
+    }
     super.initState();
   }
 

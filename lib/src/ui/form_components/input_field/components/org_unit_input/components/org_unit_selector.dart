@@ -23,10 +23,10 @@ class OrgUnitSelector extends StatefulWidget {
   });
 
   @override
-  State<OrgUnitSelector> createState() => _OrgUnitSelectorState();
+  State<OrgUnitSelector> createState() => OrgUnitSelectorState();
 }
 
-class _OrgUnitSelectorState extends State<OrgUnitSelector> {
+class OrgUnitSelectorState extends State<OrgUnitSelector> {
   GlobalKey<State<OrgUnitSelector>> treeKey = GlobalKey();
   bool _loading = true;
   bool multiple = false;
