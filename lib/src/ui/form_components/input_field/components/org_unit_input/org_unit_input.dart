@@ -20,12 +20,17 @@ class OrgUnitInput extends BaseInput<D2OrgUnitInputFieldConfig, List<String>> {
   final BoxConstraints iconConstraints = const BoxConstraints(
       maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
 
-  onShowDialog(BuildContext context) {
+  void onSelect(List<String> selected) {
+    onChange(selected);
+  }
+
+  onOpenSelector(BuildContext context) {
     showDialog(
         context: context,
         builder: (_) => OrgUnitSelector(
+              color: color,
               config: input,
-              onSelect: onChange,
+              onSelect: onSelect,
               selectedOrgUnits: value,
             ));
   }
@@ -36,7 +41,7 @@ class OrgUnitInput extends BaseInput<D2OrgUnitInputFieldConfig, List<String>> {
       showCursor: false,
       initialValue: value?.join(", "),
       onTap: () {
-        onShowDialog(context);
+        onOpenSelector(context);
       },
       maxLines: maxLines,
       keyboardType: TextInputType.none,
@@ -52,7 +57,7 @@ class OrgUnitInput extends BaseInput<D2OrgUnitInputFieldConfig, List<String>> {
             padding: EdgeInsets.zero,
             constraints: iconConstraints,
             onPressed: () {
-              onShowDialog(context);
+              onOpenSelector(context);
             },
             icon: InputFieldIcon(
                 backgroundColor: color,

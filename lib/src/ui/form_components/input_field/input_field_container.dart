@@ -157,6 +157,7 @@ class InputFieldContainer extends StatelessWidget {
       }
       if (input is D2OrgUnitInputFieldConfig) {
         return OrgUnitInput(
+            value: value,
             input: input as D2OrgUnitInputFieldConfig,
             color: colorOverride,
             onChange: onChange);

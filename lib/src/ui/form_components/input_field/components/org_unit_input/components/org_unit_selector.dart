@@ -3,6 +3,7 @@ import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/base_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/org_unit_input/components/org_unit_expansion_indicator.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/org_unit_input/components/org_unit_tree_tile.dart';
 import 'package:flutter/material.dart';
 
 import '../models/org_unit_data.dart';
@@ -11,18 +12,22 @@ class OrgUnitSelector extends StatefulWidget {
   final D2OrgUnitInputFieldConfig config;
   final List<String>? selectedOrgUnits;
   final OnChange<List<String>> onSelect;
+  final Color color;
 
-  const OrgUnitSelector(
-      {super.key,
-      this.selectedOrgUnits = const [],
-      required this.onSelect,
-      required this.config});
+  const OrgUnitSelector({
+    super.key,
+    this.selectedOrgUnits = const [],
+    required this.onSelect,
+    required this.config,
+    required this.color,
+  });
 
   @override
   State<OrgUnitSelector> createState() => _OrgUnitSelectorState();
 }
 
 class _OrgUnitSelectorState extends State<OrgUnitSelector> {
+  GlobalKey<State<OrgUnitSelector>> treeKey = GlobalKey();
   bool _loading = true;
   bool multiple = false;
   List<String> selectedOrgUnits = [];
@@ -46,9 +51,15 @@ class _OrgUnitSelectorState extends State<OrgUnitSelector> {
             .toList();
       });
     } else {
-      setState(() {
-        selectedOrgUnits.add(orgUnitData.id);
-      });
+      if (multiple) {
+        setState(() {
+          selectedOrgUnits.add(orgUnitData.id);
+        });
+      } else {
+        setState(() {
+          selectedOrgUnits = [orgUnitData.id];
+        });
+      }
     }
   }
 
@@ -57,11 +68,9 @@ class _OrgUnitSelectorState extends State<OrgUnitSelector> {
     setState(() {
       service = widget.config.service;
       multiple = widget.config.multiple ?? false;
-    });
-    initializeService();
-    setState(() {
       selectedOrgUnits = widget.selectedOrgUnits ?? [];
     });
+    initializeService();
     super.initState();
   }
 
@@ -79,36 +88,42 @@ class _OrgUnitSelectorState extends State<OrgUnitSelector> {
                     child: CircularProgressIndicator(),
                   )
                 : TreeView.simpleTyped<OrgUnitData, TreeNode<OrgUnitData>>(
+                    key: treeKey,
                     indentation: const Indentation(),
-                    expansionBehavior: ExpansionBehavior.collapseOthers,
+                    expansionBehavior: ExpansionBehavior.none,
                     expansionIndicatorBuilder: (BuildContext context, node) {
-                      if (node.data.hasChildren) {
-                        if (node.isExpanded) {
-                          return OrgUnitExpansionIndicator(
-                            tree: node,
-                            alignment: Alignment.centerLeft,
-                          );
-                        } else {
-                          return OrgUnitExpansionIndicator(
-                            tree: node,
-                            alignment: Alignment.centerLeft,
-                          );
-                        }
+                      if (node.isExpanded) {
+                        return OrgUnitExpansionIndicator(
+                          tree: node,
+                          alignment: Alignment.centerLeft,
+                        );
+                      } else {
+                        return OrgUnitExpansionIndicator(
+                          tree: node,
+                          alignment: Alignment.centerLeft,
+                        );
                       }
-                      return NoExpansionIndicator(tree: node);
                     },
                     showRootNode: false,
                     shrinkWrap: true,
                     onTreeReady: (controller) {
                       service!.setController(controller);
+                      service!.expandInitiallySelected(
+                          initiallySelected: widget.selectedOrgUnits);
                     },
                     builder:
                         (BuildContext context, TreeNode<OrgUnitData> node) {
                       if (node.data != null) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 32.0, vertical: 8.0),
-                          child: Text(node.data!.displayName),
+                        return InkWell(
+                          onTap: () {
+                            toggleOrgUnitSelection(node.data!);
+                          },
+                          child: OrgUnitTreeTile(
+                              toggleSelection: toggleOrgUnitSelection,
+                              node: node,
+                              color: widget.color,
+                              multiple: multiple,
+                              selected: selectedOrgUnits),
                         );
                       }
                       return const Text("Root");
@@ -122,7 +137,12 @@ class _OrgUnitSelectorState extends State<OrgUnitSelector> {
                 Navigator.of(context).pop();
               },
               child: const Text("Cancel")),
-          TextButton(onPressed: () {}, child: const Text("Select")),
+          TextButton(
+              onPressed: () {
+                widget.onSelect(selectedOrgUnits);
+                Navigator.of(context).pop();
+              },
+              child: const Text("Select")),
         ]);
   }
 }

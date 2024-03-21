@@ -1,4 +1,5 @@
 import 'package:animated_tree_view/animated_tree_view.dart';
+import 'package:collection/collection.dart';
 
 import '../org_unit_data.dart';
 
@@ -35,4 +36,15 @@ abstract class D2BaseOrgUnitSelectorService {
   Future<List<TreeNode<OrgUnitData>>> getChildren(TreeNode<OrgUnitData> node);
 
   Future<void> initialize();
+
+  void expandInitiallySelected({List<String>? initiallySelected}) {
+    if (initiallySelected != null) {
+      List<ListenableNode> allNodes = controller.tree.childrenAsList;
+      List<ListenableNode?> initiallySelectedNodesNullable =
+          initiallySelected.map<ListenableNode?>((key) {
+        return allNodes
+            .firstWhereOrNull((ListenableNode element) => element.key == key);
+      }).toList();
+    }
+  }
 }
