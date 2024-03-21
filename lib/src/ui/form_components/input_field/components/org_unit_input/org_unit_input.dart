@@ -8,7 +8,7 @@ import '../input_field_icon.dart';
 class OrgUnitInput extends BaseInput<D2OrgUnitInputFieldConfig, List<String>> {
   final int? maxLines;
 
-  const OrgUnitInput({
+  OrgUnitInput({
     super.key,
     super.value,
     required super.input,
@@ -17,6 +17,7 @@ class OrgUnitInput extends BaseInput<D2OrgUnitInputFieldConfig, List<String>> {
     this.maxLines = 1,
   });
 
+  late final TextEditingController controller;
   final BoxConstraints iconConstraints = const BoxConstraints(
       maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
 
@@ -37,9 +38,10 @@ class OrgUnitInput extends BaseInput<D2OrgUnitInputFieldConfig, List<String>> {
 
   @override
   Widget build(BuildContext context) {
+    controller = TextEditingController(text: value?.join(", "));
     return TextFormField(
       showCursor: false,
-      initialValue: value?.join(", "),
+      controller: controller,
       onTap: () {
         onOpenSelector(context);
       },

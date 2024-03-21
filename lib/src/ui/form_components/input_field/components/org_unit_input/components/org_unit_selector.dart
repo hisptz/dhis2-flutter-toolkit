@@ -77,11 +77,12 @@ class _OrgUnitSelectorState extends State<OrgUnitSelector> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        title: const Text("Select organisation unit"),
+        buttonPadding: const EdgeInsets.all(4.0),
+        title: Text(widget.config.label),
         content: Container(
           padding: const EdgeInsets.all(16),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.6,
+            height: MediaQuery.of(context).size.height * 0.5,
             width: MediaQuery.of(context).size.width * 0.9,
             child: _loading
                 ? const Center(

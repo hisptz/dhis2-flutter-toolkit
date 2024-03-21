@@ -12,12 +12,13 @@ class OrgUnitTreeTile extends StatelessWidget {
   final Color color;
   final ToggleSelection toggleSelection;
 
-  const OrgUnitTreeTile({super.key,
-    required this.multiple,
-    required this.node,
-    required this.selected,
-    required this.color,
-    required this.toggleSelection});
+  const OrgUnitTreeTile(
+      {super.key,
+      required this.multiple,
+      required this.node,
+      required this.selected,
+      required this.color,
+      required this.toggleSelection});
 
   TextStyle? getTextStyle() {
     if (selected.contains(node.data!.id)) {
@@ -29,23 +30,29 @@ class OrgUnitTreeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
+      margin: const EdgeInsets.symmetric(horizontal: 16.0),
       child: multiple
           ? Row(
-        children: [
-          Checkbox(
-              value: selected.contains(node.data!.id),
-              onChanged: (value) {
-                toggleSelection(node.data!);
-              }),
-          const Padding(padding: EdgeInsets.symmetric(horizontal: 16.0)),
-          Text(
-            node.data!.displayName,
-            style: getTextStyle(),
-          )
-        ],
-      )
-          : Text(node.data!.displayName, style: getTextStyle(),),
+              children: [
+                Checkbox(
+                    visualDensity: VisualDensity.compact,
+                    value: selected.contains(node.data!.id),
+                    onChanged: (value) {
+                      toggleSelection(node.data!);
+                    }),
+                Text(
+                  node.data!.displayName,
+                  style: getTextStyle(),
+                )
+              ],
+            )
+          : Padding(
+              padding: const EdgeInsets.only(left: 32.0, top: 4, bottom: 4),
+              child: Text(
+                node.data!.displayName,
+                style: getTextStyle(),
+              ),
+            ),
     );
   }
 }
