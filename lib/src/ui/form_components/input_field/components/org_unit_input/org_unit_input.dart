@@ -40,6 +40,7 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
     showDialog(
         context: context,
         builder: (_) => OrgUnitSelector(
+              key: UniqueKey(),
               color: widget.color,
               config: widget.input,
               onSelect: onSelect,
@@ -69,12 +70,19 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Color color = widget.color;
     int? maxLines = widget.maxLines;
 
     return TextFormField(
       showCursor: false,
+      autofocus: false,
       controller: controller,
       onTap: () {
         onOpenSelector(context);

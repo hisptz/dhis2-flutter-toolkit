@@ -27,7 +27,6 @@ class OrgUnitSelector extends StatefulWidget {
 }
 
 class OrgUnitSelectorState extends State<OrgUnitSelector> {
-  GlobalKey<State<OrgUnitSelector>> treeKey = GlobalKey();
   bool _loading = true;
   bool multiple = false;
   List<String> selectedOrgUnits = [];
@@ -89,21 +88,14 @@ class OrgUnitSelectorState extends State<OrgUnitSelector> {
                     child: CircularProgressIndicator(),
                   )
                 : TreeView.simpleTyped<OrgUnitData, TreeNode<OrgUnitData>>(
-                    key: treeKey,
+                    primary: true,
                     indentation: const Indentation(),
                     expansionBehavior: ExpansionBehavior.none,
                     expansionIndicatorBuilder: (BuildContext context, node) {
-                      if (node.isExpanded) {
-                        return OrgUnitExpansionIndicator(
-                          tree: node,
-                          alignment: Alignment.centerLeft,
-                        );
-                      } else {
-                        return OrgUnitExpansionIndicator(
-                          tree: node,
-                          alignment: Alignment.centerLeft,
-                        );
-                      }
+                      return OrgUnitExpansionIndicator(
+                        tree: node,
+                        alignment: Alignment.centerLeft,
+                      );
                     },
                     showRootNode: false,
                     shrinkWrap: true,
