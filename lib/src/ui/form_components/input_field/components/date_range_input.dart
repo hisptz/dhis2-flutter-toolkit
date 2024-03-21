@@ -6,7 +6,7 @@ import 'base_input.dart';
 import 'input_field_icon.dart';
 
 class DateRangeInput
-    extends BaseInput<D2DateRangeInputFieldConfig, DateTimeRange> {
+    extends BaseStatelessInput<D2DateRangeInputFieldConfig, DateTimeRange> {
   DateRangeInput(
       {super.key,
       required super.input,

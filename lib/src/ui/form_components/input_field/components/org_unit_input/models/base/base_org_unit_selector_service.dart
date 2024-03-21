@@ -3,7 +3,7 @@ import 'package:collection/collection.dart';
 
 import '../org_unit_data.dart';
 
-abstract class D2BaseOrgUnitSelectorService {
+abstract class D2BaseOrgUnitSelectorService<T> {
   TreeNode<OrgUnitData>? _tree;
   TreeViewController<OrgUnitData, TreeNode<OrgUnitData>>? _controller;
   List<String>? selectedOrgUnits;
@@ -24,6 +24,10 @@ abstract class D2BaseOrgUnitSelectorService {
     return _controller!;
   }
 
+  OrgUnitData getOrgUnitDataFromOrgUnit(T orgUnit);
+
+  TreeNode<OrgUnitData> getTreeNodeFromOrgUnitData(OrgUnitData orgUnitData);
+
   setTree(TreeNode<OrgUnitData> tree) {
     _tree = tree;
   }
@@ -36,6 +40,8 @@ abstract class D2BaseOrgUnitSelectorService {
   Future<List<TreeNode<OrgUnitData>>> getChildren(TreeNode<OrgUnitData> node);
 
   Future<void> initialize();
+
+  Future<List<OrgUnitData>> getOrgUnitDataFromId(List<String> values);
 
   void expandInitiallySelected({List<String>? initiallySelected}) {
     if (initiallySelected != null) {

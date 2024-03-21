@@ -1,11 +1,13 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/org_unit_input/components/org_unit_selector.dart';
 import 'package:flutter/material.dart';
 
 import '../base_input.dart';
 import '../input_field_icon.dart';
+import 'components/org_unit_selector.dart';
+import 'models/org_unit_data.dart';
 
-class OrgUnitInput extends BaseInput<D2OrgUnitInputFieldConfig, List<String>> {
+class OrgUnitInput
+    extends BaseStatefulInput<D2OrgUnitInputFieldConfig, List<String>> {
   final int? maxLines;
 
   OrgUnitInput({
@@ -17,28 +19,60 @@ class OrgUnitInput extends BaseInput<D2OrgUnitInputFieldConfig, List<String>> {
     this.maxLines = 1,
   });
 
+  @override
+  State<StatefulWidget> createState() {
+    return OrgUnitInputState();
+  }
+}
+
+class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
+  List<OrgUnitData> selectedOrgUnitData = [];
   late final TextEditingController controller;
   final BoxConstraints iconConstraints = const BoxConstraints(
       maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
 
   void onSelect(List<String> selected) {
-    onChange(selected);
+    widget.onChange(selected);
+    loadSelectedNames(selected);
   }
 
   onOpenSelector(BuildContext context) {
     showDialog(
         context: context,
         builder: (_) => OrgUnitSelector(
-              color: color,
-              config: input,
+              color: widget.color,
+              config: widget.input,
               onSelect: onSelect,
-              selectedOrgUnits: value,
+              selectedOrgUnits: widget.value,
             ));
+  }
+
+  Future loadSelectedNames(List<String>? selected) async {
+    if (widget.value != null) {
+      controller.text = "...";
+      List<OrgUnitData> orgUnits =
+          await widget.input.service.getOrgUnitDataFromId(selected ?? []);
+      setState(() {
+        selectedOrgUnitData = orgUnits;
+        controller.text = selectedOrgUnitData
+            .map((OrgUnitData orgUnit) => orgUnit.displayName)
+            .join(", ");
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    controller = TextEditingController();
+    loadSelectedNames(widget.value);
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    controller = TextEditingController(text: value?.join(", "));
+    Color color = widget.color;
+    int? maxLines = widget.maxLines;
+
     return TextFormField(
       showCursor: false,
       controller: controller,

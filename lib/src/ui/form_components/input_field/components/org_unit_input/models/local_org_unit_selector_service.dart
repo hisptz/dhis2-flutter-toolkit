@@ -1,8 +1,10 @@
 import 'package:animated_tree_view/animated_tree_view.dart';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import 'package:dhis2_flutter_toolkit/objectbox.g.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/org_unit_input/models/org_unit_data.dart';
 
-class D2LocalOrgUnitSelectorService extends D2BaseOrgUnitSelectorService {
+class D2LocalOrgUnitSelectorService
+    extends D2BaseOrgUnitSelectorService<D2OrgUnit> {
   D2ObjectBox db;
   List<TreeNode<OrgUnitData>>? roots;
 
@@ -24,6 +26,7 @@ class D2LocalOrgUnitSelectorService extends D2BaseOrgUnitSelectorService {
     }
   }
 
+  @override
   OrgUnitData getOrgUnitDataFromOrgUnit(D2OrgUnit orgUnit) {
     return OrgUnitData(
         displayName: orgUnit.displayName ?? orgUnit.name,
@@ -33,6 +36,7 @@ class D2LocalOrgUnitSelectorService extends D2BaseOrgUnitSelectorService {
         id: orgUnit.uid);
   }
 
+  @override
   TreeNode<OrgUnitData> getTreeNodeFromOrgUnitData(OrgUnitData orgUnitData) {
     return TreeNode(key: orgUnitData.id, data: orgUnitData)
       ..addAll(orgUnitData.children?.map(getTreeNodeFromOrgUnitData) ?? []);
@@ -57,5 +61,16 @@ class D2LocalOrgUnitSelectorService extends D2BaseOrgUnitSelectorService {
           .toList();
     }
     return [];
+  }
+
+  @override
+  Future<List<OrgUnitData>> getOrgUnitDataFromId(List<String> values) async {
+    List<D2OrgUnit> orgUnits = await D2OrgUnitRepository(db)
+        .box
+        .query(D2OrgUnit_.uid.oneOf(values))
+        .build()
+        .findAsync();
+
+    return orgUnits.map(getOrgUnitDataFromOrgUnit).toList();
   }
 }

@@ -56,7 +56,7 @@ class InputFieldContainer extends StatelessWidget {
         ? Colors.red
         : color ?? Theme.of(context).primaryColor;
 
-    BaseInput getInput() {
+    Widget getInput() {
       if (input is D2SelectInputFieldConfig) {
         return SelectInput(
             input: input as D2SelectInputFieldConfig,
