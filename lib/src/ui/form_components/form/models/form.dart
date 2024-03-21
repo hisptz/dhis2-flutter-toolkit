@@ -7,7 +7,7 @@ class D2Form {
   String? title;
   String? subtitle;
   List<D2BaseInputFieldConfig>? fields;
-  List<FormSection>? sections;
+  List<D2FormSection>? sections;
   D2Form(
       {this.title,
       this.subtitle,

@@ -32,12 +32,12 @@ class TrackerEventFormUtil {
     }).toList();
   }
 
-  List<FormSection> _getFormSections() {
+  List<D2FormSection> _getFormSections() {
     return programStage.programStageSections
-        .map<FormSection>((D2ProgramStageSection programStageSection) {
+        .map<D2FormSection>((D2ProgramStageSection programStageSection) {
       List<D2BaseInputFieldConfig> fields =
           _getFields(programStageSection.dataElements);
-      return FormSection(
+      return D2FormSection(
           fields: fields,
           id: programStageSection.uid,
           title: programStageSection.displayName ?? programStageSection.name,

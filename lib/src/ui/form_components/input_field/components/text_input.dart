@@ -11,7 +11,7 @@ class TextFieldInputType {
   TextFieldInputType({required this.type, required this.inputType});
 }
 
-class TextInput extends BaseInput<D2BaseInputFieldConfig, String> {
+class TextInput extends BaseStatelessInput<D2BaseInputFieldConfig, String> {
   final TextInputType textInputType;
   final int? maxLines;
 

@@ -29,14 +29,13 @@ class D2MetadataDownloadService {
     D2SystemInfoRepository sysInfoRepository = D2SystemInfoRepository(db);
     sysInfoRepository.setupDownload(client).download();
     await controller.addStream(sysInfoRepository.downloadStream);
+    D2OrgUnitLevelRepository orgUnitLevelRepository =
+    D2OrgUnitLevelRepository(db);
+    orgUnitLevelRepository.setupDownload(client).download();
+    await controller.addStream(orgUnitLevelRepository.downloadStream);
     D2OrgUnitRepository orgUnitRepository = D2OrgUnitRepository(db);
     orgUnitRepository.setupDownload(client).download();
     await controller.addStream(orgUnitRepository.downloadStream);
-
-    D2OrgUnitLevelRepository orgUnitLevelRepository =
-        D2OrgUnitLevelRepository(db);
-    orgUnitLevelRepository.setupDownload(client).download();
-    await controller.addStream(orgUnitLevelRepository.downloadStream);
 
     D2OrgUnitGroupRepository orgUnitGroupRepository =
         D2OrgUnitGroupRepository(db);

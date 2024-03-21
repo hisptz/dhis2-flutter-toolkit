@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'base_input.dart';
 import 'input_field_icon.dart';
 
-class DateInput extends BaseInput<D2DateInputFieldConfig, String> {
+class DateInput extends BaseStatelessInput<D2DateInputFieldConfig, String> {
   DateInput(
       {super.key,
       required super.input,

@@ -7,7 +7,7 @@ import '../models/input_field_option.dart';
 import '../models/select_input_field.dart';
 import 'base_input.dart';
 
-class SelectInput extends BaseInput<D2SelectInputFieldConfig, String> {
+class SelectInput extends BaseStatelessInput<D2SelectInputFieldConfig, String> {
   const SelectInput(
       {super.key,
       super.value,

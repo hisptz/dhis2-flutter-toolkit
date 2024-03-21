@@ -52,7 +52,7 @@ class FormContainer extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    FormSection section = form.sections![index];
+                    D2FormSection section = form.sections![index];
                     return FormSectionContainer(
                       section: section,
                       onFieldChange: onFormFieldChange,
