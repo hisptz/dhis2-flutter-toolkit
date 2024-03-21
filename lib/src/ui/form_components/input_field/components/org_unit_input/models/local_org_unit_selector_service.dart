@@ -35,7 +35,10 @@ class D2LocalOrgUnitSelectorService extends D2BaseOrgUnitSelectorService {
 
   TreeNode<OrgUnitData> getTreeNodeFromOrgUnitData(OrgUnitData orgUnitData) {
     return TreeNode(key: orgUnitData.id, data: orgUnitData)
-      ..addAll(orgUnitData.children?.map(getTreeNodeFromOrgUnitData) ?? []);
+      ..addAll(orgUnitData.children?.map(getTreeNodeFromOrgUnitData) ?? [])
+      ..addListener(() {
+        print("Why");
+      });
   }
 
   @override

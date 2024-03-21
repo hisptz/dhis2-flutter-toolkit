@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../base_input.dart';
 import '../input_field_icon.dart';
 
-class OrgUnitInput extends BaseInput<D2OrgUnitInputFieldConfig, String> {
+class OrgUnitInput extends BaseInput<D2OrgUnitInputFieldConfig, List<String>> {
   final int? maxLines;
 
   const OrgUnitInput({
@@ -23,19 +23,20 @@ class OrgUnitInput extends BaseInput<D2OrgUnitInputFieldConfig, String> {
   onShowDialog(BuildContext context) {
     showDialog(
         context: context,
-        builder: (_) => OrgUnitSelector(service: input.service));
+        builder: (_) => OrgUnitSelector(
+              config: input,
+              onSelect: onChange,
+              selectedOrgUnits: value,
+            ));
   }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       showCursor: false,
-      initialValue: value,
+      initialValue: value?.join(", "),
       onTap: () {
         onShowDialog(context);
-      },
-      onChanged: (String? value) {
-        onChange(value);
       },
       maxLines: maxLines,
       keyboardType: TextInputType.none,
