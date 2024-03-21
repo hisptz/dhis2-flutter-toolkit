@@ -6,7 +6,7 @@ import '../state/section_state.dart';
 import 'form_section_container_with_controlled_inputs.dart';
 
 class D2FormControlledFormSection extends StatelessWidget {
-  final FormSection section;
+  final D2FormSection section;
   final D2FormController controller;
 
   const D2FormControlledFormSection(

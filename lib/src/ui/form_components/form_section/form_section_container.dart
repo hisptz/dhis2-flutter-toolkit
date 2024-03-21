@@ -4,7 +4,7 @@ import '../../../../dhis2_flutter_toolkit.dart';
 import '../form/form_container.dart';
 
 class FormSectionContainer extends StatelessWidget {
-  final FormSection section;
+  final D2FormSection section;
   final OnFormFieldChange<String?> onFieldChange;
   final Color? color;
 

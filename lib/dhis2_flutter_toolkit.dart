@@ -114,7 +114,11 @@ export "src/ui/form_components/form/models/form.dart" show D2Form;
 export "src/ui/form_components/form_section/form_section_container.dart"
     show FormSectionContainer;
 export "src/ui/form_components/form_section/models/form_section.dart"
-    show FormSection;
+    show D2FormSection;
+export "src/ui/form_components/input_field/components/org_unit_input/models/base/base_org_unit_selector_service.dart"
+    show D2BaseOrgUnitSelectorService;
+export "src/ui/form_components/input_field/components/org_unit_input/models/local_org_unit_selector_service.dart"
+    show D2LocalOrgUnitSelectorService;
 //UI components
 //Forms
 export "src/ui/form_components/input_field/input_field_container.dart"

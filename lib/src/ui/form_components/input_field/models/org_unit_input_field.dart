@@ -1,6 +1,9 @@
+import '../components/org_unit_input/models/base/base_org_unit_selector_service.dart';
 import 'base_input_field.dart';
 
 class D2OrgUnitInputFieldConfig extends D2BaseInputFieldConfig {
+  D2BaseOrgUnitSelectorService service;
+
   D2OrgUnitInputFieldConfig(
       {required super.label,
       required super.type,
@@ -9,5 +12,6 @@ class D2OrgUnitInputFieldConfig extends D2BaseInputFieldConfig {
       super.clearable,
       super.icon,
       super.legends,
-      super.svgIconAsset});
+      super.svgIconAsset,
+      required this.service});
 }

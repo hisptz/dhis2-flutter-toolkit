@@ -18,7 +18,7 @@ class D2TrackerRegistrationForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<FormSection> formSections =
+    List<D2FormSection> formSections =
         TrackerEnrollmentFormUtil(program: program).formSections;
     Color formColor = color ?? Theme.of(context).primaryColor;
 

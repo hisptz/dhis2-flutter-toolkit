@@ -1,7 +1,7 @@
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/base_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/boolean_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/date_range_input.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/org_unit_input.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/org_unit_input/org_unit_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/select_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/text_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/true_only_input.dart';
@@ -157,7 +157,9 @@ class InputFieldContainer extends StatelessWidget {
       }
       if (input is D2OrgUnitInputFieldConfig) {
         return OrgUnitInput(
-            input: input, color: colorOverride, onChange: onChange);
+            input: input as D2OrgUnitInputFieldConfig,
+            color: colorOverride,
+            onChange: onChange);
       }
 
       return TextInput(

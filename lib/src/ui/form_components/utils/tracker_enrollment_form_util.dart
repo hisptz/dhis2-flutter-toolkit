@@ -33,12 +33,12 @@ class TrackerEnrollmentFormUtil {
     }).toList();
   }
 
-  List<FormSection> _getFormSections() {
+  List<D2FormSection> _getFormSections() {
     return program.programSections
-        .map<FormSection>((D2ProgramSection programSection) {
+        .map<D2FormSection>((D2ProgramSection programSection) {
       List<D2BaseInputFieldConfig> fields =
           _getFields(programSection.trackedEntityAttributes);
-      return FormSection(
+      return D2FormSection(
           fields: fields,
           id: programSection.uid,
           title: programSection.displayName ?? programSection.name,
