@@ -6,13 +6,15 @@ import 'package:dhis2_flutter_toolkit/src/ui/form_components/utils/form_utils.da
 
 import '../../../models/metadata/data_element.dart';
 import '../../../models/metadata/program_stage.dart';
+import '../form/models/dhis2_form_options.dart';
 import '../form_section/models/form_section.dart';
 import '../input_field/models/base_input_field.dart';
 
 class TrackerEventFormUtil {
   D2ProgramStage programStage;
+  D2TrackerFormOptions options;
 
-  TrackerEventFormUtil({required this.programStage});
+  TrackerEventFormUtil({required this.programStage, required this.options});
 
   List<D2BaseInputFieldConfig> _getFields(List<D2DataElement> dataElements) {
     return dataElements.map((D2DataElement dataElement) {
@@ -46,7 +48,9 @@ class TrackerEventFormUtil {
       return D2FormSection(
           fields: fields,
           id: programStageSection.uid,
-          title: programStageSection.displayName ?? programStageSection.name,
+          title: options.showSectionTitle
+              ? programStageSection.displayName ?? programStageSection.name
+              : null,
           subtitle: "");
     }).toList();
   }
