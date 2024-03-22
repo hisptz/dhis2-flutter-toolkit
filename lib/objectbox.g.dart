@@ -661,7 +661,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(10, 3215215508490411793),
       name: 'D2OrgUnit',
-      lastPropertyId: const obx_int.IdUid(9, 6797950156177480470),
+      lastPropertyId: const obx_int.IdUid(12, 2678823878082439467),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -691,11 +691,6 @@ final _entities = <obx_int.ModelEntity>[
             type: 9,
             flags: 0),
         obx_int.ModelProperty(
-            id: const obx_int.IdUid(6, 5311513888481018801),
-            name: 'level',
-            type: 6,
-            flags: 0),
-        obx_int.ModelProperty(
             id: const obx_int.IdUid(7, 3417284599097850279),
             name: 'created',
             type: 10,
@@ -709,10 +704,32 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(9, 6797950156177480470),
             name: 'displayName',
             type: 9,
-            flags: 0)
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(10, 3920983011318387115),
+            name: 'parentId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(72, 3773362161700458511),
+            relationTarget: 'D2OrgUnit'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(11, 8974815516025578911),
+            name: 'openingDate',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(12, 2678823878082439467),
+            name: 'levelId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(73, 8352789729516065977),
+            relationTarget: 'D2OrgUnitLevel')
       ],
       relations: <obx_int.ModelRelation>[],
-      backlinks: <obx_int.ModelBacklink>[]),
+      backlinks: <obx_int.ModelBacklink>[
+        obx_int.ModelBacklink(
+            name: 'children', srcEntity: 'D2OrgUnit', srcField: 'parent')
+      ]),
   obx_int.ModelEntity(
       id: const obx_int.IdUid(11, 706025752050808245),
       name: 'D2OrgUnitGroup',
@@ -2296,7 +2313,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
       lastEntityId: const obx_int.IdUid(33, 3327197192716612547),
-      lastIndexId: const obx_int.IdUid(71, 9070600766487288194),
+      lastIndexId: const obx_int.IdUid(73, 8352789729516065977),
       lastRelationId: const obx_int.IdUid(11, 7737513459837759207),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [4845029629663650184],
@@ -2309,7 +2326,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
         5437099508560140415,
         2624640919868138634,
         412700322432031164,
-        1878604429089188814
+        1878604429089188814,
+        5311513888481018801
       ],
       retiredRelationUids: const [6008783994488891808],
       modelVersion: 5,
@@ -2962,8 +2980,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
         }),
     D2OrgUnit: obx_int.EntityDefinition<D2OrgUnit>(
         model: _entities[9],
-        toOneRelations: (D2OrgUnit object) => [],
-        toManyRelations: (D2OrgUnit object) => {},
+        toOneRelations: (D2OrgUnit object) => [object.parent, object.level],
+        toManyRelations: (D2OrgUnit object) => {
+              obx_int.RelInfo<D2OrgUnit>.toOneBacklink(
+                      10, object.id, (D2OrgUnit srcObject) => srcObject.parent):
+                  object.children
+            },
         getId: (D2OrgUnit object) => object.id,
         setId: (D2OrgUnit object, int id) {
           object.id = id;
@@ -2976,16 +2998,18 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final displayNameOffset = object.displayName == null
               ? null
               : fbb.writeString(object.displayName!);
-          fbb.startTable(10);
+          fbb.startTable(13);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, nameOffset);
           fbb.addOffset(2, shortNameOffset);
           fbb.addOffset(3, uidOffset);
           fbb.addOffset(4, pathOffset);
-          fbb.addInt64(5, object.level);
           fbb.addInt64(6, object.created.millisecondsSinceEpoch);
           fbb.addInt64(7, object.lastUpdated.millisecondsSinceEpoch);
           fbb.addOffset(8, displayNameOffset);
+          fbb.addInt64(9, object.parent.targetId);
+          fbb.addInt64(10, object.openingDate.millisecondsSinceEpoch);
+          fbb.addInt64(11, object.level.targetId);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -3005,12 +3029,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
               .vTableGet(buffer, rootOffset, 8, '');
           final pathParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 12, '');
-          final levelParam =
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0);
           final createdParam = DateTime.fromMillisecondsSinceEpoch(
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0));
           final lastUpdatedParam = DateTime.fromMillisecondsSinceEpoch(
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0));
+          final openingDateParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 24, 0));
           final object = D2OrgUnit(
               idParam,
               displayNameParam,
@@ -3018,10 +3042,20 @@ obx_int.ModelDefinition getObjectBoxModel() {
               uidParam,
               shortNameParam,
               pathParam,
-              levelParam,
               createdParam,
-              lastUpdatedParam);
-
+              lastUpdatedParam,
+              openingDateParam);
+          object.parent.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 22, 0);
+          object.parent.attach(store);
+          object.level.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 26, 0);
+          object.level.attach(store);
+          obx_int.InternalToManyAccess.setRelInfo<D2OrgUnit>(
+              object.children,
+              store,
+              obx_int.RelInfo<D2OrgUnit>.toOneBacklink(
+                  10, object.id, (D2OrgUnit srcObject) => srcObject.parent));
           return object;
         }),
     D2OrgUnitGroup: obx_int.EntityDefinition<D2OrgUnitGroup>(
@@ -5214,21 +5248,33 @@ class D2OrgUnit_ {
   static final path =
       obx.QueryStringProperty<D2OrgUnit>(_entities[9].properties[4]);
 
-  /// see [D2OrgUnit.level]
-  static final level =
-      obx.QueryIntegerProperty<D2OrgUnit>(_entities[9].properties[5]);
-
   /// see [D2OrgUnit.created]
   static final created =
-      obx.QueryDateProperty<D2OrgUnit>(_entities[9].properties[6]);
+      obx.QueryDateProperty<D2OrgUnit>(_entities[9].properties[5]);
 
   /// see [D2OrgUnit.lastUpdated]
   static final lastUpdated =
-      obx.QueryDateProperty<D2OrgUnit>(_entities[9].properties[7]);
+      obx.QueryDateProperty<D2OrgUnit>(_entities[9].properties[6]);
 
   /// see [D2OrgUnit.displayName]
   static final displayName =
-      obx.QueryStringProperty<D2OrgUnit>(_entities[9].properties[8]);
+      obx.QueryStringProperty<D2OrgUnit>(_entities[9].properties[7]);
+
+  /// see [D2OrgUnit.parent]
+  static final parent =
+      obx.QueryRelationToOne<D2OrgUnit, D2OrgUnit>(_entities[9].properties[8]);
+
+  /// see [D2OrgUnit.openingDate]
+  static final openingDate =
+      obx.QueryDateProperty<D2OrgUnit>(_entities[9].properties[9]);
+
+  /// see [D2OrgUnit.level]
+  static final level = obx.QueryRelationToOne<D2OrgUnit, D2OrgUnitLevel>(
+      _entities[9].properties[10]);
+
+  /// see [D2OrgUnit.children]
+  static final children =
+      obx.QueryBacklinkToMany<D2OrgUnit, D2OrgUnit>(D2OrgUnit_.parent);
 }
 
 /// [D2OrgUnitGroup] entity fields to define ObjectBox queries.

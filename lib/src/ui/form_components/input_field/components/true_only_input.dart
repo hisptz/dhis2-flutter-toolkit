@@ -2,7 +2,7 @@ import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:flutter/material.dart';
 import 'base_input.dart';
 
-class TrueOnlyInput extends BaseInput<D2TrueOnlyInputFieldConfig, String> {
+class TrueOnlyInput extends BaseStatelessInput<D2TrueOnlyInputFieldConfig, String> {
   const TrueOnlyInput({
     super.key,
     super.value,

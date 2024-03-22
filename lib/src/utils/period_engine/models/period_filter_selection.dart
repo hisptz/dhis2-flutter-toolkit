@@ -13,7 +13,7 @@ class D2PeriodSelection {
   DateTime? start;
   DateTime? end;
 
-  String? displayName = '';
+  String? displayName;
 
   // Constructor for PeriodSelection class
   D2PeriodSelection(

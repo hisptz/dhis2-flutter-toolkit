@@ -2,7 +2,7 @@ import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:flutter/material.dart';
 import 'base_input.dart';
 
-class BooleanInput extends BaseInput<D2BooleanInputFieldConfig, String> {
+class BooleanInput extends BaseStatelessInput<D2BooleanInputFieldConfig, String> {
   const BooleanInput({
     super.key,
     super.value,

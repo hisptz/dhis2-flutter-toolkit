@@ -4,7 +4,7 @@ import '../../../../dhis2_flutter_toolkit.dart';
 import '../input_field/form_controlled_field_container.dart';
 
 class FormSectionContainerWithControlledInputs extends StatelessWidget {
-  final FormSection section;
+  final D2FormSection section;
   final D2FormController controller;
   final Color? color;
 
