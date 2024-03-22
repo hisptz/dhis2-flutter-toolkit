@@ -1,5 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/objectbox.dart';
-
+import 'package:dhis2_flutter_toolkit/src/models/metadata/program_section_tracked_entity_attribute.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../repositories/metadata/program.dart';
@@ -13,10 +14,8 @@ import 'tracked_entity_attribute.dart';
 class D2ProgramSection extends D2MetaResource {
   @override
   int id = 0;
-  @override
   DateTime created;
 
-  @override
   DateTime lastUpdated;
 
   @override
@@ -26,8 +25,9 @@ class D2ProgramSection extends D2MetaResource {
   String name;
 
   final program = ToOne<D2Program>();
-
-  final trackedEntityAttributes = ToMany<D2TrackedEntityAttribute>();
+  @Backlink("programSection")
+  final programSectionTrackedEntityAttributes =
+      ToMany<D2ProgramSectionTrackedEntityAttribute>();
 
   D2ProgramSection(
       {required this.created,
@@ -49,11 +49,19 @@ class D2ProgramSection extends D2MetaResource {
             D2TrackedEntityAttributeRepository(db).getByUid(tea["id"]))
         .toList();
 
-    List<D2TrackedEntityAttribute> actualTea = tei
+    List<D2ProgramSectionTrackedEntityAttribute> actualTea = tei
         .where((element) => element != null)
         .toList()
-        .cast<D2TrackedEntityAttribute>();
-    trackedEntityAttributes.addAll(actualTea);
+        .cast<D2TrackedEntityAttribute>()
+        .mapIndexed<D2ProgramSectionTrackedEntityAttribute>(
+            (int index, attribute) =>
+                D2ProgramSectionTrackedEntityAttribute.fromSection(
+                    section: this,
+                    attribute: attribute,
+                    sortOrder: index,
+                    db: db))
+        .toList();
+    programSectionTrackedEntityAttributes.addAll(actualTea);
     program.target = D2ProgramRepository(db).getByUid(json["program"]["id"]);
   }
 

@@ -1,4 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/objectbox.dart';
+import 'package:dhis2_flutter_toolkit/src/models/metadata/program_stage_section_data_element.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../repositories/metadata/data_element.dart';
@@ -12,10 +14,8 @@ import 'program_stage.dart';
 class D2ProgramStageSection extends D2MetaResource {
   @override
   int id = 0;
-  @override
   DateTime created;
 
-  @override
   DateTime lastUpdated;
 
   @override
@@ -26,7 +26,8 @@ class D2ProgramStageSection extends D2MetaResource {
 
   final programStage = ToOne<D2ProgramStage>();
 
-  final dataElements = ToMany<D2DataElement>();
+  @Backlink("programStageSection")
+  final programStageSectionDataElements = ToMany<D2ProgramStageSectionDataElement>();
 
   D2ProgramStageSection(
       this.created, this.lastUpdated, this.uid, this.name, this.sortOrder);
@@ -44,15 +45,21 @@ class D2ProgramStageSection extends D2MetaResource {
             (Map de) => D2DataElementRepository(db).getByUid(de["id"]))
         .toList();
 
-    List<D2DataElement> des = dataElementObjects
+    List<D2ProgramStageSectionDataElement> des = dataElementObjects
         .where((D2DataElement? element) => element != null)
         .toList()
-        .cast<D2DataElement>();
-    dataElements.addAll(des);
+        .cast<D2DataElement>()
+        .mapIndexed<D2ProgramStageSectionDataElement>((index, dataElement) =>
+            D2ProgramStageSectionDataElement.fromSection(
+                db: db,
+                sortOrder: index,
+                section: this,
+                dataElement: dataElement))
+        .toList();
+    programStageSectionDataElements.addAll(des);
     programStage.target =
         D2ProgramStageRepository(db).getByUid(json["programStage"]["id"]);
   }
 
-  @override
   String? displayName;
 }

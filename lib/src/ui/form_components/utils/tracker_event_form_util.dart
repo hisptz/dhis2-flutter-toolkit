@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/src/models/metadata/program_stage_data_element.dart';
 import 'package:dhis2_flutter_toolkit/src/models/metadata/program_stage_section.dart';
+import 'package:dhis2_flutter_toolkit/src/models/metadata/program_stage_section_data_element.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/utils/form_utils.dart';
 
 import '../../../models/metadata/data_element.dart';
@@ -35,8 +36,13 @@ class TrackerEventFormUtil {
   List<D2FormSection> _getFormSections() {
     return programStage.programStageSections
         .map<D2FormSection>((D2ProgramStageSection programStageSection) {
-      List<D2BaseInputFieldConfig> fields =
-          _getFields(programStageSection.dataElements);
+      List<D2ProgramStageSectionDataElement> programStageSectionDataElement =
+          programStageSection.programStageSectionDataElements
+              .sorted((a, b) => a.sortOrder.compareTo(b.sortOrder));
+      List<D2DataElement> dataElements = programStageSectionDataElement
+          .map((element) => element.dataElement.target!)
+          .toList();
+      List<D2BaseInputFieldConfig> fields = _getFields(dataElements);
       return D2FormSection(
           fields: fields,
           id: programStageSection.uid,
