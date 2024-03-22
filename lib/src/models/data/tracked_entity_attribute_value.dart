@@ -1,5 +1,5 @@
-
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
 
 import 'package:objectbox/objectbox.dart';
 
@@ -7,7 +7,7 @@ import 'upload_base.dart';
 
 @Entity()
 class D2TrackedEntityAttributeValue extends D2DataResource
-    implements SyncableData {
+    implements SyncableData, D2BaseEditable {
   @override
   int id = 0;
   @override
@@ -49,5 +49,10 @@ class D2TrackedEntityAttributeValue extends D2DataResource
   @override
   Future<Map<String, dynamic>> toMap({D2ObjectBox? db}) async {
     return {"attribute": trackedEntityAttribute.target?.uid, "value": value};
+  }
+
+  @override
+  Map<String, dynamic> toFormValues() {
+    return {uid: value};
   }
 }

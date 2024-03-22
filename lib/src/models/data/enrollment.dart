@@ -10,12 +10,14 @@ import '../../repositories/metadata/program.dart';
 import '../metadata/org_unit.dart';
 import '../metadata/program.dart';
 import 'base.dart';
+import 'base_editable.dart';
 import 'event.dart';
 import 'tracked_entity.dart';
 import 'upload_base.dart';
 
 @Entity()
-class D2Enrollment extends SyncDataSource implements SyncableData {
+class D2Enrollment extends SyncDataSource
+    implements SyncableData, D2BaseEditable {
   @override
   int id = 0;
   @override
@@ -104,5 +106,27 @@ class D2Enrollment extends SyncDataSource implements SyncableData {
     };
 
     return payload;
+  }
+
+  @override
+  Map<String, dynamic> toFormValues() {
+    Map<String, dynamic> data = {
+      "occurredAt": occurredAt.toIso8601String(),
+      "orgUnit": orgUnit.target!.uid
+    };
+
+    List<String> programAttributeIds = program
+            .target?.programTrackedEntityAttributes
+            .map((pAttribute) => pAttribute.trackedEntityAttribute.target!.uid)
+            .toList() ??
+        [];
+    //Get attributes that are only associated to this enrollment. Check is done by the program
+    trackedEntity.target?.attributes.forEach((element) {
+      if (programAttributeIds.contains(element.uid)) {
+        data.addAll(element.toFormValues());
+      }
+    });
+
+    return data;
   }
 }

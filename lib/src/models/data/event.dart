@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../../objectbox.dart';
@@ -19,7 +20,7 @@ import 'tracked_entity.dart';
 import 'upload_base.dart';
 
 @Entity()
-class D2Event extends SyncDataSource implements SyncableData {
+class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
   @override
   int id = 0;
   @override
@@ -134,5 +135,19 @@ class D2Event extends SyncDataSource implements SyncableData {
     }
 
     return payload;
+  }
+
+  @override
+  Map<String, dynamic> toFormValues() {
+    Map<String, dynamic> data = {
+      "occurredAt": occurredAt?.toIso8601String(),
+      "orgUnit": orgUnit.target?.uid
+    };
+
+    for (var element in dataValues) {
+      data.addAll(element.toFormValues());
+    }
+
+    return data;
   }
 }

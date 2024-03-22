@@ -1,4 +1,4 @@
-
+import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../../objectbox.dart';
@@ -11,7 +11,8 @@ import 'event.dart';
 import 'upload_base.dart';
 
 @Entity()
-class D2DataValue extends D2DataResource implements SyncableData {
+class D2DataValue extends D2DataResource
+    implements SyncableData, D2BaseEditable {
   @override
   int id = 0;
   @override
@@ -52,5 +53,10 @@ class D2DataValue extends D2DataResource implements SyncableData {
   @override
   Future<Map<String, dynamic>> toMap({D2ObjectBox? db}) async {
     return {"dataElement": dataElement.target?.uid, "value": value};
+  }
+
+  @override
+  Map<String, dynamic> toFormValues() {
+    return {uid: value};
   }
 }
