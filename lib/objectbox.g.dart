@@ -35,9 +35,11 @@ import 'src/models/metadata/program_rule.dart';
 import 'src/models/metadata/program_rule_action.dart';
 import 'src/models/metadata/program_rule_variable.dart';
 import 'src/models/metadata/program_section.dart';
+import 'src/models/metadata/program_section_tracked_entity_attribute.dart';
 import 'src/models/metadata/program_stage.dart';
 import 'src/models/metadata/program_stage_data_element.dart';
 import 'src/models/metadata/program_stage_section.dart';
+import 'src/models/metadata/program_stage_section_data_element.dart';
 import 'src/models/metadata/program_tracked_entity_attribute.dart';
 import 'src/models/metadata/relationship_type.dart';
 import 'src/models/metadata/system_info.dart';
@@ -1150,13 +1152,13 @@ final _entities = <obx_int.ModelEntity>[
             type: 9,
             flags: 0)
       ],
-      relations: <obx_int.ModelRelation>[
-        obx_int.ModelRelation(
-            id: const obx_int.IdUid(5, 4201769785617098886),
-            name: 'trackedEntityAttributes',
-            targetId: const obx_int.IdUid(26, 4451857861000713264))
-      ],
-      backlinks: <obx_int.ModelBacklink>[]),
+      relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[
+        obx_int.ModelBacklink(
+            name: 'programSectionTrackedEntityAttributes',
+            srcEntity: 'D2ProgramSectionTrackedEntityAttribute',
+            srcField: 'programSection')
+      ]),
   obx_int.ModelEntity(
       id: const obx_int.IdUid(18, 121682375555937529),
       name: 'D2ProgramStage',
@@ -1358,13 +1360,13 @@ final _entities = <obx_int.ModelEntity>[
             type: 9,
             flags: 0)
       ],
-      relations: <obx_int.ModelRelation>[
-        obx_int.ModelRelation(
-            id: const obx_int.IdUid(6, 8156621821863788414),
-            name: 'dataElements',
-            targetId: const obx_int.IdUid(2, 257964529443086557))
-      ],
-      backlinks: <obx_int.ModelBacklink>[]),
+      relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[
+        obx_int.ModelBacklink(
+            name: 'programStageSectionDataElements',
+            srcEntity: 'D2ProgramStageSectionDataElement',
+            srcField: 'programStageSection')
+      ]),
   obx_int.ModelEntity(
       id: const obx_int.IdUid(21, 8176256693588210311),
       name: 'D2ProgramTrackedEntityAttribute',
@@ -2269,6 +2271,83 @@ final _entities = <obx_int.ModelEntity>[
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[]),
+  obx_int.ModelEntity(
+      id: const obx_int.IdUid(34, 7456366515275579922),
+      name: 'D2ProgramSectionTrackedEntityAttribute',
+      lastPropertyId: const obx_int.IdUid(5, 907100409089823336),
+      flags: 0,
+      properties: <obx_int.ModelProperty>[
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(1, 1639936089599371127),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(2, 8059371894931950469),
+            name: 'uid',
+            type: 9,
+            flags: 2080,
+            indexId: const obx_int.IdUid(74, 6027275556479555555)),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(3, 7610335560929202915),
+            name: 'sortOrder',
+            type: 6,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(4, 6052839725484827755),
+            name: 'trackedEntityAttributeId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(75, 8510094677109879090),
+            relationTarget: 'D2TrackedEntityAttribute'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(5, 907100409089823336),
+            name: 'programSectionId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(76, 6280361999862837744),
+            relationTarget: 'D2ProgramSection')
+      ],
+      relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[]),
+  obx_int.ModelEntity(
+      id: const obx_int.IdUid(35, 3992400112529482001),
+      name: 'D2ProgramStageSectionDataElement',
+      lastPropertyId: const obx_int.IdUid(5, 7230448486004236231),
+      flags: 0,
+      properties: <obx_int.ModelProperty>[
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(1, 3931472740411114608),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(2, 7097710831954468783),
+            name: 'uid',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(3, 7549475124709629493),
+            name: 'sortOrder',
+            type: 6,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(4, 4278420685324768869),
+            name: 'dataElementId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(77, 7232666104355635927),
+            relationTarget: 'D2DataElement'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(5, 7230448486004236231),
+            name: 'programStageSectionId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(78, 5184937314444604601),
+            relationTarget: 'D2ProgramStageSection')
+      ],
+      relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[])
 ];
 
@@ -2307,9 +2386,9 @@ Future<obx.Store> openStore(
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
-      lastEntityId: const obx_int.IdUid(33, 3327197192716612547),
-      lastIndexId: const obx_int.IdUid(73, 8352789729516065977),
-      lastRelationId: const obx_int.IdUid(11, 7737513459837759207),
+      lastEntityId: const obx_int.IdUid(35, 3992400112529482001),
+      lastIndexId: const obx_int.IdUid(78, 5184937314444604601),
+      lastRelationId: const obx_int.IdUid(13, 3296482006972770137),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [4845029629663650184],
       retiredIndexUids: const [],
@@ -2324,7 +2403,13 @@ obx_int.ModelDefinition getObjectBoxModel() {
         1878604429089188814,
         5311513888481018801
       ],
-      retiredRelationUids: const [6008783994488891808],
+      retiredRelationUids: const [
+        6008783994488891808,
+        4201769785617098886,
+        8156621821863788414,
+        6306468798476419213,
+        3296482006972770137
+      ],
       modelVersion: 5,
       modelVersionParserMinimum: 5,
       version: 1);
@@ -3484,8 +3569,13 @@ obx_int.ModelDefinition getObjectBoxModel() {
         model: _entities[15],
         toOneRelations: (D2ProgramSection object) => [object.program],
         toManyRelations: (D2ProgramSection object) => {
-              obx_int.RelInfo<D2ProgramSection>.toMany(5, object.id):
-                  object.trackedEntityAttributes
+              obx_int.RelInfo<
+                          D2ProgramSectionTrackedEntityAttribute>.toOneBacklink(
+                      5,
+                      object.id,
+                      (D2ProgramSectionTrackedEntityAttribute srcObject) =>
+                          srcObject.programSection):
+                  object.programSectionTrackedEntityAttributes
             },
         getId: (D2ProgramSection object) => object.id,
         setId: (D2ProgramSection object, int id) {
@@ -3535,9 +3625,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0);
           object.program.attach(store);
           obx_int.InternalToManyAccess.setRelInfo<D2ProgramSection>(
-              object.trackedEntityAttributes,
+              object.programSectionTrackedEntityAttributes,
               store,
-              obx_int.RelInfo<D2ProgramSection>.toMany(5, object.id));
+              obx_int.RelInfo<
+                      D2ProgramSectionTrackedEntityAttribute>.toOneBacklink(
+                  5,
+                  object.id,
+                  (D2ProgramSectionTrackedEntityAttribute srcObject) =>
+                      srcObject.programSection));
           return object;
         }),
     D2ProgramStage: obx_int.EntityDefinition<D2ProgramStage>(
@@ -3734,8 +3829,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
         model: _entities[18],
         toOneRelations: (D2ProgramStageSection object) => [object.programStage],
         toManyRelations: (D2ProgramStageSection object) => {
-              obx_int.RelInfo<D2ProgramStageSection>.toMany(6, object.id):
-                  object.dataElements
+              obx_int.RelInfo<D2ProgramStageSectionDataElement>.toOneBacklink(
+                      5,
+                      object.id,
+                      (D2ProgramStageSectionDataElement srcObject) =>
+                          srcObject.programStageSection):
+                  object.programStageSectionDataElements
             },
         getId: (D2ProgramStageSection object) => object.id,
         setId: (D2ProgramStageSection object, int id) {
@@ -3781,9 +3880,13 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0);
           object.programStage.attach(store);
           obx_int.InternalToManyAccess.setRelInfo<D2ProgramStageSection>(
-              object.dataElements,
+              object.programStageSectionDataElements,
               store,
-              obx_int.RelInfo<D2ProgramStageSection>.toMany(6, object.id));
+              obx_int.RelInfo<D2ProgramStageSectionDataElement>.toOneBacklink(
+                  5,
+                  object.id,
+                  (D2ProgramStageSectionDataElement srcObject) =>
+                      srcObject.programStageSection));
           return object;
         }),
     D2ProgramTrackedEntityAttribute: obx_int.EntityDefinition<
@@ -4781,7 +4884,88 @@ obx_int.ModelDefinition getObjectBoxModel() {
               uidParam, levelParam, createdParam, lastUpdatedParam);
 
           return object;
-        })
+        }),
+    D2ProgramSectionTrackedEntityAttribute: obx_int.EntityDefinition<
+            D2ProgramSectionTrackedEntityAttribute>(
+        model: _entities[32],
+        toOneRelations: (D2ProgramSectionTrackedEntityAttribute object) =>
+            [object.trackedEntityAttribute, object.programSection],
+        toManyRelations: (D2ProgramSectionTrackedEntityAttribute object) => {},
+        getId: (D2ProgramSectionTrackedEntityAttribute object) => object.id,
+        setId: (D2ProgramSectionTrackedEntityAttribute object, int id) {
+          object.id = id;
+        },
+        objectToFB:
+            (D2ProgramSectionTrackedEntityAttribute object, fb.Builder fbb) {
+          final uidOffset = fbb.writeString(object.uid);
+          fbb.startTable(6);
+          fbb.addInt64(0, object.id);
+          fbb.addOffset(1, uidOffset);
+          fbb.addInt64(2, object.sortOrder);
+          fbb.addInt64(3, object.trackedEntityAttribute.targetId);
+          fbb.addInt64(4, object.programSection.targetId);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (obx.Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+          final sortOrderParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0);
+          final uidParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 6, '');
+          final object = D2ProgramSectionTrackedEntityAttribute(
+              sortOrderParam, uidParam)
+            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+          object.trackedEntityAttribute.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0);
+          object.trackedEntityAttribute.attach(store);
+          object.programSection.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0);
+          object.programSection.attach(store);
+          return object;
+        }),
+    D2ProgramStageSectionDataElement:
+        obx_int.EntityDefinition<D2ProgramStageSectionDataElement>(
+            model: _entities[33],
+            toOneRelations: (D2ProgramStageSectionDataElement object) =>
+                [object.dataElement, object.programStageSection],
+            toManyRelations: (D2ProgramStageSectionDataElement object) => {},
+            getId: (D2ProgramStageSectionDataElement object) => object.id,
+            setId: (D2ProgramStageSectionDataElement object, int id) {
+              object.id = id;
+            },
+            objectToFB:
+                (D2ProgramStageSectionDataElement object, fb.Builder fbb) {
+              final uidOffset = fbb.writeString(object.uid);
+              fbb.startTable(6);
+              fbb.addInt64(0, object.id);
+              fbb.addOffset(1, uidOffset);
+              fbb.addInt64(2, object.sortOrder);
+              fbb.addInt64(3, object.dataElement.targetId);
+              fbb.addInt64(4, object.programStageSection.targetId);
+              fbb.finish(fbb.endTable());
+              return object.id;
+            },
+            objectFromFB: (obx.Store store, ByteData fbData) {
+              final buffer = fb.BufferContext(fbData);
+              final rootOffset = buffer.derefObject(0);
+              final uidParam = const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 6, '');
+              final sortOrderParam =
+                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0);
+              final object = D2ProgramStageSectionDataElement(
+                  uidParam, sortOrderParam)
+                ..id =
+                    const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+              object.dataElement.targetId =
+                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0);
+              object.dataElement.attach(store);
+              object.programStageSection.targetId =
+                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0);
+              object.programStageSection.attach(store);
+              return object;
+            })
   };
 
   return obx_int.ModelDefinition(model, bindings);
@@ -5578,10 +5762,10 @@ class D2ProgramSection_ {
   static final displayName =
       obx.QueryStringProperty<D2ProgramSection>(_entities[15].properties[7]);
 
-  /// see [D2ProgramSection.trackedEntityAttributes]
-  static final trackedEntityAttributes =
-      obx.QueryRelationToMany<D2ProgramSection, D2TrackedEntityAttribute>(
-          _entities[15].relations[0]);
+  /// see [D2ProgramSection.programSectionTrackedEntityAttributes]
+  static final programSectionTrackedEntityAttributes = obx.QueryBacklinkToMany<
+      D2ProgramSectionTrackedEntityAttribute,
+      D2ProgramSection>(D2ProgramSectionTrackedEntityAttribute_.programSection);
 }
 
 /// [D2ProgramStage] entity fields to define ObjectBox queries.
@@ -5735,10 +5919,10 @@ class D2ProgramStageSection_ {
   static final displayName = obx.QueryStringProperty<D2ProgramStageSection>(
       _entities[18].properties[7]);
 
-  /// see [D2ProgramStageSection.dataElements]
-  static final dataElements =
-      obx.QueryRelationToMany<D2ProgramStageSection, D2DataElement>(
-          _entities[18].relations[0]);
+  /// see [D2ProgramStageSection.programStageSectionDataElements]
+  static final programStageSectionDataElements = obx.QueryBacklinkToMany<
+          D2ProgramStageSectionDataElement, D2ProgramStageSection>(
+      D2ProgramStageSectionDataElement_.programStageSection);
 }
 
 /// [D2ProgramTrackedEntityAttribute] entity fields to define ObjectBox queries.
@@ -6415,4 +6599,58 @@ class D2OrgUnitLevel_ {
   /// see [D2OrgUnitLevel.displayName]
   static final displayName =
       obx.QueryStringProperty<D2OrgUnitLevel>(_entities[31].properties[6]);
+}
+
+/// [D2ProgramSectionTrackedEntityAttribute] entity fields to define ObjectBox queries.
+class D2ProgramSectionTrackedEntityAttribute_ {
+  /// see [D2ProgramSectionTrackedEntityAttribute.id]
+  static final id =
+      obx.QueryIntegerProperty<D2ProgramSectionTrackedEntityAttribute>(
+          _entities[32].properties[0]);
+
+  /// see [D2ProgramSectionTrackedEntityAttribute.uid]
+  static final uid =
+      obx.QueryStringProperty<D2ProgramSectionTrackedEntityAttribute>(
+          _entities[32].properties[1]);
+
+  /// see [D2ProgramSectionTrackedEntityAttribute.sortOrder]
+  static final sortOrder =
+      obx.QueryIntegerProperty<D2ProgramSectionTrackedEntityAttribute>(
+          _entities[32].properties[2]);
+
+  /// see [D2ProgramSectionTrackedEntityAttribute.trackedEntityAttribute]
+  static final trackedEntityAttribute = obx.QueryRelationToOne<
+      D2ProgramSectionTrackedEntityAttribute,
+      D2TrackedEntityAttribute>(_entities[32].properties[3]);
+
+  /// see [D2ProgramSectionTrackedEntityAttribute.programSection]
+  static final programSection = obx.QueryRelationToOne<
+      D2ProgramSectionTrackedEntityAttribute,
+      D2ProgramSection>(_entities[32].properties[4]);
+}
+
+/// [D2ProgramStageSectionDataElement] entity fields to define ObjectBox queries.
+class D2ProgramStageSectionDataElement_ {
+  /// see [D2ProgramStageSectionDataElement.id]
+  static final id = obx.QueryIntegerProperty<D2ProgramStageSectionDataElement>(
+      _entities[33].properties[0]);
+
+  /// see [D2ProgramStageSectionDataElement.uid]
+  static final uid = obx.QueryStringProperty<D2ProgramStageSectionDataElement>(
+      _entities[33].properties[1]);
+
+  /// see [D2ProgramStageSectionDataElement.sortOrder]
+  static final sortOrder =
+      obx.QueryIntegerProperty<D2ProgramStageSectionDataElement>(
+          _entities[33].properties[2]);
+
+  /// see [D2ProgramStageSectionDataElement.dataElement]
+  static final dataElement =
+      obx.QueryRelationToOne<D2ProgramStageSectionDataElement, D2DataElement>(
+          _entities[33].properties[3]);
+
+  /// see [D2ProgramStageSectionDataElement.programStageSection]
+  static final programStageSection = obx.QueryRelationToOne<
+      D2ProgramStageSectionDataElement,
+      D2ProgramStageSection>(_entities[33].properties[4]);
 }

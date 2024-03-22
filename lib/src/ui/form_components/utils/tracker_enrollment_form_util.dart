@@ -36,8 +36,11 @@ class TrackerEnrollmentFormUtil {
   List<D2FormSection> _getFormSections() {
     return program.programSections
         .map<D2FormSection>((D2ProgramSection programSection) {
-      List<D2BaseInputFieldConfig> fields =
-          _getFields(programSection.trackedEntityAttributes);
+      List<D2BaseInputFieldConfig> fields = _getFields(programSection
+          .programSectionTrackedEntityAttributes
+          .sorted((a, b) => a.sortOrder.compareTo(b.sortOrder))
+          .map((e) => e.trackedEntityAttribute.target!)
+          .toList());
       return D2FormSection(
           fields: fields,
           id: programSection.uid,
