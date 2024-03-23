@@ -125,32 +125,26 @@ class D2Enrollment extends SyncDataSource
   Map<String, dynamic> toFormValues() {
     Map<String, dynamic> data = {
       "occurredAt": occurredAt.toIso8601String(),
-      "orgUnit": orgUnit.target!.uid
+      "orgUnit": orgUnit.target!.uid,
+      "enrolledAt": enrolledAt.toIso8601String()
     };
-
-    List<String> programAttributeIds = program
-            .target?.programTrackedEntityAttributes
-            .map((pAttribute) => pAttribute.trackedEntityAttribute.target!.uid)
-            .toList() ??
-        [];
-    //Get attributes that are only associated to this enrollment. Check is done by the program
-    trackedEntity.target?.attributes.forEach((element) {
-      if (programAttributeIds.contains(element.uid)) {
-        data.addAll(element.toFormValues());
-      }
-    });
 
     return data;
   }
 
   @override
   void updateFromFormValues(Map<String, dynamic> values,
-      {required D2ObjectBox db}) {
+      {required D2ObjectBox db, D2OrgUnit? orgUnit}) {
     occurredAt = DateTime.tryParse(values["occurredAt"]) ?? occurredAt;
-    enrolledAt = DateTime.tryParse(values["occurredAt"]) ?? enrolledAt;
-    orgUnit.target =
-        D2OrgUnitRepository(db).getByUid(values["orgUnit"]) ?? orgUnit.target;
+    enrolledAt = DateTime.tryParse(values["enrolledAt"]) ?? enrolledAt;
+    if (orgUnit != null) {
+      this.orgUnit.target = orgUnit;
+    }
     trackedEntity.target!.updateFromFormValues(values, db: db);
     synced = false;
+  }
+
+  void save(D2ObjectBox db) {
+    id = D2EnrollmentRepository(db).saveEntity(this);
   }
 }

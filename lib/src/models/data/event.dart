@@ -141,13 +141,18 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
 
   @override
   void updateFromFormValues(Map<String, dynamic> values,
-      {required D2ObjectBox db}) {
-    orgUnit.target =
-        D2OrgUnitRepository(db).getByUid(values["orgUnit"]) ?? orgUnit.target;
+      {required D2ObjectBox db, D2OrgUnit? orgUnit}) {
+    if (orgUnit != null) {
+      this.orgUnit.target = orgUnit;
+    }
     occurredAt = DateTime.tryParse(values["occurredAt"]) ?? occurredAt;
     for (D2DataValue dataValue in dataValues) {
       dataValue.updateFromFormValues(values, db: db);
     }
     synced = false;
+  }
+
+  void save(D2ObjectBox db) {
+    id = D2EventRepository(db).saveEntity(this);
   }
 }

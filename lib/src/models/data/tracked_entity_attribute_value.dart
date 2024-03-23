@@ -69,7 +69,7 @@ class D2TrackedEntityAttributeValue extends D2DataResource
 
   @override
   void updateFromFormValues(Map<String, dynamic> values,
-      {required D2ObjectBox db}) {
+      {required D2ObjectBox db, D2OrgUnit? orgUnit}) {
     String key = trackedEntityAttribute.target!.uid;
     if (values.containsKey(key)) {
       value = values[key];

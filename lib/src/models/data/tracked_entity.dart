@@ -130,7 +130,8 @@ class D2TrackedEntity extends SyncDataSource
         .toList();
 
     return attributes
-        .where((element) => programAttributes.contains(element.uid))
+        .where((element) => programAttributes
+            .contains(element.trackedEntityAttribute.target!.uid))
         .toList();
   }
 
@@ -145,7 +146,7 @@ class D2TrackedEntity extends SyncDataSource
 
   @override
   void updateFromFormValues(Map<String, dynamic> values,
-      {required D2ObjectBox db}) {
+      {required D2ObjectBox db, D2OrgUnit? orgUnit}) {
     for (D2TrackedEntityAttributeValue attributeValue in attributes) {
       attributeValue.updateFromFormValues(values, db: db);
     }
