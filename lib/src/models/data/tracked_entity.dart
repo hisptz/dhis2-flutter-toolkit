@@ -1,17 +1,9 @@
-import 'package:dhis2_flutter_toolkit/objectbox.dart';
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../repositories/data/tracked_entity.dart';
-import '../../repositories/metadata/org_unit.dart';
-import '../../repositories/metadata/tracked_entity_type.dart';
-import '../metadata/org_unit.dart';
-import '../metadata/program.dart';
-import '../metadata/tracked_entity_type.dart';
+import '../../utils/uid.dart';
 import 'base.dart';
-import 'enrollment.dart';
-import 'event.dart';
-import 'tracked_entity_attribute_value.dart';
 import 'upload_base.dart';
 
 @Entity()
@@ -67,6 +59,46 @@ class D2TrackedEntity extends SyncDataSource
         D2TrackedEntityTypeRepository(db).getByUid(json["trackedEntityType"]);
   }
 
+  D2TrackedEntity.fromFormValues(Map<String, dynamic> values,
+      {required D2ObjectBox db,
+      required D2Program program,
+      required D2OrgUnit orgUnit,
+      bool enroll = true})
+      : createdAt = DateTime.now(),
+        updatedAt = DateTime.now(),
+        potentialDuplicate = false,
+        deleted = false,
+        synced = false,
+        inactive = false,
+        uid = D2UID.generate() {
+    this.orgUnit.target = orgUnit;
+    trackedEntityType.target = program.trackedEntityType.target;
+
+    List<D2TrackedEntityAttribute> trackedEntityAttributes = program
+        .programTrackedEntityAttributes
+        .map((pAttribute) => pAttribute.trackedEntityAttribute.target!)
+        .toList();
+
+    List<D2TrackedEntityAttributeValue?> attributeValues =
+        trackedEntityAttributes.map((teiAttribute) {
+      String? value = values[teiAttribute.uid];
+      return D2TrackedEntityAttributeValue.fromFormValues(value,
+          db: db, trackedEntity: this, trackedEntityAttribute: teiAttribute);
+    }).toList();
+
+    List<D2TrackedEntityAttributeValue> attributeWithValues = attributeValues
+        .where((element) => element != null)
+        .toList()
+        .cast<D2TrackedEntityAttributeValue>();
+
+    attributes.addAll([...attributeWithValues]);
+    if (enroll) {
+      D2Enrollment enrollment = D2Enrollment.fromFormValues(values,
+          db: db, trackedEntity: this, program: program, orgUnit: orgUnit);
+      enrollments.add(enrollment);
+    }
+  }
+
   @override
   bool synced;
 
@@ -118,5 +150,9 @@ class D2TrackedEntity extends SyncDataSource
       attributeValue.updateFromFormValues(values, db: db);
     }
     synced = false;
+  }
+
+  void save(D2ObjectBox db) {
+    id = D2TrackedEntityRepository(db).saveEntity(this);
   }
 }

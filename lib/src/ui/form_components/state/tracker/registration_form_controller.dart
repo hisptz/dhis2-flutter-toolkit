@@ -1,22 +1,21 @@
-import '../../../../models/data/enrollment.dart';
-import '../../../../models/data/tracked_entity.dart';
-import '../../../../models/data/tracked_entity_attribute_value.dart';
-import '../../../../models/metadata/program.dart';
-import '../form_state.dart';
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
 class D2TrackerEnrollmentFormController extends D2FormController {
   D2Program program;
+  D2ObjectBox db;
   D2Enrollment? enrollment;
   D2TrackedEntity? trackedEntity;
+  D2OrgUnit? orgUnit;
 
-  D2TrackerEnrollmentFormController({
-    required this.program,
-    D2Enrollment? enrollment,
-    D2TrackedEntity? trackedEntity,
-    super.mandatoryFields,
-    super.hiddenFields,
-    super.hiddenSections,
-  }) {
+  D2TrackerEnrollmentFormController(
+      {required this.db,
+      required this.program,
+      D2Enrollment? enrollment,
+      D2TrackedEntity? trackedEntity,
+      super.mandatoryFields,
+      super.hiddenFields,
+      super.hiddenSections,
+      this.orgUnit}) {
     if (enrollment != null) {
       this.enrollment = enrollment;
       Map<String, dynamic>? formValues = enrollment.toFormValues();
@@ -47,8 +46,21 @@ class D2TrackerEnrollmentFormController extends D2FormController {
     this.mandatoryFields.addAll(mandatoryFields);
   }
 
-  ///Calls on submit and then saves the updated data. If the enrollment is new, a tracked entity is also created.
-  Future<D2Enrollment> save() async {
-    throw "Not implemented";
+  ///Calls on submit and then saves the updated data. If the enrollment is new, a tracked entity is also created. It doesn't really need to be an async function
+  Future<D2TrackedEntity> save() async {
+    Map<String, dynamic> validatedFormValues = submit();
+
+    D2OrgUnit? orgUnit = this.orgUnit ??
+        D2OrgUnitRepository(db).getByUid(validatedFormValues["orgUnit"]);
+    if (orgUnit == null) {
+      throw "Could not get entity's organisation unit. You either have to pass it as a parameter when initializing the controller or have a required field with key 'orgUnit'";
+    }
+    D2TrackedEntity trackedEntity = D2TrackedEntity.fromFormValues(
+        validatedFormValues,
+        db: db,
+        program: program,
+        orgUnit: orgUnit);
+    trackedEntity.save(db);
+    return trackedEntity;
   }
 }

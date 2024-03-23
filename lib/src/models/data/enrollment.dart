@@ -1,18 +1,11 @@
 import 'dart:convert';
 
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import 'package:dhis2_flutter_toolkit/src/utils/uid.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../../objectbox.dart';
-import '../../repositories/data/enrollment.dart';
-import '../../repositories/data/tracked_entity.dart';
-import '../../repositories/metadata/org_unit.dart';
-import '../../repositories/metadata/program.dart';
-import '../metadata/org_unit.dart';
-import '../metadata/program.dart';
 import 'base.dart';
 import 'base_editable.dart';
-import 'event.dart';
-import 'tracked_entity.dart';
 import 'upload_base.dart';
 
 @Entity()
@@ -82,6 +75,26 @@ class D2Enrollment extends SyncDataSource
         D2TrackedEntityRepository(db).getByUid(json["trackedEntity"]);
     orgUnit.target = D2OrgUnitRepository(db).getByUid(json["orgUnit"]);
     program.target = D2ProgramRepository(db).getByUid(json["program"]);
+  }
+
+  D2Enrollment.fromFormValues(Map<String, dynamic> values,
+      {required D2ObjectBox db,
+      required D2TrackedEntity trackedEntity,
+      required D2Program program,
+      required D2OrgUnit orgUnit})
+      : uid = D2UID.generate(),
+        updatedAt = DateTime.now(),
+        createdAt = DateTime.now(),
+        enrolledAt = DateTime.parse(values["enrolledAt"]),
+        followup = false,
+        deleted = false,
+        occurredAt = DateTime.parse(values["occurredAt"]),
+        status = values["status"] ?? 'ACTIVE',
+        synced = true,
+        notes = "{}" {
+    this.trackedEntity.target = trackedEntity;
+    this.orgUnit.target = orgUnit;
+    this.program.target = program;
   }
 
   @override

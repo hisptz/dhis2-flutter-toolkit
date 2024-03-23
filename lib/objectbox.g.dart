@@ -4478,7 +4478,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
         },
         objectToFB: (D2TrackedEntityAttributeValue object, fb.Builder fbb) {
           final uidOffset = fbb.writeString(object.uid);
-          final valueOffset = fbb.writeString(object.value);
+          final valueOffset =
+              object.value == null ? null : fbb.writeString(object.value!);
           fbb.startTable(9);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.createdAt.millisecondsSinceEpoch);
@@ -4501,7 +4502,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final updatedAtParam = DateTime.fromMillisecondsSinceEpoch(
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0));
           final valueParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 12, '');
+              .vTableGetNullable(buffer, rootOffset, 12);
           final syncedParam =
               const fb.BoolReader().vTableGet(buffer, rootOffset, 18, false);
           final object = D2TrackedEntityAttributeValue(

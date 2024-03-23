@@ -18,7 +18,7 @@ class D2TrackedEntityAttributeValue extends D2DataResource
   @override
   DateTime updatedAt;
 
-  String value;
+  String? value;
 
   final trackedEntityAttribute = ToOne<D2TrackedEntityAttribute>();
   final trackedEntity = ToOne<D2TrackedEntity>();
@@ -40,6 +40,18 @@ class D2TrackedEntityAttributeValue extends D2DataResource
         D2TrackedEntityAttributeRepository(db).getByUid(json["attribute"]);
     trackedEntity.target =
         D2TrackedEntityRepository(db).getByUid(trackedEntityId);
+  }
+
+  D2TrackedEntityAttributeValue.fromFormValues(this.value,
+      {required D2ObjectBox db,
+      required D2TrackedEntity trackedEntity,
+      required D2TrackedEntityAttribute trackedEntityAttribute})
+      : createdAt = DateTime.now(),
+        updatedAt = DateTime.now(),
+        uid = "${trackedEntity.uid}-${trackedEntityAttribute.uid}",
+        synced = false {
+    this.trackedEntityAttribute.target = trackedEntityAttribute;
+    this.trackedEntity.target = trackedEntity;
   }
 
   @override
