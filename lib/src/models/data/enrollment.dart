@@ -134,6 +134,7 @@ class D2Enrollment extends SyncDataSource
   void updateFromFormValues(Map<String, dynamic> values,
       {required D2ObjectBox db}) {
     occurredAt = DateTime.tryParse(values["occurredAt"]) ?? occurredAt;
+    enrolledAt = DateTime.tryParse(values["occurredAt"]) ?? enrolledAt;
     orgUnit.target =
         D2OrgUnitRepository(db).getByUid(values["orgUnit"]) ?? orgUnit.target;
     trackedEntity.target!.updateFromFormValues(values, db: db);

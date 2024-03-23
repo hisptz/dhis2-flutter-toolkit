@@ -4,15 +4,16 @@ import '../../../../models/data/tracked_entity_attribute_value.dart';
 import '../../../../models/metadata/program.dart';
 import '../form_state.dart';
 
-class D2TrackerRegistrationFormController extends D2FormController {
+class D2TrackerEnrollmentFormController extends D2FormController {
   D2Program program;
   D2Enrollment? enrollment;
   D2TrackedEntity? trackedEntity;
 
-  D2TrackerRegistrationFormController({
+  D2TrackerEnrollmentFormController({
     required this.program,
     D2Enrollment? enrollment,
     D2TrackedEntity? trackedEntity,
+    super.mandatoryFields,
     super.hiddenFields,
     super.hiddenSections,
   }) {
@@ -43,7 +44,7 @@ class D2TrackerRegistrationFormController extends D2FormController {
         .where((pAttribute) => pAttribute.mandatory)
         .map((pAttribute) => pAttribute.trackedEntityAttribute.target!.uid)
         .toList();
-    this.mandatoryFields = mandatoryFields;
+    this.mandatoryFields.addAll(mandatoryFields);
   }
 
   ///Calls on submit and then saves the updated data. If the enrollment is new, a tracked entity is also created.
