@@ -31,26 +31,26 @@ class D2PeriodValueSelector extends StatelessWidget {
     for (D2Period period in periods) {
       bool selected = selectedPeriodsList.contains(period.id);
       if (!selected) {
-        periodChips.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 2.0),
-          child: InkWell(
-            onTap: () {
-              onChange(period.id);
-            },
-            child: Chip(
+        periodChips.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2.0),
+            child: InputChip(
                 label: Text(period.name),
                 labelStyle:
                     TextStyle(color: selected ? Colors.white : Colors.black),
+                onSelected: (bool selected) {
+                  onChange(period.id);
+                },
                 avatar: selected
                     ? const Icon(
                         Icons.check,
                         color: Colors.white,
                       )
                     : null,
-                backgroundColor: selected ? color : null),
+                backgroundColor: selected ? Colors.blue : null),
           ),
-        ));
-      }
+        );
+      } 
     }
     return periodChips;
   }
