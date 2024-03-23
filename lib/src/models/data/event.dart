@@ -1,22 +1,10 @@
 import 'dart:convert';
 
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../../objectbox.dart';
-import '../../repositories/data/enrollment.dart';
-import '../../repositories/data/event.dart';
-import '../../repositories/data/tracked_entity.dart';
-import '../../repositories/metadata/org_unit.dart';
-import '../../repositories/metadata/program.dart';
-import '../../repositories/metadata/program_stage.dart';
-import '../metadata/org_unit.dart';
-import '../metadata/program.dart';
-import '../metadata/program_stage.dart';
 import 'base.dart';
-import 'data_value.dart';
-import 'enrollment.dart';
-import 'tracked_entity.dart';
 import 'upload_base.dart';
 
 @Entity()
@@ -149,5 +137,17 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
     }
 
     return data;
+  }
+
+  @override
+  void updateFromFormValues(Map<String, dynamic> values,
+      {required D2ObjectBox db}) {
+    orgUnit.target =
+        D2OrgUnitRepository(db).getByUid(values["orgUnit"]) ?? orgUnit.target;
+    occurredAt = DateTime.tryParse(values["occurredAt"]) ?? occurredAt;
+    for (D2DataValue dataValue in dataValues) {
+      dataValue.updateFromFormValues(values, db: db);
+    }
+    synced = false;
   }
 }

@@ -1,6 +1,5 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
-
 import 'package:objectbox/objectbox.dart';
 
 import 'upload_base.dart';
@@ -53,6 +52,16 @@ class D2TrackedEntityAttributeValue extends D2DataResource
 
   @override
   Map<String, dynamic> toFormValues() {
-    return {uid: value};
+    return {trackedEntityAttribute.target!.uid: value};
+  }
+
+  @override
+  void updateFromFormValues(Map<String, dynamic> values,
+      {required D2ObjectBox db}) {
+    String key = trackedEntityAttribute.target!.uid;
+    if (values.containsKey(key)) {
+      value = values[key];
+      synced = false;
+    }
   }
 }
