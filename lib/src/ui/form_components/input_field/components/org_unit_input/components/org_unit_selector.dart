@@ -12,11 +12,13 @@ class OrgUnitSelector extends StatefulWidget {
   final D2OrgUnitInputFieldConfig config;
   final List<String>? selectedOrgUnits;
   final OnChange<List<String>> onSelect;
+  final bool? multiple;
   final Color color;
 
   const OrgUnitSelector({
     super.key,
     this.selectedOrgUnits = const [],
+    this.multiple = false,
     required this.onSelect,
     required this.config,
     required this.color,
@@ -66,7 +68,7 @@ class OrgUnitSelectorState extends State<OrgUnitSelector> {
   void initState() {
     setState(() {
       service = widget.config.service;
-      multiple = widget.config.multiple ?? false;
+      multiple = widget.multiple ?? false;
       selectedOrgUnits = widget.selectedOrgUnits ?? [];
     });
     initializeService();
