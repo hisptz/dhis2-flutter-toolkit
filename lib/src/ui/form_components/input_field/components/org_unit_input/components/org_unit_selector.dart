@@ -88,7 +88,6 @@ class OrgUnitSelectorState extends State<OrgUnitSelector> {
                     child: CircularProgressIndicator(),
                   )
                 : TreeView.simpleTyped<OrgUnitData, TreeNode<OrgUnitData>>(
-                    primary: true,
                     indentation: const Indentation(),
                     expansionBehavior: ExpansionBehavior.none,
                     expansionIndicatorBuilder: (BuildContext context, node) {
