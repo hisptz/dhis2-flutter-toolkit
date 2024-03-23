@@ -1,10 +1,12 @@
 import 'package:dhis2_flutter_toolkit/objectbox.dart';
+import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../repositories/data/tracked_entity.dart';
 import '../../repositories/metadata/org_unit.dart';
 import '../../repositories/metadata/tracked_entity_type.dart';
 import '../metadata/org_unit.dart';
+import '../metadata/program.dart';
 import '../metadata/tracked_entity_type.dart';
 import 'base.dart';
 import 'enrollment.dart';
@@ -13,7 +15,8 @@ import 'tracked_entity_attribute_value.dart';
 import 'upload_base.dart';
 
 @Entity()
-class D2TrackedEntity extends SyncDataSource implements SyncableData {
+class D2TrackedEntity extends SyncDataSource
+    implements SyncableData, D2BaseEditable {
   @override
   int id = 0;
   @override
@@ -85,5 +88,35 @@ class D2TrackedEntity extends SyncDataSource implements SyncableData {
     };
 
     return payload;
+  }
+
+  ///Filters out the trackedEntity attributes for a specific program. This is useful when requiring data for a specific enrollment
+  List<D2TrackedEntityAttributeValue> getAttributesByProgram(
+      D2Program program) {
+    List<String> programAttributes = program.programTrackedEntityAttributes
+        .map((pAttribute) => pAttribute.trackedEntityAttribute.target!.uid)
+        .toList();
+
+    return attributes
+        .where((element) => programAttributes.contains(element.uid))
+        .toList();
+  }
+
+  @override
+  Map<String, dynamic> toFormValues() {
+    return {
+      "orgUnit": orgUnit.target!.uid,
+      "attributes":
+          attributes.map((attribute) => attribute.toFormValues()).toList()
+    };
+  }
+
+  @override
+  void updateFromFormValues(Map<String, dynamic> values,
+      {required D2ObjectBox db}) {
+    for (D2TrackedEntityAttributeValue attributeValue in attributes) {
+      attributeValue.updateFromFormValues(values, db: db);
+    }
+    synced = false;
   }
 }
