@@ -4,6 +4,7 @@ import 'package:objectbox/objectbox.dart';
 abstract class BaseDataRepository<T extends D2DataResource> {
   D2ObjectBox db;
   D2Program? program;
+
   Box<T> get box {
     return db.store.box<T>();
   }
@@ -18,6 +19,10 @@ abstract class BaseDataRepository<T extends D2DataResource> {
 
   Future saveEntities(List<T> entities) {
     return box.putManyAsync(entities);
+  }
+
+  int saveEntity(T entity) {
+    return box.put(entity);
   }
 
   BaseDataRepository<T> setProgram(D2Program program);
@@ -42,5 +47,4 @@ abstract class BaseDataRepository<T extends D2DataResource> {
     List<T> entities = json.map(mapper).toList();
     return box.putAndGetManyAsync(entities);
   }
-
 }

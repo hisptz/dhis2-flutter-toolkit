@@ -7,7 +7,7 @@ import 'components/org_unit_selector.dart';
 import 'models/org_unit_data.dart';
 
 class OrgUnitInput
-    extends BaseStatefulInput<D2OrgUnitInputFieldConfig, List<String>> {
+    extends BaseStatefulInput<D2OrgUnitInputFieldConfig, String> {
   final int? maxLines;
 
   const OrgUnitInput({
@@ -32,7 +32,7 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
       maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
 
   void onSelect(List<String> selected) {
-    widget.onChange(selected);
+    widget.onChange(selected.first);
     loadSelectedNames(selected);
   }
 
@@ -44,7 +44,7 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
               color: widget.color,
               config: widget.input,
               onSelect: onSelect,
-              selectedOrgUnits: widget.value,
+              selectedOrgUnits: widget.value != null ? [widget.value!] : [],
             ));
   }
 
@@ -64,7 +64,7 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
   void initState() {
     controller = TextEditingController();
     if (widget.value != null) {
-      loadSelectedNames(widget.value);
+      loadSelectedNames([widget.value!]);
     }
     super.initState();
   }
