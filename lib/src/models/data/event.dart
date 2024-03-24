@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
+import 'package:dhis2_flutter_toolkit/src/utils/uid.dart';
 import 'package:objectbox/objectbox.dart';
 
 import 'base.dart';
@@ -22,10 +23,10 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
   DateTime? scheduledAt;
   DateTime? occurredAt;
   String status;
-  String attributeCategoryOptions;
+  String? attributeCategoryOptions;
   bool deleted;
   bool followup;
-  String attributeOptionCombo;
+  String? attributeOptionCombo;
   String? notes;
 
   //Disabled for now
@@ -83,6 +84,40 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
     programStage.target =
         D2ProgramStageRepository(db).getByUid(json["programStage"]);
     orgUnit.target = D2OrgUnitRepository(db).getByUid(json["orgUnit"]);
+  }
+
+  D2Event.fromFormValues(Map<String, dynamic> formValues,
+      {required D2ObjectBox db,
+      D2Enrollment? enrollment,
+      required D2ProgramStage programStage,
+      required D2OrgUnit orgUnit})
+      : updatedAt = DateTime.now(),
+        createdAt = DateTime.now(),
+        followup = false,
+        deleted = false,
+        status = formValues["status"] ?? "COMPLETED",
+        synced = false,
+        uid = D2UID.generate(),
+        occurredAt = DateTime.tryParse(formValues["occurredAt"] ?? "") {
+    if (enrollment != null) {
+      this.enrollment.target = enrollment;
+      trackedEntity.target = enrollment.trackedEntity.target;
+    }
+
+    program.target = programStage.program.target;
+    this.programStage.target = programStage;
+    this.orgUnit.target = orgUnit;
+
+    List<D2DataValue> dataValues = programStage.programStageDataElements
+        .map((pDataElement) => pDataElement.dataElement.target!)
+        .toList()
+        .map((D2DataElement dataElement) {
+      String? value = formValues[dataElement.uid];
+      return D2DataValue.fromFormValues(value,
+          event: this, dataElement: dataElement);
+    }).toList();
+
+    this.dataValues.addAll(dataValues);
   }
 
   @override
@@ -152,7 +187,15 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
     synced = false;
   }
 
+  @override
   void save(D2ObjectBox db) {
-    id = D2EventRepository(db).saveEntity(this);
+    if (id == 0) {
+      id = D2EventRepository(db).saveEntity(this);
+    } else {
+      D2EventRepository(db).saveEntity(this);
+      for (D2DataValue dataValue in dataValues) {
+        dataValue.save(db);
+      }
+    }
   }
 }

@@ -146,6 +146,8 @@ export "src/ui/form_components/input_field/models/text_input_field.dart"
 export "src/ui/form_components/input_field/models/true_only_input_field.dart"
     show D2TrueOnlyInputFieldConfig;
 export "src/ui/form_components/state/form_state.dart" show D2FormController;
+export "src/ui/form_components/state/tracker/event_form_controller.dart"
+    show D2TrackerEventFormController;
 export "src/ui/form_components/state/tracker/registration_form_controller.dart"
     show D2TrackerEnrollmentFormController;
 export "src/ui/period/period_filter.dart" show D2PeriodSelector;

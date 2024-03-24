@@ -41,6 +41,16 @@ class D2DataValue extends D2DataResource
         D2DataElementRepository(db).getByUid(json["dataElement"]);
   }
 
+  D2DataValue.fromFormValues(this.value,
+      {required D2Event event, required D2DataElement dataElement})
+      : updatedAt = DateTime.now(),
+        createdAt = DateTime.now(),
+        uid = "${event.uid}-${dataElement.uid}",
+        providedElsewhere = false {
+    this.event.target = event;
+    this.dataElement.target = dataElement;
+  }
+
   @override
   bool synced = true;
 
@@ -62,5 +72,10 @@ class D2DataValue extends D2DataResource
       value = values[key];
       synced = false;
     }
+  }
+
+  @override
+  void save(D2ObjectBox db) {
+    D2DataValueRepository(db).saveEntity(this);
   }
 }

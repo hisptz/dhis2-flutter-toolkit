@@ -2723,9 +2723,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final uidOffset = fbb.writeString(object.uid);
           final statusOffset = fbb.writeString(object.status);
           final attributeCategoryOptionsOffset =
-              fbb.writeString(object.attributeCategoryOptions);
-          final attributeOptionComboOffset =
-              fbb.writeString(object.attributeOptionCombo);
+              object.attributeCategoryOptions == null
+                  ? null
+                  : fbb.writeString(object.attributeCategoryOptions!);
+          final attributeOptionComboOffset = object.attributeOptionCombo == null
+              ? null
+              : fbb.writeString(object.attributeOptionCombo!);
           final notesOffset =
               object.notes == null ? null : fbb.writeString(object.notes!);
           fbb.startTable(19);
@@ -2759,10 +2762,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 14);
           final attributeCategoryOptionsParam =
               const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 18, '');
+                  .vTableGetNullable(buffer, rootOffset, 18);
           final attributeOptionComboParam =
               const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 24, '');
+                  .vTableGetNullable(buffer, rootOffset, 24);
           final updatedAtParam = DateTime.fromMillisecondsSinceEpoch(
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0));
           final createdAtParam = DateTime.fromMillisecondsSinceEpoch(

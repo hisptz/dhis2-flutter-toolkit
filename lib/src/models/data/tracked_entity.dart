@@ -153,7 +153,15 @@ class D2TrackedEntity extends SyncDataSource
     synced = false;
   }
 
+  @override
   void save(D2ObjectBox db) {
-    id = D2TrackedEntityRepository(db).saveEntity(this);
+    if (id == 0) {
+      id = D2TrackedEntityRepository(db).saveEntity(this);
+    } else {
+      D2TrackedEntityRepository(db).saveEntity(this);
+      for (D2TrackedEntityAttributeValue attribute in attributes) {
+        attribute.save(db);
+      }
+    }
   }
 }
