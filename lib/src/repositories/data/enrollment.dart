@@ -8,11 +8,11 @@ import 'download_mixin/base_tracker_data_download_service_mixin.dart';
 import 'download_mixin/enrollment_data_download_service_mixin.dart';
 import 'upload_mixin/base_tracker_data_upload_service_mixin.dart';
 
-class D2EnrollmentRepository extends BaseDataRepository<D2Enrollment>
+class D2EnrollmentRepository extends D2BaseDataRepository<D2Enrollment>
     with
         BaseTrackerDataDownloadServiceMixin<D2Enrollment>,
         D2EnrollmentDownloadServiceMixin,
-        BaseQueryMixin<D2Enrollment>,
+        D2BaseDataQueryMixin<D2Enrollment>,
         BaseTrackerDataUploadServiceMixin<D2Enrollment> {
   D2EnrollmentRepository(super.db, {super.program});
 
@@ -47,7 +47,7 @@ class D2EnrollmentRepository extends BaseDataRepository<D2Enrollment>
   }
 
   @override
-  BaseDataRepository<D2Enrollment> setProgram(D2Program program) {
+  D2BaseDataRepository<D2Enrollment> setProgram(D2Program program) {
     this.program = program;
     return this;
   }

@@ -6,8 +6,8 @@ import '../../models/data/data_value.dart';
 import '../../models/data/event.dart';
 import 'base.dart';
 
-class D2DataValueRepository extends BaseDataRepository<D2DataValue>
-    with BaseQueryMixin<D2DataValue> {
+class D2DataValueRepository extends D2BaseDataRepository<D2DataValue>
+    with D2BaseDataQueryMixin<D2DataValue> {
   D2DataValueRepository(super.db);
 
   @override
@@ -36,7 +36,7 @@ class D2DataValueRepository extends BaseDataRepository<D2DataValue>
   }
 
   @override
-  BaseDataRepository<D2DataValue> setProgram(D2Program program) {
+  D2BaseDataRepository<D2DataValue> setProgram(D2Program program) {
     this.program = program;
     return this;
   }

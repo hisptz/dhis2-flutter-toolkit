@@ -11,11 +11,11 @@ import 'download_mixin/base_tracker_data_download_service_mixin.dart';
 import 'download_mixin/tracked_entity_data_download_service_mixin.dart';
 import 'upload_mixin/base_tracker_data_upload_service_mixin.dart';
 
-class D2TrackedEntityRepository extends BaseDataRepository<D2TrackedEntity>
+class D2TrackedEntityRepository extends D2BaseDataRepository<D2TrackedEntity>
     with
         BaseTrackerDataDownloadServiceMixin<D2TrackedEntity>,
         TrackedEntityDataDownloadServiceMixin,
-        BaseQueryMixin<D2TrackedEntity>,
+        D2BaseDataQueryMixin<D2TrackedEntity>,
         BaseTrackerDataUploadServiceMixin<D2TrackedEntity>
 {
   D2TrackedEntityRepository(super.db, {super.program});

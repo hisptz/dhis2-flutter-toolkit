@@ -11,7 +11,7 @@ import '../base.dart';
 import '../relationship.dart';
 
 mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
-    on BaseDataRepository<T> {
+    on D2BaseDataRepository<T> {
   D2ClientService? client;
   StreamController<D2SyncStatus> downloadController =
       StreamController<D2SyncStatus>();

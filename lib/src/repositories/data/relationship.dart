@@ -6,9 +6,9 @@ import '../../models/data/relationship.dart';
 import 'base.dart';
 import 'upload_mixin/base_tracker_data_upload_service_mixin.dart';
 
-class D2RelationshipRepository extends BaseDataRepository<D2Relationship>
+class D2RelationshipRepository extends D2BaseDataRepository<D2Relationship>
     with
-        BaseQueryMixin<D2Relationship>,
+        D2BaseDataQueryMixin<D2Relationship>,
         BaseTrackerDataUploadServiceMixin<D2Relationship> {
   D2RelationshipRepository(super.db, {super.program});
 
@@ -40,7 +40,7 @@ class D2RelationshipRepository extends BaseDataRepository<D2Relationship>
   }
 
   @override
-  BaseDataRepository<D2Relationship> setProgram(D2Program program) {
+  D2BaseDataRepository<D2Relationship> setProgram(D2Program program) {
     this.program = program;
     return this;
   }

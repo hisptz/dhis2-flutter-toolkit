@@ -8,7 +8,7 @@ import '../../../../dhis2_flutter_toolkit.dart';
 import '../../../models/data/base.dart';
 
 mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
-    on BaseDataRepository<T>, BaseQueryMixin<T> {
+    on D2BaseDataRepository<T>, D2BaseDataQueryMixin<T> {
 
 
   D2ClientService? client;
