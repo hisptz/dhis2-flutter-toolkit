@@ -16,8 +16,7 @@ class D2TrackedEntityRepository extends D2BaseDataRepository<D2TrackedEntity>
         BaseTrackerDataDownloadServiceMixin<D2TrackedEntity>,
         TrackedEntityDataDownloadServiceMixin,
         D2BaseDataQueryMixin<D2TrackedEntity>,
-        BaseTrackerDataUploadServiceMixin<D2TrackedEntity>
-{
+        BaseTrackerDataUploadServiceMixin<D2TrackedEntity> {
   D2TrackedEntityRepository(super.db, {super.program});
 
   StreamController<D2SyncStatus> controller = StreamController<D2SyncStatus>();
@@ -43,8 +42,8 @@ class D2TrackedEntityRepository extends D2BaseDataRepository<D2TrackedEntity>
   String uploadDataKey = "trackedEntities";
 
   @override
-  setUnSyncedQuery() {
-    updateQueryCondition(D2TrackedEntity_.synced.equals(true));
+  Query<D2TrackedEntity> getUnSyncedQuery() {
+    return box.query(D2TrackedEntity_.synced.equals(false)).build();
   }
 
   @override

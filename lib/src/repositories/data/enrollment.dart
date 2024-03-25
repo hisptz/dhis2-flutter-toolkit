@@ -42,8 +42,8 @@ class D2EnrollmentRepository extends D2BaseDataRepository<D2Enrollment>
   String uploadDataKey = "enrollments";
 
   @override
-  setUnSyncedQuery() {
-    updateQueryCondition(D2Enrollment_.synced.equals(true));
+  Query<D2Enrollment> getUnSyncedQuery() {
+    return box.query(D2Enrollment_.synced.equals(true)).build();
   }
 
   @override

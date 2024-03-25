@@ -51,12 +51,8 @@ class D2EventRepository extends D2BaseDataRepository<D2Event>
   String uploadDataKey = "events";
 
   @override
-  setUnSyncedQuery() {
-    if (queryConditions != null) {
-      queryConditions!.and(D2Event_.synced.equals(true));
-    } else {
-      queryConditions = D2Event_.synced.equals(true);
-    }
+  Query<D2Event> getUnSyncedQuery() {
+    return box.query(D2Event_.synced.equals(false)).build();
   }
 
   @override
@@ -68,8 +64,6 @@ class D2EventRepository extends D2BaseDataRepository<D2Event>
 
   @override
   void addProgramToQuery() {
-    if(program != null) {
-
-    }
+    if (program != null) {}
   }
 }

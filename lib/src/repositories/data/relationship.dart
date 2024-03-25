@@ -31,12 +31,8 @@ class D2RelationshipRepository extends D2BaseDataRepository<D2Relationship>
   String uploadDataKey = "enrollments";
 
   @override
-  setUnSyncedQuery() {
-    if (queryConditions != null) {
-      queryConditions!.and(D2Relationship_.synced.equals(true));
-    } else {
-      queryConditions = D2Relationship_.synced.equals(true);
-    }
+  Query<D2Relationship> getUnSyncedQuery() {
+    return box.query(D2Relationship_.synced.equals(true)).build();
   }
 
   @override
