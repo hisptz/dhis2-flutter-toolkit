@@ -17,28 +17,30 @@ class D2SelectedPeriodContainer extends StatelessWidget {
       required this.selectedPeriods})
       : super(key: key);
 
-  List<Widget> getSelectedPeriods(BuildContext context, List<dynamic> periods) {
+    List<Widget> getSelectedPeriods(BuildContext context, List<dynamic> periods) {
     return (selectedPeriods ?? [])
         .map((period) => D2PeriodType.getPeriodById(period))
-        .map((period) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
-                child: InkWell(
-                  onTap: () {
-                    onChange(period.id);
-                  },
-                  child: Chip(
-                      deleteIconColor: Colors.white,
-                      onDeleted: () {
-                        onChange(period.id);
-                      },
-                      label: Text(period.name),
-                      labelStyle: const TextStyle(color: Color(0xFF405261)),
-                      backgroundColor: color.withOpacity(0.2)),
-                ),
+        .map(
+          (period) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+              child: InputChip(
+                side: BorderSide.none,
+                onSelected: (bool selected) {
+                  onChange(period.id);
+                },
+                deleteIconColor: const Color(0xFF405261),
+                onDeleted: () {
+                  onChange(period.id);
+                },
+                label: Text(period.name),
+                labelStyle: const TextStyle(color: Color(0xFF405261)),
+                backgroundColor: color.withOpacity(0.2),
               ),
-            ))
+            ),
+          ),
+        )
         .toList();
   }
 
@@ -71,7 +73,8 @@ class D2SelectedPeriodContainer extends StatelessWidget {
         children: [
           const Text(
             'Selected Periods',
-            style: TextStyle(fontWeight: FontWeight.bold,color: Color(0xFF405261)),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: Color(0xFF405261)),
           ),
           SizedBox(
               width: MediaQuery.of(context).size.width,
