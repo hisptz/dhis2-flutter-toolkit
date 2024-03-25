@@ -7,7 +7,7 @@ class D2TrackerEnrollmentFormController extends D2FormController {
   D2ObjectBox db;
   D2Enrollment? enrollment;
   D2TrackedEntity? trackedEntity;
-  D2OrgUnit? orgUnit;
+  String? orgUnit;
 
   D2TrackerEnrollmentFormController(
       {required this.db,
@@ -55,8 +55,8 @@ class D2TrackerEnrollmentFormController extends D2FormController {
 
   Future<D2TrackedEntity> create() async {
     Map<String, dynamic> validatedFormValues = submit();
-    D2OrgUnit? orgUnit = this.orgUnit ??
-        D2OrgUnitRepository(db).getByUid(validatedFormValues["orgUnit"]);
+    D2OrgUnit? orgUnit = D2OrgUnitRepository(db)
+        .getByUid(this.orgUnit ?? validatedFormValues["orgUnit"]);
     if (orgUnit == null) {
       throw "Could not get entity's organisation unit. You either have to pass it as a parameter when initializing the controller or have a required field with key 'orgUnit'";
     }
@@ -74,8 +74,8 @@ class D2TrackerEnrollmentFormController extends D2FormController {
       throw "Invalid update call. Only call update if a default trackedEntity has been passed as a parameter when initializing the controller";
     }
     Map<String, dynamic> validatedFormValues = submit();
-    D2OrgUnit? orgUnit = this.orgUnit ??
-        D2OrgUnitRepository(db).getByUid(validatedFormValues["orgUnit"]);
+    D2OrgUnit? orgUnit = D2OrgUnitRepository(db)
+        .getByUid(this.orgUnit ?? validatedFormValues["orgUnit"]);
     trackedEntity!.updateFromFormValues(validatedFormValues, db: db);
     if (enrollment != null) {
       enrollment!.updateFromFormValues(validatedFormValues, db: db);

@@ -85,10 +85,12 @@ class D2Enrollment extends SyncDataSource
       : uid = D2UID.generate(),
         updatedAt = DateTime.now(),
         createdAt = DateTime.now(),
-        enrolledAt = DateTime.parse(values["enrolledAt"]),
+        enrolledAt =
+            DateTime.tryParse(values["enrolledAt"] ?? "") ?? DateTime.now(),
         followup = false,
         deleted = false,
-        occurredAt = DateTime.parse(values["occurredAt"]),
+        occurredAt =
+            DateTime.tryParse(values["occurredAt"] ?? "") ?? DateTime.now(),
         status = values["status"] ?? 'ACTIVE',
         synced = true,
         notes = "{}" {

@@ -98,7 +98,8 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
         status = formValues["status"] ?? "COMPLETED",
         synced = false,
         uid = D2UID.generate(),
-        occurredAt = DateTime.tryParse(formValues["occurredAt"] ?? "") {
+        occurredAt = DateTime.tryParse(formValues["occurredAt"] ?? "") ??
+            DateTime.now() {
     if (enrollment != null) {
       this.enrollment.target = enrollment;
       trackedEntity.target = enrollment.trackedEntity.target;
