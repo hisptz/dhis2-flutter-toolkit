@@ -82,12 +82,15 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
     int? maxLines = widget.maxLines;
 
     return TextFormField(
+      enabled: !widget.disabled,
       showCursor: false,
       autofocus: false,
       controller: controller,
-      onTap: () {
-        onOpenSelector(context);
-      },
+      onTap: widget.disabled
+          ? null
+          : () {
+              onOpenSelector(context);
+            },
       maxLines: maxLines,
       keyboardType: TextInputType.none,
       style: const TextStyle(
@@ -101,9 +104,11 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
             color: color,
             padding: EdgeInsets.zero,
             constraints: iconConstraints,
-            onPressed: () {
-              onOpenSelector(context);
-            },
+            onPressed: widget.disabled
+                ? null
+                : () {
+                    onOpenSelector(context);
+                  },
             icon: InputFieldIcon(
                 backgroundColor: color,
                 iconColor: color,

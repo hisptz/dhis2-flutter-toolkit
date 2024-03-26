@@ -1,8 +1,10 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:flutter/material.dart';
+
 import 'base_input.dart';
 
-class BooleanInput extends BaseStatelessInput<D2BooleanInputFieldConfig, String> {
+class BooleanInput
+    extends BaseStatelessInput<D2BooleanInputFieldConfig, String> {
   const BooleanInput({
     super.key,
     super.value,
@@ -26,13 +28,16 @@ class BooleanInput extends BaseStatelessInput<D2BooleanInputFieldConfig, String>
               mainAxisSize: MainAxisSize.min,
               children: [
                 Radio(
+                  toggleable: !disabled,
                   fillColor: MaterialStatePropertyAll(
                     "$value" == option.code ? color : const Color(0xFF94A0B1),
                   ),
                   activeColor: color,
                   value: option.code,
                   groupValue: value,
-                  onChanged: (selectedValue) => onChange("$selectedValue"),
+                  onChanged: disabled
+                      ? null
+                      : (selectedValue) => onChange("$selectedValue"),
                 ),
                 Text(
                   option.name,
