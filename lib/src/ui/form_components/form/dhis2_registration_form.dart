@@ -8,13 +8,15 @@ class D2TrackerRegistrationForm extends StatelessWidget {
   final D2Program program;
   final D2TrackerFormOptions options;
   final Color? color;
+  final bool disabled;
 
   const D2TrackerRegistrationForm(
       {super.key,
       required this.controller,
       required this.program,
       required this.options,
-      this.color});
+      this.color,
+      this.disabled = false});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class D2TrackerRegistrationForm extends StatelessWidget {
     Color formColor = color ?? Theme.of(context).primaryColor;
 
     return D2ControlledForm(
+        disabled: disabled,
         color: formColor,
         form: D2Form(
             title: options.showTitle

@@ -10,6 +10,7 @@ class FormContainer extends StatelessWidget {
   final Map<String, bool> mandatoryState;
   final Map<String, bool> hiddenState;
   final Color? color;
+  final bool disabled;
 
   final OnFormFieldChange<String?> onFormFieldChange;
 
@@ -21,6 +22,7 @@ class FormContainer extends StatelessWidget {
       required this.mandatoryState,
       required this.hiddenState,
       required this.onFormFieldChange,
+      this.disabled = false,
       this.color});
 
   @override
@@ -54,6 +56,7 @@ class FormContainer extends StatelessWidget {
                   itemBuilder: (context, index) {
                     D2FormSection section = form.sections![index];
                     return FormSectionContainer(
+                      disabled: disabled,
                       section: section,
                       onFieldChange: onFormFieldChange,
                     );
@@ -68,6 +71,7 @@ class FormContainer extends StatelessWidget {
                   itemBuilder: (context, index) {
                     D2BaseInputFieldConfig input = form.fields![index];
                     return InputFieldContainer(
+                      disabled: disabled,
                       color: color,
                       input: input,
                       onChange: (value) => onFormFieldChange(input.name, value),

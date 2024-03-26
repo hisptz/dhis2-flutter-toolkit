@@ -25,6 +25,7 @@ class D2FormControlledFormSection extends StatelessWidget {
           return Visibility(
             visible: !(sectionState.hidden ?? false),
             child: FormSectionContainerWithControlledInputs(
+
               section: section,
               controller: controller,
             ),

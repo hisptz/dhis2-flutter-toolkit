@@ -7,13 +7,15 @@ class D2TrackerEventForm extends StatelessWidget {
   final D2ProgramStage programStage;
   final D2TrackerFormOptions options;
   final Color? color;
+  final bool disabled;
 
   const D2TrackerEventForm(
       {super.key,
       required this.controller,
       required this.programStage,
       required this.options,
-      this.color});
+      this.color,
+      this.disabled = false});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class D2TrackerEventForm extends StatelessWidget {
 
     return D2ControlledForm(
         color: formColor,
+        disabled: disabled,
         form: D2Form(
             title: options.showTitle
                 ? programStage.displayName ?? programStage.name

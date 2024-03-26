@@ -7,9 +7,14 @@ class FormSectionContainerWithControlledInputs extends StatelessWidget {
   final D2FormSection section;
   final D2FormController controller;
   final Color? color;
+  final bool disabled;
 
   const FormSectionContainerWithControlledInputs(
-      {super.key, required this.section, required this.controller, this.color});
+      {super.key,
+      required this.section,
+      required this.controller,
+      this.color,
+      this.disabled = false});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +44,10 @@ class FormSectionContainerWithControlledInputs extends StatelessWidget {
             itemBuilder: (context, index) {
               D2BaseInputFieldConfig input = section.fields[index];
               return D2FormControlledInputField(
-                  input: input, controller: controller, color: color);
+                  disabled: disabled,
+                  input: input,
+                  controller: controller,
+                  color: color);
             },
             separatorBuilder: (context, index) => const Padding(
                   padding: EdgeInsets.symmetric(vertical: 8.0),
