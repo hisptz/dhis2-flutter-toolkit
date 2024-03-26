@@ -15,26 +15,26 @@ import 'components/period_type_selector.dart';
 import '../../utils/period_engine/models/period_filter_selection.dart';
 
 class D2PeriodSelector extends StatefulWidget {
-  final Function d2onUpdate;
-  final bool d2showRelative;
-  final bool d2showRange;
-  final bool d2showFixed;
-  final Color d2Color;
+  final Function onUpdate;
+  final bool showRelative;
+  final bool showRange;
+  final bool showFixed;
+  final Color color;
 
-  final D2PeriodSelection? d2initialSelection;
-  final List<String>? d2excludePeriodTypes;
-  final List<String>? d2onlyAllowPeriodTypes;
+  final D2PeriodSelection? initialSelection;
+  final List<String>? excludePeriodTypes;
+  final List<String>? onlyAllowPeriodTypes;
 
   const D2PeriodSelector({
     super.key,
-    required this.d2onUpdate,
-    this.d2excludePeriodTypes,
-    this.d2onlyAllowPeriodTypes,
-    this.d2initialSelection,
-    required this.d2Color,
-    this.d2showRelative = false,
-    this.d2showRange = false,
-    this.d2showFixed = true,
+    required this.onUpdate,
+    this.excludePeriodTypes,
+    this.onlyAllowPeriodTypes,
+    this.initialSelection,
+    required this.color,
+    this.showRelative = false,
+    this.showRange = false,
+    this.showFixed = true,
   });
 
   @override
@@ -60,13 +60,13 @@ class _PeriodSelectorState extends State<D2PeriodSelector>
 
   List<String> getVisiblePeriodCategories() {
     List<String> categories = [];
-    if (widget.d2showRelative) {
+    if (widget.showRelative) {
       categories.add(D2PeriodTypeCategory.relative);
     }
-    if (widget.d2showFixed) {
+    if (widget.showFixed) {
       categories.add(D2PeriodTypeCategory.fixed);
     }
-    if (widget.d2showRange) {
+    if (widget.showRange) {
       categories.add(D2PeriodTypeCategory.range);
     }
     return categories;
@@ -103,38 +103,38 @@ class _PeriodSelectorState extends State<D2PeriodSelector>
   init() {
     _controller =
         TabController(length: getVisiblePeriodCategories().length, vsync: this);
-    if (widget.d2onlyAllowPeriodTypes != null) {
+    if (widget.onlyAllowPeriodTypes != null) {
       validRelativePeriodTypes = validRelativePeriodTypes
           .where((element) =>
-              !widget.d2onlyAllowPeriodTypes!.contains(element['id']))
+              !widget.onlyAllowPeriodTypes!.contains(element['id']))
           .toList();
       validFixedPeriodTypes = validFixedPeriodTypes
           .where((element) =>
-              !widget.d2onlyAllowPeriodTypes!.contains(element['id']))
+              !widget.onlyAllowPeriodTypes!.contains(element['id']))
           .toList();
     }
-    if (widget.d2excludePeriodTypes != null) {
+    if (widget.excludePeriodTypes != null) {
       validRelativePeriodTypes = validRelativePeriodTypes
           .where((element) =>
-              !widget.d2excludePeriodTypes!.contains(element['id']))
+              !widget.excludePeriodTypes!.contains(element['id']))
           .toList();
       validFixedPeriodTypes = validFixedPeriodTypes
           .where((element) =>
-              !widget.d2excludePeriodTypes!.contains(element['id']))
+              !widget.excludePeriodTypes!.contains(element['id']))
           .toList();
     }
-    if (widget.d2initialSelection != null) {
+    if (widget.initialSelection != null) {
       setState(() {
-        _selectedCategory = widget.d2initialSelection?.category ?? '';
-        _selectedPeriodType = widget.d2initialSelection?.type ??
+        _selectedCategory = widget.initialSelection?.category ?? '';
+        _selectedPeriodType = widget.initialSelection?.type ??
             validFixedPeriodTypes.first['id'];
-        _selectedPeriods = widget.d2initialSelection?.selected ?? [];
-        _start = widget.d2initialSelection?.start;
-        _end = widget.d2initialSelection?.end;
+        _selectedPeriods = widget.initialSelection?.selected ?? [];
+        _start = widget.initialSelection?.start;
+        _end = widget.initialSelection?.end;
       });
       int selectedCategory = getVisiblePeriodCategories()
           .toList()
-          .indexOf(widget.d2initialSelection?.category ?? '');
+          .indexOf(widget.initialSelection?.category ?? '');
       _controller.animateTo(selectedCategory);
     } else {
       setState(() {
@@ -162,7 +162,7 @@ class _PeriodSelectorState extends State<D2PeriodSelector>
         case D2PeriodTypeCategory.fixed:
           _selectedPeriodType = !shouldPresetInitial
               ? _selectedPeriodType
-              : widget.d2onlyAllowPeriodTypes?.first ??
+              : widget.onlyAllowPeriodTypes?.first ??
                   validFixedPeriodTypes.first['id'];
           _start = null;
           _end = null;
@@ -189,117 +189,115 @@ class _PeriodSelectorState extends State<D2PeriodSelector>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          DefaultTabController(
-            length: getVisiblePeriodCategories().length,
-            child: Column(
-              children: [
-                Visibility(
-                  visible: (widget.d2showRelative ||
-                          (widget.d2showFixed && widget.d2showRange)) &&
-                      (widget.d2showFixed ||
-                          (widget.d2showRelative && widget.d2showRange)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 4.0),
-                    child: TabBar(
-                      controller: _controller,
-                      labelColor: widget.d2Color,
-                      indicatorColor: widget.d2Color,
-                      unselectedLabelColor: Colors.black,
-                      tabs: getVisiblePeriodCategories()
-                          .map((category) => Tab(
-                                text: periodTypes[category]!,
-                              ))
-                          .toList(),
-                    ),
-                  ),
-                ),
-                Padding(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DefaultTabController(
+          length: getVisiblePeriodCategories().length,
+          child: Column(
+            children: [
+              Visibility(
+                visible: (widget.showRelative ||
+                        (widget.showFixed && widget.showRange)) &&
+                    (widget.showFixed ||
+                        (widget.showRelative && widget.showRange)),
+                child: Padding(
                   padding: const EdgeInsets.only(bottom: 4.0),
-                  child: D2PeriodTypeSelector(
-                    _selectedCategory,
-                    _selectedPeriodType,
-                    onChange: onPeriodTypeChange,
-                    inputColor: widget.d2Color,
-                    year: year,
-                    onYearChange: onYearChange,
-                    allowedPeriodTypes: widget.d2onlyAllowPeriodTypes,
-                    excludedPeriodTypes: widget.d2excludePeriodTypes,
-                  ),
-                ),
-                Visibility(
-                  visible: _selectedPeriods.isNotEmpty,
-                  child: D2SelectedPeriodContainer(
-                    category: _selectedCategory,
-                    periodType: _selectedPeriodType,
-                    selectedPeriods: _selectedPeriods,
-                    color: widget.d2Color,
-                    onChange: onPeriodToggle,
-                    year: year,
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 2.8,
-                  child: TabBarView(
+                  child: TabBar(
                     controller: _controller,
-                    children: getVisiblePeriodCategories()
-                        .map(
-                          (String category) => category ==
-                                  D2PeriodTypeCategory.range
-                              ? D2DateRangeSelector(
-                                  onUpdate: onDateRangeChange,
-                                  color: widget.d2Color,
-                                  startDate: _start,
-                                  endDate: _end)
-                              : Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: D2PeriodValueSelector(
-                                      category: _selectedCategory,
-                                      periodType: _selectedPeriodType,
-                                      selectedPeriods: _selectedPeriods,
-                                      color: widget.d2Color,
-                                      onChange: onPeriodToggle,
-                                      year: year),
-                                ),
-                        )
+                    labelColor: widget.color,
+                    indicatorColor: widget.color,
+                    unselectedLabelColor: Colors.black,
+                    tabs: getVisiblePeriodCategories()
+                        .map((category) => Tab(
+                              text: periodTypes[category]!,
+                            ))
                         .toList(),
                   ),
                 ),
-              ],
-            ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                  child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateColor.resolveWith(
-                          (states) => widget.d2Color)),
-                  child: const Text(
-                    'Update',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {
-                    widget.d2onUpdate(D2PeriodSelection(
-                        category: _selectedCategory,
-                        type: _selectedPeriodType,
-                        selected: _selectedPeriods,
-                        start: _start,
-                        end: _end));
-                  },
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4.0),
+                child: D2PeriodTypeSelector(
+                  _selectedCategory,
+                  _selectedPeriodType,
+                  onChange: onPeriodTypeChange,
+                  inputColor: widget.color,
+                  year: year,
+                  onYearChange: onYearChange,
+                  allowedPeriodTypes: widget.onlyAllowPeriodTypes,
+                  excludedPeriodTypes: widget.excludePeriodTypes,
                 ),
-              ))
+              ),
+              Visibility(
+                visible: _selectedPeriods.isNotEmpty,
+                child: D2SelectedPeriodContainer(
+                  category: _selectedCategory,
+                  periodType: _selectedPeriodType,
+                  selectedPeriods: _selectedPeriods,
+                  color: widget.color,
+                  onChange: onPeriodToggle,
+                  year: year,
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 2.8,
+                child: TabBarView(
+                  controller: _controller,
+                  children: getVisiblePeriodCategories()
+                      .map(
+                        (String category) => category ==
+                                D2PeriodTypeCategory.range
+                            ? D2DateRangeSelector(
+                                onUpdate: onDateRangeChange,
+                                color: widget.color,
+                                startDate: _start,
+                                endDate: _end)
+                            : Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: D2PeriodValueSelector(
+                                    category: _selectedCategory,
+                                    periodType: _selectedPeriodType,
+                                    selectedPeriods: _selectedPeriods,
+                                    color: widget.color,
+                                    onChange: onPeriodToggle,
+                                    year: year),
+                              ),
+                      )
+                      .toList(),
+                ),
+              ),
             ],
-          )
-        ],
-      ),
+          ),
+        ),
+        Row(
+          children: [
+            Expanded(
+                child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateColor.resolveWith(
+                        (states) => widget.color)),
+                child: const Text(
+                  'Update',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  widget.onUpdate(D2PeriodSelection(
+                      category: _selectedCategory,
+                      type: _selectedPeriodType,
+                      selected: _selectedPeriods,
+                      start: _start,
+                      end: _end));
+                },
+              ),
+            ))
+          ],
+        )
+      ],
     );
   }
 }
