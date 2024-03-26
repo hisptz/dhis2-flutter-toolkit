@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
 import 'package:objectbox/objectbox.dart';
@@ -70,6 +71,16 @@ class D2TrackedEntityAttributeValue extends D2DataResource
   @override
   void save(D2ObjectBox db) {
     D2TrackedEntityAttributeValueRepository(db).saveEntity(this);
+  }
+
+  String? getDisplayValue() {
+    if (trackedEntityAttribute.target!.optionSet.target == null) {
+      return value;
+    }
+    D2OptionSet optionSet = trackedEntityAttribute.target!.optionSet.target!;
+    D2Option? valueOption =
+        optionSet.options.firstWhereOrNull((element) => element.code == value);
+    return valueOption?.displayName ?? valueOption?.name ?? value;
   }
 
   @override
