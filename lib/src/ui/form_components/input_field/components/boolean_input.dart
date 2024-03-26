@@ -6,6 +6,7 @@ class BooleanInput extends BaseStatelessInput<D2BooleanInputFieldConfig, String>
   const BooleanInput({
     super.key,
     super.value,
+    super.disabled,
     required super.input,
     required super.color,
     required super.onChange,

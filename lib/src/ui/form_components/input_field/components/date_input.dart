@@ -8,7 +8,8 @@ import 'input_field_icon.dart';
 class DateInput extends BaseStatelessInput<D2DateInputFieldConfig, String> {
   DateInput(
       {super.key,
-      required super.input,
+        super.disabled,
+        required super.input,
       required super.onChange,
       required super.color,
       super.value});

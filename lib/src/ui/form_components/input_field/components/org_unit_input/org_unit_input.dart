@@ -13,6 +13,7 @@ class OrgUnitInput
   const OrgUnitInput({
     super.key,
     super.value,
+    super.disabled,
     required super.input,
     required super.color,
     required super.onChange,

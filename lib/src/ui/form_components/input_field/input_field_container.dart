@@ -54,11 +54,14 @@ class InputFieldContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     Color? colorOverride = (error != null && error!.isNotEmpty)
         ? Colors.red
-        : color ?? Theme.of(context).primaryColor;
+        : disabled
+            ? Colors.grey
+            : color ?? Theme.of(context).primaryColor;
 
     Widget getInput() {
       if (input is D2SelectInputFieldConfig) {
         return SelectInput(
+            disabled: disabled,
             input: input as D2SelectInputFieldConfig,
             color: colorOverride,
             onChange: onChange,
@@ -67,6 +70,7 @@ class InputFieldContainer extends StatelessWidget {
 
       if (input is D2DateInputFieldConfig) {
         return DateInput(
+          disabled: disabled,
           value: value,
           input: input as D2DateInputFieldConfig,
           color: colorOverride,
@@ -75,6 +79,7 @@ class InputFieldContainer extends StatelessWidget {
       }
       if (input is D2DateRangeInputFieldConfig) {
         return DateRangeInput(
+          disabled: disabled,
           value: value,
           input: input as D2DateRangeInputFieldConfig,
           color: colorOverride,
@@ -90,6 +95,7 @@ class InputFieldContainer extends StatelessWidget {
           case D2InputFieldType.negativeInteger:
           case D2InputFieldType.integerZeroOrPositive:
             return TextInput(
+                disabled: disabled,
                 textInputType:
                     const TextInputType.numberWithOptions(decimal: false),
                 input: input,
@@ -98,6 +104,7 @@ class InputFieldContainer extends StatelessWidget {
                 color: colorOverride);
           default:
             return TextInput(
+                disabled: disabled,
                 textInputType:
                     const TextInputType.numberWithOptions(decimal: false),
                 input: input,
@@ -114,6 +121,7 @@ class InputFieldContainer extends StatelessWidget {
           case D2InputFieldType.email:
           case D2InputFieldType.url:
             return TextInput(
+              disabled: disabled,
               onChange: onChange,
               value: value,
               input: input,
@@ -130,6 +138,7 @@ class InputFieldContainer extends StatelessWidget {
             );
           default:
             return TextInput(
+              disabled: disabled,
               onChange: onChange,
               value: value,
               input: input,
@@ -141,6 +150,7 @@ class InputFieldContainer extends StatelessWidget {
 
       if (input is D2BooleanInputFieldConfig) {
         return BooleanInput(
+          disabled: disabled,
           onChange: onChange,
           value: value,
           input: input as D2BooleanInputFieldConfig,
@@ -149,6 +159,7 @@ class InputFieldContainer extends StatelessWidget {
       }
       if (input is D2TrueOnlyInputFieldConfig) {
         return TrueOnlyInput(
+          disabled: disabled,
           onChange: onChange,
           value: value,
           input: input as D2TrueOnlyInputFieldConfig,
@@ -157,6 +168,7 @@ class InputFieldContainer extends StatelessWidget {
       }
       if (input is D2OrgUnitInputFieldConfig) {
         return OrgUnitInput(
+            disabled: disabled,
             value: value,
             input: input as D2OrgUnitInputFieldConfig,
             color: colorOverride,
@@ -164,6 +176,7 @@ class InputFieldContainer extends StatelessWidget {
       }
 
       return TextInput(
+        disabled: disabled,
         onChange: onChange,
         value: value,
         input: input,

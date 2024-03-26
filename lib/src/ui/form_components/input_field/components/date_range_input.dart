@@ -9,7 +9,9 @@ class DateRangeInput
     extends BaseStatelessInput<D2DateRangeInputFieldConfig, DateTimeRange> {
   DateRangeInput(
       {super.key,
-      required super.input,
+        super.disabled,
+
+        required super.input,
       required super.onChange,
       required super.color,
       super.value});
