@@ -36,14 +36,12 @@ class D2ControlledForm extends StatelessWidget {
                   ),
                 )
               : Container(),
-          const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
           form.subtitle != null
               ? Text(
                   form.subtitle!,
                   style: const TextStyle(color: Colors.blueGrey, fontSize: 16),
                 )
               : Container(),
-          const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
           form.sections != null
               ? ListView.separated(
                   shrinkWrap: true,

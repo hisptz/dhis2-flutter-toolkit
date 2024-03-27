@@ -21,23 +21,23 @@ class FormSectionContainerWithControlledInputs extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        section.title != null
-            ? Text(
-                section.title!,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 24,
-                ),
-              )
-            : Container(),
-        const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
-        section.subtitle != null
-            ? Text(
-                section.subtitle!,
-                style: const TextStyle(color: Colors.blueGrey, fontSize: 16),
-              )
-            : Container(),
-        const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
+        Visibility(
+          visible: section.title != null,
+          child: Text(
+            section.title ?? '',
+            style: TextStyle(
+              color: color,
+              fontSize: 24,
+            ),
+          ),
+        ),
+        Visibility(
+          visible: section.subtitle != null,
+          child: Text(
+            section.subtitle ?? '',
+            style: const TextStyle(color: Colors.blueGrey, fontSize: 16),
+          ),
+        ),
         ListView.separated(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
