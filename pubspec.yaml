@@ -22,6 +22,8 @@ dependencies:
   syncfusion_flutter_datepicker: ^24.2.9
   path: any
   animated_tree_view: ^2.2.0
+  geolocator: ^11.0.0
+  flutter_map: ^6.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

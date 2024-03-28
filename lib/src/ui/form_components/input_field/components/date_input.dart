@@ -26,8 +26,6 @@ class DateInput extends BaseStatelessInput<D2DateInputFieldConfig, String> {
   }
 
   late final TextEditingController controller;
-  final BoxConstraints iconConstraints = const BoxConstraints(
-      maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
 
   @override
   Widget build(BuildContext context) {

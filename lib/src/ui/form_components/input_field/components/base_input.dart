@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 typedef OnChange<T> = void Function(T);
 
 abstract class BaseStatelessInput<FieldType extends D2BaseInputFieldConfig,
-ValueType> extends StatelessWidget {
+    ValueType> extends StatelessWidget {
   final FieldType input;
   final Color color;
   final ValueType? value;
   final OnChange<ValueType?> onChange;
   final bool disabled;
+
+  final BoxConstraints iconConstraints = const BoxConstraints(
+      maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
 
   const BaseStatelessInput({
     super.key,
@@ -22,7 +25,7 @@ ValueType> extends StatelessWidget {
 }
 
 abstract class BaseStatefulInput<FieldType extends D2BaseInputFieldConfig,
-ValueType> extends StatefulWidget {
+    ValueType> extends StatefulWidget {
   final FieldType input;
   final Color color;
   final ValueType? value;
@@ -40,4 +43,7 @@ ValueType> extends StatefulWidget {
 }
 
 abstract class BaseStatefulInputState<T extends BaseStatefulInput>
-    extends State<T> {}
+    extends State<T> {
+  final BoxConstraints iconConstraints = const BoxConstraints(
+      maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
+}
