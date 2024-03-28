@@ -13,12 +13,15 @@ class D2CoordinateValue {
 }
 
 class D2CoordinateInputConfig extends D2BaseInputFieldConfig {
+  bool disableMap;
+
   D2CoordinateInputConfig(
       {required super.label,
       required super.type,
       required super.name,
       required super.mandatory,
       super.clearable,
+      this.disableMap = false,
       super.icon,
       super.legends,
       super.svgIconAsset});

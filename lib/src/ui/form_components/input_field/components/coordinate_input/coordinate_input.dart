@@ -36,13 +36,13 @@ class CoordinateInputState extends BaseStatefulInputState<CoordinateInput> {
     try {
       Position position = await determinePosition();
       onChange(D2CoordinateValue(position.latitude, position.longitude));
+      setState(() {
+        _loadingLocation = false;
+        error = null;
+      });
     } catch (e) {
       setState(() {
         error = e.toString();
-        _loadingLocation = false;
-      });
-    } finally {
-      setState(() {
         _loadingLocation = false;
       });
     }
@@ -72,81 +72,99 @@ class CoordinateInputState extends BaseStatefulInputState<CoordinateInput> {
   Widget build(BuildContext context) {
     Color color = widget.color;
     bool disabled = widget.disabled;
-    return TextFormField(
-        enabled: !disabled,
-        showCursor: false,
-        controller: controller,
-        keyboardType: TextInputType.none,
-        style: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-        ),
-        textInputAction: TextInputAction.done,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          suffixIconConstraints:
-              iconConstraints.copyWith(minWidth: 96, maxWidth: 96),
-          suffixIcon: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              IconButton(
-                color: color,
-                padding: EdgeInsets.zero,
-                constraints: iconConstraints,
-                onPressed: disabled || _loadingLocation
-                    ? null
-                    : () {
-                        onGetCurrentLocation();
-                      },
-                icon: _loadingLocation
-                    ? Container(
-                        padding: const EdgeInsets.only(right: 5, top: 5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: color.withOpacity(0.2),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(7))),
-                          child: Center(
-                            child: SizedBox(
-                              height: 16.0,
-                              width: 16.0,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextFormField(
+            enabled: !disabled,
+            showCursor: false,
+            controller: controller,
+            keyboardType: TextInputType.none,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+            textInputAction: TextInputAction.done,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              suffixIconConstraints:
+                  iconConstraints.copyWith(minWidth: 96, maxWidth: 96),
+              suffixIcon: Row(
+                mainAxisAlignment: widget.input.disableMap
+                    ? MainAxisAlignment.end
+                    : MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconButton(
+                    color: color,
+                    padding: EdgeInsets.zero,
+                    constraints: iconConstraints,
+                    onPressed: disabled || _loadingLocation
+                        ? null
+                        : () {
+                            onGetCurrentLocation();
+                          },
+                    icon: _loadingLocation
+                        ? Container(
+                            padding: const EdgeInsets.only(right: 5, top: 5),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: color.withOpacity(0.2),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(7))),
                               child: Center(
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 4,
-                                  color: color,
+                                child: SizedBox(
+                                  height: 16.0,
+                                  width: 16.0,
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 4,
+                                      color: color,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                      )
-                    : InputFieldIcon(
-                        backgroundColor: color,
-                        iconColor: color,
-                        iconData: Icons.location_on),
+                          )
+                        : InputFieldIcon(
+                            backgroundColor: color,
+                            iconColor: color,
+                            iconData: Icons.location_on),
+                  ),
+                  Visibility(
+                    maintainSize: false,
+                    visible: !widget.input.disableMap,
+                    child: IconButton(
+                      color: color,
+                      padding: EdgeInsets.zero,
+                      constraints: iconConstraints,
+                      onPressed: disabled
+                          ? null
+                          : () {
+                              onMapOpen(context);
+                            },
+                      icon: InputFieldIcon(
+                          backgroundColor: color,
+                          iconColor: color,
+                          iconData: Icons.map_sharp),
+                    ),
+                  ),
+                ],
               ),
-              IconButton(
-                color: color,
-                padding: EdgeInsets.zero,
-                constraints: iconConstraints,
-                onPressed: disabled
-                    ? null
-                    : () {
-                        onMapOpen(context);
-                      },
-                icon: InputFieldIcon(
-                    backgroundColor: color,
-                    iconColor: color,
-                    iconData: Icons.map_sharp),
-              ),
-            ],
-          ),
-        ),
-        onTap: disabled
-            ? null
-            : () {
-                onMapOpen(context);
-              });
+            ),
+            onTap: disabled
+                ? null
+                : () {
+                    onMapOpen(context);
+                  }),
+        error != null
+            ? Text(
+                error!,
+                textAlign: TextAlign.start,
+                style: const TextStyle(fontSize: 14, color: Colors.grey),
+              )
+            : Container()
+      ],
+    );
   }
 }
