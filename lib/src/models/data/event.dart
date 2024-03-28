@@ -31,7 +31,6 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
 
   String? geometry;
 
-
   //Disabled for now
   // @Backlink("event")
   // final relationships = ToMany<D2Relationship>();
@@ -71,7 +70,8 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
         notes = jsonEncode(json["notes"]),
         scheduledAt = DateTime.tryParse(json["scheduledAt"] ?? ""),
         uid = json["event"],
-        geometry = jsonEncode(json["geometry"]),
+        geometry =
+            json["geometry"] != null ? jsonEncode(json["geometry"]) : null,
         occurredAt = DateTime.tryParse(json["occurredAt"] ?? "") {
     id = D2EventRepository(db).getIdByUid(json["event"]) ?? 0;
 

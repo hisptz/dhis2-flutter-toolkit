@@ -56,7 +56,7 @@ class D2TrackedEntity extends SyncDataSource
         deleted = json["deleted"],
         synced = true,
         potentialDuplicate = json["potentialDuplicate"],
-        geometry = jsonEncode(json["geometry"]),
+        geometry = json["geometry"] != null  ? jsonEncode(json["geometry"]) : null,
         inactive = json["inactive"] {
     id = D2TrackedEntityRepository(db).getIdByUid(json["trackedEntity"]) ?? 0;
     orgUnit.target = D2OrgUnitRepository(db).getByUid(json["orgUnit"]);

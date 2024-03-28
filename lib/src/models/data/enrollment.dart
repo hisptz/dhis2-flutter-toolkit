@@ -28,6 +28,7 @@ class D2Enrollment extends SyncDataSource
   DateTime occurredAt;
   String status;
   String? notes;
+  String? geometry;
 
   @Backlink("enrollment")
   final events = ToMany<D2Event>();
@@ -56,7 +57,8 @@ class D2Enrollment extends SyncDataSource
       this.occurredAt,
       this.status,
       this.notes,
-      this.synced);
+      this.synced,
+      this.geometry);
 
   D2Enrollment.fromMap(D2ObjectBox db, Map json)
       : uid = json["enrollment"],
@@ -68,6 +70,8 @@ class D2Enrollment extends SyncDataSource
         occurredAt = DateTime.parse(json["occurredAt"]),
         status = json["status"],
         synced = true,
+        geometry =
+            json["geometry"] != null ? jsonEncode(json["geometry"]) : null,
         notes = jsonEncode(json["notes"]) {
     id = D2EnrollmentRepository(db).getIdByUid(json["enrollment"]) ?? 0;
 
@@ -119,6 +123,10 @@ class D2Enrollment extends SyncDataSource
       "status": status,
       "notes": jsonDecode(notes ?? "[]"),
     };
+
+    if (geometry != null) {
+      payload.addAll({"geometry": jsonDecode(geometry!)});
+    }
 
     return payload;
   }

@@ -202,7 +202,7 @@
     },
     {
       "id": "4:8139154496331483919",
-      "lastPropertyId": "14:4179157576741126647",
+      "lastPropertyId": "15:8064178610579242588",
       "name": "D2Enrollment",
       "properties": [
         {
@@ -286,6 +286,11 @@
           "id": "14:4179157576741126647",
           "name": "synced",
           "type": 1
+        },
+        {
+          "id": "15:8064178610579242588",
+          "name": "geometry",
+          "type": 9
         }
       ],
       "relations": []
