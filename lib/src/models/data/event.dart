@@ -29,6 +29,9 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
   String? attributeOptionCombo;
   String? notes;
 
+  String? geometry;
+
+
   //Disabled for now
   // @Backlink("event")
   // final relationships = ToMany<D2Relationship>();
@@ -53,7 +56,8 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
       this.scheduledAt,
       this.uid,
       this.occurredAt,
-      this.synced);
+      this.synced,
+      this.geometry);
 
   D2Event.fromMap(D2ObjectBox db, Map json)
       : attributeCategoryOptions = json["attributeCategoryOptions"],
@@ -67,6 +71,7 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
         notes = jsonEncode(json["notes"]),
         scheduledAt = DateTime.tryParse(json["scheduledAt"] ?? ""),
         uid = json["event"],
+        geometry = jsonEncode(json["geometry"]),
         occurredAt = DateTime.tryParse(json["occurredAt"] ?? "") {
     id = D2EventRepository(db).getIdByUid(json["event"]) ?? 0;
 
@@ -156,6 +161,10 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
     // Check if event does have an trackedEntity link
     if (trackedEntity.target?.id != 0) {
       payload["trackedEntity"] = trackedEntity.target?.uid;
+    }
+
+    if (geometry != null) {
+      payload.addAll({"geometry": jsonDecode(geometry!)});
     }
 
     return payload;

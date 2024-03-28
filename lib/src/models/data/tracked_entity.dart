@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
 import 'package:objectbox/objectbox.dart';
@@ -24,6 +26,8 @@ class D2TrackedEntity extends SyncDataSource
   bool deleted;
   bool inactive;
 
+  String? geometry;
+
   @Backlink("trackedEntity")
   final enrollments = ToMany<D2Enrollment>();
 
@@ -43,7 +47,7 @@ class D2TrackedEntity extends SyncDataSource
   final events = ToMany<D2Event>();
 
   D2TrackedEntity(this.uid, this.createdAt, this.updatedAt, this.deleted,
-      this.potentialDuplicate, this.inactive, this.synced);
+      this.potentialDuplicate, this.inactive, this.synced, this.geometry);
 
   D2TrackedEntity.fromMap(D2ObjectBox db, Map json)
       : uid = json["trackedEntity"],
@@ -52,6 +56,7 @@ class D2TrackedEntity extends SyncDataSource
         deleted = json["deleted"],
         synced = true,
         potentialDuplicate = json["potentialDuplicate"],
+        geometry = jsonEncode(json["geometry"]),
         inactive = json["inactive"] {
     id = D2TrackedEntityRepository(db).getIdByUid(json["trackedEntity"]) ?? 0;
     orgUnit.target = D2OrgUnitRepository(db).getByUid(json["orgUnit"]);
@@ -118,6 +123,9 @@ class D2TrackedEntity extends SyncDataSource
       "trackedEntityType": trackedEntityType.target!.uid,
       "attributes": attributesPayload,
     };
+    if (geometry != null) {
+      payload.addAll({"geometry": jsonDecode(geometry!)});
+    }
 
     return payload;
   }
