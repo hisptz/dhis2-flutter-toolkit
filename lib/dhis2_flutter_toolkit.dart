@@ -1,6 +1,7 @@
 library dhis2_flutter_toolkit;
 
 export 'objectbox.dart' show D2ObjectBox;
+
 //Data Models
 export "src/models/data/base.dart" show D2DataResource;
 export "src/models/data/data_value.dart" show D2DataValue;
@@ -10,6 +11,7 @@ export "src/models/data/relationship.dart" show D2Relationship;
 export "src/models/data/tracked_entity.dart" show D2TrackedEntity;
 export "src/models/data/tracked_entity_attribute_value.dart"
     show D2TrackedEntityAttributeValue;
+
 //Metadata Models
 export "src/models/metadata/data_element.dart" show D2DataElement;
 export "src/models/metadata/legend.dart" show D2Legend;
@@ -41,6 +43,7 @@ export "src/models/metadata/tracked_entity_type_attribute.dart"
 export "src/models/metadata/user.dart" show D2User;
 export "src/models/metadata/user_group.dart" show D2UserGroup;
 export "src/models/metadata/user_role.dart" show D2UserRole;
+
 //Data Repositories
 export "src/repositories/data/base.dart" show D2BaseDataRepository;
 export "src/repositories/data/data_value.dart" show D2DataValueRepository;
@@ -53,6 +56,7 @@ export "src/repositories/data/tracked_entity.dart"
     show D2TrackedEntityRepository;
 export "src/repositories/data/tracked_entity_attribute_value.dart"
     show D2TrackedEntityAttributeValueRepository;
+
 //Metadata Repositories
 export "src/repositories/metadata/data_element.dart"
     show D2DataElementRepository;
@@ -102,6 +106,7 @@ export "src/services/sync/tracker_data_download.dart"
     show D2TrackerDataDownloadService;
 export "src/services/sync/tracker_data_upload_service.dart"
     show D2TrackerDataUploadService;
+
 // App Modal utils
 export "src/ui/app_modals/utils/d2_app_modal_util.dart" show D2AppModalUtil;
 export "src/ui/form_components/form/controlled_form.dart" show D2ControlledForm;
@@ -121,6 +126,7 @@ export "src/ui/form_components/input_field/components/org_unit_input/models/base
     show D2BaseOrgUnitSelectorService;
 export "src/ui/form_components/input_field/components/org_unit_input/models/local_org_unit_selector_service.dart"
     show D2LocalOrgUnitSelectorService;
+
 //UI components
 //Forms
 export "src/ui/form_components/input_field/input_field_container.dart"
@@ -137,6 +143,10 @@ export "src/ui/form_components/input_field/models/input_field_option.dart"
     show D2InputFieldOption;
 export "src/ui/form_components/input_field/models/input_field_type_enum.dart"
     show D2InputFieldType;
+export "src/ui/form_components/input_field/models/coordinate_field.dart"
+    show D2CoordinateValue;
+export "src/ui/form_components/input_field/models/coordinate_field.dart"
+    show D2CoordinateInputConfig;
 export "src/ui/form_components/input_field/models/number_input_field.dart"
     show D2NumberInputFieldConfig;
 export "src/ui/form_components/input_field/models/org_unit_input_field.dart"
@@ -153,6 +163,7 @@ export "src/ui/form_components/state/tracker/event_form_controller.dart"
 export "src/ui/form_components/state/tracker/registration_form_controller.dart"
     show D2TrackerEnrollmentFormController;
 export "src/ui/period/period_filter.dart" show D2PeriodSelector;
+
 //Period Engine
 export "src/utils/period_engine/models/period.dart" show D2Period;
 export "src/utils/period_engine/models/period_filter_selection.dart"
@@ -160,6 +171,7 @@ export "src/utils/period_engine/models/period_filter_selection.dart"
 export "src/utils/period_engine/models/period_type.dart" show D2PeriodType;
 export "src/utils/period_engine/models/period_utility.dart"
     show D2PeriodUtility;
+
 //Utils
 export "src/utils/sync_status.dart" show D2SyncStatus;
 export "src/utils/sync_status.dart" show D2SyncStatusEnum;
