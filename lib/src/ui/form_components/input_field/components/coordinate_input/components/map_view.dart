@@ -22,9 +22,8 @@ class CoordinateInputMapView extends StatefulWidget {
 }
 
 class _CoordinateInputMapViewState extends State<CoordinateInputMapView> {
-  bool _loading = true;
+  bool _loading = false;
   LatLng? currentLocation;
-
   LatLng? selectedLocation;
 
   void getCurrentLocation() async {
@@ -50,6 +49,10 @@ class _CoordinateInputMapViewState extends State<CoordinateInputMapView> {
   @override
   void initState() {
     getCurrentLocation();
+    if (widget.value != null) {
+      selectedLocation =
+          LatLng(widget.value!.latitude, widget.value!.longitude);
+    }
     super.initState();
   }
 
