@@ -202,7 +202,7 @@
     },
     {
       "id": "4:8139154496331483919",
-      "lastPropertyId": "14:4179157576741126647",
+      "lastPropertyId": "15:8064178610579242588",
       "name": "D2Enrollment",
       "properties": [
         {
@@ -286,13 +286,18 @@
           "id": "14:4179157576741126647",
           "name": "synced",
           "type": 1
+        },
+        {
+          "id": "15:8064178610579242588",
+          "name": "geometry",
+          "type": 9
         }
       ],
       "relations": []
     },
     {
       "id": "5:6994186532441416598",
-      "lastPropertyId": "18:7960173176852217204",
+      "lastPropertyId": "19:4391109077581780900",
       "name": "D2Event",
       "properties": [
         {
@@ -400,6 +405,11 @@
           "id": "18:7960173176852217204",
           "name": "synced",
           "type": 1
+        },
+        {
+          "id": "19:4391109077581780900",
+          "name": "geometry",
+          "type": 9
         }
       ],
       "relations": []
@@ -739,7 +749,7 @@
     },
     {
       "id": "13:842731617041164856",
-      "lastPropertyId": "12:7449116730149103320",
+      "lastPropertyId": "13:8317191413766928729",
       "name": "D2Program",
       "properties": [
         {
@@ -806,6 +816,11 @@
         {
           "id": "12:7449116730149103320",
           "name": "displayName",
+          "type": 9
+        },
+        {
+          "id": "13:8317191413766928729",
+          "name": "featureType",
           "type": 9
         }
       ],
@@ -1663,7 +1678,7 @@
     },
     {
       "id": "25:1166612924871214481",
-      "lastPropertyId": "10:1163365172542588476",
+      "lastPropertyId": "11:5482632954940888850",
       "name": "D2TrackedEntity",
       "properties": [
         {
@@ -1724,6 +1739,11 @@
           "id": "10:1163365172542588476",
           "name": "synced",
           "type": 1
+        },
+        {
+          "id": "11:5482632954940888850",
+          "name": "geometry",
+          "type": 9
         }
       ],
       "relations": [

@@ -17,10 +17,8 @@ import 'tracked_entity_type.dart';
 class D2Program extends D2MetaResource {
   @override
   int id = 0;
-  @override
   DateTime created;
 
-  @override
   DateTime lastUpdated;
 
   @override
@@ -30,6 +28,8 @@ class D2Program extends D2MetaResource {
   String name;
   String shortName;
   String accessLevel;
+
+  String? featureType;
 
   String programType;
   bool? onlyEnrollOnce;
@@ -61,7 +61,8 @@ class D2Program extends D2MetaResource {
       this.shortName,
       this.programType,
       this.onlyEnrollOnce,
-      this.displayName);
+      this.displayName,
+      this.featureType);
 
   D2Program.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
@@ -71,7 +72,8 @@ class D2Program extends D2MetaResource {
         accessLevel = json["accessLevel"],
         name = json["name"],
         shortName = json["shortName"],
-        programType = json["programType"] {
+        programType = json["programType"],
+        featureType = json["featureType"] {
     id = D2ProgramRepository(db).getIdByUid(json["id"]) ?? 0;
 
     if (json["trackedEntityType"] != null) {
@@ -92,6 +94,5 @@ class D2Program extends D2MetaResource {
     organisationUnits.addAll(orgUnits);
   }
 
-  @override
   String? displayName;
 }

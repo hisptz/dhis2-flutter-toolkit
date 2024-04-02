@@ -1,3 +1,4 @@
+
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
 class D2TrackerEventFormController extends D2FormController {
@@ -35,6 +36,7 @@ class D2TrackerEventFormController extends D2FormController {
 
     D2Event newEvent = D2Event.fromFormValues(validatedFormValues,
         db: db, programStage: programStage, orgUnit: orgUnit);
+
     newEvent.save(db);
 
     return newEvent;
@@ -52,7 +54,7 @@ class D2TrackerEventFormController extends D2FormController {
     return event!;
   }
 
-  ///Calls on submit and then saves the updated data. If the enrollment is new, a tracked entity is also created. It doesn't really need to be an async function
+  ///Calls on submit and then saves the updated data. It doesn't really need to be an async function but is set as one for forward compatibility
   Future<D2Event> save() async {
     if (event != null) {
       return update();

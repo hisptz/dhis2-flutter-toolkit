@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
 import 'package:objectbox/objectbox.dart';
@@ -24,6 +27,8 @@ class D2TrackedEntity extends SyncDataSource
   bool deleted;
   bool inactive;
 
+  String? geometry;
+
   @Backlink("trackedEntity")
   final enrollments = ToMany<D2Enrollment>();
 
@@ -43,7 +48,7 @@ class D2TrackedEntity extends SyncDataSource
   final events = ToMany<D2Event>();
 
   D2TrackedEntity(this.uid, this.createdAt, this.updatedAt, this.deleted,
-      this.potentialDuplicate, this.inactive, this.synced);
+      this.potentialDuplicate, this.inactive, this.synced, this.geometry);
 
   D2TrackedEntity.fromMap(D2ObjectBox db, Map json)
       : uid = json["trackedEntity"],
@@ -52,6 +57,8 @@ class D2TrackedEntity extends SyncDataSource
         deleted = json["deleted"],
         synced = true,
         potentialDuplicate = json["potentialDuplicate"],
+        geometry =
+            json["geometry"] != null ? jsonEncode(json["geometry"]) : null,
         inactive = json["inactive"] {
     id = D2TrackedEntityRepository(db).getIdByUid(json["trackedEntity"]) ?? 0;
     orgUnit.target = D2OrgUnitRepository(db).getByUid(json["orgUnit"]);
@@ -59,6 +66,7 @@ class D2TrackedEntity extends SyncDataSource
         D2TrackedEntityTypeRepository(db).getByUid(json["trackedEntityType"]);
   }
 
+  //TODO: This needs to be modified to separate registration using trackedEntityType or enrollment with a program.
   D2TrackedEntity.fromFormValues(Map<String, dynamic> values,
       {required D2ObjectBox db,
       required D2Program program,
@@ -90,8 +98,19 @@ class D2TrackedEntity extends SyncDataSource
         .where((element) => element != null)
         .toList()
         .cast<D2TrackedEntityAttributeValue>();
-
     attributes.addAll([...attributeWithValues]);
+
+    if (values["geometry"] != null) {
+      var geometryValue = values["geometry"];
+
+      ///A form has geometry. This should be inserted as a serialized JSON
+      if (geometryValue is D2GeometryValue) {
+        Map<String, dynamic> geometry = geometryValue.toGeoJson();
+        String geometryString = jsonEncode(geometry);
+        this.geometry = geometryString;
+      }
+    }
+
     if (enroll) {
       D2Enrollment enrollment = D2Enrollment.fromFormValues(values,
           db: db, trackedEntity: this, program: program, orgUnit: orgUnit);
@@ -118,6 +137,9 @@ class D2TrackedEntity extends SyncDataSource
       "trackedEntityType": trackedEntityType.target!.uid,
       "attributes": attributesPayload,
     };
+    if (geometry != null) {
+      payload.addAll({"geometry": jsonDecode(geometry!)});
+    }
 
     return payload;
   }
@@ -137,11 +159,18 @@ class D2TrackedEntity extends SyncDataSource
 
   @override
   Map<String, dynamic> toFormValues() {
-    return {
+    Map<String, dynamic> data = {
       "orgUnit": orgUnit.target!.uid,
       "attributes":
           attributes.map((attribute) => attribute.toFormValues()).toList()
     };
+
+    if (geometry != null) {
+      Map<String, dynamic> geometryObject = jsonDecode(geometry!);
+      data.addAll({"geometry": D2GeometryValue.fromGeoJson(geometryObject)});
+    }
+
+    return data;
   }
 
   @override
@@ -150,6 +179,18 @@ class D2TrackedEntity extends SyncDataSource
     for (D2TrackedEntityAttributeValue attributeValue in attributes) {
       attributeValue.updateFromFormValues(values, db: db);
     }
+
+    if (values["geometry"] != null) {
+      var geometryValue = values["geometry"];
+
+      ///A form has geometry. This should be inserted as a serialized JSON
+      if (geometryValue is D2GeometryValue) {
+        Map<String, dynamic> geometry = geometryValue.toGeoJson();
+        String geometryString = jsonEncode(geometry);
+        this.geometry = geometryString;
+      }
+    }
+
     synced = false;
   }
 
@@ -163,5 +204,10 @@ class D2TrackedEntity extends SyncDataSource
         attribute.save(db);
       }
     }
+  }
+
+  D2Enrollment? getActiveEnrollmentByProgram(D2Program program) {
+    return enrollments.firstWhereOrNull(
+        (enrollment) => enrollment.program.target?.id == program.id);
   }
 }
