@@ -75,6 +75,7 @@ class D2TrackerEnrollmentFormController extends D2FormController {
       if (geometryValue is D2GeometryValue) {
         Map<String, dynamic> geometry = geometryValue.toGeoJson();
         trackedEntity.geometry = jsonEncode(geometry);
+        trackedEntity.enrollments.first.geometry = jsonEncode(geometry);
       }
     }
     trackedEntity.save(db);
@@ -96,7 +97,13 @@ class D2TrackerEnrollmentFormController extends D2FormController {
       ///A form has geometry. This should be inserted as a serialized JSON
       if (geometryValue is D2GeometryValue) {
         Map<String, dynamic> geometry = geometryValue.toGeoJson();
-        trackedEntity!.geometry = jsonEncode(geometry);
+        String geometryString = jsonEncode(geometry);
+        trackedEntity!.geometry = geometryString;
+        D2Enrollment? enrollment =
+            trackedEntity!.getActiveEnrollmentByProgram(program);
+        if (enrollment != null) {
+          enrollment.geometry = geometryString;
+        }
       }
     }
 

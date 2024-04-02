@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
 import 'package:objectbox/objectbox.dart';
@@ -56,7 +57,8 @@ class D2TrackedEntity extends SyncDataSource
         deleted = json["deleted"],
         synced = true,
         potentialDuplicate = json["potentialDuplicate"],
-        geometry = json["geometry"] != null  ? jsonEncode(json["geometry"]) : null,
+        geometry =
+            json["geometry"] != null ? jsonEncode(json["geometry"]) : null,
         inactive = json["inactive"] {
     id = D2TrackedEntityRepository(db).getIdByUid(json["trackedEntity"]) ?? 0;
     orgUnit.target = D2OrgUnitRepository(db).getByUid(json["orgUnit"]);
@@ -171,5 +173,10 @@ class D2TrackedEntity extends SyncDataSource
         attribute.save(db);
       }
     }
+  }
+
+  D2Enrollment? getActiveEnrollmentByProgram(D2Program program) {
+    return enrollments.firstWhereOrNull(
+        (enrollment) => enrollment.program.target?.id == program.id);
   }
 }
