@@ -147,11 +147,18 @@ class D2TrackedEntity extends SyncDataSource
 
   @override
   Map<String, dynamic> toFormValues() {
-    return {
+    Map<String, dynamic> data = {
       "orgUnit": orgUnit.target!.uid,
       "attributes":
           attributes.map((attribute) => attribute.toFormValues()).toList()
     };
+
+    if (geometry != null) {
+      Map<String, dynamic> geometryObject = jsonDecode(geometry!);
+      data.addAll({"geometry": D2GeometryValue.fromGeoJson(geometryObject)});
+    }
+
+    return data;
   }
 
   @override

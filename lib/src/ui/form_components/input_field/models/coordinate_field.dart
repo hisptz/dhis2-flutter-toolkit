@@ -1,5 +1,6 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
+///Geometry input value. Currently only supports POINT values
 class D2GeometryValue {
   double latitude;
   double longitude;
@@ -11,7 +12,9 @@ class D2GeometryValue {
 
   D2GeometryValue(this.latitude, this.longitude);
 
-
+  D2GeometryValue.fromGeoJson(Map<String, dynamic> geoJson)
+      : latitude = geoJson["coordinates"]?.first,
+        longitude = geoJson["coordinates"]?.last;
 
   Map<String, dynamic> toGeoJson() {
     return {

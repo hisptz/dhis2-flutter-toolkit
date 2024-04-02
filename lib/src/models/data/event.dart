@@ -181,6 +181,11 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
       data.addAll(element.toFormValues());
     }
 
+    if (geometry != null) {
+      Map<String, dynamic> geometryObject = jsonDecode(geometry!);
+      data.addAll({"geometry": D2GeometryValue.fromGeoJson(geometryObject)});
+    }
+
     return data;
   }
 

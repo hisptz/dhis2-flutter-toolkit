@@ -82,11 +82,11 @@ class _CoordinateInputMapViewState extends State<CoordinateInputMapView> {
                       selectedLocation = position;
                     });
                   },
-                  initialCameraFit: currentLocation != null
-                      ? CameraFit.coordinates(coordinates: [currentLocation!])
-                      : null,
-                  initialCenter: LatLng(currentLocation?.latitude ?? 30,
-                      currentLocation?.longitude ?? 32)),
+                  // initialCameraFit: currentLocation != null
+                  //     ? CameraFit.coordinates(coordinates: [currentLocation!])
+                  //     : null,
+                  initialCenter: LatLng(currentLocation?.latitude ?? 0,
+                      currentLocation?.longitude ?? 0)),
               children: [
                 TileLayer(
                   urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',

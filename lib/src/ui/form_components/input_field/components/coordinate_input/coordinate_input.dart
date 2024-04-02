@@ -50,7 +50,7 @@ class CoordinateInputState extends BaseStatefulInputState<CoordinateInput> {
 
   @override
   void initState() {
-    controller = TextEditingController();
+    controller = TextEditingController(text: widget.value?.toString());
     super.initState();
   }
 

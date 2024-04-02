@@ -139,6 +139,11 @@ class D2Enrollment extends SyncDataSource
       "enrolledAt": enrolledAt.toIso8601String()
     };
 
+    if (geometry != null) {
+      Map<String, dynamic> geometryObject = jsonDecode(geometry!);
+      data.addAll({"geometry": D2GeometryValue.fromGeoJson(geometryObject)});
+    }
+
     return data;
   }
 
