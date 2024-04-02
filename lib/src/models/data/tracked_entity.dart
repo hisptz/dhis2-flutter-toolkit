@@ -66,6 +66,7 @@ class D2TrackedEntity extends SyncDataSource
         D2TrackedEntityTypeRepository(db).getByUid(json["trackedEntityType"]);
   }
 
+  //TODO: This needs to be modified to separate registration using trackedEntityType or enrollment with a program.
   D2TrackedEntity.fromFormValues(Map<String, dynamic> values,
       {required D2ObjectBox db,
       required D2Program program,
@@ -97,8 +98,19 @@ class D2TrackedEntity extends SyncDataSource
         .where((element) => element != null)
         .toList()
         .cast<D2TrackedEntityAttributeValue>();
-
     attributes.addAll([...attributeWithValues]);
+
+    if (values["geometry"] != null) {
+      var geometryValue = values["geometry"];
+
+      ///A form has geometry. This should be inserted as a serialized JSON
+      if (geometryValue is D2GeometryValue) {
+        Map<String, dynamic> geometry = geometryValue.toGeoJson();
+        String geometryString = jsonEncode(geometry);
+        this.geometry = geometryString;
+      }
+    }
+
     if (enroll) {
       D2Enrollment enrollment = D2Enrollment.fromFormValues(values,
           db: db, trackedEntity: this, program: program, orgUnit: orgUnit);
@@ -167,6 +179,18 @@ class D2TrackedEntity extends SyncDataSource
     for (D2TrackedEntityAttributeValue attributeValue in attributes) {
       attributeValue.updateFromFormValues(values, db: db);
     }
+
+    if (values["geometry"] != null) {
+      var geometryValue = values["geometry"];
+
+      ///A form has geometry. This should be inserted as a serialized JSON
+      if (geometryValue is D2GeometryValue) {
+        Map<String, dynamic> geometry = geometryValue.toGeoJson();
+        String geometryString = jsonEncode(geometry);
+        this.geometry = geometryString;
+      }
+    }
+
     synced = false;
   }
 

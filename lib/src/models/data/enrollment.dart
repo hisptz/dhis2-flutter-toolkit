@@ -96,11 +96,23 @@ class D2Enrollment extends SyncDataSource
         occurredAt =
             DateTime.tryParse(values["occurredAt"] ?? "") ?? DateTime.now(),
         status = values["status"] ?? 'ACTIVE',
-        synced = true,
+        synced = false,
         notes = "{}" {
     this.trackedEntity.target = trackedEntity;
     this.orgUnit.target = orgUnit;
     this.program.target = program;
+
+    if (values["geometry"] != null) {
+      var geometryValue = values["geometry"];
+
+      ///A form has geometry. This should be inserted as a serialized JSON
+      if (geometryValue is D2GeometryValue) {
+        Map<String, dynamic> geometry = geometryValue.toGeoJson();
+        String geometryString = jsonEncode(geometry);
+        this.geometry = geometryString;
+      }
+    }
+
   }
 
   @override
@@ -156,6 +168,18 @@ class D2Enrollment extends SyncDataSource
       this.orgUnit.target = orgUnit;
     }
     trackedEntity.target!.updateFromFormValues(values, db: db);
+
+    if (values["geometry"] != null) {
+      var geometryValue = values["geometry"];
+
+      ///A form has geometry. This should be inserted as a serialized JSON
+      if (geometryValue is D2GeometryValue) {
+        Map<String, dynamic> geometry = geometryValue.toGeoJson();
+        String geometryString = jsonEncode(geometry);
+        this.geometry = geometryString;
+      }
+    }
+
     synced = false;
   }
 
