@@ -154,6 +154,7 @@ class D2Enrollment extends SyncDataSource
     synced = false;
   }
 
+  @override
   void save(D2ObjectBox db) {
     id = D2EnrollmentRepository(db).saveEntity(this);
   }

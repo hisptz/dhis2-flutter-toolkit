@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
 class D2TrackerEventFormController extends D2FormController {
@@ -35,6 +37,17 @@ class D2TrackerEventFormController extends D2FormController {
 
     D2Event newEvent = D2Event.fromFormValues(validatedFormValues,
         db: db, programStage: programStage, orgUnit: orgUnit);
+
+    if (validatedFormValues["geometry"] != null) {
+      var geometryValue = validatedFormValues["geometry"];
+
+      ///A form has geometry. This should be inserted as a serialized JSON
+      if (geometryValue is D2GeometryValue) {
+        Map<String, dynamic> geometry = geometryValue.toGeoJson();
+        newEvent.geometry = jsonEncode(geometry);
+      }
+    }
+
     newEvent.save(db);
 
     return newEvent;
@@ -48,11 +61,20 @@ class D2TrackerEventFormController extends D2FormController {
     D2OrgUnit? orgUnit = D2OrgUnitRepository(db)
         .getByUid(this.orgUnit ?? validatedFormValues["orgUnit"]);
     event!.updateFromFormValues(validatedFormValues, db: db, orgUnit: orgUnit);
+    if (validatedFormValues["geometry"] != null) {
+      var geometryValue = validatedFormValues["geometry"];
+
+      ///A form has geometry. This should be inserted as a serialized JSON
+      if (geometryValue is D2GeometryValue) {
+        Map<String, dynamic> geometry = geometryValue.toGeoJson();
+        event!.geometry = jsonEncode(geometry);
+      }
+    }
     event!.save(db);
     return event!;
   }
 
-  ///Calls on submit and then saves the updated data. If the enrollment is new, a tracked entity is also created. It doesn't really need to be an async function
+  ///Calls on submit and then saves the updated data. It doesn't really need to be an async function but is set as one for forward compatibility
   Future<D2Event> save() async {
     if (event != null) {
       return update();

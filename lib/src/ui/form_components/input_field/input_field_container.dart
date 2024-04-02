@@ -177,12 +177,12 @@ class InputFieldContainer extends StatelessWidget {
             onChange: onChange);
       }
 
-      if (input is D2CoordinateInputConfig) {
+      if (input is D2GeometryInputConfig) {
         return CoordinateInput(
           disabled: disabled,
           onChange: onChange,
           value: value,
-          input: input as D2CoordinateInputConfig,
+          input: input as D2GeometryInputConfig,
           color: colorOverride,
         );
       }

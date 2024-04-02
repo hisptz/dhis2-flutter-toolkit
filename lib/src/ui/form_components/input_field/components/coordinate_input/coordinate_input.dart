@@ -8,7 +8,7 @@ import '../input_field_icon.dart';
 import 'components/map_view.dart';
 
 class CoordinateInput
-    extends BaseStatefulInput<D2CoordinateInputConfig, D2CoordinateValue> {
+    extends BaseStatefulInput<D2GeometryInputConfig, D2GeometryValue> {
   const CoordinateInput(
       {super.key,
       required super.input,
@@ -35,7 +35,7 @@ class CoordinateInputState extends BaseStatefulInputState<CoordinateInput> {
     });
     try {
       Position position = await determinePosition();
-      onChange(D2CoordinateValue(position.latitude, position.longitude));
+      onChange(D2GeometryValue(position.latitude, position.longitude));
       setState(() {
         _loadingLocation = false;
         error = null;
@@ -54,7 +54,7 @@ class CoordinateInputState extends BaseStatefulInputState<CoordinateInput> {
     super.initState();
   }
 
-  onChange(D2CoordinateValue value) {
+  onChange(D2GeometryValue value) {
     widget.onChange(value);
     controller.text = value.toString();
   }

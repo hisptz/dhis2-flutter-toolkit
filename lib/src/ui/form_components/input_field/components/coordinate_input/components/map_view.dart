@@ -11,8 +11,8 @@ import '../../../utils/location.dart';
 
 class CoordinateInputMapView extends StatefulWidget {
   final Color color;
-  final D2CoordinateValue? value;
-  final OnChange<D2CoordinateValue> onChange;
+  final D2GeometryValue? value;
+  final OnChange<D2GeometryValue> onChange;
 
   const CoordinateInputMapView(
       {super.key, required this.color, this.value, required this.onChange});
@@ -116,7 +116,7 @@ class _CoordinateInputMapViewState extends State<CoordinateInputMapView> {
               onPressed: () {
                 final selectedLocation = this.selectedLocation;
                 if (selectedLocation != null) {
-                  widget.onChange(D2CoordinateValue(
+                  widget.onChange(D2GeometryValue(
                       selectedLocation.latitude, selectedLocation.longitude));
                   Navigator.of(context).pop();
                 }

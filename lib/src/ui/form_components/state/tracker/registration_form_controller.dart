@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:flutter/foundation.dart';
@@ -65,6 +67,16 @@ class D2TrackerEnrollmentFormController extends D2FormController {
         db: db,
         program: program,
         orgUnit: orgUnit);
+
+    if (validatedFormValues["geometry"] != null) {
+      var geometryValue = validatedFormValues["geometry"];
+
+      ///A form has geometry. This should be inserted as a serialized JSON
+      if (geometryValue is D2GeometryValue) {
+        Map<String, dynamic> geometry = geometryValue.toGeoJson();
+        trackedEntity.geometry = jsonEncode(geometry);
+      }
+    }
     trackedEntity.save(db);
     return trackedEntity;
   }
@@ -77,6 +89,17 @@ class D2TrackerEnrollmentFormController extends D2FormController {
     D2OrgUnit? orgUnit = D2OrgUnitRepository(db)
         .getByUid(this.orgUnit ?? validatedFormValues["orgUnit"]);
     trackedEntity!.updateFromFormValues(validatedFormValues, db: db);
+
+    if (validatedFormValues["geometry"] != null) {
+      var geometryValue = validatedFormValues["geometry"];
+
+      ///A form has geometry. This should be inserted as a serialized JSON
+      if (geometryValue is D2GeometryValue) {
+        Map<String, dynamic> geometry = geometryValue.toGeoJson();
+        trackedEntity!.geometry = jsonEncode(geometry);
+      }
+    }
+
     if (enrollment != null) {
       enrollment!.updateFromFormValues(validatedFormValues, db: db);
       enrollment!.save(db);
