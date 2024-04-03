@@ -42,10 +42,12 @@ export "src/models/metadata/user.dart" show D2User;
 export "src/models/metadata/user_group.dart" show D2UserGroup;
 export "src/models/metadata/user_role.dart" show D2UserRole;
 //Data Repositories
-export "src/repositories/data/base.dart" show BaseDataRepository;
+export "src/repositories/data/base.dart" show D2BaseDataRepository;
 export "src/repositories/data/data_value.dart" show D2DataValueRepository;
 export "src/repositories/data/enrollment.dart" show D2EnrollmentRepository;
 export "src/repositories/data/event.dart" show D2EventRepository;
+export "src/repositories/data/query_mixin/base_query_mixin.dart"
+    show D2BaseDataQueryMixin;
 export "src/repositories/data/relationship.dart" show D2RelationshipRepository;
 export "src/repositories/data/tracked_entity.dart"
     show D2TrackedEntityRepository;
@@ -148,6 +150,10 @@ export "src/ui/form_components/input_field/models/text_input_field.dart"
 export "src/ui/form_components/input_field/models/true_only_input_field.dart"
     show D2TrueOnlyInputFieldConfig;
 export "src/ui/form_components/state/form_state.dart" show D2FormController;
+export "src/ui/form_components/state/tracker/event_form_controller.dart"
+    show D2TrackerEventFormController;
+export "src/ui/form_components/state/tracker/registration_form_controller.dart"
+    show D2TrackerEnrollmentFormController;
 export "src/ui/period/period_filter.dart" show D2PeriodSelector;
 // Program rule engine
 export 'src/utils/program_rule_engine/program_rule_engine.dart'

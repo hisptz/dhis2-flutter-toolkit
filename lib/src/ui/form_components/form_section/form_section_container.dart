@@ -7,11 +7,13 @@ class FormSectionContainer extends StatelessWidget {
   final D2FormSection section;
   final OnFormFieldChange<String?> onFieldChange;
   final Color? color;
+  final bool disabled;
 
   const FormSectionContainer(
       {super.key,
       required this.section,
       required this.onFieldChange,
+      this.disabled = false,
       this.color});
 
   @override
@@ -42,6 +44,7 @@ class FormSectionContainer extends StatelessWidget {
             itemBuilder: (context, index) {
               D2BaseInputFieldConfig input = section.fields[index];
               return InputFieldContainer(
+                  disabled: disabled,
                   input: input,
                   onChange: (value) {
                     return onFieldChange(input.name, value);

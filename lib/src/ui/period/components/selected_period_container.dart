@@ -17,29 +17,33 @@ class D2SelectedPeriodContainer extends StatelessWidget {
       required this.selectedPeriods})
       : super(key: key);
 
+   //Method to handle only one chip
   List<Widget> getSelectedPeriods(BuildContext context, List<dynamic> periods) {
-    return (selectedPeriods ?? [])
-        .map((period) => D2PeriodType.getPeriodById(period))
-        .map((period) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
-                child: InkWell(
-                  onTap: () {
-                    onChange(period.id);
-                  },
-                  child: Chip(
-                      deleteIconColor: Colors.white,
-                      onDeleted: () {
-                        onChange(period.id);
-                      },
-                      label: Text(period.name),
-                      labelStyle: const TextStyle(color: Color(0xFF405261)),
-                      backgroundColor: color.withOpacity(0.2)),
-                ),
-              ),
-            ))
-        .toList();
+    // Ensure only one chip by taking the first element or an empty list
+    final latestPeriod = selectedPeriods?.last ?? '';
+    return [
+      if (latestPeriod.isNotEmpty)
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.1,
+            child: InputChip(
+              side: BorderSide.none,
+              onSelected: (bool selected) {
+                // Call onChange with the latest period ID
+                onChange(latestPeriod);
+              },
+              deleteIconColor: const Color(0xFF405261),
+              onDeleted: () {
+                onChange(latestPeriod);
+              },
+              label: Text(D2PeriodType.getPeriodById(latestPeriod).name),
+              labelStyle: const TextStyle(color: Color(0xFF405261)),
+              backgroundColor: color.withOpacity(0.2),
+            ),
+          ),
+        )
+    ];
   }
 
   final String category;
@@ -71,7 +75,8 @@ class D2SelectedPeriodContainer extends StatelessWidget {
         children: [
           const Text(
             'Selected Periods',
-            style: TextStyle(fontWeight: FontWeight.bold,color: Color(0xFF405261)),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: Color(0xFF405261)),
           ),
           SizedBox(
               width: MediaQuery.of(context).size.width,

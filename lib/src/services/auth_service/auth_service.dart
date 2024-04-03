@@ -55,7 +55,7 @@ class D2AuthService {
   ///
   Future _deleteDbFiles(String storeId) async {
     Directory docDir = await getApplicationDocumentsDirectory();
-    Directory('${docDir.path}/$storeId').delete();
+    await Directory('${docDir.path}/$storeId').delete(recursive: true);
   }
 
   /// Permanently deletes an offline user from the system along with associated metadata and data.

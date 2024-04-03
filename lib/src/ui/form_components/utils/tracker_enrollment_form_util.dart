@@ -5,13 +5,16 @@ import '../../../models/metadata/program.dart';
 import '../../../models/metadata/program_section.dart';
 import '../../../models/metadata/program_tracked_entity_attribute.dart';
 import '../../../models/metadata/tracked_entity_attribute.dart';
+import '../form/models/dhis2_form_options.dart';
 import '../form_section/models/form_section.dart';
 import '../input_field/models/base_input_field.dart';
 
 class TrackerEnrollmentFormUtil {
   D2Program program;
 
-  TrackerEnrollmentFormUtil({required this.program});
+  D2TrackerFormOptions options;
+
+  TrackerEnrollmentFormUtil({required this.program, required this.options});
 
   List<D2BaseInputFieldConfig> _getFields(
       List<D2TrackedEntityAttribute> attributes) {
@@ -36,12 +39,17 @@ class TrackerEnrollmentFormUtil {
   List<D2FormSection> _getFormSections() {
     return program.programSections
         .map<D2FormSection>((D2ProgramSection programSection) {
-      List<D2BaseInputFieldConfig> fields =
-          _getFields(programSection.trackedEntityAttributes);
+      List<D2BaseInputFieldConfig> fields = _getFields(programSection
+          .programSectionTrackedEntityAttributes
+          .sorted((a, b) => a.sortOrder.compareTo(b.sortOrder))
+          .map((e) => e.trackedEntityAttribute.target!)
+          .toList());
       return D2FormSection(
           fields: fields,
           id: programSection.uid,
-          title: programSection.displayName ?? programSection.name,
+          title: options.showSectionTitle
+              ? programSection.displayName ?? programSection.name
+              : null,
           subtitle: "");
     }).toList();
   }

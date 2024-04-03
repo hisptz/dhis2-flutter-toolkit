@@ -1,16 +1,13 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
-import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_query_mixin.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../../../dhis2_flutter_toolkit.dart';
 import '../../../models/data/base.dart';
 
 mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
-    on BaseDataRepository<T>, BaseQueryMixin<T> {
-
-
+    on D2BaseDataRepository<T>, D2BaseDataQueryMixin<T> {
   D2ClientService? client;
   int uploadPageSize = 10;
   String uploadResource = "tracker";
@@ -19,7 +16,7 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
   StreamController<D2SyncStatus> uploadController =
       StreamController<D2SyncStatus>();
 
-  setUnSyncedQuery();
+  Query<T> getUnSyncedQuery();
 
   get uploadQueryParams {
     return {
@@ -43,10 +40,6 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     return uploadController.stream;
   }
 
-  int getUnSyncedCount() {
-    return query.count();
-  }
-
   List<String> getItemsWithErrorsEntityUidFromImportSummary(
       Map<String, dynamic> importSummary) {
     List errorReports = importSummary["validationReport"]["errorReports"];
@@ -55,7 +48,8 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
         .toList();
   }
 
-  Future<Map<String, dynamic>> uploadPage(int page) async {
+  Future<Map<String, dynamic>> uploadPage(int page,
+      {required Query<T> query}) async {
     Query<T> localQuery = query;
     localQuery
       ..offset = (page * uploadPageSize)
@@ -108,9 +102,9 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
       throw "Error starting upload. Make sure you call setClient first";
     }
     try {
-      setUnSyncedQuery();
+      Query<T> query = getUnSyncedQuery();
       //TODO: Handle import summary
-      int count = getUnSyncedCount();
+      int count = query.count();
       int pages = (count / uploadPageSize).ceil().clamp(1, 10);
       D2SyncStatus status = D2SyncStatus(
           synced: 0,
@@ -121,7 +115,7 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
 
       status.updateStatus(D2SyncStatusEnum.syncing);
       for (int page = 0; page < pages; page++) {
-        await uploadPage(page); //TODO: Handle import summary
+        await uploadPage(page, query: query); //TODO: Handle import summary
         status.increment();
         uploadController.add(status);
       }

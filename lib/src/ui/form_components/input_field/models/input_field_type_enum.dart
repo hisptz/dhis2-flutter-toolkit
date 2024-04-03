@@ -50,6 +50,18 @@ enum D2InputFieldType {
     return [D2InputFieldType.date, D2InputFieldType.dateTime].contains(type);
   }
 
+  static bool isNumber(D2InputFieldType type) {
+    return [
+      D2InputFieldType.number,
+      D2InputFieldType.positiveInteger,
+      D2InputFieldType.negativeInteger,
+      D2InputFieldType.integer,
+      D2InputFieldType.integerZeroOrPositive,
+      D2InputFieldType.unitInterval,
+      D2InputFieldType.percentage
+    ].contains(type);
+  }
+
   static bool isDateRange(D2InputFieldType type) {
     return [D2InputFieldType.dateRange].contains(type);
   }

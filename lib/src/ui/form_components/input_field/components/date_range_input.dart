@@ -9,6 +9,7 @@ class DateRangeInput
     extends BaseStatelessInput<D2DateRangeInputFieldConfig, DateTimeRange> {
   DateRangeInput(
       {super.key,
+      super.disabled,
       required super.input,
       required super.onChange,
       required super.color,
@@ -36,6 +37,7 @@ class DateRangeInput
             ? '${value!.start.format("dd/MM/yyyy")} - ${value!.end.format("dd/MM/yyyy")}'
             : null);
     return TextFormField(
+        enabled: !disabled,
         showCursor: false,
         controller: controller,
         keyboardType: TextInputType.none,
@@ -50,16 +52,20 @@ class DateRangeInput
               color: color,
               padding: EdgeInsets.zero,
               constraints: iconConstraints,
-              onPressed: () {
-                onOpenDateSelection(context);
-              },
+              onPressed: disabled
+                  ? null
+                  : () {
+                      onOpenDateSelection(context);
+                    },
               icon: InputFieldIcon(
                   backgroundColor: color,
                   iconColor: color,
                   iconData: Icons.date_range_sharp),
             )),
-        onTap: () {
-          onOpenDateSelection(context);
-        });
+        onTap: disabled
+            ? null
+            : () {
+                onOpenDateSelection(context);
+              });
   }
 }

@@ -7,12 +7,13 @@ import 'components/org_unit_selector.dart';
 import 'models/org_unit_data.dart';
 
 class OrgUnitInput
-    extends BaseStatefulInput<D2OrgUnitInputFieldConfig, List<String>> {
+    extends BaseStatefulInput<D2OrgUnitInputFieldConfig, String> {
   final int? maxLines;
 
   const OrgUnitInput({
     super.key,
     super.value,
+    super.disabled,
     required super.input,
     required super.color,
     required super.onChange,
@@ -32,7 +33,7 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
       maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
 
   void onSelect(List<String> selected) {
-    widget.onChange(selected);
+    widget.onChange(selected.first);
     loadSelectedNames(selected);
   }
 
@@ -44,7 +45,7 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
               color: widget.color,
               config: widget.input,
               onSelect: onSelect,
-              selectedOrgUnits: widget.value,
+              selectedOrgUnits: widget.value != null ? [widget.value!] : [],
             ));
   }
 
@@ -64,7 +65,7 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
   void initState() {
     controller = TextEditingController();
     if (widget.value != null) {
-      loadSelectedNames(widget.value);
+      loadSelectedNames([widget.value!]);
     }
     super.initState();
   }
@@ -81,12 +82,15 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
     int? maxLines = widget.maxLines;
 
     return TextFormField(
+      enabled: !widget.disabled,
       showCursor: false,
       autofocus: false,
       controller: controller,
-      onTap: () {
-        onOpenSelector(context);
-      },
+      onTap: widget.disabled
+          ? null
+          : () {
+              onOpenSelector(context);
+            },
       maxLines: maxLines,
       keyboardType: TextInputType.none,
       style: const TextStyle(
@@ -100,9 +104,11 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
             color: color,
             padding: EdgeInsets.zero,
             constraints: iconConstraints,
-            onPressed: () {
-              onOpenSelector(context);
-            },
+            onPressed: widget.disabled
+                ? null
+                : () {
+                    onOpenSelector(context);
+                  },
             icon: InputFieldIcon(
                 backgroundColor: color,
                 iconColor: color,

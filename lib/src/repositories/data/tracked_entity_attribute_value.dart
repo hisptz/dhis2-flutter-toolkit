@@ -6,8 +6,8 @@ import '../../models/data/tracked_entity_attribute_value.dart';
 import 'base.dart';
 
 class D2TrackedEntityAttributeValueRepository
-    extends BaseDataRepository<D2TrackedEntityAttributeValue>
-    with BaseQueryMixin<D2TrackedEntityAttributeValue> {
+    extends D2BaseDataRepository<D2TrackedEntityAttributeValue>
+    with D2BaseDataQueryMixin<D2TrackedEntityAttributeValue> {
   D2TrackedEntityAttributeValueRepository(super.db);
 
   @override
@@ -37,7 +37,7 @@ class D2TrackedEntityAttributeValueRepository
   }
 
   @override
-  BaseDataRepository<D2TrackedEntityAttributeValue> setProgram(
+  D2BaseDataRepository<D2TrackedEntityAttributeValue> setProgram(
       D2Program program) {
     this.program = program;
     return this;

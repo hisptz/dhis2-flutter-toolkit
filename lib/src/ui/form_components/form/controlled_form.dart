@@ -11,9 +11,14 @@ class D2ControlledForm extends StatelessWidget {
   final D2Form form;
   final D2FormController controller;
   final Color? color;
+  final bool disabled;
 
   const D2ControlledForm(
-      {super.key, required this.form, required this.controller, this.color});
+      {super.key,
+      required this.form,
+      required this.controller,
+      this.color,
+      this.disabled = false});
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +36,12 @@ class D2ControlledForm extends StatelessWidget {
                   ),
                 )
               : Container(),
-          const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
           form.subtitle != null
               ? Text(
                   form.subtitle!,
                   style: const TextStyle(color: Colors.blueGrey, fontSize: 16),
                 )
               : Container(),
-          const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
           form.sections != null
               ? ListView.separated(
                   shrinkWrap: true,
@@ -46,6 +49,7 @@ class D2ControlledForm extends StatelessWidget {
                   itemBuilder: (context, index) {
                     D2FormSection section = form.sections![index];
                     return FormSectionContainerWithControlledInputs(
+                      disabled: disabled,
                       section: section,
                       controller: controller,
                       color: color,
@@ -61,6 +65,7 @@ class D2ControlledForm extends StatelessWidget {
                   itemBuilder: (context, index) {
                     D2BaseInputFieldConfig input = form.fields![index];
                     return D2FormControlledInputField(
+                      disabled: disabled,
                       color: color,
                       input: input,
                       controller: controller,

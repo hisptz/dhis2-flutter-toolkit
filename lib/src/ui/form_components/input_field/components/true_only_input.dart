@@ -6,6 +6,7 @@ class TrueOnlyInput extends BaseStatelessInput<D2TrueOnlyInputFieldConfig, Strin
   const TrueOnlyInput({
     super.key,
     super.value,
+    super.disabled,
     required super.input,
     required super.color,
     required super.onChange,

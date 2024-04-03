@@ -11,13 +11,12 @@ import 'download_mixin/base_tracker_data_download_service_mixin.dart';
 import 'download_mixin/tracked_entity_data_download_service_mixin.dart';
 import 'upload_mixin/base_tracker_data_upload_service_mixin.dart';
 
-class D2TrackedEntityRepository extends BaseDataRepository<D2TrackedEntity>
+class D2TrackedEntityRepository extends D2BaseDataRepository<D2TrackedEntity>
     with
         BaseTrackerDataDownloadServiceMixin<D2TrackedEntity>,
         TrackedEntityDataDownloadServiceMixin,
-        BaseQueryMixin<D2TrackedEntity>,
-        BaseTrackerDataUploadServiceMixin<D2TrackedEntity>
-{
+        D2BaseDataQueryMixin<D2TrackedEntity>,
+        BaseTrackerDataUploadServiceMixin<D2TrackedEntity> {
   D2TrackedEntityRepository(super.db, {super.program});
 
   StreamController<D2SyncStatus> controller = StreamController<D2SyncStatus>();
@@ -43,8 +42,8 @@ class D2TrackedEntityRepository extends BaseDataRepository<D2TrackedEntity>
   String uploadDataKey = "trackedEntities";
 
   @override
-  setUnSyncedQuery() {
-    updateQueryCondition(D2TrackedEntity_.synced.equals(true));
+  Query<D2TrackedEntity> getUnSyncedQuery() {
+    return box.query(D2TrackedEntity_.synced.equals(false)).build();
   }
 
   @override

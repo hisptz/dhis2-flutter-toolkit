@@ -1,21 +1,16 @@
 import 'dart:convert';
 
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import 'package:dhis2_flutter_toolkit/src/utils/uid.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../../objectbox.dart';
-import '../../repositories/data/enrollment.dart';
-import '../../repositories/data/tracked_entity.dart';
-import '../../repositories/metadata/org_unit.dart';
-import '../../repositories/metadata/program.dart';
-import '../metadata/org_unit.dart';
-import '../metadata/program.dart';
 import 'base.dart';
-import 'event.dart';
-import 'tracked_entity.dart';
+import 'base_editable.dart';
 import 'upload_base.dart';
 
 @Entity()
-class D2Enrollment extends SyncDataSource implements SyncableData {
+class D2Enrollment extends SyncDataSource
+    implements SyncableData, D2BaseEditable {
   @override
   int id = 0;
   @override
@@ -82,6 +77,28 @@ class D2Enrollment extends SyncDataSource implements SyncableData {
     program.target = D2ProgramRepository(db).getByUid(json["program"]);
   }
 
+  D2Enrollment.fromFormValues(Map<String, dynamic> values,
+      {required D2ObjectBox db,
+      required D2TrackedEntity trackedEntity,
+      required D2Program program,
+      required D2OrgUnit orgUnit})
+      : uid = D2UID.generate(),
+        updatedAt = DateTime.now(),
+        createdAt = DateTime.now(),
+        enrolledAt =
+            DateTime.tryParse(values["enrolledAt"] ?? "") ?? DateTime.now(),
+        followup = false,
+        deleted = false,
+        occurredAt =
+            DateTime.tryParse(values["occurredAt"] ?? "") ?? DateTime.now(),
+        status = values["status"] ?? 'ACTIVE',
+        synced = true,
+        notes = "{}" {
+    this.trackedEntity.target = trackedEntity;
+    this.orgUnit.target = orgUnit;
+    this.program.target = program;
+  }
+
   @override
   bool synced;
 
@@ -104,5 +121,32 @@ class D2Enrollment extends SyncDataSource implements SyncableData {
     };
 
     return payload;
+  }
+
+  @override
+  Map<String, dynamic> toFormValues() {
+    Map<String, dynamic> data = {
+      "occurredAt": occurredAt.toIso8601String(),
+      "orgUnit": orgUnit.target!.uid,
+      "enrolledAt": enrolledAt.toIso8601String()
+    };
+
+    return data;
+  }
+
+  @override
+  void updateFromFormValues(Map<String, dynamic> values,
+      {required D2ObjectBox db, D2OrgUnit? orgUnit}) {
+    occurredAt = DateTime.tryParse(values["occurredAt"]) ?? occurredAt;
+    enrolledAt = DateTime.tryParse(values["enrolledAt"]) ?? enrolledAt;
+    if (orgUnit != null) {
+      this.orgUnit.target = orgUnit;
+    }
+    trackedEntity.target!.updateFromFormValues(values, db: db);
+    synced = false;
+  }
+
+  void save(D2ObjectBox db) {
+    id = D2EnrollmentRepository(db).saveEntity(this);
   }
 }

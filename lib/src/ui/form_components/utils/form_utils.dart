@@ -52,6 +52,10 @@ class FormUtils {
           mandatory: mandatory,
           allowFutureDates: allowFutureDates ?? true);
     }
+    if (D2InputFieldType.isNumber(type)) {
+      return D2NumberInputFieldConfig(
+          label: label, type: type, name: name, mandatory: mandatory);
+    }
     if (D2InputFieldType.isText(type)) {
       return D2TextInputFieldConfig(
           label: label, type: type, name: name, mandatory: mandatory);

@@ -8,6 +8,7 @@ import 'input_field_icon.dart';
 class DateInput extends BaseStatelessInput<D2DateInputFieldConfig, String> {
   DateInput(
       {super.key,
+      super.disabled,
       required super.input,
       required super.onChange,
       required super.color,
@@ -35,6 +36,7 @@ class DateInput extends BaseStatelessInput<D2DateInputFieldConfig, String> {
             ? DateTime.tryParse(value!)?.format("dd/MM/yyyy")
             : null);
     return TextFormField(
+        enabled: !disabled,
         showCursor: false,
         controller: controller,
         keyboardType: TextInputType.none,
@@ -49,16 +51,20 @@ class DateInput extends BaseStatelessInput<D2DateInputFieldConfig, String> {
               color: color,
               padding: EdgeInsets.zero,
               constraints: iconConstraints,
-              onPressed: () {
-                onOpenDateSelection(context);
-              },
+              onPressed: disabled
+                  ? null
+                  : () {
+                      onOpenDateSelection(context);
+                    },
               icon: InputFieldIcon(
                   backgroundColor: color,
                   iconColor: color,
                   iconData: Icons.calendar_today),
             )),
-        onTap: () {
-          onOpenDateSelection(context);
-        });
+        onTap: disabled
+            ? null
+            : () {
+                onOpenDateSelection(context);
+              });
   }
 }

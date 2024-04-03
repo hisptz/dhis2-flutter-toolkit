@@ -1113,13 +1113,7 @@
           "type": 9
         }
       ],
-      "relations": [
-        {
-          "id": "5:4201769785617098886",
-          "name": "trackedEntityAttributes",
-          "targetId": "26:4451857861000713264"
-        }
-      ]
+      "relations": []
     },
     {
       "id": "18:121682375555937529",
@@ -1317,13 +1311,7 @@
           "type": 9
         }
       ],
-      "relations": [
-        {
-          "id": "6:8156621821863788414",
-          "name": "dataElements",
-          "targetId": "2:257964529443086557"
-        }
-      ]
+      "relations": []
     },
     {
       "id": "21:8176256693588210311",
@@ -2251,11 +2239,93 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "34:7456366515275579922",
+      "lastPropertyId": "5:907100409089823336",
+      "name": "D2ProgramSectionTrackedEntityAttribute",
+      "properties": [
+        {
+          "id": "1:1639936089599371127",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8059371894931950469",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "74:6027275556479555555"
+        },
+        {
+          "id": "3:7610335560929202915",
+          "name": "sortOrder",
+          "type": 6
+        },
+        {
+          "id": "4:6052839725484827755",
+          "name": "trackedEntityAttributeId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "75:8510094677109879090",
+          "relationTarget": "D2TrackedEntityAttribute"
+        },
+        {
+          "id": "5:907100409089823336",
+          "name": "programSectionId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "76:6280361999862837744",
+          "relationTarget": "D2ProgramSection"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "35:3992400112529482001",
+      "lastPropertyId": "5:7230448486004236231",
+      "name": "D2ProgramStageSectionDataElement",
+      "properties": [
+        {
+          "id": "1:3931472740411114608",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7097710831954468783",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "3:7549475124709629493",
+          "name": "sortOrder",
+          "type": 6
+        },
+        {
+          "id": "4:4278420685324768869",
+          "name": "dataElementId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "77:7232666104355635927",
+          "relationTarget": "D2DataElement"
+        },
+        {
+          "id": "5:7230448486004236231",
+          "name": "programStageSectionId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "78:5184937314444604601",
+          "relationTarget": "D2ProgramStageSection"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "33:3327197192716612547",
-  "lastIndexId": "73:8352789729516065977",
-  "lastRelationId": "11:7737513459837759207",
+  "lastEntityId": "35:3992400112529482001",
+  "lastIndexId": "78:5184937314444604601",
+  "lastRelationId": "13:3296482006972770137",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
@@ -2275,7 +2345,11 @@
     5311513888481018801
   ],
   "retiredRelationUids": [
-    6008783994488891808
+    6008783994488891808,
+    4201769785617098886,
+    8156621821863788414,
+    6306468798476419213,
+    3296482006972770137
   ],
   "version": 1
 }

@@ -1,14 +1,15 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
 
-abstract class BaseDataRepository<T extends D2DataResource> {
+abstract class D2BaseDataRepository<T extends D2DataResource> {
   D2ObjectBox db;
   D2Program? program;
+
   Box<T> get box {
     return db.store.box<T>();
   }
 
-  BaseDataRepository(this.db, {this.program});
+  D2BaseDataRepository(this.db, {this.program});
 
   T mapper(Map<String, dynamic> json);
 
@@ -20,9 +21,13 @@ abstract class BaseDataRepository<T extends D2DataResource> {
     return box.putManyAsync(entities);
   }
 
-  BaseDataRepository<T> setProgram(D2Program program);
+  int saveEntity(T entity) {
+    return box.put(entity);
+  }
 
-  BaseDataRepository<T> setProgramFromId(String programId) {
+  D2BaseDataRepository<T> setProgram(D2Program program);
+
+  D2BaseDataRepository<T> setProgramFromId(String programId) {
     D2Program? program = D2ProgramRepository(db).getByUid(programId);
 
     if (program == null) {
@@ -42,5 +47,4 @@ abstract class BaseDataRepository<T extends D2DataResource> {
     List<T> entities = json.map(mapper).toList();
     return box.putAndGetManyAsync(entities);
   }
-
 }

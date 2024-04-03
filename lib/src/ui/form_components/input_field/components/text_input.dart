@@ -18,6 +18,7 @@ class TextInput extends BaseStatelessInput<D2BaseInputFieldConfig, String> {
   const TextInput({
     super.key,
     super.value,
+    super.disabled,
     required this.textInputType,
     required super.input,
     required super.color,
@@ -28,6 +29,7 @@ class TextInput extends BaseStatelessInput<D2BaseInputFieldConfig, String> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: !disabled,
       initialValue: value,
       onChanged: (String? value) {
         onChange(value);

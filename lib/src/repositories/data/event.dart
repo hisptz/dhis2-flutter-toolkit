@@ -11,11 +11,11 @@ import 'download_mixin/base_tracker_data_download_service_mixin.dart';
 import 'download_mixin/event_data_download_service_mixin.dart';
 import 'upload_mixin/base_tracker_data_upload_service_mixin.dart';
 
-class D2EventRepository extends BaseDataRepository<D2Event>
+class D2EventRepository extends D2BaseDataRepository<D2Event>
     with
         BaseTrackerDataDownloadServiceMixin<D2Event>,
         D2EventDataDownloadServiceMixin,
-        BaseQueryMixin<D2Event>,
+        D2BaseDataQueryMixin<D2Event>,
         BaseTrackerDataUploadServiceMixin<D2Event> {
   D2EventRepository(super.db, {super.program});
 
@@ -51,16 +51,12 @@ class D2EventRepository extends BaseDataRepository<D2Event>
   String uploadDataKey = "events";
 
   @override
-  setUnSyncedQuery() {
-    if (queryConditions != null) {
-      queryConditions!.and(D2Event_.synced.equals(true));
-    } else {
-      queryConditions = D2Event_.synced.equals(true);
-    }
+  Query<D2Event> getUnSyncedQuery() {
+    return box.query(D2Event_.synced.equals(false)).build();
   }
 
   @override
-  BaseDataRepository<D2Event> setProgram(D2Program program) {
+  D2BaseDataRepository<D2Event> setProgram(D2Program program) {
     this.program = program;
     updateQueryCondition(D2Event_.program.equals(program.id));
     return this;
@@ -68,8 +64,6 @@ class D2EventRepository extends BaseDataRepository<D2Event>
 
   @override
   void addProgramToQuery() {
-    if(program != null) {
-
-    }
+    if (program != null) {}
   }
 }
