@@ -8,21 +8,11 @@ import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/compone
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/select_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/text_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/true_only_input.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/age_input_field.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/boolean_input_field.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/date_input_field.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/date_range_input_field.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/number_input_field.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/org_unit_input_field.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/select_input_field.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/true_only_input_field.dart';
 import 'package:flutter/material.dart';
 
 import 'components/date_input.dart';
 import 'components/input_field_icon.dart';
-import 'models/input_field_type_enum.dart';
-import 'models/text_input_field.dart';
+import 'components/radio_input.dart';
 
 class InputFieldContainer extends StatelessWidget {
   final D2BaseInputFieldConfig input;
@@ -64,12 +54,21 @@ class InputFieldContainer extends StatelessWidget {
 
     Widget getInput() {
       if (input is D2SelectInputFieldConfig) {
-        return SelectInput(
-            disabled: disabled,
-            input: input as D2SelectInputFieldConfig,
-            color: colorOverride,
-            onChange: onChange,
-            value: value);
+        return (input as D2SelectInputFieldConfig).renderOptionsAsRadio
+            ? RadioInput(
+                disabled: disabled,
+                input: input as D2SelectInputFieldConfig,
+                color: colorOverride,
+                onChange: onChange,
+                value: value,
+              )
+            : SelectInput(
+                disabled: disabled,
+                input: input as D2SelectInputFieldConfig,
+                color: colorOverride,
+                onChange: onChange,
+                value: value,
+              );
       }
       if (input is D2DateInputFieldConfig) {
         return DateInput(
