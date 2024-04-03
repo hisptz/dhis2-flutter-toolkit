@@ -1,5 +1,7 @@
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/base_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/boolean_input.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/coordinate_input/coordinate_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/date_range_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/org_unit_input/org_unit_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/select_input.dart';
@@ -173,6 +175,16 @@ class InputFieldContainer extends StatelessWidget {
             input: input as D2OrgUnitInputFieldConfig,
             color: colorOverride,
             onChange: onChange);
+      }
+
+      if (input is D2GeometryInputConfig) {
+        return CoordinateInput(
+          disabled: disabled,
+          onChange: onChange,
+          value: value,
+          input: input as D2GeometryInputConfig,
+          color: colorOverride,
+        );
       }
 
       return TextInput(

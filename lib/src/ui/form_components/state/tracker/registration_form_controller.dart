@@ -1,3 +1,4 @@
+
 import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:flutter/foundation.dart';
@@ -65,6 +66,7 @@ class D2TrackerEnrollmentFormController extends D2FormController {
         db: db,
         program: program,
         orgUnit: orgUnit);
+
     trackedEntity.save(db);
     return trackedEntity;
   }
@@ -77,8 +79,10 @@ class D2TrackerEnrollmentFormController extends D2FormController {
     D2OrgUnit? orgUnit = D2OrgUnitRepository(db)
         .getByUid(this.orgUnit ?? validatedFormValues["orgUnit"]);
     trackedEntity!.updateFromFormValues(validatedFormValues, db: db);
+
     if (enrollment != null) {
       enrollment!.updateFromFormValues(validatedFormValues, db: db);
+
       enrollment!.save(db);
     } else {
       if (orgUnit == null) {
@@ -89,6 +93,7 @@ class D2TrackerEnrollmentFormController extends D2FormController {
           trackedEntity: trackedEntity!,
           program: program,
           orgUnit: orgUnit);
+
       trackedEntity!.enrollments.add(enrollment);
     }
     trackedEntity!.save(db);

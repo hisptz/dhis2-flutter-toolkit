@@ -143,7 +143,7 @@ class ProgramRuleHelper {
           );
 
           if (teiAttributeWithValue.isNotEmpty) {
-            value = teiAttributeWithValue.first.value;
+            value = teiAttributeWithValue.first.value ?? '';
           }
         }
       }

@@ -29,6 +29,8 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
   String? attributeOptionCombo;
   String? notes;
 
+  String? geometry;
+
   //Disabled for now
   // @Backlink("event")
   // final relationships = ToMany<D2Relationship>();
@@ -53,7 +55,8 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
       this.scheduledAt,
       this.uid,
       this.occurredAt,
-      this.synced);
+      this.synced,
+      this.geometry);
 
   D2Event.fromMap(D2ObjectBox db, Map json)
       : attributeCategoryOptions = json["attributeCategoryOptions"],
@@ -67,6 +70,8 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
         notes = jsonEncode(json["notes"]),
         scheduledAt = DateTime.tryParse(json["scheduledAt"] ?? ""),
         uid = json["event"],
+        geometry =
+            json["geometry"] != null ? jsonEncode(json["geometry"]) : null,
         occurredAt = DateTime.tryParse(json["occurredAt"] ?? "") {
     id = D2EventRepository(db).getIdByUid(json["event"]) ?? 0;
 
@@ -119,6 +124,17 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
     }).toList();
 
     this.dataValues.addAll(dataValues);
+
+    if (formValues["geometry"] != null) {
+      var geometryValue = formValues["geometry"];
+
+      ///A form has geometry. This should be inserted as a serialized JSON
+      if (geometryValue is D2GeometryValue) {
+        Map<String, dynamic> geometry = geometryValue.toGeoJson();
+        String geometryString = jsonEncode(geometry);
+        this.geometry = geometryString;
+      }
+    }
   }
 
   @override
@@ -158,6 +174,10 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
       payload["trackedEntity"] = trackedEntity.target?.uid;
     }
 
+    if (geometry != null) {
+      payload.addAll({"geometry": jsonDecode(geometry!)});
+    }
+
     return payload;
   }
 
@@ -172,6 +192,11 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
       data.addAll(element.toFormValues());
     }
 
+    if (geometry != null) {
+      Map<String, dynamic> geometryObject = jsonDecode(geometry!);
+      data.addAll({"geometry": D2GeometryValue.fromGeoJson(geometryObject)});
+    }
+
     return data;
   }
 
@@ -184,6 +209,16 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
     occurredAt = DateTime.tryParse(values["occurredAt"]) ?? occurredAt;
     for (D2DataValue dataValue in dataValues) {
       dataValue.updateFromFormValues(values, db: db);
+    }
+    if (values["geometry"] != null) {
+      var geometryValue = values["geometry"];
+
+      ///A form has geometry. This should be inserted as a serialized JSON
+      if (geometryValue is D2GeometryValue) {
+        Map<String, dynamic> geometry = geometryValue.toGeoJson();
+        String geometryString = jsonEncode(geometry);
+        this.geometry = geometryString;
+      }
     }
     synced = false;
   }
