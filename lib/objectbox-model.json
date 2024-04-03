@@ -630,7 +630,7 @@
     },
     {
       "id": "10:3215215508490411793",
-      "lastPropertyId": "12:2678823878082439467",
+      "lastPropertyId": "13:4867486653337345671",
       "name": "D2OrgUnit",
       "properties": [
         {
@@ -696,6 +696,11 @@
           "flags": 520,
           "indexId": "73:8352789729516065977",
           "relationTarget": "D2OrgUnitLevel"
+        },
+        {
+          "id": "13:4867486653337345671",
+          "name": "code",
+          "type": 9
         }
       ],
       "relations": []
@@ -2339,7 +2344,7 @@
     },
     {
       "id": "36:5747825430047780119",
-      "lastPropertyId": "7:1123768091907834348",
+      "lastPropertyId": "8:3862690011221344307",
       "name": "D2ReservedValue",
       "properties": [
         {
@@ -2380,13 +2385,21 @@
           "id": "7:1123768091907834348",
           "name": "expiresOn",
           "type": 10
+        },
+        {
+          "id": "8:3862690011221344307",
+          "name": "orgUnitId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "80:722459701791797865",
+          "relationTarget": "D2OrgUnit"
         }
       ],
       "relations": []
     }
   ],
   "lastEntityId": "36:5747825430047780119",
-  "lastIndexId": "79:3811308188912901820",
+  "lastIndexId": "80:722459701791797865",
   "lastRelationId": "13:3296482006972770137",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
