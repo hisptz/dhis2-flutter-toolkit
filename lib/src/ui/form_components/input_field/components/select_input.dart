@@ -8,26 +8,28 @@ import '../models/select_input_field.dart';
 import 'base_input.dart';
 
 class SelectInput extends BaseStatelessInput<D2SelectInputFieldConfig, String> {
-  const SelectInput({super.key,
+  const SelectInput({
+    super.key,
     super.value,
     super.disabled,
     required super.input,
     required super.color,
-    required super.onChange});
+    required super.onChange,
+  });
 
   @override
   Widget build(BuildContext context) {
     List<DropdownMenuItem<D2InputFieldOption>> options =
         input.options?.map((D2InputFieldOption option) {
-          bool isSelected = option.code == value;
-          return DropdownMenuItem<D2InputFieldOption>(
-            value: option,
-            child: Text(
-              option.name,
-              style: TextStyle(color: isSelected ? color : null),
-            ),
-          );
-        }).toList() ??
+              bool isSelected = option.code == value;
+              return DropdownMenuItem<D2InputFieldOption>(
+                value: option,
+                child: Text(
+                  option.name,
+                  style: TextStyle(color: isSelected ? color : null),
+                ),
+              );
+            }).toList() ??
             <DropdownMenuItem<D2InputFieldOption>>[];
 
     D2InputFieldOption? valueOption = input.options!
@@ -39,14 +41,12 @@ class SelectInput extends BaseStatelessInput<D2SelectInputFieldConfig, String> {
         color: Colors.transparent,
       ),
       iconEnabledColor: color,
-      selectedItemBuilder: (context) =>
-          input.options!
-              .map((e) =>
-              Align(
+      selectedItemBuilder: (context) => input.options!
+          .map((e) => Align(
                 alignment: Alignment.centerLeft,
                 child: Text(e.name),
               ))
-              .toList(),
+          .toList(),
       value: valueOption,
       focusColor: color,
       items: options,
@@ -59,9 +59,11 @@ class SelectInput extends BaseStatelessInput<D2SelectInputFieldConfig, String> {
         ),
       ),
       isExpanded: true,
-      onChanged: disabled ? null : (D2InputFieldOption? selectedOption) {
-        onChange(selectedOption?.code);
-      },
+      onChanged: disabled
+          ? null
+          : (D2InputFieldOption? selectedOption) {
+              onChange(selectedOption?.code);
+            },
     );
   }
 }
