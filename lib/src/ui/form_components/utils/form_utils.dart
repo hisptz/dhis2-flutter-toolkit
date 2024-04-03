@@ -68,6 +68,9 @@ class FormUtils {
       case D2InputFieldType.trueOnly:
         return D2TrueOnlyInputFieldConfig(
             label: label, type: type, name: name, mandatory: mandatory);
+      case D2InputFieldType.age:
+        return D2AgeInputFieldConfig(
+            label: label, type: type, name: name, mandatory: mandatory);
       default:
         return D2BaseInputFieldConfig(
             label: label, type: type, name: name, mandatory: mandatory);
