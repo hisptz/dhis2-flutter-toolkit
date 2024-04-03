@@ -27,6 +27,10 @@ class D2ReservedValueRepository {
     this.client = client;
   }
 
+  get downloadStream {
+    return downloadController.stream;
+  }
+
   Future downloadAllReservedValues(
       {required int numberToReserve, String? orgUnitCode}) async {
     if (client == null) {
@@ -71,7 +75,7 @@ class D2ReservedValueRepository {
     if (client == null) {
       throw "You need to call setupDownload first";
     }
-    String url = '/trackedEntityAttributes/${owner.uid}/generateAndReserve';
+    String url = 'trackedEntityAttributes/${owner.uid}/generateAndReserve';
 
     Map<String, String> params = {
       "numberToReserve": numberToReserve.toString()
@@ -81,8 +85,7 @@ class D2ReservedValueRepository {
       params.addAll({'ORG_UNIT_CODE': orgUnitCode});
     }
 
-    List<Map<String, String>>? response = await client!
-        .httpGet<List<Map<String, String>>>(url, queryParameters: params);
+    List? response = await client!.httpGet<List>(url, queryParameters: params);
     if (response != null) {
       List<D2ReservedValue> reservedValues = response
           .map<D2ReservedValue>((value) => D2ReservedValue.fromMap(db, value))

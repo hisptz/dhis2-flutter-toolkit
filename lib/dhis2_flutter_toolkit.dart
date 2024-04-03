@@ -11,6 +11,7 @@ export "src/models/data/relationship.dart" show D2Relationship;
 export "src/models/data/tracked_entity.dart" show D2TrackedEntity;
 export "src/models/data/tracked_entity_attribute_value.dart"
     show D2TrackedEntityAttributeValue;
+export 'src/models/data/reserved_value.dart' show D2ReservedValue;
 
 //Metadata Models
 export "src/models/metadata/data_element.dart" show D2DataElement;
@@ -56,6 +57,8 @@ export "src/repositories/data/tracked_entity.dart"
     show D2TrackedEntityRepository;
 export "src/repositories/data/tracked_entity_attribute_value.dart"
     show D2TrackedEntityAttributeValueRepository;
+export "src/repositories/data/reserved_value.dart"
+    show D2ReservedValueRepository;
 
 //Metadata Repositories
 export "src/repositories/metadata/data_element.dart"
