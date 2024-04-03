@@ -1,4 +1,5 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/age_input/age_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/base_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/boolean_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/coordinate_input/coordinate_input.dart';
@@ -7,6 +8,7 @@ import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/compone
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/select_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/text_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/true_only_input.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/age_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/boolean_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/date_input_field.dart';
@@ -69,7 +71,6 @@ class InputFieldContainer extends StatelessWidget {
             onChange: onChange,
             value: value);
       }
-
       if (input is D2DateInputFieldConfig) {
         return DateInput(
           disabled: disabled,
@@ -88,7 +89,6 @@ class InputFieldContainer extends StatelessWidget {
           onChange: onChange,
         );
       }
-
       if (input is D2NumberInputFieldConfig) {
         switch (input.type) {
           case D2InputFieldType.number:
@@ -115,7 +115,6 @@ class InputFieldContainer extends StatelessWidget {
                 color: colorOverride);
         }
       }
-
       if (input is D2TextInputFieldConfig) {
         switch (input.type) {
           case D2InputFieldType.text:
@@ -149,7 +148,6 @@ class InputFieldContainer extends StatelessWidget {
             );
         }
       }
-
       if (input is D2BooleanInputFieldConfig) {
         return BooleanInput(
           disabled: disabled,
@@ -176,7 +174,6 @@ class InputFieldContainer extends StatelessWidget {
             color: colorOverride,
             onChange: onChange);
       }
-
       if (input is D2GeometryInputConfig) {
         return CoordinateInput(
           disabled: disabled,
@@ -184,6 +181,15 @@ class InputFieldContainer extends StatelessWidget {
           value: value,
           input: input as D2GeometryInputConfig,
           color: colorOverride,
+        );
+      }
+      if (input is D2AgeInputFieldConfig) {
+        return AgeInputField(
+          input: input as D2AgeInputFieldConfig,
+          onChange: onChange,
+          color: colorOverride,
+          value: value,
+          disabled: disabled,
         );
       }
 
@@ -200,6 +206,7 @@ class InputFieldContainer extends StatelessWidget {
     Widget getPrefix() {
       if (input.svgIconAsset != null || input.icon != null) {
         return Container(
+          margin: const EdgeInsets.only(left: 16.0),
           constraints: iconConstraints,
           child: InputFieldIcon(
             backgroundColor: colorOverride,
@@ -227,10 +234,7 @@ class InputFieldContainer extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 8.0,
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       decoration: BoxDecoration(
         color: colorOverride.withOpacity(0.07),
         border: Border(

@@ -147,6 +147,10 @@ export "src/ui/form_components/input_field/models/coordinate_field.dart"
     show D2GeometryValue;
 export "src/ui/form_components/input_field/models/coordinate_field.dart"
     show D2GeometryInputConfig;
+export "src/ui/form_components/input_field/models/age_input_field.dart"
+    show D2AgeInputFieldConfig;
+export "src/ui/form_components/input_field/models/age_input_field.dart"
+    show D2AgeInputFieldView;
 export "src/ui/form_components/input_field/models/number_input_field.dart"
     show D2NumberInputFieldConfig;
 export "src/ui/form_components/input_field/models/org_unit_input_field.dart"

@@ -76,6 +76,7 @@ class CoordinateInputState extends BaseStatefulInputState<CoordinateInput> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
+            cursorColor: color,
             enabled: !disabled,
             showCursor: false,
             controller: controller,
