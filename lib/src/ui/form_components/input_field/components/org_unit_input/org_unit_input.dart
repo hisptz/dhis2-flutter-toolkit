@@ -82,6 +82,7 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
     int? maxLines = widget.maxLines;
 
     return TextFormField(
+      cursorColor: color,
       enabled: !widget.disabled,
       showCursor: false,
       autofocus: false,
