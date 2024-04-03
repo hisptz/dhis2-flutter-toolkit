@@ -29,6 +29,7 @@ class TextInput extends BaseStatelessInput<D2BaseInputFieldConfig, String> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      cursorColor: color,
       enabled: !disabled,
       initialValue: value,
       onChanged: (String? value) {
