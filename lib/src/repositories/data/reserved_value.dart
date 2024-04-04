@@ -155,6 +155,7 @@ class D2ReservedValueRepository {
     Condition<D2ReservedValue> queryCondition = D2ReservedValue_
         .trackedEntityAttribute
         .equals(owner.trackedEntityAttribute.target!.id)
+        .and(D2ReservedValue_.assigned.equals(false))
         .and(D2ReservedValue_.expiresOn.greaterThanDate(DateTime.now()));
 
     String pattern = owner.trackedEntityAttribute.target!.pattern!;
@@ -170,5 +171,9 @@ class D2ReservedValueRepository {
   void setValueAsAssigned(D2ReservedValue value) {
     value.assigned = true;
     box.put(value);
+  }
+
+  Future<void> saveEntities(List<D2ReservedValue> values) async {
+    await box.putManyAsync(values);
   }
 }

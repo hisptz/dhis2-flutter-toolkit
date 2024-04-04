@@ -34,4 +34,8 @@ class D2ReservedValue {
           D2TrackedEntityAttributeRepository(db).getByUid(json["ownerUid"]);
     }
   }
+
+  void setAssigned() {
+    assigned = true;
+  }
 }
