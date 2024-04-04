@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import 'package:dhis2_flutter_toolkit/src/models/metadata/org_unit.dart';
 
 import '../../../objectbox.dart';
 import '../../../objectbox.g.dart';
@@ -70,11 +71,13 @@ class D2ReservedValueRepository {
 
           List<D2OrgUnit> orgUnits = attribute.program.target!.organisationUnits
               .where((D2OrgUnit programOrgUnit) {
-            return userOrgUnits.any((userOrgUnit) {
-              return userOrgUnit.id == programOrgUnit.id ||
-                  programOrgUnit.path.contains(userOrgUnit.uid);
-            });
-          }).take(10).toList();
+                return userOrgUnits.any((userOrgUnit) {
+                  return userOrgUnit.id == programOrgUnit.id ||
+                      programOrgUnit.path.contains(userOrgUnit.uid);
+                });
+              })
+              .take(10)
+              .toList();
 
           D2SyncStatus subStatus = D2SyncStatus(
               status: D2SyncStatusEnum.initialized,
@@ -146,12 +149,21 @@ class D2ReservedValueRepository {
     }
   }
 
-  D2ReservedValue? getReservedValue({required D2TrackedEntityAttribute owner}) {
-    Query<D2ReservedValue> query = box
-        .query(D2ReservedValue_.trackedEntityAttribute
-            .equals(owner.id)
-            .and(D2ReservedValue_.expiresOn.greaterThanDate(DateTime.now())))
-        .build();
+  D2ReservedValue? getReservedValue(
+      {required D2ProgramTrackedEntityAttribute owner,
+      required D2OrgUnit orgUnit}) {
+    Condition<D2ReservedValue> queryCondition = D2ReservedValue_
+        .trackedEntityAttribute
+        .equals(owner.trackedEntityAttribute.target!.id)
+        .and(D2ReservedValue_.expiresOn.greaterThanDate(DateTime.now()));
+
+    String pattern = owner.trackedEntityAttribute.target!.pattern!;
+    if (isOrgUnitDependent(pattern)) {
+      queryCondition.and(D2ReservedValue_.orgUnit.equals(orgUnit.id));
+    }
+
+    Query<D2ReservedValue> query = box.query(queryCondition).build();
+    print(query.describeParameters());
     return query.findFirst();
   }
 

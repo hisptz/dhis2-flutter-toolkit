@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 mixin D2FormDisabledState on ChangeNotifier {
   List<String> disabledFields = [];
 
-  void toggleFieldVisibility(String key) {
+  void toggleFieldDisable(String key) {
     if (disabledFields.contains(key)) {
       disabledFields = disabledFields
           .whereNot((String disabledKey) => key == disabledKey)
@@ -13,6 +13,11 @@ mixin D2FormDisabledState on ChangeNotifier {
       disabledFields.add(key);
     }
     notifyListeners();
+  }
+
+  void disableFields(List<String> keys) {
+    disabledFields.addAll(keys);
+    disabledFields = disabledFields.toSet().toList();
   }
 
   bool isFieldDisabled(String key) {
