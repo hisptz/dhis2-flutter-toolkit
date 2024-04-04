@@ -1474,7 +1474,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(22, 4637318393876658704),
       name: 'D2Relationship',
-      lastPropertyId: const obx_int.IdUid(12, 3662279762014119659),
+      lastPropertyId: const obx_int.IdUid(19, 6541457634682263798),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -1499,45 +1499,59 @@ final _entities = <obx_int.ModelEntity>[
             flags: 2080,
             indexId: const obx_int.IdUid(46, 8827756791993416355)),
         obx_int.ModelProperty(
-            id: const obx_int.IdUid(5, 1013386498153126121),
-            name: 'relationshipName',
-            type: 9,
-            flags: 0),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(6, 1905093920360157246),
-            name: 'bidirectional',
-            type: 1,
-            flags: 0),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(7, 7551662551121750868),
-            name: 'relationshipType',
-            type: 9,
-            flags: 0),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(8, 2757668174962345588),
-            name: 'fromType',
-            type: 9,
-            flags: 0),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(9, 8610114683020996062),
-            name: 'fromId',
-            type: 9,
-            flags: 0),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(10, 8359984440455480973),
-            name: 'toType',
-            type: 9,
-            flags: 0),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(11, 8484778602190939555),
-            name: 'toId',
-            type: 9,
-            flags: 0),
-        obx_int.ModelProperty(
             id: const obx_int.IdUid(12, 3662279762014119659),
             name: 'synced',
             type: 1,
-            flags: 0)
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(13, 1998629575824057364),
+            name: 'fromTrackedEntityId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(81, 3291896588767367520),
+            relationTarget: 'D2TrackedEntity'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(14, 3854436511137937227),
+            name: 'fromEnrollmentId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(82, 5416175323921404207),
+            relationTarget: 'D2Enrollment'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(15, 8660906341941522573),
+            name: 'fromEventId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(83, 344826800521479650),
+            relationTarget: 'D2Event'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(16, 6387264731594112107),
+            name: 'toTrackedEntityId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(84, 117956957890255339),
+            relationTarget: 'D2TrackedEntity'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(17, 5194173277123384993),
+            name: 'toEnrollmentId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(85, 1769549624299726170),
+            relationTarget: 'D2Enrollment'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(18, 8003492980417099195),
+            name: 'toEventId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(86, 3052706075650826301),
+            relationTarget: 'D2Event'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(19, 6541457634682263798),
+            name: 'relationshipTypeId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(87, 5516752848296392221),
+            relationTarget: 'D2RelationshipType')
       ],
       relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[]),
@@ -2466,7 +2480,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
       lastEntityId: const obx_int.IdUid(36, 5747825430047780119),
-      lastIndexId: const obx_int.IdUid(80, 722459701791797865),
+      lastIndexId: const obx_int.IdUid(87, 5516752848296392221),
       lastRelationId: const obx_int.IdUid(13, 3296482006972770137),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [4845029629663650184],
@@ -2480,7 +2494,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
         2624640919868138634,
         412700322432031164,
         1878604429089188814,
-        5311513888481018801
+        5311513888481018801,
+        1013386498153126121,
+        1905093920360157246,
+        7551662551121750868,
+        2757668174962345588,
+        8610114683020996062,
+        8359984440455480973,
+        8484778602190939555
       ],
       retiredRelationUids: const [
         6008783994488891808,
@@ -4081,7 +4102,15 @@ obx_int.ModelDefinition getObjectBoxModel() {
         }),
     D2Relationship: obx_int.EntityDefinition<D2Relationship>(
         model: _entities[20],
-        toOneRelations: (D2Relationship object) => [],
+        toOneRelations: (D2Relationship object) => [
+              object.fromTrackedEntity,
+              object.fromEnrollment,
+              object.fromEvent,
+              object.toTrackedEntity,
+              object.toEnrollment,
+              object.toEvent,
+              object.relationshipType
+            ],
         toManyRelations: (D2Relationship object) => {},
         getId: (D2Relationship object) => object.id,
         setId: (D2Relationship object, int id) {
@@ -4089,27 +4118,19 @@ obx_int.ModelDefinition getObjectBoxModel() {
         },
         objectToFB: (D2Relationship object, fb.Builder fbb) {
           final uidOffset = fbb.writeString(object.uid);
-          final relationshipNameOffset =
-              fbb.writeString(object.relationshipName);
-          final relationshipTypeOffset =
-              fbb.writeString(object.relationshipType);
-          final fromTypeOffset = fbb.writeString(object.fromType);
-          final fromIdOffset = fbb.writeString(object.fromId);
-          final toTypeOffset = fbb.writeString(object.toType);
-          final toIdOffset = fbb.writeString(object.toId);
-          fbb.startTable(13);
+          fbb.startTable(20);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.createdAt.millisecondsSinceEpoch);
           fbb.addInt64(2, object.updatedAt.millisecondsSinceEpoch);
           fbb.addOffset(3, uidOffset);
-          fbb.addOffset(4, relationshipNameOffset);
-          fbb.addBool(5, object.bidirectional);
-          fbb.addOffset(6, relationshipTypeOffset);
-          fbb.addOffset(7, fromTypeOffset);
-          fbb.addOffset(8, fromIdOffset);
-          fbb.addOffset(9, toTypeOffset);
-          fbb.addOffset(10, toIdOffset);
           fbb.addBool(11, object.synced);
+          fbb.addInt64(12, object.fromTrackedEntity.targetId);
+          fbb.addInt64(13, object.fromEnrollment.targetId);
+          fbb.addInt64(14, object.fromEvent.targetId);
+          fbb.addInt64(15, object.toTrackedEntity.targetId);
+          fbb.addInt64(16, object.toEnrollment.targetId);
+          fbb.addInt64(17, object.toEvent.targetId);
+          fbb.addInt64(18, object.relationshipType.targetId);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -4124,38 +4145,31 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0));
           final uidParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 10, '');
-          final relationshipNameParam =
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 12, '');
-          final bidirectionalParam =
-              const fb.BoolReader().vTableGet(buffer, rootOffset, 14, false);
-          final relationshipTypeParam =
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 16, '');
-          final fromTypeParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 18, '');
-          final fromIdParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 20, '');
-          final toTypeParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 22, '');
-          final toIdParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 24, '');
           final syncedParam =
               const fb.BoolReader().vTableGet(buffer, rootOffset, 26, false);
           final object = D2Relationship(
-              idParam,
-              createdAtParam,
-              updatedAtParam,
-              uidParam,
-              relationshipNameParam,
-              bidirectionalParam,
-              relationshipTypeParam,
-              fromTypeParam,
-              fromIdParam,
-              toTypeParam,
-              toIdParam,
-              syncedParam);
-
+              idParam, createdAtParam, updatedAtParam, uidParam, syncedParam);
+          object.fromTrackedEntity.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 28, 0);
+          object.fromTrackedEntity.attach(store);
+          object.fromEnrollment.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 30, 0);
+          object.fromEnrollment.attach(store);
+          object.fromEvent.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 32, 0);
+          object.fromEvent.attach(store);
+          object.toTrackedEntity.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 34, 0);
+          object.toTrackedEntity.attach(store);
+          object.toEnrollment.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 36, 0);
+          object.toEnrollment.attach(store);
+          object.toEvent.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 38, 0);
+          object.toEvent.attach(store);
+          object.relationshipType.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 40, 0);
+          object.relationshipType.attach(store);
           return object;
         }),
     D2RelationshipType: obx_int.EntityDefinition<D2RelationshipType>(
@@ -6196,37 +6210,42 @@ class D2Relationship_ {
   static final uid =
       obx.QueryStringProperty<D2Relationship>(_entities[20].properties[3]);
 
-  /// see [D2Relationship.relationshipName]
-  static final relationshipName =
-      obx.QueryStringProperty<D2Relationship>(_entities[20].properties[4]);
+  /// see [D2Relationship.synced]
+  static final synced =
+      obx.QueryBooleanProperty<D2Relationship>(_entities[20].properties[4]);
 
-  /// see [D2Relationship.bidirectional]
-  static final bidirectional =
-      obx.QueryBooleanProperty<D2Relationship>(_entities[20].properties[5]);
+  /// see [D2Relationship.fromTrackedEntity]
+  static final fromTrackedEntity =
+      obx.QueryRelationToOne<D2Relationship, D2TrackedEntity>(
+          _entities[20].properties[5]);
+
+  /// see [D2Relationship.fromEnrollment]
+  static final fromEnrollment =
+      obx.QueryRelationToOne<D2Relationship, D2Enrollment>(
+          _entities[20].properties[6]);
+
+  /// see [D2Relationship.fromEvent]
+  static final fromEvent = obx.QueryRelationToOne<D2Relationship, D2Event>(
+      _entities[20].properties[7]);
+
+  /// see [D2Relationship.toTrackedEntity]
+  static final toTrackedEntity =
+      obx.QueryRelationToOne<D2Relationship, D2TrackedEntity>(
+          _entities[20].properties[8]);
+
+  /// see [D2Relationship.toEnrollment]
+  static final toEnrollment =
+      obx.QueryRelationToOne<D2Relationship, D2Enrollment>(
+          _entities[20].properties[9]);
+
+  /// see [D2Relationship.toEvent]
+  static final toEvent = obx.QueryRelationToOne<D2Relationship, D2Event>(
+      _entities[20].properties[10]);
 
   /// see [D2Relationship.relationshipType]
   static final relationshipType =
-      obx.QueryStringProperty<D2Relationship>(_entities[20].properties[6]);
-
-  /// see [D2Relationship.fromType]
-  static final fromType =
-      obx.QueryStringProperty<D2Relationship>(_entities[20].properties[7]);
-
-  /// see [D2Relationship.fromId]
-  static final fromId =
-      obx.QueryStringProperty<D2Relationship>(_entities[20].properties[8]);
-
-  /// see [D2Relationship.toType]
-  static final toType =
-      obx.QueryStringProperty<D2Relationship>(_entities[20].properties[9]);
-
-  /// see [D2Relationship.toId]
-  static final toId =
-      obx.QueryStringProperty<D2Relationship>(_entities[20].properties[10]);
-
-  /// see [D2Relationship.synced]
-  static final synced =
-      obx.QueryBooleanProperty<D2Relationship>(_entities[20].properties[11]);
+      obx.QueryRelationToOne<D2Relationship, D2RelationshipType>(
+          _entities[20].properties[11]);
 }
 
 /// [D2RelationshipType] entity fields to define ObjectBox queries.
