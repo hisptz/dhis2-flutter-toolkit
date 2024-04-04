@@ -76,7 +76,6 @@ class D2ReservedValueRepository {
                       programOrgUnit.path.contains(userOrgUnit.uid);
                 });
               })
-              .take(10)
               .toList();
 
           D2SyncStatus subStatus = D2SyncStatus(
