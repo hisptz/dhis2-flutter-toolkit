@@ -335,7 +335,11 @@ final _entities = <obx_int.ModelEntity>[
       relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[
         obx_int.ModelBacklink(
-            name: 'events', srcEntity: 'D2Event', srcField: 'enrollment')
+            name: 'events', srcEntity: 'D2Event', srcField: 'enrollment'),
+        obx_int.ModelBacklink(
+            name: 'relationships',
+            srcEntity: 'D2Relationship',
+            srcField: 'fromEnrollment')
       ]),
   obx_int.ModelEntity(
       id: const obx_int.IdUid(5, 6994186532441416598),
@@ -451,6 +455,10 @@ final _entities = <obx_int.ModelEntity>[
       ],
       relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[
+        obx_int.ModelBacklink(
+            name: 'relationships',
+            srcEntity: 'D2Relationship',
+            srcField: 'fromEvent'),
         obx_int.ModelBacklink(
             name: 'dataValues', srcEntity: 'D2DataValue', srcField: 'event')
       ]),
@@ -1822,6 +1830,10 @@ final _entities = <obx_int.ModelEntity>[
             srcEntity: 'D2Enrollment',
             srcField: 'trackedEntity'),
         obx_int.ModelBacklink(
+            name: 'relationships',
+            srcEntity: 'D2Relationship',
+            srcField: 'fromTrackedEntity'),
+        obx_int.ModelBacklink(
             name: 'attributes',
             srcEntity: 'D2TrackedEntityAttributeValue',
             srcField: 'trackedEntity'),
@@ -2721,7 +2733,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
             [object.trackedEntity, object.orgUnit, object.program],
         toManyRelations: (D2Enrollment object) => {
               obx_int.RelInfo<D2Event>.toOneBacklink(13, object.id,
-                  (D2Event srcObject) => srcObject.enrollment): object.events
+                  (D2Event srcObject) => srcObject.enrollment): object.events,
+              obx_int.RelInfo<D2Relationship>.toOneBacklink(14, object.id,
+                      (D2Relationship srcObject) => srcObject.fromEnrollment):
+                  object.relationships
             },
         getId: (D2Enrollment object) => object.id,
         setId: (D2Enrollment object, int id) {
@@ -2806,6 +2821,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
               store,
               obx_int.RelInfo<D2Event>.toOneBacklink(
                   13, object.id, (D2Event srcObject) => srcObject.enrollment));
+          obx_int.InternalToManyAccess.setRelInfo<D2Enrollment>(
+              object.relationships,
+              store,
+              obx_int.RelInfo<D2Relationship>.toOneBacklink(14, object.id,
+                  (D2Relationship srcObject) => srcObject.fromEnrollment));
           return object;
         }),
     D2Event: obx_int.EntityDefinition<D2Event>(
@@ -2818,6 +2838,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
               object.orgUnit
             ],
         toManyRelations: (D2Event object) => {
+              obx_int.RelInfo<D2Relationship>.toOneBacklink(15, object.id,
+                      (D2Relationship srcObject) => srcObject.fromEvent):
+                  object.relationships,
               obx_int.RelInfo<D2DataValue>.toOneBacklink(
                       7, object.id, (D2DataValue srcObject) => srcObject.event):
                   object.dataValues
@@ -2931,6 +2954,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.orgUnit.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 36, 0);
           object.orgUnit.attach(store);
+          obx_int.InternalToManyAccess.setRelInfo<D2Event>(
+              object.relationships,
+              store,
+              obx_int.RelInfo<D2Relationship>.toOneBacklink(15, object.id,
+                  (D2Relationship srcObject) => srcObject.fromEvent));
           obx_int.InternalToManyAccess.setRelInfo<D2Event>(
               object.dataValues,
               store,
@@ -4386,6 +4414,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
               obx_int.RelInfo<D2Enrollment>.toOneBacklink(11, object.id,
                       (D2Enrollment srcObject) => srcObject.trackedEntity):
                   object.enrollments,
+              obx_int.RelInfo<D2Relationship>.toOneBacklink(
+                  13,
+                  object.id,
+                  (D2Relationship srcObject) =>
+                      srcObject.fromTrackedEntity): object.relationships,
               obx_int.RelInfo<D2TrackedEntityAttributeValue>.toOneBacklink(
                   7,
                   object.id,
@@ -4462,6 +4495,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
               store,
               obx_int.RelInfo<D2Enrollment>.toOneBacklink(11, object.id,
                   (D2Enrollment srcObject) => srcObject.trackedEntity));
+          obx_int.InternalToManyAccess.setRelInfo<D2TrackedEntity>(
+              object.relationships,
+              store,
+              obx_int.RelInfo<D2Relationship>.toOneBacklink(13, object.id,
+                  (D2Relationship srcObject) => srcObject.fromTrackedEntity));
           obx_int.InternalToManyAccess.setRelInfo<D2TrackedEntity>(
               object.attributes,
               store,
@@ -5349,6 +5387,11 @@ class D2Enrollment_ {
   /// see [D2Enrollment.events]
   static final events =
       obx.QueryBacklinkToMany<D2Event, D2Enrollment>(D2Event_.enrollment);
+
+  /// see [D2Enrollment.relationships]
+  static final relationships =
+      obx.QueryBacklinkToMany<D2Relationship, D2Enrollment>(
+          D2Relationship_.fromEnrollment);
 }
 
 /// [D2Event] entity fields to define ObjectBox queries.
@@ -5428,6 +5471,10 @@ class D2Event_ {
   /// see [D2Event.geometry]
   static final geometry =
       obx.QueryStringProperty<D2Event>(_entities[4].properties[18]);
+
+  /// see [D2Event.relationships]
+  static final relationships = obx.QueryBacklinkToMany<D2Relationship, D2Event>(
+      D2Relationship_.fromEvent);
 
   /// see [D2Event.dataValues]
   static final dataValues =
@@ -6440,6 +6487,11 @@ class D2TrackedEntity_ {
   static final enrollments =
       obx.QueryBacklinkToMany<D2Enrollment, D2TrackedEntity>(
           D2Enrollment_.trackedEntity);
+
+  /// see [D2TrackedEntity.relationships]
+  static final relationships =
+      obx.QueryBacklinkToMany<D2Relationship, D2TrackedEntity>(
+          D2Relationship_.fromTrackedEntity);
 
   /// see [D2TrackedEntity.attributes]
   static final attributes =

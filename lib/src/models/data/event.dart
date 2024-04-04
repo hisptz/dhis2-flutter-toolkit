@@ -31,9 +31,8 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
 
   String? geometry;
 
-  //Disabled for now
-  // @Backlink("event")
-  // final relationships = ToMany<D2Relationship>();
+  @Backlink("fromEvent")
+  final relationships = ToMany<D2Relationship>();
 
   @Backlink("event")
   final dataValues = ToMany<D2DataValue>();
