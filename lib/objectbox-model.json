@@ -630,7 +630,7 @@
     },
     {
       "id": "10:3215215508490411793",
-      "lastPropertyId": "12:2678823878082439467",
+      "lastPropertyId": "13:4867486653337345671",
       "name": "D2OrgUnit",
       "properties": [
         {
@@ -696,6 +696,11 @@
           "flags": 520,
           "indexId": "73:8352789729516065977",
           "relationTarget": "D2OrgUnitLevel"
+        },
+        {
+          "id": "13:4867486653337345671",
+          "name": "code",
+          "type": 9
         }
       ],
       "relations": []
@@ -2336,10 +2341,65 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "36:5747825430047780119",
+      "lastPropertyId": "8:3862690011221344307",
+      "name": "D2ReservedValue",
+      "properties": [
+        {
+          "id": "1:499650159245115009",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3061152266179985547",
+          "name": "trackedEntityAttributeId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "79:3811308188912901820",
+          "relationTarget": "D2TrackedEntityAttribute"
+        },
+        {
+          "id": "3:8060280783871267717",
+          "name": "value",
+          "type": 9
+        },
+        {
+          "id": "4:7744259124409344942",
+          "name": "owner",
+          "type": 9
+        },
+        {
+          "id": "5:2960969991826347206",
+          "name": "assigned",
+          "type": 1
+        },
+        {
+          "id": "6:8944967398249760637",
+          "name": "createdOn",
+          "type": 10
+        },
+        {
+          "id": "7:1123768091907834348",
+          "name": "expiresOn",
+          "type": 10
+        },
+        {
+          "id": "8:3862690011221344307",
+          "name": "orgUnitId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "80:722459701791797865",
+          "relationTarget": "D2OrgUnit"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "35:3992400112529482001",
-  "lastIndexId": "78:5184937314444604601",
+  "lastEntityId": "36:5747825430047780119",
+  "lastIndexId": "80:722459701791797865",
   "lastRelationId": "13:3296482006972770137",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
