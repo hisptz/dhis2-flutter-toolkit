@@ -36,6 +36,7 @@ class D2ReservedValueRepository {
     if (client == null) {
       throw "You need to call setupDownload first";
     }
+    await deleteExpiredValues();
     D2SyncStatus status = D2SyncStatus(
         status: D2SyncStatusEnum.initialized, label: "Reserved Values");
 
@@ -71,12 +72,11 @@ class D2ReservedValueRepository {
 
           List<D2OrgUnit> orgUnits = attribute.program.target!.organisationUnits
               .where((D2OrgUnit programOrgUnit) {
-                return userOrgUnits.any((userOrgUnit) {
-                  return userOrgUnit.id == programOrgUnit.id ||
-                      programOrgUnit.path.contains(userOrgUnit.uid);
-                });
-              })
-              .toList();
+            return userOrgUnits.any((userOrgUnit) {
+              return userOrgUnit.id == programOrgUnit.id ||
+                  programOrgUnit.path.contains(userOrgUnit.uid);
+            });
+          }).toList();
 
           D2SyncStatus subStatus = D2SyncStatus(
               status: D2SyncStatusEnum.initialized,
@@ -114,6 +114,13 @@ class D2ReservedValueRepository {
 
   bool isOrgUnitDependent(String pattern) {
     return pattern.contains("ORG_UNIT_CODE");
+  }
+
+  Future deleteExpiredValues() async {
+    QueryBuilder<D2ReservedValue> queryBuilder =
+        box.query(D2ReservedValue_.expiresOn.lessOrEqualDate(DateTime.now()));
+    List<D2ReservedValue> values = await queryBuilder.build().findAsync();
+    await box.removeManyAsync(values.map((value) => value.id).toList());
   }
 
   Future downloadReservedValues(
