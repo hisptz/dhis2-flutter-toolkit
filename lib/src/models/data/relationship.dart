@@ -1,4 +1,5 @@
 import 'package:dhis2_flutter_toolkit/objectbox.dart';
+import 'package:dhis2_flutter_toolkit/src/utils/uid.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../repositories/data/enrollment.dart';
@@ -149,5 +150,36 @@ class D2Relationship extends SyncDataSource implements SyncableData {
     };
 
     return payload;
+  }
+
+  D2Relationship.fromConstraints(
+      {required D2DataResource from,
+      required D2DataResource to,
+      required D2RelationshipType type})
+      : uid = D2UID.generate(),
+        synced = false,
+        createdAt = DateTime.now(),
+        updatedAt = DateTime.now() {
+    relationshipType.target = type;
+
+    if (from is D2TrackedEntity) {
+      fromTrackedEntity.target = from;
+    }
+    if (from is D2Enrollment) {
+      fromEnrollment.target = from;
+    }
+    if (from is D2Event) {
+      fromEvent.target = from;
+    }
+    
+    if (to is D2TrackedEntity) {
+      toTrackedEntity.target = to;
+    }
+    if (to is D2Enrollment) {
+      toEnrollment.target = to;
+    }
+    if (to is D2Event) {
+      toEvent.target = to;
+    }
   }
 }
