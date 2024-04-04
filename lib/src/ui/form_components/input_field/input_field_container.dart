@@ -222,7 +222,7 @@ class InputFieldContainer extends StatelessWidget {
     Widget getSuffix() {
       return Row(
         children: [
-          input.clearable
+          input.clearable && !disabled
               ? IconButton(
                   onPressed: onClear,
                   icon: const Icon(Icons.clear),
