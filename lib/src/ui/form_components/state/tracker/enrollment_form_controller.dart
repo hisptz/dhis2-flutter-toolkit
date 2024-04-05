@@ -18,36 +18,30 @@ class D2TrackerEnrollmentFormController extends D2FormController {
     required this.db,
     required this.program,
     required this.orgUnit,
-    D2TrackedEntity? trackedEntity,
+    this.trackedEntity,
+    this.enrollment,
     super.mandatoryFields,
     super.hiddenFields,
     super.hiddenSections,
   }) {
     if (trackedEntity != null) {
-      this.trackedEntity = trackedEntity;
-
       ///Get the attributes from here
       List<D2TrackedEntityAttributeValue> attributes =
-          trackedEntity.getAttributesByProgram(program);
+          trackedEntity!.getAttributesByProgram(program);
       Map<String, dynamic> formValues = {};
 
       for (D2TrackedEntityAttributeValue element in attributes) {
         formValues.addAll(element.toFormValues());
       }
       //Get the enrollment from here
-      D2Enrollment? enrollment = trackedEntity.enrollments.firstWhereOrNull(
-          (element) =>
-              element.program.targetId == program.id &&
-              element.status == "ACTIVE");
       if (enrollment == null) {
         if (kDebugMode) {
           print(
               "The selected tracked entity does not have an active enrollment in this program. A new enrollment will be created instead");
         }
       } else {
-        Map<String, dynamic> enrollmentFormValues = enrollment.toFormValues();
+        Map<String, dynamic> enrollmentFormValues = enrollment!.toFormValues();
         formValues.addAll(enrollmentFormValues);
-        this.enrollment = enrollment;
       }
       setValues(formValues);
     }
@@ -115,7 +109,7 @@ class D2TrackerEnrollmentFormController extends D2FormController {
     D2ReservedValueRepository(db).saveEntities(reservedValues);
   }
 
-  Future<D2TrackedEntity> create() async {
+  Future<D2Enrollment> create() async {
     Map<String, dynamic> validatedFormValues = submit();
     D2OrgUnit? orgUnit = D2OrgUnitRepository(db).getByUid(this.orgUnit);
     if (orgUnit == null) {
@@ -126,13 +120,12 @@ class D2TrackerEnrollmentFormController extends D2FormController {
         db: db,
         program: program,
         orgUnit: orgUnit);
-
     trackedEntity.save(db);
     updateReservedValues();
-    return trackedEntity;
+    return trackedEntity.enrollments.first;
   }
 
-  Future<D2TrackedEntity> update() async {
+  Future<D2Enrollment> update() async {
     if (trackedEntity == null) {
       throw "Invalid update call. Only call update if a default trackedEntity has been passed as a parameter when initializing the controller";
     }
@@ -142,7 +135,6 @@ class D2TrackerEnrollmentFormController extends D2FormController {
 
     if (enrollment != null) {
       enrollment!.updateFromFormValues(validatedFormValues, db: db);
-
       enrollment!.save(db);
     } else {
       if (orgUnit == null) {
@@ -155,13 +147,14 @@ class D2TrackerEnrollmentFormController extends D2FormController {
           orgUnit: orgUnit);
 
       trackedEntity!.enrollments.add(enrollment);
+      this.enrollment = enrollment;
     }
     trackedEntity!.save(db);
-    return trackedEntity!;
+    return enrollment!;
   }
 
   ///Calls on submit and then saves the updated data. If the enrollment is new, a tracked entity is also created. It doesn't really need to be an async function
-  Future<D2TrackedEntity> save() async {
+  Future<D2Enrollment> save() async {
     if (trackedEntity != null) {
       return update();
     } else {
