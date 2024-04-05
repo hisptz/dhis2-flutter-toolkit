@@ -35,6 +35,12 @@ class D2TrackerEnrollmentFormController extends D2FormController {
       }
       //Get the enrollment from here
       if (enrollment == null) {
+        D2Enrollment? derivedEnrollment = trackedEntity!.enrollments
+            .firstWhereOrNull((element) =>
+                element.program.targetId == program.id &&
+                element.status == "ACTIVE");
+
+        enrollment = derivedEnrollment;
         if (kDebugMode) {
           print(
               "The selected tracked entity does not have an active enrollment in this program. A new enrollment will be created instead");
