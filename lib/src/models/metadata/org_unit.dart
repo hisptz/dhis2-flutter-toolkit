@@ -13,11 +13,9 @@ class D2OrgUnit implements D2MetaResource {
   @Unique()
   String uid;
   String path;
-  @override
+  String? code;
   DateTime created;
   DateTime openingDate;
-
-  @override
   DateTime lastUpdated;
 
   final parent = ToOne<D2OrgUnit>();
@@ -28,7 +26,7 @@ class D2OrgUnit implements D2MetaResource {
   final children = ToMany<D2OrgUnit>();
 
   D2OrgUnit(this.id, this.displayName, this.name, this.uid, this.shortName,
-      this.path, this.created, this.lastUpdated, this.openingDate);
+      this.path, this.created, this.lastUpdated, this.openingDate, this.code);
 
   D2OrgUnit.fromMap(D2ObjectBox db, Map json)
       : uid = json["id"],
@@ -38,6 +36,7 @@ class D2OrgUnit implements D2MetaResource {
         created = DateTime.parse(json["created"]),
         openingDate = DateTime.parse(json["openingDate"]),
         displayName = json["displayName"],
+        code = json["code"],
         lastUpdated = DateTime.parse(json["lastUpdated"]) {
     id = D2OrgUnitRepository(db).getIdByUid(json["id"]) ?? 0;
     if (json["parent"] != null) {
@@ -46,6 +45,5 @@ class D2OrgUnit implements D2MetaResource {
     level.target = D2OrgUnitLevelRepository(db).getByLevel(json["level"]);
   }
 
-  @override
   String? displayName;
 }

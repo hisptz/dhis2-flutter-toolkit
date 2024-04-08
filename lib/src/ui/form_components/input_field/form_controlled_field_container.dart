@@ -1,7 +1,9 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/field_state.dart';
 import 'package:flutter/material.dart';
+
+import '../state/field_state.dart';
+import '../state/form_state.dart';
+import 'input_field_container.dart';
+import 'models/base_input_field.dart';
 
 class D2FormControlledInputField extends StatelessWidget {
   final D2BaseInputFieldConfig input;
@@ -31,7 +33,7 @@ class D2FormControlledInputField extends StatelessWidget {
               error: fieldState.error,
               warning: fieldState.warning,
               value: fieldState.value,
-              disabled: disabled ?? false,
+              disabled: (fieldState.disabled ?? false) || (disabled ?? false),
             ),
           );
         });

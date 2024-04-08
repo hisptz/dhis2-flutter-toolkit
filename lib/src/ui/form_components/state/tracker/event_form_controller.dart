@@ -1,8 +1,8 @@
-
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
 class D2TrackerEventFormController extends D2FormController {
   D2ProgramStage programStage;
+  D2Enrollment? enrollment;
   D2ObjectBox db;
   String? orgUnit;
   D2Event? event;
@@ -11,6 +11,7 @@ class D2TrackerEventFormController extends D2FormController {
       {required this.db,
       required this.programStage,
       this.event,
+      this.enrollment,
       super.mandatoryFields,
       super.hiddenFields,
       super.hiddenSections,
@@ -18,6 +19,11 @@ class D2TrackerEventFormController extends D2FormController {
     if (event != null) {
       Map<String, dynamic> formValues = event!.toFormValues();
       setValues(formValues);
+    }
+
+    if (programStage.program.target!.programType == "WITH_REGISTRATION" &&
+        enrollment == null) {
+      throw "Enrollment is required for tracker programs";
     }
     List<String> mandatoryFields = programStage.programStageDataElements
         .where((pDataElement) => pDataElement.compulsory)
@@ -35,7 +41,10 @@ class D2TrackerEventFormController extends D2FormController {
     }
 
     D2Event newEvent = D2Event.fromFormValues(validatedFormValues,
-        db: db, programStage: programStage, orgUnit: orgUnit);
+        db: db,
+        programStage: programStage,
+        orgUnit: orgUnit,
+        enrollment: enrollment);
 
     newEvent.save(db);
 

@@ -8,17 +8,14 @@ class D2RelationshipType extends D2MetaResource {
   @override
   int id = 0;
   String name;
-  @override
   DateTime created;
 
-  @override
   DateTime lastUpdated;
 
   @Unique()
   @override
   String uid;
 
-  @override
   String? displayName;
   String? fromToName;
   String? toFromName;

@@ -7,6 +7,8 @@ class D2SyncStatus {
 
   D2SyncStatusEnum status;
 
+  D2SyncStatus? subProcess;
+
   D2SyncStatus(
       {this.synced, this.total, required this.status, required this.label});
 
