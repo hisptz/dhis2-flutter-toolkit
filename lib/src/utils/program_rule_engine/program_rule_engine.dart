@@ -28,6 +28,11 @@ class D2ProgramRuleEngine {
 
   final D2TrackedEntity? trackedEntity;
 
+  @override
+  String toString() {
+    return 'D2ProgramRuleEngine{programRules: $programRules, programRuleVariables: $programRuleVariables}';
+  }
+
   ///
   ///`D2ProgramRuleEngine` is constructor for the `D2ProgramRuleEngine` class
   /// The constructor takes a list of `D2ProgramRule` and a list of `D2ProgramRuleVariable` as required parameters and an optional `D2TrackedEntity` object
