@@ -888,6 +888,14 @@ final _entities = <obx_int.ModelEntity>[
             srcEntity: 'D2ProgramStage',
             srcField: 'program'),
         obx_int.ModelBacklink(
+            name: 'programRules',
+            srcEntity: 'D2ProgramRule',
+            srcField: 'program'),
+        obx_int.ModelBacklink(
+            name: 'programRuleVariables',
+            srcEntity: 'D2ProgramRuleVariable',
+            srcField: 'program'),
+        obx_int.ModelBacklink(
             name: 'programSections',
             srcEntity: 'D2ProgramSection',
             srcField: 'program'),
@@ -3354,6 +3362,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
               obx_int.RelInfo<D2ProgramStage>.toOneBacklink(11, object.id,
                       (D2ProgramStage srcObject) => srcObject.program):
                   object.programStages,
+              obx_int.RelInfo<D2ProgramRule>.toOneBacklink(8, object.id,
+                      (D2ProgramRule srcObject) => srcObject.program):
+                  object.programRules,
+              obx_int.RelInfo<D2ProgramRuleVariable>.toOneBacklink(
+                      12,
+                      object.id,
+                      (D2ProgramRuleVariable srcObject) => srcObject.program):
+                  object.programRuleVariables,
               obx_int.RelInfo<D2ProgramSection>.toOneBacklink(7, object.id,
                       (D2ProgramSection srcObject) => srcObject.program):
                   object.programSections,
@@ -3452,6 +3468,18 @@ obx_int.ModelDefinition getObjectBoxModel() {
               store,
               obx_int.RelInfo<D2ProgramStage>.toOneBacklink(11, object.id,
                   (D2ProgramStage srcObject) => srcObject.program));
+          obx_int.InternalToManyAccess.setRelInfo<D2Program>(
+              object.programRules,
+              store,
+              obx_int.RelInfo<D2ProgramRule>.toOneBacklink(8, object.id,
+                  (D2ProgramRule srcObject) => srcObject.program));
+          obx_int.InternalToManyAccess.setRelInfo<D2Program>(
+              object.programRuleVariables,
+              store,
+              obx_int.RelInfo<D2ProgramRuleVariable>.toOneBacklink(
+                  12,
+                  object.id,
+                  (D2ProgramRuleVariable srcObject) => srcObject.program));
           obx_int.InternalToManyAccess.setRelInfo<D2Program>(
               object.programSections,
               store,
@@ -5796,6 +5824,15 @@ class D2Program_ {
   static final programStages =
       obx.QueryBacklinkToMany<D2ProgramStage, D2Program>(
           D2ProgramStage_.program);
+
+  /// see [D2Program.programRules]
+  static final programRules =
+      obx.QueryBacklinkToMany<D2ProgramRule, D2Program>(D2ProgramRule_.program);
+
+  /// see [D2Program.programRuleVariables]
+  static final programRuleVariables =
+      obx.QueryBacklinkToMany<D2ProgramRuleVariable, D2Program>(
+          D2ProgramRuleVariable_.program);
 
   /// see [D2Program.programSections]
   static final programSections =
