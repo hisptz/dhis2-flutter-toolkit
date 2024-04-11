@@ -229,8 +229,8 @@ class D2ProgramRuleEngine {
         .toList();
 
     return programRules
-        .where((programRule) =>
-            inputFieldProgramRuleVariables.contains(programRule.condition))
+        .where((programRule) => inputFieldProgramRuleVariables
+            .any((String variable) => programRule.condition.contains(variable)))
         .toList();
   }
 
