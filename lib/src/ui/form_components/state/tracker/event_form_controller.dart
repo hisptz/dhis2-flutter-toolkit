@@ -74,7 +74,7 @@ class D2TrackerEventFormController extends D2FormController
   FieldState getFieldState(String key) {
     void onChange(value) {
       setValue(key, value);
-      spawnProgramRuleEngineIsolate(programRuleEngine, key);
+      spawnProgramRuleEngine(programRuleEngine, key);
     }
 
     bool hidden = isFieldHidden(key);
