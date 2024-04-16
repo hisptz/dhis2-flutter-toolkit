@@ -36,4 +36,8 @@ class D2DataStoreRepository extends BaseDataRepository
         .build()
         .findFirst();
   }
+
+  int? getIdByUid(String uid) {
+    return box.query(D2DataStore_.uid.equals(uid)).build().findFirst()?.id;
+  }
 }

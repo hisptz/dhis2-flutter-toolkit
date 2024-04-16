@@ -2458,7 +2458,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(37, 5107469390447171537),
       name: 'D2DataStore',
-      lastPropertyId: const obx_int.IdUid(4, 484476650790113601),
+      lastPropertyId: const obx_int.IdUid(5, 7111977382999978491),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -2470,7 +2470,7 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(2, 2833850850413250967),
             name: 'key',
             type: 9,
-            flags: 2080,
+            flags: 2048,
             indexId: const obx_int.IdUid(88, 6240531089474913801)),
         obx_int.ModelProperty(
             id: const obx_int.IdUid(3, 3611279519622595411),
@@ -2482,7 +2482,13 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(4, 484476650790113601),
             name: 'value',
             type: 9,
-            flags: 0)
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(5, 7111977382999978491),
+            name: 'uid',
+            type: 9,
+            flags: 2080,
+            indexId: const obx_int.IdUid(90, 3900820567956323302))
       ],
       relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[])
@@ -2524,7 +2530,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
       lastEntityId: const obx_int.IdUid(37, 5107469390447171537),
-      lastIndexId: const obx_int.IdUid(89, 2540306652151945026),
+      lastIndexId: const obx_int.IdUid(90, 3900820567956323302),
       lastRelationId: const obx_int.IdUid(13, 3296482006972770137),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [4845029629663650184],
@@ -5229,11 +5235,13 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final keyOffset = fbb.writeString(object.key);
           final namespaceOffset = fbb.writeString(object.namespace);
           final valueOffset = fbb.writeString(object.value);
-          fbb.startTable(5);
+          final uidOffset = fbb.writeString(object.uid);
+          fbb.startTable(6);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, keyOffset);
           fbb.addOffset(2, namespaceOffset);
           fbb.addOffset(3, valueOffset);
+          fbb.addOffset(4, uidOffset);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -5246,7 +5254,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
               .vTableGet(buffer, rootOffset, 8, '');
           final valueParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 10, '');
-          final object = D2DataStore(keyParam, namespaceParam, valueParam)
+          final uidParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 12, '');
+          final object = D2DataStore(
+              keyParam, namespaceParam, valueParam, uidParam)
             ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
 
           return object;
@@ -7032,4 +7043,8 @@ class D2DataStore_ {
   /// see [D2DataStore.value]
   static final value =
       obx.QueryStringProperty<D2DataStore>(_entities[35].properties[3]);
+
+  /// see [D2DataStore.uid]
+  static final uid =
+      obx.QueryStringProperty<D2DataStore>(_entities[35].properties[4]);
 }

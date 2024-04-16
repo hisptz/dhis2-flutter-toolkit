@@ -1,12 +1,11 @@
 import 'dart:async';
 
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:dhis2_flutter_toolkit/src/repositories/data/base.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../models/data/data_store.dart';
 import '../../../services/client/client.dart';
 import '../../../utils/sync_status.dart';
+import '../base.dart';
 
 mixin D2DataStoreDataDownloadServiceMixin on BaseDataRepository {
   String downloadURL = "dataStore";
@@ -46,7 +45,8 @@ mixin D2DataStoreDataDownloadServiceMixin on BaseDataRepository {
       String url = "$downloadURL/$namespace/$key";
       var response = await client!.httpGet(url);
       if (response is Object) {
-        D2DataStore store = D2DataStore.fromMap(namespace, key, response);
+        D2DataStore store = D2DataStore.fromMap(db,
+            namespace: namespace, key: key, value: response);
         stores.add(store);
       } else {
         if (kDebugMode) {
