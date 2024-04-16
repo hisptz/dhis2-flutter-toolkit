@@ -16,6 +16,7 @@ import 'package:objectbox/objectbox.dart' as obx;
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
 import 'src/models/data/attribute_value.dart';
+import 'src/models/data/data_store.dart';
 import 'src/models/data/data_value.dart';
 import 'src/models/data/enrollment.dart';
 import 'src/models/data/event.dart';
@@ -2453,6 +2454,37 @@ final _entities = <obx_int.ModelEntity>[
             relationTarget: 'D2OrgUnit')
       ],
       relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[]),
+  obx_int.ModelEntity(
+      id: const obx_int.IdUid(37, 5107469390447171537),
+      name: 'D2DataStore',
+      lastPropertyId: const obx_int.IdUid(4, 484476650790113601),
+      flags: 0,
+      properties: <obx_int.ModelProperty>[
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(1, 5046926361823948000),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(2, 2833850850413250967),
+            name: 'key',
+            type: 9,
+            flags: 2080,
+            indexId: const obx_int.IdUid(88, 6240531089474913801)),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(3, 3611279519622595411),
+            name: 'namespace',
+            type: 9,
+            flags: 2048,
+            indexId: const obx_int.IdUid(89, 2540306652151945026)),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(4, 484476650790113601),
+            name: 'value',
+            type: 9,
+            flags: 0)
+      ],
+      relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[])
 ];
 
@@ -2491,8 +2523,8 @@ Future<obx.Store> openStore(
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
-      lastEntityId: const obx_int.IdUid(36, 5747825430047780119),
-      lastIndexId: const obx_int.IdUid(87, 5516752848296392221),
+      lastEntityId: const obx_int.IdUid(37, 5107469390447171537),
+      lastIndexId: const obx_int.IdUid(89, 2540306652151945026),
       lastRelationId: const obx_int.IdUid(13, 3296482006972770137),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [4845029629663650184],
@@ -5184,6 +5216,40 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
           object.orgUnit.attach(store);
           return object;
+        }),
+    D2DataStore: obx_int.EntityDefinition<D2DataStore>(
+        model: _entities[35],
+        toOneRelations: (D2DataStore object) => [],
+        toManyRelations: (D2DataStore object) => {},
+        getId: (D2DataStore object) => object.id,
+        setId: (D2DataStore object, int id) {
+          object.id = id;
+        },
+        objectToFB: (D2DataStore object, fb.Builder fbb) {
+          final keyOffset = fbb.writeString(object.key);
+          final namespaceOffset = fbb.writeString(object.namespace);
+          final valueOffset = fbb.writeString(object.value);
+          fbb.startTable(5);
+          fbb.addInt64(0, object.id);
+          fbb.addOffset(1, keyOffset);
+          fbb.addOffset(2, namespaceOffset);
+          fbb.addOffset(3, valueOffset);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (obx.Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+          final keyParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 6, '');
+          final namespaceParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 8, '');
+          final valueParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 10, '');
+          final object = D2DataStore(keyParam, namespaceParam, valueParam)
+            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+
+          return object;
         })
   };
 
@@ -6947,4 +7013,23 @@ class D2ReservedValue_ {
   /// see [D2ReservedValue.orgUnit]
   static final orgUnit = obx.QueryRelationToOne<D2ReservedValue, D2OrgUnit>(
       _entities[34].properties[7]);
+}
+
+/// [D2DataStore] entity fields to define ObjectBox queries.
+class D2DataStore_ {
+  /// see [D2DataStore.id]
+  static final id =
+      obx.QueryIntegerProperty<D2DataStore>(_entities[35].properties[0]);
+
+  /// see [D2DataStore.key]
+  static final key =
+      obx.QueryStringProperty<D2DataStore>(_entities[35].properties[1]);
+
+  /// see [D2DataStore.namespace]
+  static final namespace =
+      obx.QueryStringProperty<D2DataStore>(_entities[35].properties[2]);
+
+  /// see [D2DataStore.value]
+  static final value =
+      obx.QueryStringProperty<D2DataStore>(_entities[35].properties[3]);
 }
