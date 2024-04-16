@@ -16,7 +16,7 @@ class D2DataStore {
 
   D2DataStore(this.key, this.namespace, this.value);
 
-  D2DataStore.fromMap(this.namespace, this.key, Map value)
+  D2DataStore.fromMap(this.namespace, this.key, Object value)
       : value = jsonEncode(value);
 
   getValue<T>() {

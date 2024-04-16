@@ -3,12 +3,12 @@ import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_que
 
 import '../../../objectbox.g.dart';
 import '../../models/data/enrollment.dart';
-import 'base.dart';
+import 'base_tracker.dart';
 import 'download_mixin/base_tracker_data_download_service_mixin.dart';
 import 'download_mixin/enrollment_data_download_service_mixin.dart';
 import 'upload_mixin/base_tracker_data_upload_service_mixin.dart';
 
-class D2EnrollmentRepository extends D2BaseDataRepository<D2Enrollment>
+class D2EnrollmentRepository extends D2BaseTrackerDataRepository<D2Enrollment>
     with
         BaseTrackerDataDownloadServiceMixin<D2Enrollment>,
         D2EnrollmentDownloadServiceMixin,
@@ -47,7 +47,7 @@ class D2EnrollmentRepository extends D2BaseDataRepository<D2Enrollment>
   }
 
   @override
-  D2BaseDataRepository<D2Enrollment> setProgram(D2Program program) {
+  D2BaseTrackerDataRepository<D2Enrollment> setProgram(D2Program program) {
     this.program = program;
     return this;
   }
