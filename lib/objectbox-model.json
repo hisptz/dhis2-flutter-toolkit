@@ -2417,10 +2417,43 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "37:5107469390447171537",
+      "lastPropertyId": "4:484476650790113601",
+      "name": "D2DataStore",
+      "properties": [
+        {
+          "id": "1:5046926361823948000",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2833850850413250967",
+          "name": "key",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "88:6240531089474913801"
+        },
+        {
+          "id": "3:3611279519622595411",
+          "name": "namespace",
+          "type": 9,
+          "flags": 2048,
+          "indexId": "89:2540306652151945026"
+        },
+        {
+          "id": "4:484476650790113601",
+          "name": "value",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "36:5747825430047780119",
-  "lastIndexId": "87:5516752848296392221",
+  "lastEntityId": "37:5107469390447171537",
+  "lastIndexId": "89:2540306652151945026",
   "lastRelationId": "13:3296482006972770137",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
