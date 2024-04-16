@@ -137,14 +137,16 @@ class D2TrackerEnrollmentFormController extends D2FormController {
     }
     Map<String, dynamic> validatedFormValues = submit();
     D2OrgUnit? orgUnit = D2OrgUnitRepository(db).getByUid(this.orgUnit);
-    trackedEntity!.updateFromFormValues(validatedFormValues, db: db);
+    trackedEntity!
+        .updateFromFormValues(validatedFormValues, db: db, program: program);
 
     if (enrollment != null) {
-      enrollment!.updateFromFormValues(validatedFormValues, db: db);
+      enrollment!
+          .updateFromFormValues(validatedFormValues, db: db, program: program);
       enrollment!.save(db);
     } else {
       if (orgUnit == null) {
-        throw "Could not get entity's organisation unit. You either have to pass it as a parameter when initializing the controller or have a required field with key 'orgUnit'";
+        throw "Could not get entity's organisation unit. You have to pass it as a parameter when initializing the controller.";
       }
       D2Enrollment enrollment = D2Enrollment.fromFormValues(validatedFormValues,
           db: db,
