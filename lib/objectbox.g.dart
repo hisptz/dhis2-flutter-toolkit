@@ -889,6 +889,14 @@ final _entities = <obx_int.ModelEntity>[
             srcEntity: 'D2ProgramStage',
             srcField: 'program'),
         obx_int.ModelBacklink(
+            name: 'programRules',
+            srcEntity: 'D2ProgramRule',
+            srcField: 'program'),
+        obx_int.ModelBacklink(
+            name: 'programRuleVariables',
+            srcEntity: 'D2ProgramRuleVariable',
+            srcField: 'program'),
+        obx_int.ModelBacklink(
             name: 'programSections',
             srcEntity: 'D2ProgramSection',
             srcField: 'program'),
@@ -902,7 +910,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(14, 4258101311778128002),
       name: 'D2ProgramRule',
-      lastPropertyId: const obx_int.IdUid(9, 2148657165772279005),
+      lastPropertyId: const obx_int.IdUid(10, 4550334781923146221),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -951,6 +959,11 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(9, 2148657165772279005),
             name: 'displayName',
             type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(10, 4550334781923146221),
+            name: 'priority',
+            type: 6,
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
@@ -3387,6 +3400,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
               obx_int.RelInfo<D2ProgramStage>.toOneBacklink(11, object.id,
                       (D2ProgramStage srcObject) => srcObject.program):
                   object.programStages,
+              obx_int.RelInfo<D2ProgramRule>.toOneBacklink(8, object.id,
+                      (D2ProgramRule srcObject) => srcObject.program):
+                  object.programRules,
+              obx_int.RelInfo<D2ProgramRuleVariable>.toOneBacklink(
+                      12,
+                      object.id,
+                      (D2ProgramRuleVariable srcObject) => srcObject.program):
+                  object.programRuleVariables,
               obx_int.RelInfo<D2ProgramSection>.toOneBacklink(7, object.id,
                       (D2ProgramSection srcObject) => srcObject.program):
                   object.programSections,
@@ -3486,6 +3507,18 @@ obx_int.ModelDefinition getObjectBoxModel() {
               obx_int.RelInfo<D2ProgramStage>.toOneBacklink(11, object.id,
                   (D2ProgramStage srcObject) => srcObject.program));
           obx_int.InternalToManyAccess.setRelInfo<D2Program>(
+              object.programRules,
+              store,
+              obx_int.RelInfo<D2ProgramRule>.toOneBacklink(8, object.id,
+                  (D2ProgramRule srcObject) => srcObject.program));
+          obx_int.InternalToManyAccess.setRelInfo<D2Program>(
+              object.programRuleVariables,
+              store,
+              obx_int.RelInfo<D2ProgramRuleVariable>.toOneBacklink(
+                  12,
+                  object.id,
+                  (D2ProgramRuleVariable srcObject) => srcObject.program));
+          obx_int.InternalToManyAccess.setRelInfo<D2Program>(
               object.programSections,
               store,
               obx_int.RelInfo<D2ProgramSection>.toOneBacklink(7, object.id,
@@ -3527,7 +3560,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final displayNameOffset = object.displayName == null
               ? null
               : fbb.writeString(object.displayName!);
-          fbb.startTable(10);
+          fbb.startTable(11);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.created.millisecondsSinceEpoch);
           fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
@@ -3537,6 +3570,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addOffset(6, conditionOffset);
           fbb.addInt64(7, object.program.targetId);
           fbb.addOffset(8, displayNameOffset);
+          fbb.addInt64(9, object.priority);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -3561,6 +3595,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
                   .vTableGetNullable(buffer, rootOffset, 14);
           final conditionParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 16, '');
+          final priorityParam =
+              const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 22);
           final object = D2ProgramRule(
               idParam,
               displayNameParam,
@@ -3569,7 +3605,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
               uidParam,
               nameParam,
               descriptionParam,
-              conditionParam);
+              conditionParam,
+              priorityParam);
           object.program.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
           object.program.attach(store);
@@ -5865,6 +5902,15 @@ class D2Program_ {
       obx.QueryBacklinkToMany<D2ProgramStage, D2Program>(
           D2ProgramStage_.program);
 
+  /// see [D2Program.programRules]
+  static final programRules =
+      obx.QueryBacklinkToMany<D2ProgramRule, D2Program>(D2ProgramRule_.program);
+
+  /// see [D2Program.programRuleVariables]
+  static final programRuleVariables =
+      obx.QueryBacklinkToMany<D2ProgramRuleVariable, D2Program>(
+          D2ProgramRuleVariable_.program);
+
   /// see [D2Program.programSections]
   static final programSections =
       obx.QueryBacklinkToMany<D2ProgramSection, D2Program>(
@@ -5917,6 +5963,10 @@ class D2ProgramRule_ {
   /// see [D2ProgramRule.displayName]
   static final displayName =
       obx.QueryStringProperty<D2ProgramRule>(_entities[12].properties[8]);
+
+  /// see [D2ProgramRule.priority]
+  static final priority =
+      obx.QueryIntegerProperty<D2ProgramRule>(_entities[12].properties[9]);
 
   /// see [D2ProgramRule.programRuleActions]
   static final programRuleActions =

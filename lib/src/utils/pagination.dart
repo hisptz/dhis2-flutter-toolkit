@@ -1,12 +1,12 @@
-class Pagination {
+class D2Pagination {
   int total;
   int pageSize;
   int pageCount;
 
-  Pagination(
+  D2Pagination(
       {required this.total, required this.pageSize, required this.pageCount});
 
-  Pagination.fromMap(Map json)
+  D2Pagination.fromMap(Map json)
       : total = json["total"],
         pageSize = json["pageSize"],
         pageCount = json["pageCount"];
