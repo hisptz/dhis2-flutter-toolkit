@@ -48,6 +48,15 @@ class D2TrackerEventFormController extends D2FormController
       programRuleVariables: programRuleVariables,
       trackedEntity: event?.trackedEntity.target,
     );
+
+    for (var section in programStage.programStageSections) {
+      for (var attribute in section.programStageSectionDataElements) {
+        spawnProgramRuleEngine(
+          programRuleEngine,
+          attribute.dataElement.target?.uid ?? "",
+        );
+      }
+    }
   }
 
   Future<D2Event> create() async {
