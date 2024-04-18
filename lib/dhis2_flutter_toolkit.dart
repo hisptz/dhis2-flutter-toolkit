@@ -12,6 +12,7 @@ export "src/models/data/tracked_entity.dart" show D2TrackedEntity;
 export "src/models/data/tracked_entity_attribute_value.dart"
     show D2TrackedEntityAttributeValue;
 export 'src/models/data/reserved_value.dart' show D2ReservedValue;
+export 'src/models/data/data_store.dart' show D2DataStore;
 
 //Metadata Models
 export "src/models/metadata/data_element.dart" show D2DataElement;
@@ -46,7 +47,8 @@ export "src/models/metadata/user_group.dart" show D2UserGroup;
 export "src/models/metadata/user_role.dart" show D2UserRole;
 
 //Data Repositories
-export "src/repositories/data/base.dart" show D2BaseDataRepository;
+export "src/repositories/data/base_tracker.dart"
+    show D2BaseTrackerDataRepository;
 export "src/repositories/data/data_value.dart" show D2DataValueRepository;
 export "src/repositories/data/enrollment.dart" show D2EnrollmentRepository;
 export "src/repositories/data/event.dart" show D2EventRepository;
@@ -59,6 +61,8 @@ export "src/repositories/data/tracked_entity_attribute_value.dart"
     show D2TrackedEntityAttributeValueRepository;
 export "src/repositories/data/reserved_value.dart"
     show D2ReservedValueRepository;
+
+export "src/repositories/data/data_store.dart" show D2DataStoreRepository;
 
 //Metadata Repositories
 export "src/repositories/metadata/data_element.dart"

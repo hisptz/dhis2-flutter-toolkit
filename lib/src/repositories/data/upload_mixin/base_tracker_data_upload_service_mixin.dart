@@ -7,7 +7,7 @@ import '../../../../dhis2_flutter_toolkit.dart';
 import '../../../models/data/base.dart';
 
 mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
-    on D2BaseDataRepository<T>, D2BaseDataQueryMixin<T> {
+    on D2BaseTrackerDataRepository<T>, D2BaseDataQueryMixin<T> {
   D2ClientService? client;
   int uploadPageSize = 10;
   String uploadResource = "tracker";

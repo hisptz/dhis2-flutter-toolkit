@@ -6,5 +6,5 @@ abstract class D2BaseEditable {
   void save(D2ObjectBox db);
 
   void updateFromFormValues(Map<String, dynamic> values,
-      {required D2ObjectBox db, D2OrgUnit? orgUnit});
+      {required D2ObjectBox db, D2Program? program, D2OrgUnit? orgUnit});
 }
