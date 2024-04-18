@@ -222,7 +222,7 @@ class InputFieldContainer extends StatelessWidget {
     Widget getSuffix() {
       return Row(
         children: [
-          input.clearable
+          input.clearable && !disabled
               ? IconButton(
                   onPressed: onClear,
                   icon: const Icon(Icons.clear),
@@ -255,26 +255,28 @@ class InputFieldContainer extends StatelessWidget {
         children: [
           Row(
             children: [
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: input.label,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: colorOverride,
+              Expanded(
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: input.label,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: colorOverride,
+                        ),
                       ),
-                    ),
-                    TextSpan(
-                      text: input.mandatory ? ' *' : '',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.redAccent,
-                      ),
-                    )
-                  ],
+                      TextSpan(
+                        text: input.mandatory ? ' *' : '',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.redAccent,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],

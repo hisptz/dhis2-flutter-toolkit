@@ -69,14 +69,14 @@ mixin BaseMetaDownloadServiceMixin<T extends D2MetaResource>
     return entity.isNotEmpty;
   }
 
-  Future<Pagination> getPagination() async {
+  Future<D2Pagination> getPagination() async {
     Map<String, dynamic>? response = await client!
         .httpGetPagination<Map<String, dynamic>>(url,
             queryParameters: queryParams);
     if (response == null) {
       throw "Error getting pagination for data sync";
     }
-    return Pagination.fromMap(response["pager"]);
+    return D2Pagination.fromMap(response["pager"]);
   }
 
   Future<D?> getData<D>(int page) async {
@@ -105,7 +105,7 @@ mixin BaseMetaDownloadServiceMixin<T extends D2MetaResource>
       D2SyncStatus status =
           D2SyncStatus(status: D2SyncStatusEnum.initialized, label: label);
       downloadController.add(status);
-      Pagination pagination = await getPagination();
+      D2Pagination pagination = await getPagination();
       status.setTotal(pagination.pageCount);
       downloadController.add(status);
       status.updateStatus(D2SyncStatusEnum.syncing);

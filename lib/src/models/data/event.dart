@@ -31,9 +31,8 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
 
   String? geometry;
 
-  //Disabled for now
-  // @Backlink("event")
-  // final relationships = ToMany<D2Relationship>();
+  @Backlink("fromEvent")
+  final relationships = ToMany<D2Relationship>();
 
   @Backlink("event")
   final dataValues = ToMany<D2DataValue>();
@@ -202,7 +201,7 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
 
   @override
   void updateFromFormValues(Map<String, dynamic> values,
-      {required D2ObjectBox db, D2OrgUnit? orgUnit}) {
+      {required D2ObjectBox db, D2Program? program, D2OrgUnit? orgUnit}) {
     if (orgUnit != null) {
       this.orgUnit.target = orgUnit;
     }

@@ -31,7 +31,6 @@ class D2ProgramRuleVariable extends D2MetaResource {
   String valueType;
   bool useCodeForOptionSet;
 
-//TODO: Add the one 2 one relationships to the constructor
   final trackedEntityAttribute = ToOne<D2TrackedEntityAttribute>();
   final dataElement = ToOne<D2DataElement>();
   final programStage = ToOne<D2ProgramStage>();

@@ -1,12 +1,11 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
 class FormUtils {
-  static D2BaseInputFieldConfig getFieldConfigFromDataItem(
-    dataItem, {
-    bool mandatory = false,
-    bool? allowFutureDates,
-    bool? renderOptionsAsRadio,
-  }) {
+  static D2BaseInputFieldConfig getFieldConfigFromDataItem(dataItem,
+      {bool mandatory = false,
+      bool? allowFutureDates,
+      bool? renderOptionsAsRadio,
+      bool? clearable}) {
     // if (dataItem is D2TrackedEntityAttribute) {
     D2InputFieldType? type =
         D2InputFieldType.fromDHIS2ValueType(dataItem.valueType);
@@ -32,6 +31,7 @@ class FormUtils {
           label: label,
           type: type,
           name: dataItem.uid,
+          clearable: clearable ?? false,
           mandatory: mandatory,
           renderOptionsAsRadio: renderOptionsAsRadio ?? false);
     }
@@ -42,6 +42,7 @@ class FormUtils {
           type: type,
           name: name,
           mandatory: mandatory,
+          clearable: clearable ?? false,
           allowFutureDates: allowFutureDates ?? true);
     }
     if (D2InputFieldType.isDateRange(type)) {
@@ -50,30 +51,61 @@ class FormUtils {
           type: type,
           name: name,
           mandatory: mandatory,
+          clearable: clearable ?? false,
           allowFutureDates: allowFutureDates ?? true);
     }
     if (D2InputFieldType.isNumber(type)) {
       return D2NumberInputFieldConfig(
-          label: label, type: type, name: name, mandatory: mandatory);
+        label: label,
+        type: type,
+        name: name,
+        mandatory: mandatory,
+        clearable: clearable ?? false,
+      );
     }
     if (D2InputFieldType.isText(type)) {
       return D2TextInputFieldConfig(
-          label: label, type: type, name: name, mandatory: mandatory);
+        label: label,
+        type: type,
+        name: name,
+        mandatory: mandatory,
+        clearable: clearable ?? false,
+      );
     }
 
     switch (type) {
       case D2InputFieldType.boolean:
         return D2BooleanInputFieldConfig(
-            label: label, type: type, name: name, mandatory: mandatory);
+          label: label,
+          type: type,
+          name: name,
+          mandatory: mandatory,
+          clearable: clearable ?? false,
+        );
       case D2InputFieldType.trueOnly:
         return D2TrueOnlyInputFieldConfig(
-            label: label, type: type, name: name, mandatory: mandatory);
+          label: label,
+          type: type,
+          name: name,
+          mandatory: mandatory,
+          clearable: clearable ?? false,
+        );
       case D2InputFieldType.age:
         return D2AgeInputFieldConfig(
-            label: label, type: type, name: name, mandatory: mandatory);
+          label: label,
+          type: type,
+          name: name,
+          mandatory: mandatory,
+          clearable: clearable ?? false,
+        );
       default:
         return D2BaseInputFieldConfig(
-            label: label, type: type, name: name, mandatory: mandatory);
+          label: label,
+          type: type,
+          name: name,
+          mandatory: mandatory,
+          clearable: clearable ?? false,
+        );
     }
   }
 // }

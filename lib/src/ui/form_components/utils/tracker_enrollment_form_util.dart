@@ -32,7 +32,8 @@ class TrackerEnrollmentFormUtil {
       return FormUtils.getFieldConfigFromDataItem(attribute,
           mandatory: programAttribute.mandatory,
           allowFutureDates: programAttribute.allowFutureDate,
-          renderOptionsAsRadio: programAttribute.renderOptionsAsRadio);
+          renderOptionsAsRadio: programAttribute.renderOptionsAsRadio,
+          clearable: options.clearable);
     }).toList();
   }
 

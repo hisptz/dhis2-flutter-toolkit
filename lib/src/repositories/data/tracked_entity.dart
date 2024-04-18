@@ -6,12 +6,12 @@ import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_que
 import '../../../objectbox.g.dart';
 import '../../models/data/tracked_entity.dart';
 import '../../utils/sync_status.dart';
-import 'base.dart';
+import 'base_tracker.dart';
 import 'download_mixin/base_tracker_data_download_service_mixin.dart';
 import 'download_mixin/tracked_entity_data_download_service_mixin.dart';
 import 'upload_mixin/base_tracker_data_upload_service_mixin.dart';
 
-class D2TrackedEntityRepository extends D2BaseDataRepository<D2TrackedEntity>
+class D2TrackedEntityRepository extends D2BaseTrackerDataRepository<D2TrackedEntity>
     with
         BaseTrackerDataDownloadServiceMixin<D2TrackedEntity>,
         TrackedEntityDataDownloadServiceMixin,

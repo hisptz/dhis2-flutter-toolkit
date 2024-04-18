@@ -33,9 +33,8 @@ class D2Enrollment extends SyncDataSource
   @Backlink("enrollment")
   final events = ToMany<D2Event>();
 
-  //Disabled for now
-  // @Backlink("enrollment")
-  // final relationships = ToMany<D2Relationship>();
+  @Backlink("fromEnrollment")
+  final relationships = ToMany<D2Relationship>();
 
   final trackedEntity = ToOne<D2TrackedEntity>();
 
@@ -112,7 +111,6 @@ class D2Enrollment extends SyncDataSource
         this.geometry = geometryString;
       }
     }
-
   }
 
   @override
@@ -161,7 +159,7 @@ class D2Enrollment extends SyncDataSource
 
   @override
   void updateFromFormValues(Map<String, dynamic> values,
-      {required D2ObjectBox db, D2OrgUnit? orgUnit}) {
+      {required D2ObjectBox db, D2Program? program, D2OrgUnit? orgUnit}) {
     occurredAt = DateTime.tryParse(values["occurredAt"]) ?? occurredAt;
     enrolledAt = DateTime.tryParse(values["enrolledAt"]) ?? enrolledAt;
     if (orgUnit != null) {
