@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import 'package:dhis2_flutter_toolkit/objectbox.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
+import 'package:dhis2_flutter_toolkit/src/models/metadata/program_tracked_entity_attribute.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../utils/uid.dart';
@@ -34,8 +36,8 @@ class D2TrackedEntity extends SyncDataSource
 
   final enrollmentsForQuery = ToMany<D2Enrollment>();
 
-  //Disabled for now
-  // final relationships = ToMany<D2Relationship>();
+  @Backlink("fromTrackedEntity")
+  final relationships = ToMany<D2Relationship>();
 
   final orgUnit = ToOne<D2OrgUnit>();
 
@@ -173,12 +175,38 @@ class D2TrackedEntity extends SyncDataSource
     return data;
   }
 
+  void updateAttributes(
+      {required D2Program program,
+      required Map<String, dynamic> values,
+      required D2ObjectBox db}) {
+    for (D2ProgramTrackedEntityAttribute attribute
+        in program.programTrackedEntityAttributes) {
+      String attributeId = attribute.trackedEntityAttribute.target!.uid;
+      D2TrackedEntityAttributeValue? attributeValue =
+          attributes.firstWhereOrNull((element) =>
+              element.trackedEntityAttribute.target?.uid == attributeId);
+      if (attributeValue != null) {
+        attributeValue.updateFromFormValues(values, db: db);
+        continue;
+      }
+      D2TrackedEntityAttributeValue newAttributeValue =
+          D2TrackedEntityAttributeValue.fromFormValues(values[attributeId],
+              db: db,
+              trackedEntity: this,
+              trackedEntityAttribute: attribute.trackedEntityAttribute.target!);
+
+      attributes.add(newAttributeValue);
+    }
+  }
+
   @override
   void updateFromFormValues(Map<String, dynamic> values,
-      {required D2ObjectBox db, D2OrgUnit? orgUnit}) {
-    for (D2TrackedEntityAttributeValue attributeValue in attributes) {
-      attributeValue.updateFromFormValues(values, db: db);
+      {required D2ObjectBox db, D2Program? program, D2OrgUnit? orgUnit}) {
+    if (program == null) {
+      throw "Program is required to edit a tracked entity";
     }
+
+    updateAttributes(program: program, values: values, db: db);
 
     if (values["geometry"] != null) {
       var geometryValue = values["geometry"];

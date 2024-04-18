@@ -1,17 +1,8 @@
-import 'package:dhis2_flutter_toolkit/objectbox.dart';
-
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import 'package:dhis2_flutter_toolkit/src/models/metadata/program_rule.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../repositories/metadata/org_unit.dart';
-import '../../repositories/metadata/program.dart';
-import '../../repositories/metadata/tracked_entity_type.dart';
-import '../data/event.dart';
 import 'base.dart';
-import 'org_unit.dart';
-import 'program_section.dart';
-import 'program_stage.dart';
-import 'program_tracked_entity_attribute.dart';
-import 'tracked_entity_type.dart';
 
 @Entity()
 class D2Program extends D2MetaResource {
@@ -40,6 +31,13 @@ class D2Program extends D2MetaResource {
 
   @Backlink("program")
   final programStages = ToMany<D2ProgramStage>();
+
+  @Backlink("program")
+  final programRules = ToMany<D2ProgramRule>();
+
+  @Backlink("program")
+  final programRuleVariables = ToMany<D2ProgramRuleVariable>();
+
   @Backlink("program")
   final programSections = ToMany<D2ProgramSection>();
 

@@ -1,25 +1,18 @@
-
 import 'package:dhis2_flutter_toolkit/objectbox.dart';
+import 'package:dhis2_flutter_toolkit/src/utils/uid.dart';
 import 'package:objectbox/objectbox.dart';
 
+import '../../repositories/data/enrollment.dart';
+import '../../repositories/data/event.dart';
 import '../../repositories/data/relationship.dart';
+import '../../repositories/data/tracked_entity.dart';
+import '../../repositories/metadata/relationship_type.dart';
+import '../metadata/relationship_type.dart';
 import 'base.dart';
+import 'enrollment.dart';
+import 'event.dart';
 import 'upload_base.dart';
-
-Map getRelationshipConstraints(Map json) {
-  if (json["trackedEntity"] != null) {
-    return {
-      "type": "trackedEntity",
-      "id": json["trackedEntity"]["trackedEntity"]
-    };
-  } else if (json["enrollment"] != null) {
-    return {"type": "enrollment", "id": json["enrollment"]["enrollment"]};
-  } else if (json["event"] != null) {
-    return {"type": "event", "id": json["event"]["event"]};
-  } else {
-    return {};
-  }
-}
+import 'tracked_entity.dart';
 
 @Entity()
 class D2Relationship extends SyncDataSource implements SyncableData {
@@ -34,51 +27,110 @@ class D2Relationship extends SyncDataSource implements SyncableData {
   @override
   @Unique()
   String uid;
-  String relationshipName;
-  bool bidirectional;
-  String relationshipType;
 
-  late String fromType;
+  final fromTrackedEntity = ToOne<D2TrackedEntity>();
+  final fromEnrollment = ToOne<D2Enrollment>();
+  final fromEvent = ToOne<D2Event>();
 
-  late String fromId;
+  final toTrackedEntity = ToOne<D2TrackedEntity>();
+  final toEnrollment = ToOne<D2Enrollment>();
+  final toEvent = ToOne<D2Event>();
 
-  late String toType;
-  late String toId;
+  final relationshipType = ToOne<D2RelationshipType>();
+
+  setConstraints(Map<String, dynamic> constraint,
+      {required String type, required D2ObjectBox db}) {
+    switch (type) {
+      case "from":
+        if (constraint["trackedEntity"] != null) {
+          String trackedEntity = constraint["trackedEntity"]["trackedEntity"];
+          fromTrackedEntity.target =
+              D2TrackedEntityRepository(db).getByUid(trackedEntity);
+          return;
+        }
+        if (constraint["enrollment"] != null) {
+          String enrollment = constraint["enrollment"]["enrollment"];
+          fromEnrollment.target =
+              D2EnrollmentRepository(db).getByUid(enrollment);
+          return;
+        }
+        if (constraint["event"] != null) {
+          String event = constraint["event"]["event"];
+          fromEvent.target = D2EventRepository(db).getByUid(event);
+          return;
+        }
+      case "to":
+        if (constraint["trackedEntity"] != null) {
+          String trackedEntity = constraint["trackedEntity"]["trackedEntity"];
+          toTrackedEntity.target =
+              D2TrackedEntityRepository(db).getByUid(trackedEntity);
+          return;
+        }
+        if (constraint["enrollment"] != null) {
+          String enrollment = constraint["enrollment"]["enrollment"];
+          toEnrollment.target = D2EnrollmentRepository(db).getByUid(enrollment);
+          return;
+        }
+        if (constraint["event"] != null) {
+          String event = constraint["event"]["event"];
+          toEvent.target = D2EventRepository(db).getByUid(event);
+          return;
+        }
+    }
+  }
+
+  Map<String, dynamic>? getConstraints(String type) {
+    if (type case "from") {
+      if (fromTrackedEntity.target != null) {
+        return {
+          "trackedEntity": {"trackedEntity": fromTrackedEntity.target!.uid}
+        };
+      }
+      if (fromEnrollment.target != null) {
+        return {
+          "enrollment": {"enrollment": fromEnrollment.target!.uid}
+        };
+      }
+      if (fromEvent.target != null) {
+        return {
+          "event": {"event": fromEvent.target!.uid}
+        };
+      }
+    } else if (type case "to") {
+      if (toTrackedEntity.target != null) {
+        return {
+          "trackedEntity": {"trackedEntity": toTrackedEntity.target!.uid}
+        };
+      }
+      if (toEnrollment.target != null) {
+        return {
+          "enrollment": {"enrollment": toEnrollment.target!.uid}
+        };
+      }
+      if (toEvent.target != null) {
+        return {
+          "event": {"event": toEvent.target!.uid}
+        };
+      }
+    } else {
+      throw "Something is not right. ";
+    }
+    return null;
+  }
 
   D2Relationship(
-      this.id,
-      this.createdAt,
-      this.updatedAt,
-      this.uid,
-      this.relationshipName,
-      this.bidirectional,
-      this.relationshipType,
-      this.fromType,
-      this.fromId,
-      this.toType,
-      this.toId,
-      this.synced);
+      this.id, this.createdAt, this.updatedAt, this.uid, this.synced);
 
   D2Relationship.fromMap(D2ObjectBox db, Map json)
       : createdAt = DateTime.parse(json["createdAt"]),
         updatedAt = DateTime.parse(json["updatedAt"]),
         uid = json["relationship"],
-        synced = true,
-        relationshipName = json["relationshipName"],
-        relationshipType = json["relationshipType"],
-        bidirectional = json["bidirectional"] {
+        synced = true {
     id = D2RelationshipRepository(db).getIdByUid(json["relationship"]) ?? 0;
-
-    Map from = json["from"];
-    Map to = json["to"];
-
-    Map fromData = getRelationshipConstraints(from);
-    fromType = fromData["type"];
-    fromId = fromData["id"];
-
-    Map toData = getRelationshipConstraints(to);
-    toType = toData["type"];
-    toId = toData["id"];
+    relationshipType.target =
+        D2RelationshipTypeRepository(db).getByUid(json["relationshipType"]);
+    setConstraints(json["from"], type: "from", db: db);
+    setConstraints(json["to"], type: "to", db: db);
   }
 
   @override
@@ -91,15 +143,43 @@ class D2Relationship extends SyncDataSource implements SyncableData {
     }
 
     Map<String, dynamic> payload = {
-      "relationshipType": relationshipType,
-      "from": {
-        fromType: {fromType: fromId}
-      },
-      "to": {
-        toType: {toType: toId}
-      }
+      "relationship": uid,
+      "relationshipType": relationshipType.target!.uid,
+      "from": getConstraints("from"),
+      "to": getConstraints("to")
     };
 
     return payload;
+  }
+
+  D2Relationship.fromConstraints(
+      {required D2DataResource from,
+      required D2DataResource to,
+      required D2RelationshipType type})
+      : uid = D2UID.generate(),
+        synced = false,
+        createdAt = DateTime.now(),
+        updatedAt = DateTime.now() {
+    relationshipType.target = type;
+
+    if (from is D2TrackedEntity) {
+      fromTrackedEntity.target = from;
+    }
+    if (from is D2Enrollment) {
+      fromEnrollment.target = from;
+    }
+    if (from is D2Event) {
+      fromEvent.target = from;
+    }
+    
+    if (to is D2TrackedEntity) {
+      toTrackedEntity.target = to;
+    }
+    if (to is D2Enrollment) {
+      toEnrollment.target = to;
+    }
+    if (to is D2Event) {
+      toEvent.target = to;
+    }
   }
 }

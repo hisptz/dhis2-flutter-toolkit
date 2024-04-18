@@ -4,9 +4,9 @@ import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_que
 import '../../../objectbox.g.dart';
 import '../../models/data/data_value.dart';
 import '../../models/data/event.dart';
-import 'base.dart';
+import 'base_tracker.dart';
 
-class D2DataValueRepository extends D2BaseDataRepository<D2DataValue>
+class D2DataValueRepository extends D2BaseTrackerDataRepository<D2DataValue>
     with D2BaseDataQueryMixin<D2DataValue> {
   D2DataValueRepository(super.db);
 
@@ -27,7 +27,7 @@ class D2DataValueRepository extends D2BaseDataRepository<D2DataValue>
 
   Future<List<D2DataValue>?> getByEvent(D2Event event) async {
     queryConditions = D2DataValue_.dataElement.equals(event.id);
-    return query?.findAsync();
+    return query.findAsync();
   }
 
   @override
@@ -36,7 +36,7 @@ class D2DataValueRepository extends D2BaseDataRepository<D2DataValue>
   }
 
   @override
-  D2BaseDataRepository<D2DataValue> setProgram(D2Program program) {
+  D2BaseTrackerDataRepository<D2DataValue> setProgram(D2Program program) {
     this.program = program;
     return this;
   }

@@ -6,12 +6,12 @@ import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_que
 import '../../../objectbox.g.dart';
 import '../../models/data/event.dart';
 import '../../utils/sync_status.dart';
-import 'base.dart';
+import 'base_tracker.dart';
 import 'download_mixin/base_tracker_data_download_service_mixin.dart';
 import 'download_mixin/event_data_download_service_mixin.dart';
 import 'upload_mixin/base_tracker_data_upload_service_mixin.dart';
 
-class D2EventRepository extends D2BaseDataRepository<D2Event>
+class D2EventRepository extends D2BaseTrackerDataRepository<D2Event>
     with
         BaseTrackerDataDownloadServiceMixin<D2Event>,
         D2EventDataDownloadServiceMixin,
@@ -56,7 +56,7 @@ class D2EventRepository extends D2BaseDataRepository<D2Event>
   }
 
   @override
-  D2BaseDataRepository<D2Event> setProgram(D2Program program) {
+  D2BaseTrackerDataRepository<D2Event> setProgram(D2Program program) {
     this.program = program;
     updateQueryCondition(D2Event_.program.equals(program.id));
     return this;

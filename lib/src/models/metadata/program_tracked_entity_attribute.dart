@@ -10,13 +10,11 @@ import 'tracked_entity_attribute.dart';
 
 @Entity()
 class D2ProgramTrackedEntityAttribute extends D2MetaResource {
-  @override
   DateTime created;
 
   @override
   int id = 0;
 
-  @override
   DateTime lastUpdated;
 
   @override
@@ -64,6 +62,5 @@ class D2ProgramTrackedEntityAttribute extends D2MetaResource {
     program.target = D2ProgramRepository(db).getByUid(json["program"]["id"]);
   }
 
-  @override
   String? displayName;
 }

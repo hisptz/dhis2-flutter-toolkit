@@ -7,11 +7,11 @@ import '../../../models/data/relationship.dart';
 import '../../../services/client/client.dart';
 import '../../../utils/pagination.dart';
 import '../../../utils/sync_status.dart';
-import '../base.dart';
+import '../base_tracker.dart';
 import '../relationship.dart';
 
 mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
-    on D2BaseDataRepository<T> {
+    on D2BaseTrackerDataRepository<T> {
   D2ClientService? client;
   StreamController<D2SyncStatus> downloadController =
       StreamController<D2SyncStatus>();
@@ -76,7 +76,7 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
     return this;
   }
 
-  Future<Pagination> getPagination() async {
+  Future<D2Pagination> getPagination() async {
     Map<String, dynamic>? response = await client!
         .httpGetPagination<Map<String, dynamic>>(downloadURL,
             queryParameters: downloadQueryParams);
@@ -84,7 +84,7 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
       throw "Error getting pagination for data sync";
     }
 
-    final pagination = Pagination(
+    final pagination = D2Pagination(
         total: response["total"],
         pageSize: response["pageSize"],
         pageCount: response["pageCount"] ?? 1);
@@ -138,7 +138,7 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
           status: D2SyncStatusEnum.initialized,
           label: "$label for ${program!.name} program");
       downloadController.add(status);
-      Pagination pagination = await getPagination();
+      D2Pagination pagination = await getPagination();
       status.setTotal(pagination.pageCount);
       downloadController.add(status);
       status.updateStatus(D2SyncStatusEnum.syncing);
