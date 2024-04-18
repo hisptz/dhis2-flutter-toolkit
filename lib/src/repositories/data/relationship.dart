@@ -6,7 +6,8 @@ import '../../models/data/relationship.dart';
 import 'base_tracker.dart';
 import 'upload_mixin/base_tracker_data_upload_service_mixin.dart';
 
-class D2RelationshipRepository extends D2BaseTrackerDataRepository<D2Relationship>
+class D2RelationshipRepository
+    extends D2BaseTrackerDataRepository<D2Relationship>
     with
         D2BaseDataQueryMixin<D2Relationship>,
         BaseTrackerDataUploadServiceMixin<D2Relationship> {

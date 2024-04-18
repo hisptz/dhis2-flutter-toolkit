@@ -14,7 +14,7 @@ import 'components/date_input.dart';
 import 'components/input_field_icon.dart';
 import 'components/radio_input.dart';
 
-class InputFieldContainer extends StatelessWidget {
+class D2InputFieldContainer extends StatelessWidget {
   final D2BaseInputFieldConfig input;
   final OnChange<dynamic> onChange;
   final dynamic value;
@@ -23,7 +23,7 @@ class InputFieldContainer extends StatelessWidget {
   final String? warning;
   final bool disabled;
 
-  const InputFieldContainer(
+  const D2InputFieldContainer(
       {super.key,
       required this.input,
       this.value,

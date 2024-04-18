@@ -137,7 +137,9 @@ export "src/ui/form_components/input_field/components/org_unit_input/models/loca
 //UI components
 //Forms
 export "src/ui/form_components/input_field/input_field_container.dart"
-    show InputFieldContainer;
+    show D2InputFieldContainer;
+export "src/ui/form_components/input_field/form_controlled_field_container.dart"
+    show D2FormControlledInputField;
 export "src/ui/form_components/input_field/models/base_input_field.dart"
     show D2BaseInputFieldConfig;
 export "src/ui/form_components/input_field/models/boolean_input_field.dart"
@@ -174,6 +176,13 @@ export "src/ui/form_components/state/tracker/event_form_controller.dart"
 export "src/ui/form_components/state/tracker/enrollment_form_controller.dart"
     show D2TrackerEnrollmentFormController;
 export "src/ui/period/period_filter.dart" show D2PeriodSelector;
+
+export "src/ui/form_components/utils/form_utils.dart" show D2FormUtils;
+export "src/ui/form_components/utils/tracker_enrollment_form_util.dart"
+    show D2TrackerEnrollmentFormUtil;
+export "src/ui/form_components/utils/tracker_event_form_util.dart"
+    show D2TrackerEventFormUtil;
+
 // Program rule engine
 export 'src/utils/program_rule_engine/program_rule_engine.dart'
     show D2ProgramRuleEngine;

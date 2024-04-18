@@ -1,6 +1,18 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import '../../../models/metadata/option.dart';
+import '../../../models/metadata/option_set.dart';
+import '../input_field/models/age_input_field.dart';
+import '../input_field/models/base_input_field.dart';
+import '../input_field/models/boolean_input_field.dart';
+import '../input_field/models/date_input_field.dart';
+import '../input_field/models/date_range_input_field.dart';
+import '../input_field/models/input_field_option.dart';
+import '../input_field/models/input_field_type_enum.dart';
+import '../input_field/models/number_input_field.dart';
+import '../input_field/models/select_input_field.dart';
+import '../input_field/models/text_input_field.dart';
+import '../input_field/models/true_only_input_field.dart';
 
-class FormUtils {
+class D2FormUtils {
   static D2BaseInputFieldConfig getFieldConfigFromDataItem(dataItem,
       {bool mandatory = false,
       bool? allowFutureDates,
