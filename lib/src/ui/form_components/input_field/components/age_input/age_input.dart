@@ -130,6 +130,7 @@ class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
 
     if (selectedView == D2AgeInputFieldView.age) {
       return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
             enabled: !widget.disabled,
@@ -157,26 +158,31 @@ class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
           ),
           Container(
             decoration: BoxDecoration(
-                border: Border(
-                    top: BorderSide(
-                        color: widget.color.withOpacity(0.5), width: 1))),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              border: Border(
+                top: BorderSide(
+                  color: widget.color.withOpacity(0.5),
+                  width: 1,
+                ),
+              ),
+            ),
+            child: Wrap(
+              alignment: WrapAlignment.start,
               children: AgeType.values
                   .map(
                     (AgeType option) => Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Radio(
-                            activeColor: widget.color,
-                            value: option,
-                            groupValue: ageType,
-                            onChanged: (value) {
-                              setState(() {
-                                ageType = option;
-                                setTextValue(_textEditingController.text);
-                              });
-                            }),
+                          activeColor: widget.color,
+                          value: option,
+                          groupValue: ageType,
+                          onChanged: (value) {
+                            setState(() {
+                              ageType = option;
+                              setTextValue(_textEditingController.text);
+                            });
+                          },
+                        ),
                         Text(
                           capitalize(option.name),
                           style: const TextStyle().copyWith(
@@ -190,12 +196,12 @@ class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
                   )
                   .toList(),
             ),
-          )
+          ),
         ],
       );
     }
 
-    return Row(
+    return Wrap(
       children: [
         TextButton(
             onPressed: () {
