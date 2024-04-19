@@ -26,7 +26,7 @@ class D2FormControlledInputField extends StatelessWidget {
           FieldState fieldState = controller.getFieldState(input.name);
           return Visibility(
             visible: !(fieldState.hidden ?? false),
-            child: InputFieldContainer(
+            child: D2InputFieldContainer(
               input: input,
               onChange: fieldState.onChange,
               color: color,

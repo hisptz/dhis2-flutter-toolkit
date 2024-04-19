@@ -1,11 +1,17 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/tracker/program_rule_engine_state.dart';
 
-class D2TrackerEventFormController extends D2FormController {
+import '../../../../models/metadata/program_rule.dart';
+import '../field_state.dart';
+
+class D2TrackerEventFormController extends D2FormController
+    with ProgramRuleEngineState {
   D2ProgramStage programStage;
   D2Enrollment? enrollment;
   D2ObjectBox db;
   String? orgUnit;
   D2Event? event;
+  late D2ProgramRuleEngine programRuleEngine;
 
   D2TrackerEventFormController(
       {required this.db,
@@ -30,6 +36,27 @@ class D2TrackerEventFormController extends D2FormController {
         .map((pDataElement) => pDataElement.dataElement.target!.uid)
         .toList();
     this.mandatoryFields.addAll(mandatoryFields);
+    initializeProgramRuleEngine(programStage.program.target!);
+  }
+
+  void initializeProgramRuleEngine(D2Program program) {
+    List<D2ProgramRule> programRules = program.programRules;
+    List<D2ProgramRuleVariable> programRuleVariables =
+        program.programRuleVariables;
+    programRuleEngine = D2ProgramRuleEngine(
+      programRules: programRules,
+      programRuleVariables: programRuleVariables,
+      trackedEntity: event?.trackedEntity.target,
+    );
+
+    for (var section in programStage.programStageSections) {
+      for (var attribute in section.programStageSectionDataElements) {
+        spawnProgramRuleEngine(
+          programRuleEngine,
+          attribute.dataElement.target?.uid ?? "",
+        );
+      }
+    }
   }
 
   Future<D2Event> create() async {
@@ -49,6 +76,30 @@ class D2TrackerEventFormController extends D2FormController {
     newEvent.save(db);
 
     return newEvent;
+  }
+
+  // TODO find means to make this reusable
+  @override
+  FieldState getFieldState(String key) {
+    void onChange(value) {
+      setValue(key, value);
+      spawnProgramRuleEngine(programRuleEngine, key);
+    }
+
+    bool hidden = isFieldHidden(key);
+    bool disabled = isFieldDisabled(key);
+    bool mandatory = isFieldMandatory(key);
+    dynamic value = getValue(key);
+    String? error = getError(key);
+    String? warning = getWarning(key);
+    return FieldState(
+        onChange: onChange,
+        hidden: hidden,
+        value: value,
+        disabled: disabled,
+        warning: warning,
+        mandatory: mandatory,
+        error: error);
   }
 
   Future<D2Event> update() async {

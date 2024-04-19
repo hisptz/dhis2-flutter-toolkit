@@ -9,12 +9,12 @@ import '../form/models/dhis2_form_options.dart';
 import '../form_section/models/form_section.dart';
 import '../input_field/models/base_input_field.dart';
 
-class TrackerEnrollmentFormUtil {
+class D2TrackerEnrollmentFormUtil {
   D2Program program;
 
   D2TrackerFormOptions options;
 
-  TrackerEnrollmentFormUtil({required this.program, required this.options});
+  D2TrackerEnrollmentFormUtil({required this.program, required this.options});
 
   List<D2BaseInputFieldConfig> _getFields(
       List<D2TrackedEntityAttribute> attributes) {
@@ -29,7 +29,7 @@ class TrackerEnrollmentFormUtil {
         throw "Missing program attribute attribute for attribute ${attribute.uid}";
       }
 
-      return FormUtils.getFieldConfigFromDataItem(attribute,
+      return D2FormUtils.getFieldConfigFromDataItem(attribute,
           mandatory: programAttribute.mandatory,
           allowFutureDates: programAttribute.allowFutureDate,
           renderOptionsAsRadio: programAttribute.renderOptionsAsRadio,

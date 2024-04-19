@@ -16,6 +16,7 @@ import 'package:objectbox/objectbox.dart' as obx;
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
 import 'src/models/data/attribute_value.dart';
+import 'src/models/data/data_store.dart';
 import 'src/models/data/data_value.dart';
 import 'src/models/data/enrollment.dart';
 import 'src/models/data/event.dart';
@@ -888,6 +889,14 @@ final _entities = <obx_int.ModelEntity>[
             srcEntity: 'D2ProgramStage',
             srcField: 'program'),
         obx_int.ModelBacklink(
+            name: 'programRules',
+            srcEntity: 'D2ProgramRule',
+            srcField: 'program'),
+        obx_int.ModelBacklink(
+            name: 'programRuleVariables',
+            srcEntity: 'D2ProgramRuleVariable',
+            srcField: 'program'),
+        obx_int.ModelBacklink(
             name: 'programSections',
             srcEntity: 'D2ProgramSection',
             srcField: 'program'),
@@ -901,7 +910,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(14, 4258101311778128002),
       name: 'D2ProgramRule',
-      lastPropertyId: const obx_int.IdUid(9, 2148657165772279005),
+      lastPropertyId: const obx_int.IdUid(10, 4550334781923146221),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -950,6 +959,11 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(9, 2148657165772279005),
             name: 'displayName',
             type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(10, 4550334781923146221),
+            name: 'priority',
+            type: 6,
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
@@ -2453,6 +2467,43 @@ final _entities = <obx_int.ModelEntity>[
             relationTarget: 'D2OrgUnit')
       ],
       relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[]),
+  obx_int.ModelEntity(
+      id: const obx_int.IdUid(37, 5107469390447171537),
+      name: 'D2DataStore',
+      lastPropertyId: const obx_int.IdUid(5, 7111977382999978491),
+      flags: 0,
+      properties: <obx_int.ModelProperty>[
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(1, 5046926361823948000),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(2, 2833850850413250967),
+            name: 'key',
+            type: 9,
+            flags: 2048,
+            indexId: const obx_int.IdUid(88, 6240531089474913801)),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(3, 3611279519622595411),
+            name: 'namespace',
+            type: 9,
+            flags: 2048,
+            indexId: const obx_int.IdUid(89, 2540306652151945026)),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(4, 484476650790113601),
+            name: 'value',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(5, 7111977382999978491),
+            name: 'uid',
+            type: 9,
+            flags: 2080,
+            indexId: const obx_int.IdUid(90, 3900820567956323302))
+      ],
+      relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[])
 ];
 
@@ -2491,8 +2542,8 @@ Future<obx.Store> openStore(
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
-      lastEntityId: const obx_int.IdUid(36, 5747825430047780119),
-      lastIndexId: const obx_int.IdUid(87, 5516752848296392221),
+      lastEntityId: const obx_int.IdUid(37, 5107469390447171537),
+      lastIndexId: const obx_int.IdUid(90, 3900820567956323302),
       lastRelationId: const obx_int.IdUid(13, 3296482006972770137),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [4845029629663650184],
@@ -3349,6 +3400,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
               obx_int.RelInfo<D2ProgramStage>.toOneBacklink(11, object.id,
                       (D2ProgramStage srcObject) => srcObject.program):
                   object.programStages,
+              obx_int.RelInfo<D2ProgramRule>.toOneBacklink(8, object.id,
+                      (D2ProgramRule srcObject) => srcObject.program):
+                  object.programRules,
+              obx_int.RelInfo<D2ProgramRuleVariable>.toOneBacklink(
+                      12,
+                      object.id,
+                      (D2ProgramRuleVariable srcObject) => srcObject.program):
+                  object.programRuleVariables,
               obx_int.RelInfo<D2ProgramSection>.toOneBacklink(7, object.id,
                       (D2ProgramSection srcObject) => srcObject.program):
                   object.programSections,
@@ -3448,6 +3507,18 @@ obx_int.ModelDefinition getObjectBoxModel() {
               obx_int.RelInfo<D2ProgramStage>.toOneBacklink(11, object.id,
                   (D2ProgramStage srcObject) => srcObject.program));
           obx_int.InternalToManyAccess.setRelInfo<D2Program>(
+              object.programRules,
+              store,
+              obx_int.RelInfo<D2ProgramRule>.toOneBacklink(8, object.id,
+                  (D2ProgramRule srcObject) => srcObject.program));
+          obx_int.InternalToManyAccess.setRelInfo<D2Program>(
+              object.programRuleVariables,
+              store,
+              obx_int.RelInfo<D2ProgramRuleVariable>.toOneBacklink(
+                  12,
+                  object.id,
+                  (D2ProgramRuleVariable srcObject) => srcObject.program));
+          obx_int.InternalToManyAccess.setRelInfo<D2Program>(
               object.programSections,
               store,
               obx_int.RelInfo<D2ProgramSection>.toOneBacklink(7, object.id,
@@ -3489,7 +3560,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final displayNameOffset = object.displayName == null
               ? null
               : fbb.writeString(object.displayName!);
-          fbb.startTable(10);
+          fbb.startTable(11);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.created.millisecondsSinceEpoch);
           fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
@@ -3499,6 +3570,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addOffset(6, conditionOffset);
           fbb.addInt64(7, object.program.targetId);
           fbb.addOffset(8, displayNameOffset);
+          fbb.addInt64(9, object.priority);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -3523,6 +3595,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
                   .vTableGetNullable(buffer, rootOffset, 14);
           final conditionParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 16, '');
+          final priorityParam =
+              const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 22);
           final object = D2ProgramRule(
               idParam,
               displayNameParam,
@@ -3531,7 +3605,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
               uidParam,
               nameParam,
               descriptionParam,
-              conditionParam);
+              conditionParam,
+              priorityParam);
           object.program.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
           object.program.attach(store);
@@ -5184,6 +5259,45 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
           object.orgUnit.attach(store);
           return object;
+        }),
+    D2DataStore: obx_int.EntityDefinition<D2DataStore>(
+        model: _entities[35],
+        toOneRelations: (D2DataStore object) => [],
+        toManyRelations: (D2DataStore object) => {},
+        getId: (D2DataStore object) => object.id,
+        setId: (D2DataStore object, int id) {
+          object.id = id;
+        },
+        objectToFB: (D2DataStore object, fb.Builder fbb) {
+          final keyOffset = fbb.writeString(object.key);
+          final namespaceOffset = fbb.writeString(object.namespace);
+          final valueOffset = fbb.writeString(object.value);
+          final uidOffset = fbb.writeString(object.uid);
+          fbb.startTable(6);
+          fbb.addInt64(0, object.id);
+          fbb.addOffset(1, keyOffset);
+          fbb.addOffset(2, namespaceOffset);
+          fbb.addOffset(3, valueOffset);
+          fbb.addOffset(4, uidOffset);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (obx.Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+          final keyParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 6, '');
+          final namespaceParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 8, '');
+          final valueParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 10, '');
+          final uidParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 12, '');
+          final object = D2DataStore(
+              keyParam, namespaceParam, valueParam, uidParam)
+            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+
+          return object;
         })
   };
 
@@ -5788,6 +5902,15 @@ class D2Program_ {
       obx.QueryBacklinkToMany<D2ProgramStage, D2Program>(
           D2ProgramStage_.program);
 
+  /// see [D2Program.programRules]
+  static final programRules =
+      obx.QueryBacklinkToMany<D2ProgramRule, D2Program>(D2ProgramRule_.program);
+
+  /// see [D2Program.programRuleVariables]
+  static final programRuleVariables =
+      obx.QueryBacklinkToMany<D2ProgramRuleVariable, D2Program>(
+          D2ProgramRuleVariable_.program);
+
   /// see [D2Program.programSections]
   static final programSections =
       obx.QueryBacklinkToMany<D2ProgramSection, D2Program>(
@@ -5840,6 +5963,10 @@ class D2ProgramRule_ {
   /// see [D2ProgramRule.displayName]
   static final displayName =
       obx.QueryStringProperty<D2ProgramRule>(_entities[12].properties[8]);
+
+  /// see [D2ProgramRule.priority]
+  static final priority =
+      obx.QueryIntegerProperty<D2ProgramRule>(_entities[12].properties[9]);
 
   /// see [D2ProgramRule.programRuleActions]
   static final programRuleActions =
@@ -6947,4 +7074,27 @@ class D2ReservedValue_ {
   /// see [D2ReservedValue.orgUnit]
   static final orgUnit = obx.QueryRelationToOne<D2ReservedValue, D2OrgUnit>(
       _entities[34].properties[7]);
+}
+
+/// [D2DataStore] entity fields to define ObjectBox queries.
+class D2DataStore_ {
+  /// see [D2DataStore.id]
+  static final id =
+      obx.QueryIntegerProperty<D2DataStore>(_entities[35].properties[0]);
+
+  /// see [D2DataStore.key]
+  static final key =
+      obx.QueryStringProperty<D2DataStore>(_entities[35].properties[1]);
+
+  /// see [D2DataStore.namespace]
+  static final namespace =
+      obx.QueryStringProperty<D2DataStore>(_entities[35].properties[2]);
+
+  /// see [D2DataStore.value]
+  static final value =
+      obx.QueryStringProperty<D2DataStore>(_entities[35].properties[3]);
+
+  /// see [D2DataStore.uid]
+  static final uid =
+      obx.QueryStringProperty<D2DataStore>(_entities[35].properties[4]);
 }
