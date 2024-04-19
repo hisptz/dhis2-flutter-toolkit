@@ -36,6 +36,8 @@ class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
 
   String? getTextValue() {
     String? value = widget.value;
+    AgeType ageType = AgeType.years;
+
     if (value == null) {
       return null;
     }
@@ -53,8 +55,6 @@ class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
         return (days / DAYS_IN_MONTH).round().toString();
       case AgeType.years:
         return (days / DAYS_IN_YEAR).round().toString();
-      case null:
-        return null;
     }
   }
 
@@ -203,22 +203,30 @@ class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
 
     return Wrap(
       children: [
-        TextButton(
-            onPressed: () {
-              setState(() {
-                selectedView = D2AgeInputFieldView.date;
-              });
-            },
-            child: const Text("DATE OF BIRTH")),
-        const Text("OR"),
-        TextButton(
-            onPressed: () {
-              setState(() {
-                selectedView = D2AgeInputFieldView.age;
-                ageType = AgeType.years;
-              });
-            },
-            child: const Text("AGE")),
+        if (widget.value != null)
+          Text('${getTextValue()} years')
+        else
+          Row(
+            children: [
+              TextButton(
+                  onPressed: () {
+                    setState(() {
+                      selectedView = D2AgeInputFieldView.date;
+                    });
+                  },
+                  child: const Text("DATE OF BIRTH")),
+              const Text("OR"),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    selectedView = D2AgeInputFieldView.age;
+                    ageType = AgeType.years;
+                  });
+                },
+                child: const Text("AGE"),
+              ),
+            ],
+          )
       ],
     );
   }
