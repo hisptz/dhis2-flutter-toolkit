@@ -10,11 +10,11 @@ import '../form/models/dhis2_form_options.dart';
 import '../form_section/models/form_section.dart';
 import '../input_field/models/base_input_field.dart';
 
-class TrackerEventFormUtil {
+class D2TrackerEventFormUtil {
   D2ProgramStage programStage;
   D2TrackerFormOptions options;
 
-  TrackerEventFormUtil({required this.programStage, required this.options});
+  D2TrackerEventFormUtil({required this.programStage, required this.options});
 
   List<D2BaseInputFieldConfig> _getFields(List<D2DataElement> dataElements) {
     return dataElements.map((D2DataElement dataElement) {
@@ -28,7 +28,7 @@ class TrackerEventFormUtil {
         throw "Missing program attribute attribute for attribute ${dataElement.uid}";
       }
 
-      return FormUtils.getFieldConfigFromDataItem(dataElement,
+      return D2FormUtils.getFieldConfigFromDataItem(dataElement,
           mandatory: programStageDataElement.compulsory,
           allowFutureDates: programStageDataElement.allowFutureDate,
           renderOptionsAsRadio: programStageDataElement.renderOptionsAsRadio);

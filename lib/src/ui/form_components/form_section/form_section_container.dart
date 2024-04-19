@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../dhis2_flutter_toolkit.dart';
 import '../form/form_container.dart';
+import '../input_field/input_field_container.dart';
 
 class FormSectionContainer extends StatelessWidget {
   final D2FormSection section;
@@ -43,7 +44,7 @@ class FormSectionContainer extends StatelessWidget {
             shrinkWrap: true,
             itemBuilder: (context, index) {
               D2BaseInputFieldConfig input = section.fields[index];
-              return InputFieldContainer(
+              return D2InputFieldContainer(
                   disabled: disabled,
                   input: input,
                   onChange: (value) {
