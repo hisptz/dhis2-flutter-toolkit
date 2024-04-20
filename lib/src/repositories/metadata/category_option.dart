@@ -1,5 +1,3 @@
-import 'package:objectbox/objectbox.dart';
-
 import '../../../objectbox.g.dart';
 import '../../models/metadata/category_option.dart';
 import './base.dart';

@@ -1,7 +1,8 @@
 import 'package:objectbox/objectbox.dart';
 
 import '../../../objectbox.dart';
-import './base.dart';
+import '../../repositories/metadata/category_combo.dart';
+import 'base.dart';
 import 'category.dart';
 
 @Entity()
@@ -19,7 +20,10 @@ class D2CategoryCombo extends D2MetaResource {
 
   String name;
   String code;
-  bool skipTrue;
+  bool skipTotal;
+
+  @Backlink('categoryCombos')
+  final categories = ToMany<D2Category>();
 
   D2CategoryCombo(
     this.lastUpdated,
@@ -28,6 +32,16 @@ class D2CategoryCombo extends D2MetaResource {
     this.name,
     this.code,
     this.id,
-    this.skipTrue,
+    this.skipTotal,
   );
+
+  D2CategoryCombo.fromMap(D2ObjectBox db, Map json)
+      : created = DateTime.parse(json["created"]),
+        lastUpdated = DateTime.parse(json["lastUpdated"]),
+        uid = json["id"],
+        name = json["name"],
+        code = json["code"],
+        skipTotal = json['skipTotal'] {
+    id = D2CategoryComboRepository(db).getIdByUid(json['id']) ?? 0;
+  }
 }
