@@ -2462,10 +2462,111 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "38:6498800860532987231",
+      "lastPropertyId": "8:7264811558826152722",
+      "name": "D2Category",
+      "properties": [
+        {
+          "id": "1:8603917976360349706",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8872131630055920939",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:9148319985461770770",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:1112247898749665077",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "5:5669825627790117789",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:2270043575323355374",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "7:3925393070615069213",
+          "name": "shortName",
+          "type": 9
+        },
+        {
+          "id": "8:7264811558826152722",
+          "name": "dataDimensionType",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "39:7858286416272184738",
+      "lastPropertyId": "8:2525142688606759825",
+      "name": "D2CategoryOption",
+      "properties": [
+        {
+          "id": "1:1468388484163184386",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7378759480800175210",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:2444278938767632628",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:8017072247541577881",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "5:854246756121297022",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:3900345885320950874",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "7:672404948508435314",
+          "name": "shortName",
+          "type": 9
+        },
+        {
+          "id": "8:2525142688606759825",
+          "name": "categoryId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "91:1299718182608691472",
+          "relationTarget": "D2Category"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "37:5107469390447171537",
-  "lastIndexId": "90:3900820567956323302",
+  "lastEntityId": "39:7858286416272184738",
+  "lastIndexId": "91:1299718182608691472",
   "lastRelationId": "13:3296482006972770137",
   "lastSequenceId": "0:0",
   "modelVersion": 5,

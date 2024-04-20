@@ -24,6 +24,8 @@ import 'src/models/data/relationship.dart';
 import 'src/models/data/reserved_value.dart';
 import 'src/models/data/tracked_entity.dart';
 import 'src/models/data/tracked_entity_attribute_value.dart';
+import 'src/models/metadata/category.dart';
+import 'src/models/metadata/category_option.dart';
 import 'src/models/metadata/data_element.dart';
 import 'src/models/metadata/legend.dart';
 import 'src/models/metadata/legend_set.dart';
@@ -2504,6 +2506,111 @@ final _entities = <obx_int.ModelEntity>[
             indexId: const obx_int.IdUid(90, 3900820567956323302))
       ],
       relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[]),
+  obx_int.ModelEntity(
+      id: const obx_int.IdUid(38, 6498800860532987231),
+      name: 'D2Category',
+      lastPropertyId: const obx_int.IdUid(8, 7264811558826152722),
+      flags: 0,
+      properties: <obx_int.ModelProperty>[
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(1, 8603917976360349706),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(2, 8872131630055920939),
+            name: 'created',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(3, 9148319985461770770),
+            name: 'lastUpdated',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(4, 1112247898749665077),
+            name: 'uid',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(5, 5669825627790117789),
+            name: 'name',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(6, 2270043575323355374),
+            name: 'code',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(7, 3925393070615069213),
+            name: 'shortName',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(8, 7264811558826152722),
+            name: 'dataDimensionType',
+            type: 9,
+            flags: 0)
+      ],
+      relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[
+        obx_int.ModelBacklink(
+            name: 'categoryOptions',
+            srcEntity: 'D2CategoryOption',
+            srcField: 'category')
+      ]),
+  obx_int.ModelEntity(
+      id: const obx_int.IdUid(39, 7858286416272184738),
+      name: 'D2CategoryOption',
+      lastPropertyId: const obx_int.IdUid(8, 2525142688606759825),
+      flags: 0,
+      properties: <obx_int.ModelProperty>[
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(1, 1468388484163184386),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(2, 7378759480800175210),
+            name: 'created',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(3, 2444278938767632628),
+            name: 'lastUpdated',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(4, 8017072247541577881),
+            name: 'uid',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(5, 854246756121297022),
+            name: 'name',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(6, 3900345885320950874),
+            name: 'code',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(7, 672404948508435314),
+            name: 'shortName',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(8, 2525142688606759825),
+            name: 'categoryId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(91, 1299718182608691472),
+            relationTarget: 'D2Category')
+      ],
+      relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[])
 ];
 
@@ -2542,8 +2649,8 @@ Future<obx.Store> openStore(
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
-      lastEntityId: const obx_int.IdUid(37, 5107469390447171537),
-      lastIndexId: const obx_int.IdUid(90, 3900820567956323302),
+      lastEntityId: const obx_int.IdUid(39, 7858286416272184738),
+      lastIndexId: const obx_int.IdUid(91, 1299718182608691472),
       lastRelationId: const obx_int.IdUid(13, 3296482006972770137),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [4845029629663650184],
@@ -5298,6 +5405,122 @@ obx_int.ModelDefinition getObjectBoxModel() {
             ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
 
           return object;
+        }),
+    D2Category: obx_int.EntityDefinition<D2Category>(
+        model: _entities[36],
+        toOneRelations: (D2Category object) => [],
+        toManyRelations: (D2Category object) => {
+              obx_int.RelInfo<D2CategoryOption>.toOneBacklink(8, object.id,
+                      (D2CategoryOption srcObject) => srcObject.category):
+                  object.categoryOptions
+            },
+        getId: (D2Category object) => object.id,
+        setId: (D2Category object, int id) {
+          object.id = id;
+        },
+        objectToFB: (D2Category object, fb.Builder fbb) {
+          final uidOffset = fbb.writeString(object.uid);
+          final nameOffset = fbb.writeString(object.name);
+          final codeOffset = fbb.writeString(object.code);
+          final shortNameOffset = fbb.writeString(object.shortName);
+          final dataDimensionTypeOffset =
+              fbb.writeString(object.dataDimensionType);
+          fbb.startTable(9);
+          fbb.addInt64(0, object.id);
+          fbb.addInt64(1, object.created.millisecondsSinceEpoch);
+          fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
+          fbb.addOffset(3, uidOffset);
+          fbb.addOffset(4, nameOffset);
+          fbb.addOffset(5, codeOffset);
+          fbb.addOffset(6, shortNameOffset);
+          fbb.addOffset(7, dataDimensionTypeOffset);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (obx.Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+          final idParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+          final shortNameParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 16, '');
+          final lastUpdatedParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0));
+          final nameParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 12, '');
+          final codeParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 14, '');
+          final createdParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0));
+          final dataDimensionTypeParam =
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 18, '');
+          final uidParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 10, '');
+          final object = D2Category(
+              idParam,
+              shortNameParam,
+              lastUpdatedParam,
+              nameParam,
+              codeParam,
+              createdParam,
+              dataDimensionTypeParam,
+              uidParam);
+          obx_int.InternalToManyAccess.setRelInfo<D2Category>(
+              object.categoryOptions,
+              store,
+              obx_int.RelInfo<D2CategoryOption>.toOneBacklink(8, object.id,
+                  (D2CategoryOption srcObject) => srcObject.category));
+          return object;
+        }),
+    D2CategoryOption: obx_int.EntityDefinition<D2CategoryOption>(
+        model: _entities[37],
+        toOneRelations: (D2CategoryOption object) => [object.category],
+        toManyRelations: (D2CategoryOption object) => {},
+        getId: (D2CategoryOption object) => object.id,
+        setId: (D2CategoryOption object, int id) {
+          object.id = id;
+        },
+        objectToFB: (D2CategoryOption object, fb.Builder fbb) {
+          final uidOffset = fbb.writeString(object.uid);
+          final nameOffset = fbb.writeString(object.name);
+          final codeOffset = fbb.writeString(object.code);
+          final shortNameOffset = fbb.writeString(object.shortName);
+          fbb.startTable(9);
+          fbb.addInt64(0, object.id);
+          fbb.addInt64(1, object.created.millisecondsSinceEpoch);
+          fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
+          fbb.addOffset(3, uidOffset);
+          fbb.addOffset(4, nameOffset);
+          fbb.addOffset(5, codeOffset);
+          fbb.addOffset(6, shortNameOffset);
+          fbb.addInt64(7, object.category.targetId);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (obx.Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+          final idParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+          final createdParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0));
+          final lastUpdatedParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0));
+          final uidParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 10, '');
+          final nameParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 12, '');
+          final codeParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 14, '');
+          final shortNameParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 16, '');
+          final object = D2CategoryOption(idParam, createdParam,
+              lastUpdatedParam, uidParam, nameParam, codeParam, shortNameParam);
+          object.category.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
+          object.category.attach(store);
+          return object;
         })
   };
 
@@ -7097,4 +7320,79 @@ class D2DataStore_ {
   /// see [D2DataStore.uid]
   static final uid =
       obx.QueryStringProperty<D2DataStore>(_entities[35].properties[4]);
+}
+
+/// [D2Category] entity fields to define ObjectBox queries.
+class D2Category_ {
+  /// see [D2Category.id]
+  static final id =
+      obx.QueryIntegerProperty<D2Category>(_entities[36].properties[0]);
+
+  /// see [D2Category.created]
+  static final created =
+      obx.QueryDateProperty<D2Category>(_entities[36].properties[1]);
+
+  /// see [D2Category.lastUpdated]
+  static final lastUpdated =
+      obx.QueryDateProperty<D2Category>(_entities[36].properties[2]);
+
+  /// see [D2Category.uid]
+  static final uid =
+      obx.QueryStringProperty<D2Category>(_entities[36].properties[3]);
+
+  /// see [D2Category.name]
+  static final name =
+      obx.QueryStringProperty<D2Category>(_entities[36].properties[4]);
+
+  /// see [D2Category.code]
+  static final code =
+      obx.QueryStringProperty<D2Category>(_entities[36].properties[5]);
+
+  /// see [D2Category.shortName]
+  static final shortName =
+      obx.QueryStringProperty<D2Category>(_entities[36].properties[6]);
+
+  /// see [D2Category.dataDimensionType]
+  static final dataDimensionType =
+      obx.QueryStringProperty<D2Category>(_entities[36].properties[7]);
+
+  /// see [D2Category.categoryOptions]
+  static final categoryOptions =
+      obx.QueryBacklinkToMany<D2CategoryOption, D2Category>(
+          D2CategoryOption_.category);
+}
+
+/// [D2CategoryOption] entity fields to define ObjectBox queries.
+class D2CategoryOption_ {
+  /// see [D2CategoryOption.id]
+  static final id =
+      obx.QueryIntegerProperty<D2CategoryOption>(_entities[37].properties[0]);
+
+  /// see [D2CategoryOption.created]
+  static final created =
+      obx.QueryDateProperty<D2CategoryOption>(_entities[37].properties[1]);
+
+  /// see [D2CategoryOption.lastUpdated]
+  static final lastUpdated =
+      obx.QueryDateProperty<D2CategoryOption>(_entities[37].properties[2]);
+
+  /// see [D2CategoryOption.uid]
+  static final uid =
+      obx.QueryStringProperty<D2CategoryOption>(_entities[37].properties[3]);
+
+  /// see [D2CategoryOption.name]
+  static final name =
+      obx.QueryStringProperty<D2CategoryOption>(_entities[37].properties[4]);
+
+  /// see [D2CategoryOption.code]
+  static final code =
+      obx.QueryStringProperty<D2CategoryOption>(_entities[37].properties[5]);
+
+  /// see [D2CategoryOption.shortName]
+  static final shortName =
+      obx.QueryStringProperty<D2CategoryOption>(_entities[37].properties[6]);
+
+  /// see [D2CategoryOption.category]
+  static final category = obx.QueryRelationToOne<D2CategoryOption, D2Category>(
+      _entities[37].properties[7]);
 }
