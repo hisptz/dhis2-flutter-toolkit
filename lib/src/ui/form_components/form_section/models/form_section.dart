@@ -4,6 +4,7 @@ class D2FormSection {
   final String id;
   final String? title;
   final String? subtitle;
+  final int sortOrder;
   final List<D2BaseInputFieldConfig> fields;
 
   D2FormSection({
@@ -11,5 +12,6 @@ class D2FormSection {
     this.subtitle,
     required this.id,
     required this.fields,
+    this.sortOrder = 0,
   });
 }

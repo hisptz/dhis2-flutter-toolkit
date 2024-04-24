@@ -38,21 +38,26 @@ class D2TrackerEventFormUtil {
   List<D2FormSection> _getFormSections() {
     return programStage.programStageSections
         .map<D2FormSection>((D2ProgramStageSection programStageSection) {
-      List<D2ProgramStageSectionDataElement> programStageSectionDataElement =
-          programStageSection.programStageSectionDataElements
-              .sorted((a, b) => a.sortOrder.compareTo(b.sortOrder));
-      List<D2DataElement> dataElements = programStageSectionDataElement
-          .map((element) => element.dataElement.target!)
-          .toList();
-      List<D2BaseInputFieldConfig> fields = _getFields(dataElements);
-      return D2FormSection(
-          fields: fields,
-          id: programStageSection.uid,
-          title: options.showSectionTitle
-              ? programStageSection.displayName ?? programStageSection.name
-              : null,
-          subtitle: "");
-    }).toList();
+          List<D2ProgramStageSectionDataElement>
+              programStageSectionDataElement = programStageSection
+                  .programStageSectionDataElements
+                  .sorted((a, b) => a.sortOrder.compareTo(b.sortOrder));
+          List<D2DataElement> dataElements = programStageSectionDataElement
+              .map((element) => element.dataElement.target!)
+              .toList();
+          List<D2BaseInputFieldConfig> fields = _getFields(dataElements);
+          return D2FormSection(
+            fields: fields,
+            id: programStageSection.uid,
+            sortOrder: programStageSection.sortOrder ?? 0,
+            title: options.showSectionTitle
+                ? programStageSection.displayName ?? programStageSection.name
+                : null,
+            subtitle: "",
+          );
+        })
+        .sorted((a, b) => a.sortOrder.compareTo(b.sortOrder))
+        .toList();
   }
 
   get formSections {

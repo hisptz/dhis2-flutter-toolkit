@@ -40,19 +40,23 @@ class D2TrackerEnrollmentFormUtil {
   List<D2FormSection> _getFormSections() {
     return program.programSections
         .map<D2FormSection>((D2ProgramSection programSection) {
-      List<D2BaseInputFieldConfig> fields = _getFields(programSection
-          .programSectionTrackedEntityAttributes
-          .sorted((a, b) => a.sortOrder.compareTo(b.sortOrder))
-          .map((e) => e.trackedEntityAttribute.target!)
-          .toList());
-      return D2FormSection(
-          fields: fields,
-          id: programSection.uid,
-          title: options.showSectionTitle
-              ? programSection.displayName ?? programSection.name
-              : null,
-          subtitle: "");
-    }).toList();
+          List<D2BaseInputFieldConfig> fields = _getFields(programSection
+              .programSectionTrackedEntityAttributes
+              .sorted((a, b) => a.sortOrder.compareTo(b.sortOrder))
+              .map((e) => e.trackedEntityAttribute.target!)
+              .toList());
+          return D2FormSection(
+            fields: fields,
+            id: programSection.uid,
+            sortOrder: programSection.sortOrder ?? 0,
+            title: options.showSectionTitle
+                ? programSection.displayName ?? programSection.name
+                : null,
+            subtitle: "",
+          );
+        })
+        .sorted((a, b) => a.sortOrder.compareTo(b.sortOrder))
+        .toList();
   }
 
   get formSections {
