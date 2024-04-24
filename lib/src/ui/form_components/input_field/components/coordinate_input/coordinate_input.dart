@@ -14,10 +14,8 @@ class CoordinateInput
       required super.onChange,
       required super.color,
       super.disabled,
-      this.autoGetLocation = true,
       super.value});
 
- final bool autoGetLocation;
   @override
   State<StatefulWidget> createState() {
     return CoordinateInputState();
@@ -52,7 +50,7 @@ class CoordinateInputState extends BaseStatefulInputState<CoordinateInput> {
   void initState() {
     controller = TextEditingController(text: widget.value?.toString());
     super.initState();
-    if(widget.autoGetLocation) {
+    if(widget.input.enableAutoLocation) {
       onGetCurrentLocation();
     }
   }

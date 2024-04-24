@@ -26,6 +26,7 @@ class D2GeometryValue {
 
 class D2GeometryInputConfig extends D2BaseInputFieldConfig {
   bool disableMap;
+  bool enableAutoLocation;
 
   D2GeometryInputConfig(
       {required super.label,
@@ -33,6 +34,7 @@ class D2GeometryInputConfig extends D2BaseInputFieldConfig {
       required super.name,
       required super.mandatory,
       super.clearable,
+      this.enableAutoLocation = true,
       this.disableMap = false,
       super.icon,
       super.legends,
