@@ -143,6 +143,11 @@
           "id": "1:5312970320050760802",
           "name": "legendSets",
           "targetId": "7:5152220214672915316"
+        },
+        {
+          "id": "19:1349373781694662138",
+          "name": "dataValues",
+          "targetId": "43:4985447032307344955"
         }
       ]
     },
@@ -711,7 +716,13 @@
           "type": 9
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "id": "20:7349970502279094870",
+          "name": "dataValues",
+          "targetId": "43:4985447032307344955"
+        }
+      ]
     },
     {
       "id": "11:706025752050808245",
@@ -2686,7 +2697,13 @@
           "relationTarget": "D2CategoryCombo"
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "id": "18:3611068746354162453",
+          "name": "dataValues",
+          "targetId": "43:4985447032307344955"
+        }
+      ]
     },
     {
       "id": "42:12844185218694803",
@@ -2775,11 +2792,94 @@
           "targetId": "7:5152220214672915316"
         }
       ]
+    },
+    {
+      "id": "43:4985447032307344955",
+      "lastPropertyId": "12:7083671866584002041",
+      "name": "D2DataValueSet",
+      "properties": [
+        {
+          "id": "1:5978695594258313298",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5222132242189562949",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "3:5173552820829054412",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "4:1591837639295583153",
+          "name": "synced",
+          "type": 1
+        },
+        {
+          "id": "5:3759488603065979749",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "96:6495125510901638649"
+        },
+        {
+          "id": "6:5008128415330132632",
+          "name": "value",
+          "type": 9
+        },
+        {
+          "id": "7:1238186954602257924",
+          "name": "period",
+          "type": 9
+        },
+        {
+          "id": "8:247425532639109351",
+          "name": "comment",
+          "type": 9
+        },
+        {
+          "id": "9:8434790235644528580",
+          "name": "dataElementId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "97:5058082037699399519",
+          "relationTarget": "D2DataElement"
+        },
+        {
+          "id": "10:6865112809161856809",
+          "name": "categoryOptionComboId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "98:3675633919913749446",
+          "relationTarget": "D2CategoryOptionCombo"
+        },
+        {
+          "id": "11:6068611459306153438",
+          "name": "attributeOptionComboId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "99:6336989251941203727",
+          "relationTarget": "D2CategoryOptionCombo"
+        },
+        {
+          "id": "12:7083671866584002041",
+          "name": "organisationUnitId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "100:4513580249183790056",
+          "relationTarget": "D2OrgUnit"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "42:12844185218694803",
-  "lastIndexId": "95:5418199369240187784",
-  "lastRelationId": "17:3617172205280793536",
+  "lastEntityId": "43:4985447032307344955",
+  "lastIndexId": "100:4513580249183790056",
+  "lastRelationId": "20:7349970502279094870",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,

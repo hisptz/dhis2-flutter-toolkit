@@ -2,6 +2,7 @@ import 'package:objectbox/objectbox.dart';
 
 import '../../../objectbox.dart';
 import '../../repositories/metadata/category_option_combo.dart';
+import '../data/data_value_set.dart';
 import 'base.dart';
 import 'category_combo.dart';
 import 'category_option.dart';
@@ -23,6 +24,7 @@ class D2CategoryOptionCombo extends D2MetaResource {
   String code;
 
   final categoryCombo = ToOne<D2CategoryCombo>();
+  final dataValues = ToMany<D2DataValueSet>();
 
   @Backlink('categoryOptionCombo')
   final categoryOptions = ToMany<D2CategoryOption>();

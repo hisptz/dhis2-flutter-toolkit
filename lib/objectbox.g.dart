@@ -18,6 +18,7 @@ import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 import 'src/models/data/attribute_value.dart';
 import 'src/models/data/data_store.dart';
 import 'src/models/data/data_value.dart';
+import 'src/models/data/data_value_set.dart';
 import 'src/models/data/enrollment.dart';
 import 'src/models/data/event.dart';
 import 'src/models/data/relationship.dart';
@@ -194,7 +195,11 @@ final _entities = <obx_int.ModelEntity>[
         obx_int.ModelRelation(
             id: const obx_int.IdUid(1, 5312970320050760802),
             name: 'legendSets',
-            targetId: const obx_int.IdUid(7, 5152220214672915316))
+            targetId: const obx_int.IdUid(7, 5152220214672915316)),
+        obx_int.ModelRelation(
+            id: const obx_int.IdUid(19, 1349373781694662138),
+            name: 'dataValues',
+            targetId: const obx_int.IdUid(43, 4985447032307344955))
       ],
       backlinks: <obx_int.ModelBacklink>[]),
   obx_int.ModelEntity(
@@ -764,7 +769,12 @@ final _entities = <obx_int.ModelEntity>[
             type: 9,
             flags: 0)
       ],
-      relations: <obx_int.ModelRelation>[],
+      relations: <obx_int.ModelRelation>[
+        obx_int.ModelRelation(
+            id: const obx_int.IdUid(20, 7349970502279094870),
+            name: 'dataValues',
+            targetId: const obx_int.IdUid(43, 4985447032307344955))
+      ],
       backlinks: <obx_int.ModelBacklink>[
         obx_int.ModelBacklink(
             name: 'children', srcEntity: 'D2OrgUnit', srcField: 'parent')
@@ -2741,7 +2751,12 @@ final _entities = <obx_int.ModelEntity>[
             indexId: const obx_int.IdUid(92, 1552864541697651566),
             relationTarget: 'D2CategoryCombo')
       ],
-      relations: <obx_int.ModelRelation>[],
+      relations: <obx_int.ModelRelation>[
+        obx_int.ModelRelation(
+            id: const obx_int.IdUid(18, 3611068746354162453),
+            name: 'dataValues',
+            targetId: const obx_int.IdUid(43, 4985447032307344955))
+      ],
       backlinks: <obx_int.ModelBacklink>[
         obx_int.ModelBacklink(
             name: 'categoryOptions',
@@ -2832,6 +2847,84 @@ final _entities = <obx_int.ModelEntity>[
             name: 'legendSets',
             targetId: const obx_int.IdUid(7, 5152220214672915316))
       ],
+      backlinks: <obx_int.ModelBacklink>[]),
+  obx_int.ModelEntity(
+      id: const obx_int.IdUid(43, 4985447032307344955),
+      name: 'D2DataValueSet',
+      lastPropertyId: const obx_int.IdUid(12, 7083671866584002041),
+      flags: 0,
+      properties: <obx_int.ModelProperty>[
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(1, 5978695594258313298),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(2, 5222132242189562949),
+            name: 'createdAt',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(3, 5173552820829054412),
+            name: 'updatedAt',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(4, 1591837639295583153),
+            name: 'synced',
+            type: 1,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(5, 3759488603065979749),
+            name: 'uid',
+            type: 9,
+            flags: 2080,
+            indexId: const obx_int.IdUid(96, 6495125510901638649)),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(6, 5008128415330132632),
+            name: 'value',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(7, 1238186954602257924),
+            name: 'period',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(8, 247425532639109351),
+            name: 'comment',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(9, 8434790235644528580),
+            name: 'dataElementId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(97, 5058082037699399519),
+            relationTarget: 'D2DataElement'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(10, 6865112809161856809),
+            name: 'categoryOptionComboId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(98, 3675633919913749446),
+            relationTarget: 'D2CategoryOptionCombo'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(11, 6068611459306153438),
+            name: 'attributeOptionComboId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(99, 6336989251941203727),
+            relationTarget: 'D2CategoryOptionCombo'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(12, 7083671866584002041),
+            name: 'organisationUnitId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(100, 4513580249183790056),
+            relationTarget: 'D2OrgUnit')
+      ],
+      relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[])
 ];
 
@@ -2870,9 +2963,9 @@ Future<obx.Store> openStore(
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
-      lastEntityId: const obx_int.IdUid(42, 12844185218694803),
-      lastIndexId: const obx_int.IdUid(95, 5418199369240187784),
-      lastRelationId: const obx_int.IdUid(17, 3617172205280793536),
+      lastEntityId: const obx_int.IdUid(43, 4985447032307344955),
+      lastIndexId: const obx_int.IdUid(100, 4513580249183790056),
+      lastRelationId: const obx_int.IdUid(20, 7349970502279094870),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [4845029629663650184],
       retiredIndexUids: const [],
@@ -2943,7 +3036,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
             [object.optionSet, object.categoryCombo],
         toManyRelations: (D2DataElement object) => {
               obx_int.RelInfo<D2DataElement>.toMany(1, object.id):
-                  object.legendSets
+                  object.legendSets,
+              obx_int.RelInfo<D2DataElement>.toMany(19, object.id):
+                  object.dataValues
             },
         getId: (D2DataElement object) => object.id,
         setId: (D2DataElement object, int id) {
@@ -3056,6 +3151,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
               object.legendSets,
               store,
               obx_int.RelInfo<D2DataElement>.toMany(1, object.id));
+          obx_int.InternalToManyAccess.setRelInfo<D2DataElement>(
+              object.dataValues,
+              store,
+              obx_int.RelInfo<D2DataElement>.toMany(19, object.id));
           return object;
         }),
     D2DataValue: obx_int.EntityDefinition<D2DataValue>(
@@ -3591,6 +3690,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
         model: _entities[9],
         toOneRelations: (D2OrgUnit object) => [object.parent, object.level],
         toManyRelations: (D2OrgUnit object) => {
+              obx_int.RelInfo<D2OrgUnit>.toMany(20, object.id):
+                  object.dataValues,
               obx_int.RelInfo<D2OrgUnit>.toOneBacklink(
                       10, object.id, (D2OrgUnit srcObject) => srcObject.parent):
                   object.children
@@ -3666,6 +3767,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.level.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 26, 0);
           object.level.attach(store);
+          obx_int.InternalToManyAccess.setRelInfo<D2OrgUnit>(object.dataValues,
+              store, obx_int.RelInfo<D2OrgUnit>.toMany(20, object.id));
           obx_int.InternalToManyAccess.setRelInfo<D2OrgUnit>(
               object.children,
               store,
@@ -5847,6 +5950,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
         toOneRelations: (D2CategoryOptionCombo object) =>
             [object.categoryCombo],
         toManyRelations: (D2CategoryOptionCombo object) => {
+              obx_int.RelInfo<D2CategoryOptionCombo>.toMany(18, object.id):
+                  object.dataValues,
               obx_int.RelInfo<D2CategoryOption>.toOneBacklink(
                   9,
                   object.id,
@@ -5892,6 +5997,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.categoryCombo.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0);
           object.categoryCombo.attach(store);
+          obx_int.InternalToManyAccess.setRelInfo<D2CategoryOptionCombo>(
+              object.dataValues,
+              store,
+              obx_int.RelInfo<D2CategoryOptionCombo>.toMany(18, object.id));
           obx_int.InternalToManyAccess.setRelInfo<D2CategoryOptionCombo>(
               object.categoryOptions,
               store,
@@ -5987,6 +6096,76 @@ obx_int.ModelDefinition getObjectBoxModel() {
               obx_int.RelInfo<D2DataSet>.toMany(15, object.id));
           obx_int.InternalToManyAccess.setRelInfo<D2DataSet>(object.legendSets,
               store, obx_int.RelInfo<D2DataSet>.toMany(16, object.id));
+          return object;
+        }),
+    D2DataValueSet: obx_int.EntityDefinition<D2DataValueSet>(
+        model: _entities[41],
+        toOneRelations: (D2DataValueSet object) => [
+              object.dataElement,
+              object.categoryOptionCombo,
+              object.attributeOptionCombo,
+              object.organisationUnit
+            ],
+        toManyRelations: (D2DataValueSet object) => {},
+        getId: (D2DataValueSet object) => object.id,
+        setId: (D2DataValueSet object, int id) {
+          object.id = id;
+        },
+        objectToFB: (D2DataValueSet object, fb.Builder fbb) {
+          final uidOffset = fbb.writeString(object.uid);
+          final valueOffset = fbb.writeString(object.value);
+          final periodOffset = fbb.writeString(object.period);
+          final commentOffset =
+              object.comment == null ? null : fbb.writeString(object.comment!);
+          fbb.startTable(13);
+          fbb.addInt64(0, object.id);
+          fbb.addInt64(1, object.createdAt.millisecondsSinceEpoch);
+          fbb.addInt64(2, object.updatedAt.millisecondsSinceEpoch);
+          fbb.addBool(3, object.synced);
+          fbb.addOffset(4, uidOffset);
+          fbb.addOffset(5, valueOffset);
+          fbb.addOffset(6, periodOffset);
+          fbb.addOffset(7, commentOffset);
+          fbb.addInt64(8, object.dataElement.targetId);
+          fbb.addInt64(9, object.categoryOptionCombo.targetId);
+          fbb.addInt64(10, object.attributeOptionCombo.targetId);
+          fbb.addInt64(11, object.organisationUnit.targetId);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (obx.Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+          final uidParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 12, '');
+          final idParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+          final createdAtParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0));
+          final updatedAtParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0));
+          final valueParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 14, '');
+          final periodParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 16, '');
+          final commentParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGetNullable(buffer, rootOffset, 18);
+          final object = D2DataValueSet(uidParam, idParam, createdAtParam,
+              updatedAtParam, valueParam, periodParam, commentParam)
+            ..synced =
+                const fb.BoolReader().vTableGet(buffer, rootOffset, 10, false);
+          object.dataElement.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0);
+          object.dataElement.attach(store);
+          object.categoryOptionCombo.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 22, 0);
+          object.categoryOptionCombo.attach(store);
+          object.attributeOptionCombo.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 24, 0);
+          object.attributeOptionCombo.attach(store);
+          object.organisationUnit.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 26, 0);
+          object.organisationUnit.attach(store);
           return object;
         })
   };
@@ -6089,6 +6268,11 @@ class D2DataElement_ {
   /// see [D2DataElement.legendSets]
   static final legendSets = obx.QueryRelationToMany<D2DataElement, D2LegendSet>(
       _entities[1].relations[0]);
+
+  /// see [D2DataElement.dataValues]
+  static final dataValues =
+      obx.QueryRelationToMany<D2DataElement, D2DataValueSet>(
+          _entities[1].relations[1]);
 }
 
 /// [D2DataValue] entity fields to define ObjectBox queries.
@@ -6495,6 +6679,10 @@ class D2OrgUnit_ {
   /// see [D2OrgUnit.code]
   static final code =
       obx.QueryStringProperty<D2OrgUnit>(_entities[9].properties[11]);
+
+  /// see [D2OrgUnit.dataValues]
+  static final dataValues = obx.QueryRelationToMany<D2OrgUnit, D2DataValueSet>(
+      _entities[9].relations[0]);
 
   /// see [D2OrgUnit.children]
   static final children =
@@ -7955,6 +8143,11 @@ class D2CategoryOptionCombo_ {
       obx.QueryRelationToOne<D2CategoryOptionCombo, D2CategoryCombo>(
           _entities[39].properties[6]);
 
+  /// see [D2CategoryOptionCombo.dataValues]
+  static final dataValues =
+      obx.QueryRelationToMany<D2CategoryOptionCombo, D2DataValueSet>(
+          _entities[39].relations[0]);
+
   /// see [D2CategoryOptionCombo.categoryOptions]
   static final categoryOptions =
       obx.QueryBacklinkToMany<D2CategoryOption, D2CategoryOptionCombo>(
@@ -8024,4 +8217,59 @@ class D2DataSet_ {
   /// see [D2DataSet.legendSets]
   static final legendSets = obx.QueryRelationToMany<D2DataSet, D2LegendSet>(
       _entities[40].relations[1]);
+}
+
+/// [D2DataValueSet] entity fields to define ObjectBox queries.
+class D2DataValueSet_ {
+  /// see [D2DataValueSet.id]
+  static final id =
+      obx.QueryIntegerProperty<D2DataValueSet>(_entities[41].properties[0]);
+
+  /// see [D2DataValueSet.createdAt]
+  static final createdAt =
+      obx.QueryDateProperty<D2DataValueSet>(_entities[41].properties[1]);
+
+  /// see [D2DataValueSet.updatedAt]
+  static final updatedAt =
+      obx.QueryDateProperty<D2DataValueSet>(_entities[41].properties[2]);
+
+  /// see [D2DataValueSet.synced]
+  static final synced =
+      obx.QueryBooleanProperty<D2DataValueSet>(_entities[41].properties[3]);
+
+  /// see [D2DataValueSet.uid]
+  static final uid =
+      obx.QueryStringProperty<D2DataValueSet>(_entities[41].properties[4]);
+
+  /// see [D2DataValueSet.value]
+  static final value =
+      obx.QueryStringProperty<D2DataValueSet>(_entities[41].properties[5]);
+
+  /// see [D2DataValueSet.period]
+  static final period =
+      obx.QueryStringProperty<D2DataValueSet>(_entities[41].properties[6]);
+
+  /// see [D2DataValueSet.comment]
+  static final comment =
+      obx.QueryStringProperty<D2DataValueSet>(_entities[41].properties[7]);
+
+  /// see [D2DataValueSet.dataElement]
+  static final dataElement =
+      obx.QueryRelationToOne<D2DataValueSet, D2DataElement>(
+          _entities[41].properties[8]);
+
+  /// see [D2DataValueSet.categoryOptionCombo]
+  static final categoryOptionCombo =
+      obx.QueryRelationToOne<D2DataValueSet, D2CategoryOptionCombo>(
+          _entities[41].properties[9]);
+
+  /// see [D2DataValueSet.attributeOptionCombo]
+  static final attributeOptionCombo =
+      obx.QueryRelationToOne<D2DataValueSet, D2CategoryOptionCombo>(
+          _entities[41].properties[10]);
+
+  /// see [D2DataValueSet.organisationUnit]
+  static final organisationUnit =
+      obx.QueryRelationToOne<D2DataValueSet, D2OrgUnit>(
+          _entities[41].properties[11]);
 }

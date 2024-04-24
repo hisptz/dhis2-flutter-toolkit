@@ -1,6 +1,7 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
 
+import '../data/data_value_set.dart';
 import 'base.dart';
 
 @Entity()
@@ -21,6 +22,7 @@ class D2OrgUnit implements D2MetaResource {
   final parent = ToOne<D2OrgUnit>();
 
   final level = ToOne<D2OrgUnitLevel>();
+  final dataValues = ToMany<D2DataValueSet>();
 
   @Backlink("parent")
   final children = ToMany<D2OrgUnit>();
