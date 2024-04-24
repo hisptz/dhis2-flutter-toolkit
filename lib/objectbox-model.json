@@ -35,7 +35,7 @@
     },
     {
       "id": "2:257964529443086557",
-      "lastPropertyId": "17:5152172433851122799",
+      "lastPropertyId": "18:5732288414901900425",
       "name": "D2DataElement",
       "properties": [
         {
@@ -128,6 +128,14 @@
           "id": "17:5152172433851122799",
           "name": "optionSetValue",
           "type": 1
+        },
+        {
+          "id": "18:5732288414901900425",
+          "name": "categoryComboId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "95:5418199369240187784",
+          "relationTarget": "D2CategoryCombo"
         }
       ],
       "relations": [
@@ -2510,11 +2518,17 @@
           "type": 9
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "id": "14:1797209289193652554",
+          "name": "categoryCombos",
+          "targetId": "40:817798402782973650"
+        }
+      ]
     },
     {
       "id": "39:7858286416272184738",
-      "lastPropertyId": "8:2525142688606759825",
+      "lastPropertyId": "9:4295120919439077126",
       "name": "D2CategoryOption",
       "properties": [
         {
@@ -2560,14 +2574,212 @@
           "flags": 520,
           "indexId": "91:1299718182608691472",
           "relationTarget": "D2Category"
+        },
+        {
+          "id": "9:4295120919439077126",
+          "name": "categoryOptionComboId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "93:6950796954834436805",
+          "relationTarget": "D2CategoryOptionCombo"
         }
       ],
       "relations": []
+    },
+    {
+      "id": "40:817798402782973650",
+      "lastPropertyId": "8:1637736344669925920",
+      "name": "D2CategoryCombo",
+      "properties": [
+        {
+          "id": "1:1107783606781545502",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6013861491717661967",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:2011680167812670369",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:4745665489344690729",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "5:5207348599964567534",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:3222278768463379994",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "7:3381208089237461023",
+          "name": "skipTotal",
+          "type": 1
+        },
+        {
+          "id": "8:1637736344669925920",
+          "name": "dataDimensionType",
+          "type": 9
+        }
+      ],
+      "relations": [
+        {
+          "id": "17:3617172205280793536",
+          "name": "dataElement",
+          "targetId": "2:257964529443086557"
+        }
+      ]
+    },
+    {
+      "id": "41:8529820519908703724",
+      "lastPropertyId": "7:2449791108955167976",
+      "name": "D2CategoryOptionCombo",
+      "properties": [
+        {
+          "id": "1:2034001406060091276",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5393053666883035875",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:978794105202617158",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:8458276223044029297",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "5:1659209021818978141",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:4483223979605663998",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "7:2449791108955167976",
+          "name": "categoryComboId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "92:1552864541697651566",
+          "relationTarget": "D2CategoryCombo"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "42:12844185218694803",
+      "lastPropertyId": "13:8756203441260147324",
+      "name": "D2DataSet",
+      "properties": [
+        {
+          "id": "1:3177218671810363298",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5480228449560690672",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:4113477116433662869",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:3033547956775498848",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "5:7740720535959695855",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:166856772241643131",
+          "name": "shortName",
+          "type": 9
+        },
+        {
+          "id": "7:7146705834252785227",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "8:5644111824155753373",
+          "name": "periodType",
+          "type": 9
+        },
+        {
+          "id": "9:6934526021841243552",
+          "name": "expiryDays",
+          "type": 6
+        },
+        {
+          "id": "10:7114645697784306318",
+          "name": "openFuturePeriods",
+          "type": 6
+        },
+        {
+          "id": "11:1254720431607864541",
+          "name": "timelyDays",
+          "type": 6
+        },
+        {
+          "id": "12:1134870188675437068",
+          "name": "openPeriodsAfterCoEndDate",
+          "type": 6
+        },
+        {
+          "id": "13:8756203441260147324",
+          "name": "categoryComboId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "94:2388420805686363269",
+          "relationTarget": "D2CategoryCombo"
+        }
+      ],
+      "relations": [
+        {
+          "id": "15:5168595253644505712",
+          "name": "dataSetElements",
+          "targetId": "2:257964529443086557"
+        },
+        {
+          "id": "16:7648802606768923608",
+          "name": "legendSets",
+          "targetId": "7:5152220214672915316"
+        }
+      ]
     }
   ],
-  "lastEntityId": "39:7858286416272184738",
-  "lastIndexId": "91:1299718182608691472",
-  "lastRelationId": "13:3296482006972770137",
+  "lastEntityId": "42:12844185218694803",
+  "lastIndexId": "95:5418199369240187784",
+  "lastRelationId": "17:3617172205280793536",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,

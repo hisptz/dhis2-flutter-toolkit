@@ -4,6 +4,7 @@ import '../../../objectbox.dart';
 import '../../repositories/metadata/data_element.dart';
 import '../../repositories/metadata/option_set.dart';
 import 'base.dart';
+import 'category_combo.dart';
 import 'legend_set.dart';
 import 'option_set.dart';
 
@@ -34,6 +35,7 @@ class D2DataElement extends D2MetaResource {
   bool? optionSetValue;
   final legendSets = ToMany<D2LegendSet>();
   final optionSet = ToOne<D2OptionSet>();
+  final categoryCombo = ToOne<D2CategoryCombo>();
 
   D2DataElement(
       this.created,

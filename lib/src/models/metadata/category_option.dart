@@ -4,6 +4,7 @@ import '../../../objectbox.dart';
 import '../../repositories/metadata/category_option.dart';
 import './base.dart';
 import 'category.dart';
+import 'category_option_combo.dart';
 
 @Entity()
 class D2CategoryOption extends D2MetaResource {
@@ -23,6 +24,8 @@ class D2CategoryOption extends D2MetaResource {
   String shortName;
 
   final category = ToOne<D2Category>();
+
+  final categoryOptionCombo = ToOne<D2CategoryOptionCombo>();
 
   D2CategoryOption(
     this.id,
