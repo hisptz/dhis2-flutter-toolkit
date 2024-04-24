@@ -2,7 +2,8 @@ import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
 import '../../../../objectbox.g.dart';
 
-mixin D2BaseDataQueryMixin<T extends D2DataResource> on D2BaseTrackerDataRepository<T> {
+mixin D2BaseTrackerDataQueryMixin<T extends D2DataResource>
+    on D2BaseTrackerDataRepository<T> {
   QueryBuilder<T>? queryBuilder;
 
   Condition<T>? queryConditions;

@@ -1,5 +1,5 @@
 import 'package:dhis2_flutter_toolkit/src/models/metadata/program.dart';
-import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_query_mixin.dart';
+import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_tracker_query_mixin.dart';
 
 import '../../../objectbox.g.dart';
 import '../../models/data/enrollment.dart';
@@ -12,7 +12,7 @@ class D2EnrollmentRepository extends D2BaseTrackerDataRepository<D2Enrollment>
     with
         BaseTrackerDataDownloadServiceMixin<D2Enrollment>,
         D2EnrollmentDownloadServiceMixin,
-        D2BaseDataQueryMixin<D2Enrollment>,
+        D2BaseTrackerDataQueryMixin<D2Enrollment>,
         BaseTrackerDataUploadServiceMixin<D2Enrollment> {
   D2EnrollmentRepository(super.db, {super.program});
 
