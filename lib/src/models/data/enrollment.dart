@@ -165,7 +165,8 @@ class D2Enrollment extends SyncDataSource
     if (orgUnit != null) {
       this.orgUnit.target = orgUnit;
     }
-    trackedEntity.target!.updateFromFormValues(values, db: db);
+    trackedEntity.target!.updateFromFormValues(values,
+        db: db, program: program, orgUnit: orgUnit);
 
     if (values["geometry"] != null) {
       var geometryValue = values["geometry"];
