@@ -50,7 +50,7 @@ class CoordinateInputState extends BaseStatefulInputState<CoordinateInput> {
   void initState() {
     controller = TextEditingController(text: widget.value?.toString());
     super.initState();
-    if(widget.input.enableAutoLocation) {
+    if(widget.input.enableAutoLocation && widget.value == null) {
       onGetCurrentLocation();
     }
   }
