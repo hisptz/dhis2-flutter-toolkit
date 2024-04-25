@@ -1,28 +1,28 @@
+import 'package:dhis2_flutter_toolkit/src/models/metadata/compulsory_data_element_operand.dart';
 import 'package:dhis2_flutter_toolkit/src/repositories/metadata/data_set.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../../objectbox.dart';
 import './base.dart';
 import 'category_combo.dart';
-import 'data_element.dart';
+import 'data_set_element.dart';
 import 'legend_set.dart';
 
 @Entity()
 class D2DataSet extends D2MetaResource {
   @override
   int id = 0;
-  @override
   DateTime created;
 
-  @override
   DateTime lastUpdated;
 
+  @Unique()
   @override
   String uid;
 
   String name;
   String shortName;
-  String code;
+  String? code;
   String periodType;
   int expiryDays;
   int openFuturePeriods;
@@ -30,8 +30,12 @@ class D2DataSet extends D2MetaResource {
   int openPeriodsAfterCoEndDate;
 
   final categoryCombo = ToOne<D2CategoryCombo>();
-  final dataSetElements = ToMany<D2DataElement>();
+  final dataSetElements = ToMany<D2DataSetElement>();
   final legendSets = ToMany<D2LegendSet>();
+
+  @Backlink("dataSet")
+  final compulsoryDataElementOperands =
+      ToMany<D2CompulsoryDataElementOperand>();
 
   D2DataSet(
     this.id,
@@ -61,5 +65,17 @@ class D2DataSet extends D2MetaResource {
         openPeriodsAfterCoEndDate = json['openPeriodsAfterCoEndDate'],
         shortName = json['shortName'] {
     id = D2DataSetRepository(db).getIdByUid(json["id"]) ?? 0;
+
+    List<D2DataSetElement> elements = json['dataSetElements']
+        .map<D2DataSetElement>(
+            (Map json) => D2DataSetElement.fromMap(db, json));
+    dataSetElements.addAll(elements);
+    List<D2CompulsoryDataElementOperand> compulsoryElements =
+        json['compulsoryDataElementOperands']
+            ?.map<D2CompulsoryDataElementOperand>((Map element) =>
+                D2CompulsoryDataElementOperand.fromMap(db,
+                    json: json, dataSet: this));
+
+    compulsoryDataElementOperands.addAll(compulsoryElements);
   }
 }

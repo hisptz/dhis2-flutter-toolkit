@@ -2,8 +2,8 @@ import '../../../objectbox.g.dart';
 import '../../models/metadata/category.dart';
 import './base.dart';
 
-class D2CategoryOptionRepository extends BaseMetaRepository<D2Category> {
-  D2CategoryOptionRepository(super.db);
+class D2CategoryRepository extends BaseMetaRepository<D2Category> {
+  D2CategoryRepository(super.db);
 
   @override
   D2Category? getByUid(String uid) {

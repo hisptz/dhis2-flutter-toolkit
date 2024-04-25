@@ -8,6 +8,7 @@ import 'base.dart';
 class D2ProgramStageSectionDataElement extends D2MetaResource {
   int id = 0;
 
+  @Unique()
   @override
   String uid;
 

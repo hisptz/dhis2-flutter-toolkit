@@ -48,6 +48,6 @@ class D2Category extends D2MetaResource {
         code = json['code'],
         dataDimensionType = json['dataDimensionType'],
         shortName = json['shortName'] {
-    id = D2CategoryOptionRepository(db).getIdByUid(json["id"]) ?? 0;
+    id = D2CategoryRepository(db).getIdByUid(json["id"]) ?? 0;
   }
 }

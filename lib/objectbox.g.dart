@@ -29,6 +29,7 @@ import 'src/models/metadata/category.dart';
 import 'src/models/metadata/category_combo.dart';
 import 'src/models/metadata/category_option.dart';
 import 'src/models/metadata/category_option_combo.dart';
+import 'src/models/metadata/compulsory_data_element_operand.dart';
 import 'src/models/metadata/data_element.dart';
 import 'src/models/metadata/data_set.dart';
 import 'src/models/metadata/data_set_element.dart';
@@ -2790,7 +2791,8 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(4, 3033547956775498848),
             name: 'uid',
             type: 9,
-            flags: 0),
+            flags: 2080,
+            indexId: const obx_int.IdUid(109, 1527181347349823855)),
         obx_int.ModelProperty(
             id: const obx_int.IdUid(5, 7740720535959695855),
             name: 'name',
@@ -2843,7 +2845,7 @@ final _entities = <obx_int.ModelEntity>[
         obx_int.ModelRelation(
             id: const obx_int.IdUid(15, 5168595253644505712),
             name: 'dataSetElements',
-            targetId: const obx_int.IdUid(2, 257964529443086557)),
+            targetId: const obx_int.IdUid(44, 4968489375468175809)),
         obx_int.ModelRelation(
             id: const obx_int.IdUid(16, 7648802606768923608),
             name: 'legendSets',
@@ -2961,6 +2963,72 @@ final _entities = <obx_int.ModelEntity>[
             relationTarget: 'D2DataSet')
       ],
       relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[]),
+  obx_int.ModelEntity(
+      id: const obx_int.IdUid(45, 3763153855658092189),
+      name: 'D2CompulsoryDataElementOperand',
+      lastPropertyId: const obx_int.IdUid(10, 426865600593595289),
+      flags: 0,
+      properties: <obx_int.ModelProperty>[
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(1, 8320461554627334215),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(2, 6284182318471398943),
+            name: 'created',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(3, 6048321259943985050),
+            name: 'lastUpdated',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(4, 1309992064691247596),
+            name: 'uid',
+            type: 9,
+            flags: 2080,
+            indexId: const obx_int.IdUid(105, 1380213729038111912)),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(5, 264469093839227270),
+            name: 'name',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(6, 2192150463765043859),
+            name: 'shortName',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(7, 2489568503362941696),
+            name: 'displayName',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(8, 2054523423008181410),
+            name: 'dataElementId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(106, 1616976052564179831),
+            relationTarget: 'D2DataElement'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(9, 7447978736468369002),
+            name: 'dataSetId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(107, 4863908447571161423),
+            relationTarget: 'D2DataSet'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(10, 426865600593595289),
+            name: 'categoryOptionComboId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(108, 7337492334193565123),
+            relationTarget: 'D2CategoryOptionCombo')
+      ],
+      relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[])
 ];
 
@@ -2999,8 +3067,8 @@ Future<obx.Store> openStore(
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
-      lastEntityId: const obx_int.IdUid(44, 4968489375468175809),
-      lastIndexId: const obx_int.IdUid(104, 8217951499410163086),
+      lastEntityId: const obx_int.IdUid(45, 3763153855658092189),
+      lastIndexId: const obx_int.IdUid(109, 1527181347349823855),
       lastRelationId: const obx_int.IdUid(20, 7349970502279094870),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [4845029629663650184],
@@ -6064,7 +6132,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final uidOffset = fbb.writeString(object.uid);
           final nameOffset = fbb.writeString(object.name);
           final shortNameOffset = fbb.writeString(object.shortName);
-          final codeOffset = fbb.writeString(object.code);
+          final codeOffset =
+              object.code == null ? null : fbb.writeString(object.code!);
           final periodTypeOffset = fbb.writeString(object.periodType);
           fbb.startTable(14);
           fbb.addInt64(0, object.id);
@@ -6095,7 +6164,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final nameParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 12, '');
           final codeParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 16, '');
+              .vTableGetNullable(buffer, rootOffset, 16);
           final createdParam = DateTime.fromMillisecondsSinceEpoch(
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0));
           final periodTypeParam = const fb.StringReader(asciiOptimization: true)
@@ -6237,6 +6306,72 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.dataSet.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0);
           object.dataSet.attach(store);
+          return object;
+        }),
+    D2CompulsoryDataElementOperand: obx_int.EntityDefinition<
+            D2CompulsoryDataElementOperand>(
+        model: _entities[43],
+        toOneRelations: (D2CompulsoryDataElementOperand object) =>
+            [object.dataElement, object.dataSet, object.categoryOptionCombo],
+        toManyRelations: (D2CompulsoryDataElementOperand object) => {},
+        getId: (D2CompulsoryDataElementOperand object) => object.id,
+        setId: (D2CompulsoryDataElementOperand object, int id) {
+          object.id = id;
+        },
+        objectToFB: (D2CompulsoryDataElementOperand object, fb.Builder fbb) {
+          final uidOffset = fbb.writeString(object.uid);
+          final nameOffset = fbb.writeString(object.name);
+          final shortNameOffset = fbb.writeString(object.shortName);
+          final displayNameOffset = fbb.writeString(object.displayName);
+          fbb.startTable(11);
+          fbb.addInt64(0, object.id);
+          fbb.addInt64(1, object.created.millisecondsSinceEpoch);
+          fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
+          fbb.addOffset(3, uidOffset);
+          fbb.addOffset(4, nameOffset);
+          fbb.addOffset(5, shortNameOffset);
+          fbb.addOffset(6, displayNameOffset);
+          fbb.addInt64(7, object.dataElement.targetId);
+          fbb.addInt64(8, object.dataSet.targetId);
+          fbb.addInt64(9, object.categoryOptionCombo.targetId);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (obx.Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+          final idParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+          final createdParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0));
+          final lastUpdatedParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0));
+          final uidParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 10, '');
+          final nameParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 12, '');
+          final shortNameParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 14, '');
+          final displayNameParam =
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 16, '');
+          final object = D2CompulsoryDataElementOperand(
+              idParam,
+              createdParam,
+              lastUpdatedParam,
+              uidParam,
+              nameParam,
+              shortNameParam,
+              displayNameParam);
+          object.dataElement.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
+          object.dataElement.attach(store);
+          object.dataSet.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0);
+          object.dataSet.attach(store);
+          object.categoryOptionCombo.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 22, 0);
+          object.categoryOptionCombo.attach(store);
           return object;
         })
   };
@@ -8282,7 +8417,7 @@ class D2DataSet_ {
 
   /// see [D2DataSet.dataSetElements]
   static final dataSetElements =
-      obx.QueryRelationToMany<D2DataSet, D2DataElement>(
+      obx.QueryRelationToMany<D2DataSet, D2DataSetElement>(
           _entities[40].relations[0]);
 
   /// see [D2DataSet.legendSets]
@@ -8363,4 +8498,53 @@ class D2DataSetElement_ {
   /// see [D2DataSetElement.dataSet]
   static final dataSet = obx.QueryRelationToOne<D2DataSetElement, D2DataSet>(
       _entities[42].properties[3]);
+}
+
+/// [D2CompulsoryDataElementOperand] entity fields to define ObjectBox queries.
+class D2CompulsoryDataElementOperand_ {
+  /// see [D2CompulsoryDataElementOperand.id]
+  static final id = obx.QueryIntegerProperty<D2CompulsoryDataElementOperand>(
+      _entities[43].properties[0]);
+
+  /// see [D2CompulsoryDataElementOperand.created]
+  static final created = obx.QueryDateProperty<D2CompulsoryDataElementOperand>(
+      _entities[43].properties[1]);
+
+  /// see [D2CompulsoryDataElementOperand.lastUpdated]
+  static final lastUpdated =
+      obx.QueryDateProperty<D2CompulsoryDataElementOperand>(
+          _entities[43].properties[2]);
+
+  /// see [D2CompulsoryDataElementOperand.uid]
+  static final uid = obx.QueryStringProperty<D2CompulsoryDataElementOperand>(
+      _entities[43].properties[3]);
+
+  /// see [D2CompulsoryDataElementOperand.name]
+  static final name = obx.QueryStringProperty<D2CompulsoryDataElementOperand>(
+      _entities[43].properties[4]);
+
+  /// see [D2CompulsoryDataElementOperand.shortName]
+  static final shortName =
+      obx.QueryStringProperty<D2CompulsoryDataElementOperand>(
+          _entities[43].properties[5]);
+
+  /// see [D2CompulsoryDataElementOperand.displayName]
+  static final displayName =
+      obx.QueryStringProperty<D2CompulsoryDataElementOperand>(
+          _entities[43].properties[6]);
+
+  /// see [D2CompulsoryDataElementOperand.dataElement]
+  static final dataElement =
+      obx.QueryRelationToOne<D2CompulsoryDataElementOperand, D2DataElement>(
+          _entities[43].properties[7]);
+
+  /// see [D2CompulsoryDataElementOperand.dataSet]
+  static final dataSet =
+      obx.QueryRelationToOne<D2CompulsoryDataElementOperand, D2DataSet>(
+          _entities[43].properties[8]);
+
+  /// see [D2CompulsoryDataElementOperand.categoryOptionCombo]
+  static final categoryOptionCombo = obx.QueryRelationToOne<
+      D2CompulsoryDataElementOperand,
+      D2CategoryOptionCombo>(_entities[43].properties[9]);
 }
