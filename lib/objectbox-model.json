@@ -2361,7 +2361,9 @@
         {
           "id": "2:7097710831954468783",
           "name": "uid",
-          "type": 9
+          "type": 9,
+          "flags": 2080,
+          "indexId": "104:8217951499410163086"
         },
         {
           "id": "3:7549475124709629493",
@@ -2875,10 +2877,47 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "44:4968489375468175809",
+      "lastPropertyId": "4:4599710730365794747",
+      "name": "D2DataSetElement",
+      "properties": [
+        {
+          "id": "1:8266043493872212481",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2930379159759787962",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "101:2407179430613006690"
+        },
+        {
+          "id": "3:7149829554226720982",
+          "name": "dataElementId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "102:1275202439331720907",
+          "relationTarget": "D2DataElement"
+        },
+        {
+          "id": "4:4599710730365794747",
+          "name": "dataSetId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "103:7263758166735967433",
+          "relationTarget": "D2DataSet"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "43:4985447032307344955",
-  "lastIndexId": "100:4513580249183790056",
+  "lastEntityId": "44:4968489375468175809",
+  "lastIndexId": "104:8217951499410163086",
   "lastRelationId": "20:7349970502279094870",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
