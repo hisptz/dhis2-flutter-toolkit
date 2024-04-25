@@ -307,7 +307,7 @@ class D2InputFieldContainer extends StatelessWidget {
                     fontSize: 12.0,
                   ),
                 )
-              : Container()
+              : const Offstage()
         ],
       ),
     );

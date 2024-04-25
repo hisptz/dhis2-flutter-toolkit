@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 import '../../../models/metadata/option.dart';
 import '../../../models/metadata/option_set.dart';
 import '../input_field/models/age_input_field.dart';
@@ -36,7 +38,12 @@ class D2FormUtils {
       D2OptionSet optionSet = dataItem.optionSet.target!;
       List<D2InputFieldOption> options = optionSet.options
           .map<D2InputFieldOption>((D2Option option) => D2InputFieldOption(
-              code: option.code, name: option.displayName ?? option.name))
+                code: option.code,
+                name: option.displayName ?? option.name,
+                sortOrder: option.sortOrder,
+              ))
+          .sorted((D2InputFieldOption a, D2InputFieldOption b) =>
+              a.sortOrder.compareTo(b.sortOrder))
           .toList();
       return D2SelectInputFieldConfig(
           options: options,

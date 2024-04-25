@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-
 import '../../models/coordinate_field.dart';
 import '../../utils/location.dart';
 import '../base_input.dart';
@@ -26,7 +25,6 @@ class CoordinateInput
 class CoordinateInputState extends BaseStatefulInputState<CoordinateInput> {
   late final TextEditingController controller;
   bool _loadingLocation = false;
-
   String? error;
 
   void onGetCurrentLocation() async {
@@ -52,6 +50,9 @@ class CoordinateInputState extends BaseStatefulInputState<CoordinateInput> {
   void initState() {
     controller = TextEditingController(text: widget.value?.toString());
     super.initState();
+    if(widget.input.enableAutoLocation && widget.value == null) {
+      onGetCurrentLocation();
+    }
   }
 
   onChange(D2GeometryValue value) {
