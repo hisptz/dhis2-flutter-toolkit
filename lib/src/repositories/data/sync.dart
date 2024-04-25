@@ -1,5 +1,4 @@
-
-import '../../../dhis2_flutter_toolkit.dart';
+import '../../services/entry.dart';
 
 abstract class SyncableRepository<T> {
   //Sync that one entity to the server

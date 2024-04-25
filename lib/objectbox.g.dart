@@ -927,9 +927,7 @@ final _entities = <obx_int.ModelEntity>[
         obx_int.ModelBacklink(
             name: 'programTrackedEntityAttributes',
             srcEntity: 'D2ProgramTrackedEntityAttribute',
-            srcField: 'program'),
-        obx_int.ModelBacklink(
-            name: 'events', srcEntity: 'D2Event', srcField: '')
+            srcField: 'program')
       ]),
   obx_int.ModelEntity(
       id: const obx_int.IdUid(14, 4258101311778128002),
@@ -2851,7 +2849,12 @@ final _entities = <obx_int.ModelEntity>[
             name: 'legendSets',
             targetId: const obx_int.IdUid(7, 5152220214672915316))
       ],
-      backlinks: <obx_int.ModelBacklink>[]),
+      backlinks: <obx_int.ModelBacklink>[
+        obx_int.ModelBacklink(
+            name: 'compulsoryDataElementOperands',
+            srcEntity: 'D2CompulsoryDataElementOperand',
+            srcField: 'dataSet')
+      ]),
   obx_int.ModelEntity(
       id: const obx_int.IdUid(43, 4985447032307344955),
       name: 'D2DataValueSet',
@@ -3955,10 +3958,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
                   10,
                   object.id,
                   (D2ProgramTrackedEntityAttribute srcObject) =>
-                      srcObject.program): object.programTrackedEntityAttributes,
-              obx_int.RelInfo<D2Event>.toOneBacklink(
-                      15, object.id, (D2Event srcObject) => srcObject.program):
-                  object.events
+                      srcObject.program): object.programTrackedEntityAttributes
             },
         getId: (D2Program object) => object.id,
         setId: (D2Program object, int id) {
@@ -4071,11 +4071,6 @@ obx_int.ModelDefinition getObjectBoxModel() {
                   object.id,
                   (D2ProgramTrackedEntityAttribute srcObject) =>
                       srcObject.program));
-          obx_int.InternalToManyAccess.setRelInfo<D2Program>(
-              object.events,
-              store,
-              obx_int.RelInfo<D2Event>.toOneBacklink(
-                  15, object.id, (D2Event srcObject) => srcObject.program));
           return object;
         }),
     D2ProgramRule: obx_int.EntityDefinition<D2ProgramRule>(
@@ -6122,7 +6117,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
               obx_int.RelInfo<D2DataSet>.toMany(15, object.id):
                   object.dataSetElements,
               obx_int.RelInfo<D2DataSet>.toMany(16, object.id):
-                  object.legendSets
+                  object.legendSets,
+              obx_int.RelInfo<D2CompulsoryDataElementOperand>.toOneBacklink(
+                  9,
+                  object.id,
+                  (D2CompulsoryDataElementOperand srcObject) =>
+                      srcObject.dataSet): object.compulsoryDataElementOperands
             },
         getId: (D2DataSet object) => object.id,
         setId: (D2DataSet object, int id) {
@@ -6201,6 +6201,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
               obx_int.RelInfo<D2DataSet>.toMany(15, object.id));
           obx_int.InternalToManyAccess.setRelInfo<D2DataSet>(object.legendSets,
               store, obx_int.RelInfo<D2DataSet>.toMany(16, object.id));
+          obx_int.InternalToManyAccess.setRelInfo<D2DataSet>(
+              object.compulsoryDataElementOperands,
+              store,
+              obx_int.RelInfo<D2CompulsoryDataElementOperand>.toOneBacklink(
+                  9,
+                  object.id,
+                  (D2CompulsoryDataElementOperand srcObject) =>
+                      srcObject.dataSet));
           return object;
         }),
     D2DataValueSet: obx_int.EntityDefinition<D2DataValueSet>(
@@ -7009,10 +7017,6 @@ class D2Program_ {
   static final programTrackedEntityAttributes =
       obx.QueryBacklinkToMany<D2ProgramTrackedEntityAttribute, D2Program>(
           D2ProgramTrackedEntityAttribute_.program);
-
-  /// see [D2Program.events]
-  static final events =
-      obx.QueryBacklinkToMany<D2Event, D2Program>(D2Event_.program);
 }
 
 /// [D2ProgramRule] entity fields to define ObjectBox queries.
@@ -8423,6 +8427,11 @@ class D2DataSet_ {
   /// see [D2DataSet.legendSets]
   static final legendSets = obx.QueryRelationToMany<D2DataSet, D2LegendSet>(
       _entities[40].relations[1]);
+
+  /// see [D2DataSet.compulsoryDataElementOperands]
+  static final compulsoryDataElementOperands =
+      obx.QueryBacklinkToMany<D2CompulsoryDataElementOperand, D2DataSet>(
+          D2CompulsoryDataElementOperand_.dataSet);
 }
 
 /// [D2DataValueSet] entity fields to define ObjectBox queries.

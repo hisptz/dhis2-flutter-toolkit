@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../dhis2_flutter_toolkit.dart';
 import '../form/form_container.dart';
 import '../input_field/input_field_container.dart';
+import '../input_field/models/base_input_field.dart';
+import 'models/form_section.dart';
 
 class FormSectionContainer extends StatelessWidget {
   final D2FormSection section;

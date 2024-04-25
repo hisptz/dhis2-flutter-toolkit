@@ -1,7 +1,14 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
 
+import '../../../objectbox.dart';
+import '../../repositories/metadata/program.dart';
+import '../../repositories/metadata/program_stage.dart';
+import '../../repositories/metadata/relationship_type.dart';
+import '../../repositories/metadata/tracked_entity_type.dart';
 import 'base.dart';
+import 'program.dart';
+import 'program_stage.dart';
+import 'tracked_entity_type.dart';
 
 @Entity()
 class D2RelationshipType extends D2MetaResource {

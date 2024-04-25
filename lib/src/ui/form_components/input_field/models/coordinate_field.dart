@@ -1,4 +1,4 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import 'base_input_field.dart';
 
 ///Geometry input value. Currently only supports POINT values
 class D2GeometryValue {

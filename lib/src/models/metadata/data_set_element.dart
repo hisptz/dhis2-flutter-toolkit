@@ -1,9 +1,11 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:dhis2_flutter_toolkit/src/models/metadata/base.dart';
-import 'package:dhis2_flutter_toolkit/src/repositories/metadata/data_set.dart';
-import 'package:dhis2_flutter_toolkit/src/repositories/metadata/data_set_element.dart';
 import 'package:objectbox/objectbox.dart';
 
+import '../../../objectbox.dart';
+import '../../repositories/metadata/data_element.dart';
+import '../../repositories/metadata/data_set.dart';
+import '../../repositories/metadata/data_set_element.dart';
+import 'base.dart';
+import 'data_element.dart';
 import 'data_set.dart';
 
 @Entity()

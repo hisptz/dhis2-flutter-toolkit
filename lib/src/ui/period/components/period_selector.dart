@@ -2,9 +2,9 @@
 /// All rights reserved. Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
 
 library;
-
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:flutter/material.dart';
+
+import '../../../utils/entry.dart';
 
 class D2PeriodValueSelector extends StatelessWidget {
   final String category;
@@ -16,14 +16,13 @@ class D2PeriodValueSelector extends StatelessWidget {
   final ScrollController? controller = ScrollController();
 
   D2PeriodValueSelector(
-      {Key? key,
+      {super.key,
       required this.category,
       required this.periodType,
       required this.year,
       required this.onChange,
       required this.color,
-      required this.selectedPeriods})
-      : super(key: key);
+      required this.selectedPeriods});
 
   List<Widget> getPeriodChips(List<dynamic> periods) {
     List<String> selectedPeriodsList = selectedPeriods ?? [];

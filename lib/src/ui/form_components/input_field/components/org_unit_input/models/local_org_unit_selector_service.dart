@@ -3,6 +3,10 @@ import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/objectbox.g.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/org_unit_input/models/org_unit_data.dart';
 
+import '../../../../../../models/metadata/entry.dart';
+import '../../../../../../repositories/metadata/entry.dart';
+import 'base/base_org_unit_selector_service.dart';
+
 class D2LocalOrgUnitSelectorService
     extends D2BaseOrgUnitSelectorService<D2OrgUnit> {
   D2ObjectBox db;

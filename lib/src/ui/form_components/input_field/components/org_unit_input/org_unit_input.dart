@@ -1,6 +1,6 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/org_unit_input_field.dart';
 import '../base_input.dart';
 import '../input_field_icon.dart';
 import 'components/org_unit_selector.dart';

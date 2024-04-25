@@ -2,6 +2,10 @@ import 'dart:async';
 
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
+import '../../models/metadata/entry.dart';
+import '../../repositories/metadata/entry.dart';
+import '../../utils/entry.dart';
+import '../client/client.dart';
 
 class D2MetadataDownloadService {
   D2ObjectBox db;

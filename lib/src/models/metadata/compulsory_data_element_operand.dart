@@ -1,11 +1,13 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/repositories/metadata/category_option_combo.dart';
 import 'package:dhis2_flutter_toolkit/src/repositories/metadata/compulsory_data_element_operand.dart';
 import 'package:dhis2_flutter_toolkit/src/repositories/metadata/data_set.dart';
 import 'package:objectbox/objectbox.dart';
 
+import '../../../objectbox.dart';
+import '../../repositories/metadata/data_element.dart';
 import 'base.dart';
 import 'category_option_combo.dart';
+import 'data_element.dart';
 import 'data_set.dart';
 
 @Entity()

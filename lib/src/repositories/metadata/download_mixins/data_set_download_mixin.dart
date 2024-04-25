@@ -1,11 +1,16 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:dhis2_flutter_toolkit/src/repositories/metadata/category_option_combo.dart';
-import 'package:dhis2_flutter_toolkit/src/repositories/metadata/data_set.dart';
-
 import '../../../models/metadata/data_set.dart';
+import '../../../services/entry.dart';
+import '../../../utils/entry.dart';
 import '../category.dart';
 import '../category_combo.dart';
 import '../category_option.dart';
+import '../category_option_combo.dart';
+import '../data_element.dart';
+import '../data_set.dart';
+import '../legend.dart';
+import '../legend_set.dart';
+import '../option.dart';
+import '../option_set.dart';
 import 'base_meta_download_mixin.dart';
 
 mixin D2DataSetDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2DataSet> {

@@ -1,8 +1,10 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:dhis2_flutter_toolkit/src/repositories/metadata/program_stage_section_data_element.dart';
 import 'package:objectbox/objectbox.dart';
 
+import '../../../objectbox.dart';
+import '../../repositories/metadata/program_stage_section_data_element.dart';
 import 'base.dart';
+import 'data_element.dart';
+import 'program_stage_section.dart';
 
 @Entity()
 class D2ProgramStageSectionDataElement extends D2MetaResource {

@@ -1,4 +1,5 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import '../../../objectbox.dart';
+import '../metadata/entry.dart';
 
 abstract class D2BaseEditable {
   Map<String, dynamic> toFormValues();

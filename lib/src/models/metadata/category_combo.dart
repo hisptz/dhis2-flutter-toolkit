@@ -1,19 +1,18 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
 
+import '../../../objectbox.dart';
 import '../../repositories/metadata/category_combo.dart';
 import 'base.dart';
 import 'category.dart';
 import 'category_option_combo.dart';
+import 'data_element.dart';
 
 @Entity()
 class D2CategoryCombo extends D2MetaResource {
   @override
   int id = 0;
-  @override
   DateTime created;
 
-  @override
   DateTime lastUpdated;
 
   @override

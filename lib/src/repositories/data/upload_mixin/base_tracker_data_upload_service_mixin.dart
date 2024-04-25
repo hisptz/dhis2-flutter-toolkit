@@ -3,8 +3,11 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../../../dhis2_flutter_toolkit.dart';
 import '../../../models/data/base.dart';
+import '../../../services/entry.dart';
+import '../../../utils/entry.dart';
+import '../base_tracker.dart';
+import '../query_mixin/base_tracker_query_mixin.dart';
 
 mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     on D2BaseTrackerDataRepository<T>, D2BaseTrackerDataQueryMixin<T> {
