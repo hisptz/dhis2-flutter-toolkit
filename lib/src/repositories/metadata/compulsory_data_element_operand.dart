@@ -16,6 +16,6 @@ class D2CompulsoryDataElementOperandRepository
 
   @override
   D2CompulsoryDataElementOperand mapper(Map<String, dynamic> json) {
-    return D2CompulsoryDataElementOperand.fromMap(db, json: json);
+    return D2CompulsoryDataElementOperand.fromMap(db, json);
   }
 }

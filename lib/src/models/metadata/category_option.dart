@@ -10,17 +10,16 @@ import 'category_option_combo.dart';
 class D2CategoryOption extends D2MetaResource {
   @override
   int id = 0;
-  @override
   DateTime created;
 
-  @override
   DateTime lastUpdated;
 
+  @Unique()
   @override
   String uid;
 
   String name;
-  String code;
+  String? code;
   String shortName;
 
   final category = ToOne<D2Category>();

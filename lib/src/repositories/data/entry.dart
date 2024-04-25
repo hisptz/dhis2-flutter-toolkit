@@ -1,6 +1,7 @@
 export "base_tracker.dart" show D2BaseTrackerDataRepository;
 export "data_store.dart" show D2DataStoreRepository;
 export "data_value.dart" show D2DataValueRepository;
+export 'data_value_set.dart' show D2DataValueSetRepository;
 export "enrollment.dart" show D2EnrollmentRepository;
 export "event.dart" show D2EventRepository;
 export "query_mixin/base_tracker_query_mixin.dart"

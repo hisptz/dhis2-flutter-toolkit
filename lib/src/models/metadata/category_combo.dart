@@ -1,11 +1,7 @@
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../../objectbox.dart';
-import '../../repositories/metadata/category_combo.dart';
 import 'base.dart';
-import 'category.dart';
-import 'category_option_combo.dart';
-import 'data_element.dart';
 
 @Entity()
 class D2CategoryCombo extends D2MetaResource {
@@ -16,18 +12,18 @@ class D2CategoryCombo extends D2MetaResource {
   DateTime lastUpdated;
 
   @override
+  @Unique()
   String uid;
 
   String name;
-  String code;
+  String? code;
   bool skipTotal;
   String dataDimensionType;
 
-  final dataElement = ToMany<D2DataElement>();
-  @Backlink('categoryCombos')
-  final categories = ToMany<D2Category>();
   @Backlink('categoryCombo')
   final categoryOptionCombos = ToMany<D2CategoryOptionCombo>();
+
+  final categories = ToMany<D2Category>();
 
   D2CategoryCombo(
     this.lastUpdated,
@@ -49,5 +45,13 @@ class D2CategoryCombo extends D2MetaResource {
         dataDimensionType = json["dataDimensionType"],
         skipTotal = json['skipTotal'] {
     id = D2CategoryComboRepository(db).getIdByUid(json['id']) ?? 0;
+
+    List<D2Category> categories = json['categories']
+        .cast<Map>()
+        .map((Map json) => D2CategoryRepository(db).getByUid(json['id']))
+        .toList()
+        .cast<D2Category>();
+
+    this.categories.addAll(categories);
   }
 }

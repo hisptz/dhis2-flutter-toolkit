@@ -1,4 +1,12 @@
+export 'category.dart' show D2Category;
+export 'category_combo.dart' show D2CategoryCombo;
+export 'category_option.dart' show D2CategoryOption;
+export 'category_option_combo.dart' show D2CategoryOptionCombo;
+export 'compulsory_data_element_operand.dart'
+    show D2CompulsoryDataElementOperand;
 export "data_element.dart" show D2DataElement;
+export 'data_set.dart' show D2DataSet;
+export 'data_set_element.dart' show D2DataSetElement;
 export "legend.dart" show D2Legend;
 export "legend_set.dart" show D2LegendSet;
 export "option.dart" show D2Option;

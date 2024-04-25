@@ -2,16 +2,10 @@ import 'dart:async';
 
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
-import '../../models/metadata/entry.dart';
-import '../../repositories/metadata/entry.dart';
-import '../../utils/entry.dart';
-import '../client/client.dart';
-
 class D2MetadataDownloadService {
   D2ObjectBox db;
   D2ClientService client;
-  StreamController<D2SyncStatus> controller =
-      StreamController<D2SyncStatus>();
+  StreamController<D2SyncStatus> controller = StreamController<D2SyncStatus>();
 
   get stream {
     return controller.stream;
@@ -24,6 +18,10 @@ class D2MetadataDownloadService {
     List<String> programs = user.programs;
     programRepository.setupDownload(client, programs).download();
     await controller.addStream(programRepository.downloadStream);
+    List<String> dataSets = user.dataSets;
+    D2DataSetRepository dataSetRepository = D2DataSetRepository(db);
+    dataSetRepository.setupDownload(client, dataSetIds: dataSets).download();
+    await controller.addStream(dataSetRepository.downloadStream);
   }
 
   Future setupMetadataDownload() async {
@@ -34,7 +32,7 @@ class D2MetadataDownloadService {
     sysInfoRepository.setupDownload(client).download();
     await controller.addStream(sysInfoRepository.downloadStream);
     D2OrgUnitLevelRepository orgUnitLevelRepository =
-    D2OrgUnitLevelRepository(db);
+        D2OrgUnitLevelRepository(db);
     orgUnitLevelRepository.setupDownload(client).download();
     await controller.addStream(orgUnitLevelRepository.downloadStream);
     D2OrgUnitRepository orgUnitRepository = D2OrgUnitRepository(db);
@@ -66,7 +64,8 @@ class D2MetadataDownloadService {
 
   Future setupSync() async {
     await setupMetadataDownload();
-    controller.add(D2SyncStatus(status: D2SyncStatusEnum.complete, label: "All"));
+    controller
+        .add(D2SyncStatus(status: D2SyncStatusEnum.complete, label: "All"));
     controller.close();
   }
 

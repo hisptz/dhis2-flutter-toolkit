@@ -1,4 +1,12 @@
+export 'category.dart' show D2CategoryRepository;
+export 'category_combo.dart' show D2CategoryComboRepository;
+export 'category_option.dart' show D2CategoryOptionRepository;
+export 'category_option_combo.dart' show D2CategoryOptionComboRepository;
+export 'compulsory_data_element_operand.dart'
+    show D2CompulsoryDataElementOperandRepository;
 export "data_element.dart" show D2DataElementRepository;
+export 'data_set.dart' show D2DataSetRepository;
+export 'data_set_element.dart' show D2DataSetElementRepository;
 export "legend.dart" show D2LegendRepository;
 export "legend_set.dart" show D2LegendSetRepository;
 export "option.dart" show D2OptionRepository;

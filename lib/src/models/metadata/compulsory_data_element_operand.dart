@@ -1,6 +1,5 @@
 import 'package:dhis2_flutter_toolkit/src/repositories/metadata/category_option_combo.dart';
 import 'package:dhis2_flutter_toolkit/src/repositories/metadata/compulsory_data_element_operand.dart';
-import 'package:dhis2_flutter_toolkit/src/repositories/metadata/data_set.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../../objectbox.dart';
@@ -18,13 +17,12 @@ class D2CompulsoryDataElementOperand implements D2MetaResource {
   DateTime created;
   DateTime lastUpdated;
 
-  @Unique()
   @override
   String uid;
 
   String name;
   String shortName;
-  String displayName;
+  String? displayName;
 
   final dataElement = ToOne<D2DataElement>();
   final dataSet = ToOne<D2DataSet>();
@@ -33,8 +31,7 @@ class D2CompulsoryDataElementOperand implements D2MetaResource {
   D2CompulsoryDataElementOperand(this.id, this.created, this.lastUpdated,
       this.uid, this.name, this.shortName, this.displayName);
 
-  D2CompulsoryDataElementOperand.fromMap(D2ObjectBox db,
-      {D2DataSet? dataSet, required Map json})
+  D2CompulsoryDataElementOperand.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json['created']),
         lastUpdated = DateTime.parse(json['lastUpdated']),
         uid = json['id'],
@@ -42,11 +39,17 @@ class D2CompulsoryDataElementOperand implements D2MetaResource {
         displayName = json['displayName'],
         shortName = json['shortName'] {
     id = D2CompulsoryDataElementOperandRepository(db).getIdByUid(uid) ?? 0;
-    this.dataSet.target =
-        dataSet ?? D2DataSetRepository(db).getByUid(json['dataSet']['id']);
-    dataElement.target =
-        D2DataElementRepository(db).getByUid(json['dataElement']['id']);
-    categoryOptionCombo.target = D2CategoryOptionComboRepository(db)
-        .getByUid(json['categoryOptionCombo']['id']);
+
+    Map? dataElement = json['dataElement'];
+    Map? categoryOptionCombo = json['categoryOptionCombo'];
+
+    if (dataElement != null) {
+      this.dataElement.target =
+          D2DataElementRepository(db).getByUid(dataElement['id']);
+    }
+    if (categoryOptionCombo != null) {
+      this.categoryOptionCombo.target = D2CategoryOptionComboRepository(db)
+          .getByUid(categoryOptionCombo['id']);
+    }
   }
 }

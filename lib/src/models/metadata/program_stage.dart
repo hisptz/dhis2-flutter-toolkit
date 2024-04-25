@@ -13,10 +13,8 @@ import 'program_stage_section.dart';
 class D2ProgramStage extends D2MetaResource {
   @override
   int id = 0;
-  @override
   DateTime created;
 
-  @override
   DateTime lastUpdated;
 
   @override

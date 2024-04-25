@@ -1,4 +1,5 @@
 import 'package:dhis2_flutter_toolkit/src/models/metadata/compulsory_data_element_operand.dart';
+import 'package:dhis2_flutter_toolkit/src/repositories/metadata/category_combo.dart';
 import 'package:dhis2_flutter_toolkit/src/repositories/metadata/data_set.dart';
 import 'package:objectbox/objectbox.dart';
 
@@ -30,6 +31,8 @@ class D2DataSet extends D2MetaResource {
   int openPeriodsAfterCoEndDate;
 
   final categoryCombo = ToOne<D2CategoryCombo>();
+
+  @Backlink("dataSet")
   final dataSetElements = ToMany<D2DataSetElement>();
   final legendSets = ToMany<D2LegendSet>();
 
@@ -66,15 +69,20 @@ class D2DataSet extends D2MetaResource {
         shortName = json['shortName'] {
     id = D2DataSetRepository(db).getIdByUid(json["id"]) ?? 0;
 
+    categoryCombo.target = D2CategoryComboRepository(db)
+        .getByUid(json['categoryCombo']?['id'] ?? '');
+
     List<D2DataSetElement> elements = json['dataSetElements']
-        .map<D2DataSetElement>(
-            (Map json) => D2DataSetElement.fromMap(db, json));
+        .cast<Map>()
+        .map<D2DataSetElement>((Map json) => D2DataSetElement.fromMap(db, json))
+        .toList();
     dataSetElements.addAll(elements);
     List<D2CompulsoryDataElementOperand> compulsoryElements =
         json['compulsoryDataElementOperands']
+            .cast<Map>()
             ?.map<D2CompulsoryDataElementOperand>((Map element) =>
-                D2CompulsoryDataElementOperand.fromMap(db,
-                    json: json, dataSet: this));
+                D2CompulsoryDataElementOperand.fromMap(db, json))
+            .toList();
 
     compulsoryDataElementOperands.addAll(compulsoryElements);
   }

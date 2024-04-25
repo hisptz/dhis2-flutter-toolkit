@@ -17,10 +17,10 @@ mixin D2DataSetDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2DataSet> {
   List<String>? dataSetIds;
 
   @override
-  String get label => "Data Sets";
+  String label = "Data Sets";
 
   @override
-  String get resource => 'dataSets';
+  String resource = 'dataSets';
 
   D2DataSetDownloadServiceMixin setupDownload(D2ClientService client,
       {required List<String> dataSetIds}) {
@@ -33,7 +33,6 @@ mixin D2DataSetDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2DataSet> {
     "optionSets",
     "options",
     "legendSets",
-    "legends",
     "categoryOptions",
     "categories",
     "categoryCombos",

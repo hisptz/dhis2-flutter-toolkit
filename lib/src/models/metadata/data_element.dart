@@ -11,9 +11,7 @@ import 'option_set.dart';
 
 @Entity()
 class D2DataElement extends D2MetaResource {
-  @override
   DateTime created;
-  @override
   DateTime lastUpdated;
 
   @override
@@ -23,7 +21,6 @@ class D2DataElement extends D2MetaResource {
   String name;
   String? code;
   String? displayFormName;
-  @override
   String? displayName;
 
   String? formName;

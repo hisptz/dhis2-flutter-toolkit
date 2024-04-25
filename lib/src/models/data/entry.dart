@@ -1,6 +1,7 @@
 export "base.dart" show D2DataResource;
 export 'data_store.dart' show D2DataStore;
 export "data_value.dart" show D2DataValue;
+export 'data_value_set.dart' show D2DataValueSet;
 export "enrollment.dart" show D2Enrollment;
 export "event.dart" show D2Event;
 export "relationship.dart" show D2Relationship;
