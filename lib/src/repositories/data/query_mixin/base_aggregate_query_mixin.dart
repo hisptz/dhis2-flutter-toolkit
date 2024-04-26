@@ -4,15 +4,14 @@ import '../base_aggregate.dart';
 
 mixin D2BaseAggregateQueryMixin<T extends D2DataResource>
     on D2BaseAggregateRepository<T> {
-  QueryBuilder<T>? queryBuilder;
+  QueryBuilder<T> get queryBuilder {
+    return box.query(queryConditions);
+  }
 
   Condition<T>? queryConditions;
 
   Query<T> get query {
-    if (queryBuilder == null) {
-      throw "You need to call initialize query first";
-    }
-    return queryBuilder!.build();
+    return queryBuilder.build();
   }
 
   updateQueryCondition(Condition<T> condition) {
@@ -32,13 +31,4 @@ mixin D2BaseAggregateQueryMixin<T extends D2DataResource>
     return await query.findAsync();
   }
 
-  D2BaseAggregateRepository<T> initializeQuery() {
-    queryBuilder = box.query();
-    return this;
-  }
-
-  D2BaseAggregateRepository<T> clearQuery() {
-    queryConditions = null;
-    return this;
-  }
 }
