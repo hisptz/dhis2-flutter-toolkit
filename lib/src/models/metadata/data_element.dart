@@ -1,13 +1,7 @@
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../../objectbox.dart';
-import '../../repositories/metadata/data_element.dart';
-import '../../repositories/metadata/option_set.dart';
-import '../data/data_value_set.dart';
 import 'base.dart';
-import 'category_combo.dart';
-import 'legend_set.dart';
-import 'option_set.dart';
 
 @Entity()
 class D2DataElement extends D2MetaResource {
@@ -74,6 +68,10 @@ class D2DataElement extends D2MetaResource {
     if (json["optionSet"] != null) {
       optionSet.target =
           D2OptionSetRepository(db).getByUid(json["optionSet"]["id"]);
+    }
+    if (json['categoryCombo'] != null) {
+      categoryCombo.target =
+          D2CategoryComboRepository(db).getByUid(json['categoryCombo']['id']);
     }
   }
 

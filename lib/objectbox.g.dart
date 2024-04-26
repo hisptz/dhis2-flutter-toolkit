@@ -2977,21 +2977,6 @@ final _entities = <obx_int.ModelEntity>[
             type: 9,
             flags: 0),
         obx_int.ModelProperty(
-            id: const obx_int.IdUid(5, 264469093839227270),
-            name: 'name',
-            type: 9,
-            flags: 0),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(6, 2192150463765043859),
-            name: 'shortName',
-            type: 9,
-            flags: 0),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(7, 2489568503362941696),
-            name: 'displayName',
-            type: 9,
-            flags: 0),
-        obx_int.ModelProperty(
             id: const obx_int.IdUid(8, 2054523423008181410),
             name: 'dataElementId',
             type: 11,
@@ -3077,7 +3062,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
         8484778602190939555,
         6036841595841102195,
         1539866203557126825,
-        4190986765747073936
+        4190986765747073936,
+        264469093839227270,
+        2192150463765043859,
+        2489568503362941696
       ],
       retiredRelationUids: const [
         6008783994488891808,
@@ -6288,74 +6276,57 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.dataSet.attach(store);
           return object;
         }),
-    D2CompulsoryDataElementOperand: obx_int.EntityDefinition<
-            D2CompulsoryDataElementOperand>(
-        model: _entities[43],
-        toOneRelations: (D2CompulsoryDataElementOperand object) =>
-            [object.dataElement, object.dataSet, object.categoryOptionCombo],
-        toManyRelations: (D2CompulsoryDataElementOperand object) => {},
-        getId: (D2CompulsoryDataElementOperand object) => object.id,
-        setId: (D2CompulsoryDataElementOperand object, int id) {
-          object.id = id;
-        },
-        objectToFB: (D2CompulsoryDataElementOperand object, fb.Builder fbb) {
-          final uidOffset = fbb.writeString(object.uid);
-          final nameOffset = fbb.writeString(object.name);
-          final shortNameOffset = fbb.writeString(object.shortName);
-          final displayNameOffset = object.displayName == null
-              ? null
-              : fbb.writeString(object.displayName!);
-          fbb.startTable(11);
-          fbb.addInt64(0, object.id);
-          fbb.addInt64(1, object.created.millisecondsSinceEpoch);
-          fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
-          fbb.addOffset(3, uidOffset);
-          fbb.addOffset(4, nameOffset);
-          fbb.addOffset(5, shortNameOffset);
-          fbb.addOffset(6, displayNameOffset);
-          fbb.addInt64(7, object.dataElement.targetId);
-          fbb.addInt64(8, object.dataSet.targetId);
-          fbb.addInt64(9, object.categoryOptionCombo.targetId);
-          fbb.finish(fbb.endTable());
-          return object.id;
-        },
-        objectFromFB: (obx.Store store, ByteData fbData) {
-          final buffer = fb.BufferContext(fbData);
-          final rootOffset = buffer.derefObject(0);
-          final idParam =
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
-          final createdParam = DateTime.fromMillisecondsSinceEpoch(
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0));
-          final lastUpdatedParam = DateTime.fromMillisecondsSinceEpoch(
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0));
-          final uidParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 10, '');
-          final nameParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 12, '');
-          final shortNameParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 14, '');
-          final displayNameParam =
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGetNullable(buffer, rootOffset, 16);
-          final object = D2CompulsoryDataElementOperand(
-              idParam,
-              createdParam,
-              lastUpdatedParam,
-              uidParam,
-              nameParam,
-              shortNameParam,
-              displayNameParam);
-          object.dataElement.targetId =
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
-          object.dataElement.attach(store);
-          object.dataSet.targetId =
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0);
-          object.dataSet.attach(store);
-          object.categoryOptionCombo.targetId =
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 22, 0);
-          object.categoryOptionCombo.attach(store);
-          return object;
-        })
+    D2CompulsoryDataElementOperand:
+        obx_int.EntityDefinition<D2CompulsoryDataElementOperand>(
+            model: _entities[43],
+            toOneRelations: (D2CompulsoryDataElementOperand object) => [
+                  object.dataElement,
+                  object.dataSet,
+                  object.categoryOptionCombo
+                ],
+            toManyRelations: (D2CompulsoryDataElementOperand object) => {},
+            getId: (D2CompulsoryDataElementOperand object) => object.id,
+            setId: (D2CompulsoryDataElementOperand object, int id) {
+              object.id = id;
+            },
+            objectToFB:
+                (D2CompulsoryDataElementOperand object, fb.Builder fbb) {
+              final uidOffset = fbb.writeString(object.uid);
+              fbb.startTable(11);
+              fbb.addInt64(0, object.id);
+              fbb.addInt64(1, object.created.millisecondsSinceEpoch);
+              fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
+              fbb.addOffset(3, uidOffset);
+              fbb.addInt64(7, object.dataElement.targetId);
+              fbb.addInt64(8, object.dataSet.targetId);
+              fbb.addInt64(9, object.categoryOptionCombo.targetId);
+              fbb.finish(fbb.endTable());
+              return object.id;
+            },
+            objectFromFB: (obx.Store store, ByteData fbData) {
+              final buffer = fb.BufferContext(fbData);
+              final rootOffset = buffer.derefObject(0);
+              final idParam =
+                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+              final createdParam = DateTime.fromMillisecondsSinceEpoch(
+                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0));
+              final lastUpdatedParam = DateTime.fromMillisecondsSinceEpoch(
+                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0));
+              final uidParam = const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 10, '');
+              final object = D2CompulsoryDataElementOperand(
+                  idParam, createdParam, lastUpdatedParam, uidParam);
+              object.dataElement.targetId =
+                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
+              object.dataElement.attach(store);
+              object.dataSet.targetId =
+                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0);
+              object.dataSet.attach(store);
+              object.categoryOptionCombo.targetId =
+                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 22, 0);
+              object.categoryOptionCombo.attach(store);
+              return object;
+            })
   };
 
   return obx_int.ModelDefinition(model, bindings);
@@ -8488,32 +8459,18 @@ class D2CompulsoryDataElementOperand_ {
   static final uid = obx.QueryStringProperty<D2CompulsoryDataElementOperand>(
       _entities[43].properties[3]);
 
-  /// see [D2CompulsoryDataElementOperand.name]
-  static final name = obx.QueryStringProperty<D2CompulsoryDataElementOperand>(
-      _entities[43].properties[4]);
-
-  /// see [D2CompulsoryDataElementOperand.shortName]
-  static final shortName =
-      obx.QueryStringProperty<D2CompulsoryDataElementOperand>(
-          _entities[43].properties[5]);
-
-  /// see [D2CompulsoryDataElementOperand.displayName]
-  static final displayName =
-      obx.QueryStringProperty<D2CompulsoryDataElementOperand>(
-          _entities[43].properties[6]);
-
   /// see [D2CompulsoryDataElementOperand.dataElement]
   static final dataElement =
       obx.QueryRelationToOne<D2CompulsoryDataElementOperand, D2DataElement>(
-          _entities[43].properties[7]);
+          _entities[43].properties[4]);
 
   /// see [D2CompulsoryDataElementOperand.dataSet]
   static final dataSet =
       obx.QueryRelationToOne<D2CompulsoryDataElementOperand, D2DataSet>(
-          _entities[43].properties[8]);
+          _entities[43].properties[5]);
 
   /// see [D2CompulsoryDataElementOperand.categoryOptionCombo]
   static final categoryOptionCombo = obx.QueryRelationToOne<
       D2CompulsoryDataElementOperand,
-      D2CategoryOptionCombo>(_entities[43].properties[9]);
+      D2CategoryOptionCombo>(_entities[43].properties[6]);
 }

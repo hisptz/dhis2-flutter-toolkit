@@ -34,6 +34,8 @@ export "input_field/models/select_input_field.dart"
 export "input_field/models/text_input_field.dart" show D2TextInputFieldConfig;
 export "input_field/models/true_only_input_field.dart"
     show D2TrueOnlyInputFieldConfig;
+export "state/aggregate/data_set_controller.dart"
+    show D2DataSetStateFormController;
 export "state/form_state.dart" show D2FormController;
 export "state/tracker/enrollment_form_controller.dart"
     show D2TrackerEnrollmentFormController;

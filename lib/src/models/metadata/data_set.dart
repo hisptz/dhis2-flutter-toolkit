@@ -79,12 +79,14 @@ class D2DataSet extends D2MetaResource {
         .map<D2DataSetElement>((Map json) => D2DataSetElement.fromMap(db, json))
         .toList();
     dataSetElements.addAll(elements);
+
     List<D2CompulsoryDataElementOperand> compulsoryElements =
         json['compulsoryDataElementOperands']
             .cast<Map>()
             ?.map<D2CompulsoryDataElementOperand>((Map element) =>
-                D2CompulsoryDataElementOperand.fromMap(db, json))
-            .toList();
+                D2CompulsoryDataElementOperand.fromMap(db, element))
+            .toList()
+            .cast<D2CompulsoryDataElementOperand>();
     compulsoryDataElementOperands.addAll(compulsoryElements);
 
     List<D2OrgUnit?> orgUnits = json['organisationUnits']

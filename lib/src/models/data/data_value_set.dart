@@ -76,6 +76,7 @@ class D2DataValueSet extends D2DataResource implements SyncableData {
     uid =
         '${orgUnit.uid}-$period-${attributeOptionCombo.uid}-${dataElement.uid}-${categoryOptionCombo.uid}';
     id = D2DataValueSetRepository(db).getIdByUid(uid) ?? 0;
+    synced = false;
   }
 
   @override
@@ -103,13 +104,5 @@ class D2DataValueSet extends D2DataResource implements SyncableData {
 
   void save(D2ObjectBox db) {
     db.store.box<D2DataValueSet>().put(this);
-  }
-
-  void updateFromFormValues(Map<String, dynamic> values,
-      {required D2ObjectBox db,
-      required D2OrgUnit orgUnit,
-      required D2DataElement dataElement,
-      D2CategoryOptionCombo? categoryOptionCombo}) {
-    // TODO: implement updateFromFormValues
   }
 }

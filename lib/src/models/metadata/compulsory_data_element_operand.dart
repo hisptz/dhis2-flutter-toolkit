@@ -20,24 +20,17 @@ class D2CompulsoryDataElementOperand implements D2MetaResource {
   @override
   String uid;
 
-  String name;
-  String shortName;
-  String? displayName;
-
   final dataElement = ToOne<D2DataElement>();
   final dataSet = ToOne<D2DataSet>();
   final categoryOptionCombo = ToOne<D2CategoryOptionCombo>();
 
-  D2CompulsoryDataElementOperand(this.id, this.created, this.lastUpdated,
-      this.uid, this.name, this.shortName, this.displayName);
+  D2CompulsoryDataElementOperand(
+      this.id, this.created, this.lastUpdated, this.uid);
 
   D2CompulsoryDataElementOperand.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json['created']),
         lastUpdated = DateTime.parse(json['lastUpdated']),
-        uid = json['id'],
-        name = json['name'],
-        displayName = json['displayName'],
-        shortName = json['shortName'] {
+        uid = json['id'] {
     id = D2CompulsoryDataElementOperandRepository(db).getIdByUid(uid) ?? 0;
 
     Map? dataElement = json['dataElement'];

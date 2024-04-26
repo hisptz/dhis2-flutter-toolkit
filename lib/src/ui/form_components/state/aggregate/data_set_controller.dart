@@ -1,14 +1,14 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:flutter/foundation.dart';
 
-class D2DataStateFormController extends D2FormController {
+class D2DataSetStateFormController extends D2FormController {
   D2ObjectBox db;
   D2DataSet dataSet;
   String period;
   late D2OrgUnit orgUnit;
   late D2CategoryOptionCombo attributeOptionCombo;
 
-  D2DataStateFormController(
+  D2DataSetStateFormController(
       {required this.dataSet,
       required this.db,
       required this.period,
