@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:dhis2_flutter_toolkit/src/models/metadata/program.dart';
-import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_query_mixin.dart';
+import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_tracker_query_mixin.dart';
 
 import '../../../objectbox.g.dart';
 import '../../models/data/event.dart';
@@ -15,7 +15,7 @@ class D2EventRepository extends D2BaseTrackerDataRepository<D2Event>
     with
         BaseTrackerDataDownloadServiceMixin<D2Event>,
         D2EventDataDownloadServiceMixin,
-        D2BaseDataQueryMixin<D2Event>,
+        D2BaseTrackerDataQueryMixin<D2Event>,
         BaseTrackerDataUploadServiceMixin<D2Event> {
   D2EventRepository(super.db, {super.program});
 

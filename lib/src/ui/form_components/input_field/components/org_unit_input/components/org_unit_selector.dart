@@ -1,11 +1,12 @@
 import 'package:animated_tree_view/animated_tree_view.dart';
 import 'package:collection/collection.dart';
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/base_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/org_unit_input/components/org_unit_expansion_indicator.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/org_unit_input/components/org_unit_tree_tile.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/org_unit_input_field.dart';
+import '../models/base/base_org_unit_selector_service.dart';
 import '../models/org_unit_data.dart';
 
 class OrgUnitSelector extends StatefulWidget {

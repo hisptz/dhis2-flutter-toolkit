@@ -1,11 +1,18 @@
 import 'dart:convert';
 
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:dhis2_flutter_toolkit/src/utils/uid.dart';
 import 'package:objectbox/objectbox.dart';
 
+import '../../../objectbox.dart';
+import '../../repositories/data/entry.dart';
+import '../../repositories/metadata/entry.dart';
+import '../../ui/form_components/entry.dart';
+import '../../utils/entry.dart';
+import '../metadata/entry.dart';
 import 'base.dart';
 import 'base_editable.dart';
+import 'event.dart';
+import 'relationship.dart';
+import 'tracked_entity.dart';
 import 'upload_base.dart';
 
 @Entity()

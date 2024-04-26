@@ -3,21 +3,21 @@
 
 library;
 
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:flutter/material.dart';
+
+import '../../../utils/entry.dart';
 
 class D2SelectedPeriodContainer extends StatelessWidget {
   D2SelectedPeriodContainer(
-      {Key? key,
+      {super.key,
       required this.category,
       required this.periodType,
       required this.year,
       required this.onChange,
       required this.color,
-      required this.selectedPeriods})
-      : super(key: key);
+      required this.selectedPeriods});
 
-   //Method to handle only one chip
+  //Method to handle only one chip
   List<Widget> getSelectedPeriods(BuildContext context, List<dynamic> periods) {
     // Ensure only one chip by taking the first element or an empty list
     final latestPeriod = selectedPeriods?.last ?? '';

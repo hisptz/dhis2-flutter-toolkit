@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../dhis2_flutter_toolkit.dart';
+import '../models/input_field_option.dart';
+import '../models/select_input_field.dart';
 import 'base_input.dart';
 
 class RadioInput extends BaseStatelessInput<D2SelectInputFieldConfig, String> {

@@ -35,7 +35,7 @@
     },
     {
       "id": "2:257964529443086557",
-      "lastPropertyId": "17:5152172433851122799",
+      "lastPropertyId": "18:5732288414901900425",
       "name": "D2DataElement",
       "properties": [
         {
@@ -128,6 +128,14 @@
           "id": "17:5152172433851122799",
           "name": "optionSetValue",
           "type": 1
+        },
+        {
+          "id": "18:5732288414901900425",
+          "name": "categoryComboId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "95:5418199369240187784",
+          "relationTarget": "D2CategoryCombo"
         }
       ],
       "relations": [
@@ -135,6 +143,11 @@
           "id": "1:5312970320050760802",
           "name": "legendSets",
           "targetId": "7:5152220214672915316"
+        },
+        {
+          "id": "19:1349373781694662138",
+          "name": "dataValues",
+          "targetId": "43:4985447032307344955"
         }
       ]
     },
@@ -703,7 +716,13 @@
           "type": 9
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "id": "20:7349970502279094870",
+          "name": "dataValues",
+          "targetId": "43:4985447032307344955"
+        }
+      ]
     },
     {
       "id": "11:706025752050808245",
@@ -2071,7 +2090,7 @@
     },
     {
       "id": "30:8739732033039739531",
-      "lastPropertyId": "12:4190986765747073936",
+      "lastPropertyId": "13:3972224461220576135",
       "name": "D2User",
       "properties": [
         {
@@ -2123,19 +2142,9 @@
           "indexId": "67:5705804901119620011"
         },
         {
-          "id": "10:6036841595841102195",
-          "name": "created",
-          "type": 10
-        },
-        {
-          "id": "11:1539866203557126825",
-          "name": "displayName",
-          "type": 9
-        },
-        {
-          "id": "12:4190986765747073936",
-          "name": "lastUpdated",
-          "type": 10
+          "id": "13:3972224461220576135",
+          "name": "dataSets",
+          "type": 30
         }
       ],
       "relations": [
@@ -2342,7 +2351,9 @@
         {
           "id": "2:7097710831954468783",
           "name": "uid",
-          "type": 9
+          "type": 9,
+          "flags": 2080,
+          "indexId": "104:8217951499410163086"
         },
         {
           "id": "3:7549475124709629493",
@@ -2462,18 +2473,506 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "38:6498800860532987231",
+      "lastPropertyId": "8:7264811558826152722",
+      "name": "D2Category",
+      "properties": [
+        {
+          "id": "1:8603917976360349706",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8872131630055920939",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:9148319985461770770",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:1112247898749665077",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "110:1212998220490663875"
+        },
+        {
+          "id": "5:5669825627790117789",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:2270043575323355374",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "7:3925393070615069213",
+          "name": "shortName",
+          "type": 9
+        },
+        {
+          "id": "8:7264811558826152722",
+          "name": "dataDimensionType",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "39:7858286416272184738",
+      "lastPropertyId": "9:4295120919439077126",
+      "name": "D2CategoryOption",
+      "properties": [
+        {
+          "id": "1:1468388484163184386",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7378759480800175210",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:2444278938767632628",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:8017072247541577881",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "112:4813961995256656351"
+        },
+        {
+          "id": "5:854246756121297022",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:3900345885320950874",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "7:672404948508435314",
+          "name": "shortName",
+          "type": 9
+        },
+        {
+          "id": "8:2525142688606759825",
+          "name": "categoryId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "91:1299718182608691472",
+          "relationTarget": "D2Category"
+        },
+        {
+          "id": "9:4295120919439077126",
+          "name": "categoryOptionComboId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "93:6950796954834436805",
+          "relationTarget": "D2CategoryOptionCombo"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "40:817798402782973650",
+      "lastPropertyId": "8:1637736344669925920",
+      "name": "D2CategoryCombo",
+      "properties": [
+        {
+          "id": "1:1107783606781545502",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6013861491717661967",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:2011680167812670369",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:4745665489344690729",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "111:2667887352424628488"
+        },
+        {
+          "id": "5:5207348599964567534",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:3222278768463379994",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "7:3381208089237461023",
+          "name": "skipTotal",
+          "type": 1
+        },
+        {
+          "id": "8:1637736344669925920",
+          "name": "dataDimensionType",
+          "type": 9
+        }
+      ],
+      "relations": [
+        {
+          "id": "21:8680772962570374125",
+          "name": "categories",
+          "targetId": "38:6498800860532987231"
+        }
+      ]
+    },
+    {
+      "id": "41:8529820519908703724",
+      "lastPropertyId": "7:2449791108955167976",
+      "name": "D2CategoryOptionCombo",
+      "properties": [
+        {
+          "id": "1:2034001406060091276",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5393053666883035875",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:978794105202617158",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:8458276223044029297",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "5:1659209021818978141",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:4483223979605663998",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "7:2449791108955167976",
+          "name": "categoryComboId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "92:1552864541697651566",
+          "relationTarget": "D2CategoryCombo"
+        }
+      ],
+      "relations": [
+        {
+          "id": "22:2736385318857456054",
+          "name": "categoryOptions",
+          "targetId": "39:7858286416272184738"
+        }
+      ]
+    },
+    {
+      "id": "42:12844185218694803",
+      "lastPropertyId": "13:8756203441260147324",
+      "name": "D2DataSet",
+      "properties": [
+        {
+          "id": "1:3177218671810363298",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5480228449560690672",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:4113477116433662869",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:3033547956775498848",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "109:1527181347349823855"
+        },
+        {
+          "id": "5:7740720535959695855",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:166856772241643131",
+          "name": "shortName",
+          "type": 9
+        },
+        {
+          "id": "7:7146705834252785227",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "8:5644111824155753373",
+          "name": "periodType",
+          "type": 9
+        },
+        {
+          "id": "9:6934526021841243552",
+          "name": "expiryDays",
+          "type": 6
+        },
+        {
+          "id": "10:7114645697784306318",
+          "name": "openFuturePeriods",
+          "type": 6
+        },
+        {
+          "id": "11:1254720431607864541",
+          "name": "timelyDays",
+          "type": 6
+        },
+        {
+          "id": "12:1134870188675437068",
+          "name": "openPeriodsAfterCoEndDate",
+          "type": 6
+        },
+        {
+          "id": "13:8756203441260147324",
+          "name": "categoryComboId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "94:2388420805686363269",
+          "relationTarget": "D2CategoryCombo"
+        }
+      ],
+      "relations": [
+        {
+          "id": "16:7648802606768923608",
+          "name": "legendSets",
+          "targetId": "7:5152220214672915316"
+        },
+        {
+          "id": "23:5077612807594130060",
+          "name": "organisationUnits",
+          "targetId": "10:3215215508490411793"
+        }
+      ]
+    },
+    {
+      "id": "43:4985447032307344955",
+      "lastPropertyId": "12:7083671866584002041",
+      "name": "D2DataValueSet",
+      "properties": [
+        {
+          "id": "1:5978695594258313298",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5222132242189562949",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "3:5173552820829054412",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "4:1591837639295583153",
+          "name": "synced",
+          "type": 1
+        },
+        {
+          "id": "5:3759488603065979749",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "96:6495125510901638649"
+        },
+        {
+          "id": "6:5008128415330132632",
+          "name": "value",
+          "type": 9
+        },
+        {
+          "id": "7:1238186954602257924",
+          "name": "period",
+          "type": 9
+        },
+        {
+          "id": "8:247425532639109351",
+          "name": "comment",
+          "type": 9
+        },
+        {
+          "id": "9:8434790235644528580",
+          "name": "dataElementId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "97:5058082037699399519",
+          "relationTarget": "D2DataElement"
+        },
+        {
+          "id": "10:6865112809161856809",
+          "name": "categoryOptionComboId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "98:3675633919913749446",
+          "relationTarget": "D2CategoryOptionCombo"
+        },
+        {
+          "id": "11:6068611459306153438",
+          "name": "attributeOptionComboId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "99:6336989251941203727",
+          "relationTarget": "D2CategoryOptionCombo"
+        },
+        {
+          "id": "12:7083671866584002041",
+          "name": "organisationUnitId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "100:4513580249183790056",
+          "relationTarget": "D2OrgUnit"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "44:4968489375468175809",
+      "lastPropertyId": "4:4599710730365794747",
+      "name": "D2DataSetElement",
+      "properties": [
+        {
+          "id": "1:8266043493872212481",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2930379159759787962",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "101:2407179430613006690"
+        },
+        {
+          "id": "3:7149829554226720982",
+          "name": "dataElementId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "102:1275202439331720907",
+          "relationTarget": "D2DataElement"
+        },
+        {
+          "id": "4:4599710730365794747",
+          "name": "dataSetId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "103:7263758166735967433",
+          "relationTarget": "D2DataSet"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "45:3763153855658092189",
+      "lastPropertyId": "10:426865600593595289",
+      "name": "D2CompulsoryDataElementOperand",
+      "properties": [
+        {
+          "id": "1:8320461554627334215",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6284182318471398943",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:6048321259943985050",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:1309992064691247596",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "8:2054523423008181410",
+          "name": "dataElementId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "106:1616976052564179831",
+          "relationTarget": "D2DataElement"
+        },
+        {
+          "id": "9:7447978736468369002",
+          "name": "dataSetId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "107:4863908447571161423",
+          "relationTarget": "D2DataSet"
+        },
+        {
+          "id": "10:426865600593595289",
+          "name": "categoryOptionComboId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "108:7337492334193565123",
+          "relationTarget": "D2CategoryOptionCombo"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "37:5107469390447171537",
-  "lastIndexId": "90:3900820567956323302",
-  "lastRelationId": "13:3296482006972770137",
+  "lastEntityId": "45:3763153855658092189",
+  "lastIndexId": "112:4813961995256656351",
+  "lastRelationId": "23:5077612807594130060",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [
     4845029629663650184
   ],
-  "retiredIndexUids": [],
+  "retiredIndexUids": [
+    1380213729038111912
+  ],
   "retiredPropertyUids": [
     6415074213713321569,
     4641716601052601232,
@@ -2490,14 +2989,24 @@
     2757668174962345588,
     8610114683020996062,
     8359984440455480973,
-    8484778602190939555
+    8484778602190939555,
+    6036841595841102195,
+    1539866203557126825,
+    4190986765747073936,
+    264469093839227270,
+    2192150463765043859,
+    2489568503362941696
   ],
   "retiredRelationUids": [
     6008783994488891808,
     4201769785617098886,
     8156621821863788414,
     6306468798476419213,
-    3296482006972770137
+    3296482006972770137,
+    5168595253644505712,
+    1797209289193652554,
+    3617172205280793536,
+    3611068746354162453
   ],
   "version": 1
 }

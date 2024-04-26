@@ -1,8 +1,9 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-
 import '../../../../objectbox.g.dart';
+import '../../../models/data/base.dart';
+import '../base_aggregate.dart';
 
-mixin D2BaseDataQueryMixin<T extends D2DataResource> on D2BaseTrackerDataRepository<T> {
+mixin D2BaseAggregateQueryMixin<T extends D2DataResource>
+    on D2BaseAggregateRepository<T> {
   QueryBuilder<T>? queryBuilder;
 
   Condition<T>? queryConditions;
@@ -31,15 +32,12 @@ mixin D2BaseDataQueryMixin<T extends D2DataResource> on D2BaseTrackerDataReposit
     return await query.findAsync();
   }
 
-  void addProgramToQuery();
-
-  D2BaseTrackerDataRepository<T> initializeQuery() {
+  D2BaseAggregateRepository<T> initializeQuery() {
     queryBuilder = box.query();
-    addProgramToQuery();
     return this;
   }
 
-  D2BaseTrackerDataRepository<T> clearQuery() {
+  D2BaseAggregateRepository<T> clearQuery() {
     queryConditions = null;
     return this;
   }

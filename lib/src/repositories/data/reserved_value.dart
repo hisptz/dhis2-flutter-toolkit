@@ -1,15 +1,12 @@
 import 'dart:async';
 
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:dhis2_flutter_toolkit/src/models/metadata/org_unit.dart';
-
 import '../../../objectbox.dart';
 import '../../../objectbox.g.dart';
-import '../../models/data/reserved_value.dart';
-import '../../models/metadata/tracked_entity_attribute.dart';
+import '../../models/data/entry.dart';
+import '../../models/metadata/entry.dart';
 import '../../services/client/client.dart';
 import '../../utils/sync_status.dart';
-import '../metadata/tracked_entity_attribute.dart';
+import '../metadata/entry.dart';
 
 class D2ReservedValueRepository {
   D2ObjectBox db;
@@ -170,7 +167,6 @@ class D2ReservedValueRepository {
     }
 
     Query<D2ReservedValue> query = box.query(queryCondition).build();
-    print(query.describeParameters());
     return query.findFirst();
   }
 

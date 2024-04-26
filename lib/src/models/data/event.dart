@@ -5,6 +5,10 @@ import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
 import 'package:dhis2_flutter_toolkit/src/utils/uid.dart';
 import 'package:objectbox/objectbox.dart';
 
+import '../../repositories/data/entry.dart';
+import '../../repositories/metadata/entry.dart';
+import '../../ui/form_components/entry.dart';
+import '../metadata/entry.dart';
 import 'base.dart';
 import 'upload_base.dart';
 

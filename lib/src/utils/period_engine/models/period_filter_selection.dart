@@ -3,8 +3,10 @@
 
 library;
 
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/utils/period_engine/constants/period_categories.dart';
+
+import 'period.dart';
+import 'period_type.dart';
 
 class D2PeriodSelection {
   late String category;

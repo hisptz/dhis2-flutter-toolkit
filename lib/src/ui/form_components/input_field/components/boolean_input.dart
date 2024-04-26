@@ -1,6 +1,7 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:flutter/material.dart';
 
+import '../models/boolean_input_field.dart';
+import '../models/input_field_option.dart';
 import 'base_input.dart';
 
 class BooleanInput

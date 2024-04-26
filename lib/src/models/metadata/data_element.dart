@@ -1,17 +1,11 @@
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../../objectbox.dart';
-import '../../repositories/metadata/data_element.dart';
-import '../../repositories/metadata/option_set.dart';
 import 'base.dart';
-import 'legend_set.dart';
-import 'option_set.dart';
 
 @Entity()
 class D2DataElement extends D2MetaResource {
-  @override
   DateTime created;
-  @override
   DateTime lastUpdated;
 
   @override
@@ -21,7 +15,6 @@ class D2DataElement extends D2MetaResource {
   String name;
   String? code;
   String? displayFormName;
-  @override
   String? displayName;
 
   String? formName;
@@ -34,6 +27,8 @@ class D2DataElement extends D2MetaResource {
   bool? optionSetValue;
   final legendSets = ToMany<D2LegendSet>();
   final optionSet = ToOne<D2OptionSet>();
+  final categoryCombo = ToOne<D2CategoryCombo>();
+  final dataValues = ToMany<D2DataValueSet>();
 
   D2DataElement(
       this.created,
@@ -73,6 +68,10 @@ class D2DataElement extends D2MetaResource {
     if (json["optionSet"] != null) {
       optionSet.target =
           D2OptionSetRepository(db).getByUid(json["optionSet"]["id"]);
+    }
+    if (json['categoryCombo'] != null) {
+      categoryCombo.target =
+          D2CategoryComboRepository(db).getByUid(json['categoryCombo']['id']);
     }
   }
 

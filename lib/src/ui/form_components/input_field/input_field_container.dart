@@ -1,18 +1,29 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/age_input/age_input.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/base_input.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/boolean_input.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/coordinate_input/coordinate_input.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/date_range_input.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/org_unit_input/org_unit_input.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/select_input.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/text_input.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/true_only_input.dart';
 import 'package:flutter/material.dart';
 
+import 'components/age_input/age_input.dart';
+import 'components/base_input.dart';
+import 'components/boolean_input.dart';
+import 'components/coordinate_input/coordinate_input.dart';
 import 'components/date_input.dart';
+import 'components/date_range_input.dart';
 import 'components/input_field_icon.dart';
+import 'components/org_unit_input/org_unit_input.dart';
 import 'components/radio_input.dart';
+import 'components/select_input.dart';
+import 'components/text_input.dart';
+import 'components/true_only_input.dart';
+import 'models/age_input_field.dart';
+import 'models/base_input_field.dart';
+import 'models/boolean_input_field.dart';
+import 'models/coordinate_field.dart';
+import 'models/date_input_field.dart';
+import 'models/date_range_input_field.dart';
+import 'models/input_field_type_enum.dart';
+import 'models/number_input_field.dart';
+import 'models/org_unit_input_field.dart';
+import 'models/select_input_field.dart';
+import 'models/text_input_field.dart';
+import 'models/true_only_input_field.dart';
 
 class D2InputFieldContainer extends StatelessWidget {
   final D2BaseInputFieldConfig input;

@@ -9,10 +9,8 @@ import 'legend.dart';
 class D2LegendSet extends D2MetaResource {
   @override
   int id = 0;
-  @override
   DateTime created;
 
-  @override
   DateTime lastUpdated;
 
   @override
@@ -37,7 +35,8 @@ class D2LegendSet extends D2MetaResource {
         displayName = json["displayName"] {
     List<D2Legend> allLegends = json["legends"]
         .cast<Map>()
-        .map<D2Legend>((Map json) => D2Legend.fromMap(db, json))
+        .map<D2Legend>(
+            (Map json) => D2Legend.fromMap(db, json, legendSet: this))
         .toList();
     legends.addAll(allLegends);
 

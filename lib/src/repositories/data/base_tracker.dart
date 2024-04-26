@@ -2,6 +2,9 @@ import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/repositories/data/base.dart';
 import 'package:objectbox/objectbox.dart';
 
+import '../../models/metadata/entry.dart';
+import '../metadata/program.dart';
+
 abstract class D2BaseTrackerDataRepository<T extends D2DataResource>
     extends BaseDataRepository {
   D2Program? program;

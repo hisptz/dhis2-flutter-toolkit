@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:dhis2_flutter_toolkit/src/models/metadata/program.dart';
-import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_query_mixin.dart';
+import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_tracker_query_mixin.dart';
 
 import '../../../objectbox.g.dart';
 import '../../models/data/tracked_entity.dart';
@@ -11,11 +11,12 @@ import 'download_mixin/base_tracker_data_download_service_mixin.dart';
 import 'download_mixin/tracked_entity_data_download_service_mixin.dart';
 import 'upload_mixin/base_tracker_data_upload_service_mixin.dart';
 
-class D2TrackedEntityRepository extends D2BaseTrackerDataRepository<D2TrackedEntity>
+class D2TrackedEntityRepository
+    extends D2BaseTrackerDataRepository<D2TrackedEntity>
     with
         BaseTrackerDataDownloadServiceMixin<D2TrackedEntity>,
         TrackedEntityDataDownloadServiceMixin,
-        D2BaseDataQueryMixin<D2TrackedEntity>,
+        D2BaseTrackerDataQueryMixin<D2TrackedEntity>,
         BaseTrackerDataUploadServiceMixin<D2TrackedEntity> {
   D2TrackedEntityRepository(super.db, {super.program});
 

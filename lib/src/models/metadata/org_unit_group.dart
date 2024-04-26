@@ -1,7 +1,10 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
 
+import '../../../objectbox.dart';
+import '../../repositories/metadata/org_unit.dart';
+import '../../repositories/metadata/org_unit_group.dart';
 import 'base.dart';
+import 'org_unit.dart';
 
 @Entity()
 class D2OrgUnitGroup implements D2MetaResource {
@@ -14,10 +17,8 @@ class D2OrgUnitGroup implements D2MetaResource {
 
   final organisationUnits = ToMany<D2OrgUnit>();
 
-  @override
   DateTime created;
 
-  @override
   DateTime lastUpdated;
 
   D2OrgUnitGroup(this.id, this.displayName, this.name, this.uid, this.created,
@@ -39,6 +40,5 @@ class D2OrgUnitGroup implements D2MetaResource {
     organisationUnits.addAll(availableOrgUnits);
   }
 
-  @override
   String? displayName;
 }

@@ -1,5 +1,5 @@
 import 'package:dhis2_flutter_toolkit/src/models/metadata/program.dart';
-import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_query_mixin.dart';
+import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_tracker_query_mixin.dart';
 
 import '../../../objectbox.g.dart';
 import '../../models/data/data_value.dart';
@@ -7,7 +7,7 @@ import '../../models/data/event.dart';
 import 'base_tracker.dart';
 
 class D2DataValueRepository extends D2BaseTrackerDataRepository<D2DataValue>
-    with D2BaseDataQueryMixin<D2DataValue> {
+    with D2BaseTrackerDataQueryMixin<D2DataValue> {
   D2DataValueRepository(super.db);
 
   @override

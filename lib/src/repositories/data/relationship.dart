@@ -1,5 +1,5 @@
 import 'package:dhis2_flutter_toolkit/src/models/metadata/program.dart';
-import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_query_mixin.dart';
+import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_tracker_query_mixin.dart';
 
 import '../../../objectbox.g.dart';
 import '../../models/data/relationship.dart';
@@ -9,7 +9,7 @@ import 'upload_mixin/base_tracker_data_upload_service_mixin.dart';
 class D2RelationshipRepository
     extends D2BaseTrackerDataRepository<D2Relationship>
     with
-        D2BaseDataQueryMixin<D2Relationship>,
+        D2BaseTrackerDataQueryMixin<D2Relationship>,
         BaseTrackerDataUploadServiceMixin<D2Relationship> {
   D2RelationshipRepository(super.db, {super.program});
 

@@ -1,7 +1,7 @@
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/utils/location.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../models/coordinate_field.dart';
+import '../../utils/location.dart';
 import '../base_input.dart';
 import '../input_field_icon.dart';
 import 'components/map_view.dart';

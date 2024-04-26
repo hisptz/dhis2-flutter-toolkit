@@ -1,5 +1,5 @@
 import 'package:dhis2_flutter_toolkit/src/models/metadata/program.dart';
-import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_query_mixin.dart';
+import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_tracker_query_mixin.dart';
 
 import '../../../objectbox.g.dart';
 import '../../models/data/tracked_entity_attribute_value.dart';
@@ -7,7 +7,7 @@ import 'base_tracker.dart';
 
 class D2TrackedEntityAttributeValueRepository
     extends D2BaseTrackerDataRepository<D2TrackedEntityAttributeValue>
-    with D2BaseDataQueryMixin<D2TrackedEntityAttributeValue> {
+    with D2BaseTrackerDataQueryMixin<D2TrackedEntityAttributeValue> {
   D2TrackedEntityAttributeValueRepository(super.db);
 
   @override

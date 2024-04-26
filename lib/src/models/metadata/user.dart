@@ -17,6 +17,7 @@ class D2User extends D2MetaResource {
   List<String> authorities;
   List<String> programs;
   List<String> organisationUnits;
+  List<String> dataSets;
 
   final userRoles = ToMany<D2UserRole>();
   final userGroups = ToMany<D2UserGroup>();
@@ -37,7 +38,8 @@ class D2User extends D2MetaResource {
       required this.authorities,
       required this.uid,
       required this.programs,
-      required this.organisationUnits});
+      required this.organisationUnits,
+      required this.dataSets});
 
   D2User.fromMap(D2ObjectBox db, Map<String, dynamic> json)
       : uid = json["id"],
@@ -46,6 +48,7 @@ class D2User extends D2MetaResource {
         surname = json["surname"],
         email = json["email"],
         authorities = json["authorities"].cast<String>(),
+        dataSets = json["dataSets"].cast<String>(),
         programs = json["programs"].cast<String>(),
         organisationUnits = json["organisationUnits"]
             .map((orgUnit) => orgUnit["id"])
@@ -70,13 +73,4 @@ class D2User extends D2MetaResource {
   String toString() {
     return "Username: $username, First Name: $firstName, Last Name: $surname, ID: $uid ";
   }
-
-  @override
-  DateTime created = DateTime.now();
-
-  @override
-  String? displayName = "";
-
-  @override
-  DateTime lastUpdated = DateTime.now();
 }
