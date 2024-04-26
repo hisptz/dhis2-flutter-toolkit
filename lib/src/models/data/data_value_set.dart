@@ -1,10 +1,10 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
 
-import 'upload_base.dart';
+import 'base.dart';
 
 @Entity()
-class D2DataValueSet extends D2DataResource implements SyncableData {
+class D2DataValueSet extends SyncDataSource {
   @override
   int id = 0;
   @override
