@@ -2822,7 +2822,11 @@ final _entities = <obx_int.ModelEntity>[
         obx_int.ModelRelation(
             id: const obx_int.IdUid(16, 7648802606768923608),
             name: 'legendSets',
-            targetId: const obx_int.IdUid(7, 5152220214672915316))
+            targetId: const obx_int.IdUid(7, 5152220214672915316)),
+        obx_int.ModelRelation(
+            id: const obx_int.IdUid(23, 5077612807594130060),
+            name: 'organisationUnits',
+            targetId: const obx_int.IdUid(10, 3215215508490411793))
       ],
       backlinks: <obx_int.ModelBacklink>[
         obx_int.ModelBacklink(
@@ -3050,7 +3054,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
       entities: _entities,
       lastEntityId: const obx_int.IdUid(45, 3763153855658092189),
       lastIndexId: const obx_int.IdUid(112, 4813961995256656351),
-      lastRelationId: const obx_int.IdUid(22, 2736385318857456054),
+      lastRelationId: const obx_int.IdUid(23, 5077612807594130060),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [4845029629663650184],
       retiredIndexUids: const [1380213729038111912],
@@ -6076,6 +6080,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
         toManyRelations: (D2DataSet object) => {
               obx_int.RelInfo<D2DataSet>.toMany(16, object.id):
                   object.legendSets,
+              obx_int.RelInfo<D2DataSet>.toMany(23, object.id):
+                  object.organisationUnits,
               obx_int.RelInfo<D2DataSetElement>.toOneBacklink(4, object.id,
                       (D2DataSetElement srcObject) => srcObject.dataSet):
                   object.dataSetElements,
@@ -6158,6 +6164,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.categoryCombo.attach(store);
           obx_int.InternalToManyAccess.setRelInfo<D2DataSet>(object.legendSets,
               store, obx_int.RelInfo<D2DataSet>.toMany(16, object.id));
+          obx_int.InternalToManyAccess.setRelInfo<D2DataSet>(
+              object.organisationUnits,
+              store,
+              obx_int.RelInfo<D2DataSet>.toMany(23, object.id));
           obx_int.InternalToManyAccess.setRelInfo<D2DataSet>(
               object.dataSetElements,
               store,
@@ -8368,6 +8378,10 @@ class D2DataSet_ {
   /// see [D2DataSet.legendSets]
   static final legendSets = obx.QueryRelationToMany<D2DataSet, D2LegendSet>(
       _entities[40].relations[0]);
+
+  /// see [D2DataSet.organisationUnits]
+  static final organisationUnits =
+      obx.QueryRelationToMany<D2DataSet, D2OrgUnit>(_entities[40].relations[1]);
 
   /// see [D2DataSet.dataSetElements]
   static final dataSetElements =

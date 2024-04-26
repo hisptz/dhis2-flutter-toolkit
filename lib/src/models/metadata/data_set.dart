@@ -1,13 +1,13 @@
 import 'package:dhis2_flutter_toolkit/src/models/metadata/compulsory_data_element_operand.dart';
-import 'package:dhis2_flutter_toolkit/src/repositories/metadata/category_combo.dart';
-import 'package:dhis2_flutter_toolkit/src/repositories/metadata/data_set.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../../objectbox.dart';
+import '../../repositories/metadata/entry.dart';
 import './base.dart';
 import 'category_combo.dart';
 import 'data_set_element.dart';
 import 'legend_set.dart';
+import 'org_unit.dart';
 
 @Entity()
 class D2DataSet extends D2MetaResource {
@@ -35,6 +35,8 @@ class D2DataSet extends D2MetaResource {
   @Backlink("dataSet")
   final dataSetElements = ToMany<D2DataSetElement>();
   final legendSets = ToMany<D2LegendSet>();
+
+  final organisationUnits = ToMany<D2OrgUnit>();
 
   @Backlink("dataSet")
   final compulsoryDataElementOperands =
@@ -83,7 +85,17 @@ class D2DataSet extends D2MetaResource {
             ?.map<D2CompulsoryDataElementOperand>((Map element) =>
                 D2CompulsoryDataElementOperand.fromMap(db, json))
             .toList();
-
     compulsoryDataElementOperands.addAll(compulsoryElements);
+
+    List<D2OrgUnit?> orgUnits = json['organisationUnits']
+        .cast<Map>()
+        .map<D2OrgUnit?>(
+            (Map json) => D2OrgUnitRepository(db).getByUid(json['id'])!)
+        .toList()
+        .cast<D2OrgUnit?>();
+    organisationUnits.addAll(orgUnits
+        .where((element) => element != null)
+        .toList()
+        .cast<D2OrgUnit>());
   }
 }

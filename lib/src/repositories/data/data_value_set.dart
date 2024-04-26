@@ -33,7 +33,8 @@ class D2DataValueSetRepository extends D2BaseAggregateRepository<D2DataValueSet>
   }
 
   @override
-  Future saveDataValueSets(List<D2DataValueSet> dataValueSets) async {
-    return box.putManyAsync(dataValueSets);
+  Future<List<D2DataValueSet>> saveDataValueSets(
+      List<D2DataValueSet> dataValueSets) async {
+    return box.putAndGetManyAsync(dataValueSets);
   }
 }

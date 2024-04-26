@@ -1,14 +1,6 @@
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../../objectbox.dart';
-import '../../repositories/data/data_value_set.dart';
-import '../../repositories/metadata/category_option_combo.dart';
-import '../../repositories/metadata/data_element.dart';
-import '../../repositories/metadata/org_unit.dart';
-import '../metadata/category_option_combo.dart';
-import '../metadata/data_element.dart';
-import '../metadata/org_unit.dart';
-import 'base.dart';
 import 'upload_base.dart';
 
 @Entity()
@@ -22,8 +14,9 @@ class D2DataValueSet extends D2DataResource implements SyncableData {
   @override
   bool synced = true;
 
+  ///For this to be unique, it has to include orgUnit, period, attributeOptionCombo, dataElement, and categoryOptionCombo. So it is generated with the format as listed separated by -
   @Unique()
-  String uid;
+  late String uid;
 
   String value;
 
@@ -49,14 +42,9 @@ class D2DataValueSet extends D2DataResource implements SyncableData {
   D2DataValueSet.fromMap(D2ObjectBox db, Map json)
       : updatedAt = DateTime.parse(json["updatedAt"]),
         createdAt = DateTime.parse(json["createdAt"]),
-        uid = [
-          json["dataElement"],
-          (json["attributeOptionCombo"] ?? json["categoryOptionCombo"])
-        ].join("-"),
         value = json["value"],
         period = json["period"],
         comment = json["comment"] {
-    id = D2DataValueSetRepository(db).getIdByUid(uid) ?? 0;
     dataElement.target =
         D2DataElementRepository(db).getByUid(json["dataElement"]);
     organisationUnit.target = D2OrgUnitRepository(db).getByUid(json["orgUnit"]);
@@ -64,6 +52,30 @@ class D2DataValueSet extends D2DataResource implements SyncableData {
         .getByUid(json["categoryOptionCombo"]);
     attributeOptionCombo.target = D2CategoryOptionComboRepository(db)
         .getByUid(json["attributeOptionCombo"]);
+
+    uid =
+        '${organisationUnit.target!.uid}-$period-${attributeOptionCombo.target!.uid}-${dataElement.target!.uid}-${categoryOptionCombo.target!.uid}';
+
+    id = D2DataValueSetRepository(db).getIdByUid(uid) ?? 0;
+  }
+
+  D2DataValueSet.fromForm(
+      {required D2ObjectBox db,
+      required D2OrgUnit orgUnit,
+      required D2CategoryOptionCombo attributeOptionCombo,
+      required this.period,
+      required this.value,
+      required D2DataElement dataElement,
+      required D2CategoryOptionCombo categoryOptionCombo})
+      : createdAt = DateTime.now(),
+        updatedAt = DateTime.now() {
+    organisationUnit.target = orgUnit;
+    this.attributeOptionCombo.target = attributeOptionCombo;
+    this.dataElement.target = dataElement;
+    this.categoryOptionCombo.target = categoryOptionCombo;
+    uid =
+        '${orgUnit.uid}-$period-${attributeOptionCombo.uid}-${dataElement.uid}-${categoryOptionCombo.uid}';
+    id = D2DataValueSetRepository(db).getIdByUid(uid) ?? 0;
   }
 
   @override
@@ -80,6 +92,24 @@ class D2DataValueSet extends D2DataResource implements SyncableData {
   }
 
   Map<String, dynamic> toFormValues() {
+    if (categoryOptionCombo.target != null) {
+      return {
+        '${dataElement.target!.uid}.${categoryOptionCombo.target!.uid}': value
+      };
+    }
+
     return {dataElement.target!.uid: value};
+  }
+
+  void save(D2ObjectBox db) {
+    db.store.box<D2DataValueSet>().put(this);
+  }
+
+  void updateFromFormValues(Map<String, dynamic> values,
+      {required D2ObjectBox db,
+      required D2OrgUnit orgUnit,
+      required D2DataElement dataElement,
+      D2CategoryOptionCombo? categoryOptionCombo}) {
+    // TODO: implement updateFromFormValues
   }
 }
