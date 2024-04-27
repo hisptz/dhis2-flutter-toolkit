@@ -4,13 +4,15 @@ import 'package:dhis2_flutter_toolkit/src/repositories/data/upload_mixin/base_ag
 import '../../../objectbox.g.dart';
 import '../../models/data/data_value_set.dart';
 import 'base_aggregate.dart';
+import 'download_mixin/base_aggregate_data_download_service_mixin.dart';
 import 'query_mixin/base_aggregate_query_mixin.dart';
 
 class D2DataValueSetRepository extends D2BaseAggregateRepository<D2DataValueSet>
     with
         D2BaseAggregateQueryMixin<D2DataValueSet>,
         BaseAggregateDataUploadServiceMixin<D2DataValueSet>,
-        D2DataValueSetQueryMixin {
+        D2DataValueSetQueryMixin,
+        BaseAggregateDataDownloadServiceMixin {
   D2DataValueSetRepository(super.db);
 
   @override

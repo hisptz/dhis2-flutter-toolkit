@@ -2841,7 +2841,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(43, 4985447032307344955),
       name: 'D2DataValueSet',
-      lastPropertyId: const obx_int.IdUid(12, 7083671866584002041),
+      lastPropertyId: const obx_int.IdUid(13, 1819580179008286848),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -2912,7 +2912,12 @@ final _entities = <obx_int.ModelEntity>[
             type: 11,
             flags: 520,
             indexId: const obx_int.IdUid(100, 4513580249183790056),
-            relationTarget: 'D2OrgUnit')
+            relationTarget: 'D2OrgUnit'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(13, 1819580179008286848),
+            name: 'followup',
+            type: 1,
+            flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[]),
@@ -6190,7 +6195,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final periodOffset = fbb.writeString(object.period);
           final commentOffset =
               object.comment == null ? null : fbb.writeString(object.comment!);
-          fbb.startTable(13);
+          fbb.startTable(14);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.createdAt.millisecondsSinceEpoch);
           fbb.addInt64(2, object.updatedAt.millisecondsSinceEpoch);
@@ -6203,6 +6208,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addInt64(9, object.categoryOptionCombo.targetId);
           fbb.addInt64(10, object.attributeOptionCombo.targetId);
           fbb.addInt64(11, object.organisationUnit.targetId);
+          fbb.addBool(12, object.followup);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -6223,8 +6229,17 @@ obx_int.ModelDefinition getObjectBoxModel() {
               .vTableGet(buffer, rootOffset, 16, '');
           final commentParam = const fb.StringReader(asciiOptimization: true)
               .vTableGetNullable(buffer, rootOffset, 18);
-          final object = D2DataValueSet(uidParam, idParam, createdAtParam,
-              updatedAtParam, valueParam, periodParam, commentParam)
+          final followupParam =
+              const fb.BoolReader().vTableGet(buffer, rootOffset, 28, false);
+          final object = D2DataValueSet(
+              uidParam,
+              idParam,
+              createdAtParam,
+              updatedAtParam,
+              valueParam,
+              periodParam,
+              commentParam,
+              followupParam)
             ..synced =
                 const fb.BoolReader().vTableGet(buffer, rootOffset, 10, false);
           object.dataElement.targetId =
@@ -8418,6 +8433,10 @@ class D2DataValueSet_ {
   static final organisationUnit =
       obx.QueryRelationToOne<D2DataValueSet, D2OrgUnit>(
           _entities[41].properties[11]);
+
+  /// see [D2DataValueSet.followup]
+  static final followup =
+      obx.QueryBooleanProperty<D2DataValueSet>(_entities[41].properties[12]);
 }
 
 /// [D2DataSetElement] entity fields to define ObjectBox queries.

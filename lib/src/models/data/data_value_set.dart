@@ -24,15 +24,10 @@ class D2DataValueSet extends SyncDataSource {
 
   String? comment;
 
-  D2DataValueSet(
-    this.uid,
-    this.id,
-    this.createdAt,
-    this.updatedAt,
-    this.value,
-    this.period,
-    this.comment,
-  );
+  bool followup;
+
+  D2DataValueSet(this.uid, this.id, this.createdAt, this.updatedAt, this.value,
+      this.period, this.comment, this.followup);
 
   final dataElement = ToOne<D2DataElement>();
   final categoryOptionCombo = ToOne<D2CategoryOptionCombo>();
@@ -44,7 +39,8 @@ class D2DataValueSet extends SyncDataSource {
         createdAt = DateTime.parse(json["createdAt"]),
         value = json["value"],
         period = json["period"],
-        comment = json["comment"] {
+        comment = json["comment"],
+        followup = json['followup'] {
     dataElement.target =
         D2DataElementRepository(db).getByUid(json["dataElement"]);
     organisationUnit.target = D2OrgUnitRepository(db).getByUid(json["orgUnit"]);
@@ -68,7 +64,8 @@ class D2DataValueSet extends SyncDataSource {
       required D2DataElement dataElement,
       required D2CategoryOptionCombo categoryOptionCombo})
       : createdAt = DateTime.now(),
-        updatedAt = DateTime.now() {
+        updatedAt = DateTime.now(),
+        followup = false {
     organisationUnit.target = orgUnit;
     this.attributeOptionCombo.target = attributeOptionCombo;
     this.dataElement.target = dataElement;

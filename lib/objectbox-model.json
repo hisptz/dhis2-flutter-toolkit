@@ -2789,7 +2789,7 @@
     },
     {
       "id": "43:4985447032307344955",
-      "lastPropertyId": "12:7083671866584002041",
+      "lastPropertyId": "13:1819580179008286848",
       "name": "D2DataValueSet",
       "properties": [
         {
@@ -2866,6 +2866,11 @@
           "flags": 520,
           "indexId": "100:4513580249183790056",
           "relationTarget": "D2OrgUnit"
+        },
+        {
+          "id": "13:1819580179008286848",
+          "name": "followup",
+          "type": 1
         }
       ],
       "relations": []
