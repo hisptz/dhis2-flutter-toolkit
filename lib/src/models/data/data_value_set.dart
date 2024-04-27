@@ -35,8 +35,8 @@ class D2DataValueSet extends SyncDataSource {
   final organisationUnit = ToOne<D2OrgUnit>();
 
   D2DataValueSet.fromMap(D2ObjectBox db, Map json)
-      : updatedAt = DateTime.parse(json["updatedAt"]),
-        createdAt = DateTime.parse(json["createdAt"]),
+      : updatedAt = DateTime.parse(json["lastUpdated"]),
+        createdAt = DateTime.parse(json["created"]),
         value = json["value"],
         period = json["period"],
         comment = json["comment"],

@@ -27,7 +27,7 @@ mixin BaseAggregateDataDownloadServiceMixin
       'orgUnit': orgUnitIds.join(','),
       'period': periods.join(',')
     };
-    String url = dataKey;
+    String url = downloadResource;
 
     Map<String, dynamic>? response = await client!
         .httpGet<Map<String, dynamic>>(url, queryParameters: params);
