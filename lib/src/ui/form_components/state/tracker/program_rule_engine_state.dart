@@ -72,7 +72,7 @@ mixin ProgramRuleEngineState
         });
       } else if (actionProperty == 'errorMessages') {
         fields.forEach((fieldKey, value) {
-          setError(fieldKey, value);
+          setError(fieldKey, value[fieldKey]);
         });
       }
     });

@@ -24,8 +24,8 @@ class D2FormControlledInputField extends StatelessWidget {
         listenable: controller,
         builder: (BuildContext context, Widget? child) {
           FieldState fieldState = controller.getFieldState(input.name);
-          return Offstage(
-            offstage: (fieldState.hidden ?? false),
+          return Visibility(
+            visible: !(fieldState.hidden ?? false),
             child: D2InputFieldContainer(
               input: input,
               onChange: fieldState.onChange,

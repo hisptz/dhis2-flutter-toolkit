@@ -40,23 +40,21 @@ class FormSectionContainer extends StatelessWidget {
               )
             : Container(),
         const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
-        ListView.separated(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              D2BaseInputFieldConfig input = section.fields[index];
-              return D2InputFieldContainer(
-                  disabled: disabled,
-                  input: input,
-                  onChange: (value) {
-                    return onFieldChange(input.name, value);
-                  },
-                  color: color);
-            },
-            separatorBuilder: (context, index) => const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8.0),
-                ),
-            itemCount: section.fields.length)
+        Column(
+          children: section.fields.map((D2BaseInputFieldConfig input) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: D2InputFieldContainer(
+                disabled: disabled,
+                input: input,
+                onChange: (value) {
+                  return onFieldChange(input.name, value);
+                },
+                color: color,
+              ),
+            );
+          }).toList(),
+        )
       ],
     );
   }

@@ -43,38 +43,30 @@ class D2ControlledForm extends StatelessWidget {
                 )
               : Container(),
           form.sections != null
-              ? ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    D2FormSection section = form.sections![index];
-                    return FormSectionContainerWithControlledInputs(
+              ? Column(
+                  children: form.sections!.map((D2FormSection section) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: FormSectionContainerWithControlledInputs(
                       disabled: disabled,
                       section: section,
                       controller: controller,
                       color: color,
-                    );
-                  },
-                  separatorBuilder: (context, index) => const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 16.0),
-                      ),
-                  itemCount: form.sections!.length)
-              : ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    D2BaseInputFieldConfig input = form.fields![index];
-                    return D2FormControlledInputField(
+                    ),
+                  );
+                }).toList())
+              : Column(
+                  children: form.fields!.map((D2BaseInputFieldConfig input) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: D2FormControlledInputField(
                       disabled: disabled,
                       color: color,
                       input: input,
                       controller: controller,
-                    );
-                  },
-                  separatorBuilder: (context, index) => const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 16.0),
-                      ),
-                  itemCount: form.fields!.length)
+                    ),
+                  );
+                }).toList())
         ],
       ),
     );
