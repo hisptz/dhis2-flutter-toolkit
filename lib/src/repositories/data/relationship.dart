@@ -26,10 +26,10 @@ class D2RelationshipRepository
   }
 
   @override
-  String label = "Enrollments";
+  String label = "Relationships";
 
   @override
-  String uploadDataKey = "enrollments";
+  String uploadDataKey = "relationships";
 
   @override
   Query<D2Relationship> getUnSyncedQuery() {
