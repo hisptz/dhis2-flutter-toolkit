@@ -68,11 +68,11 @@ mixin ProgramRuleEngineState
         });
       } else if (actionProperty == 'warningMessages') {
         fields.forEach((fieldKey, value) {
-          setWarning(fieldKey, value);
+          setWarning(fieldKey, value['message'] ?? '');
         });
       } else if (actionProperty == 'errorMessages') {
         fields.forEach((fieldKey, value) {
-          setError(fieldKey, value[fieldKey]);
+          setError(fieldKey, value['message'] ?? '');
         });
       }
     });
