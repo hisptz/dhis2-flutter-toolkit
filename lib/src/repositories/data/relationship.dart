@@ -33,7 +33,7 @@ class D2RelationshipRepository
 
   @override
   Query<D2Relationship> getUnSyncedQuery() {
-    return box.query(D2Relationship_.synced.equals(true)).build();
+    return box.query(D2Relationship_.synced.equals(false)).build();
   }
 
   @override
