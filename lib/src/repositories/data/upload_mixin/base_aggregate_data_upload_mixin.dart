@@ -75,6 +75,7 @@ mixin BaseAggregateDataUploadServiceMixin<T extends SyncDataSource>
       Query<T> query = getUnSyncedQuery();
       int count = query.count();
       if (count == 0) {
+        await uploadController.close();
         return;
       }
       int pages = (count / uploadPageSize).ceil().clamp(1, 10);
