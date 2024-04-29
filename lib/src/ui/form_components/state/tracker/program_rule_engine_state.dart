@@ -57,6 +57,7 @@ mixin ProgramRuleEngineState
           if ((value == true && !isFieldHidden(fieldKey)) ||
               (value == false && isFieldHidden(fieldKey))) {
             toggleFieldVisibility(fieldKey);
+            setValue(fieldKey, null);
           }
         });
       } else if (actionProperty == 'hiddenSections') {
