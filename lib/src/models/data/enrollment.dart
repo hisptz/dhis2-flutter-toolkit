@@ -103,7 +103,7 @@ class D2Enrollment extends SyncDataSource
             DateTime.tryParse(values["occurredAt"] ?? "") ?? DateTime.now(),
         status = values["status"] ?? 'ACTIVE',
         synced = false,
-        notes = "{}" {
+        notes = "[]" {
     this.trackedEntity.target = trackedEntity;
     this.orgUnit.target = orgUnit;
     this.program.target = program;
