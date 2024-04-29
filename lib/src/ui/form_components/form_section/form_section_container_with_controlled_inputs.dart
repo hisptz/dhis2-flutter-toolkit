@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../input_field/form_controlled_field_container.dart';
-import '../input_field/models/base_input_field.dart';
-import '../state/form_state.dart';
-import 'models/form_section.dart';
+import '../entry.dart';
+import '../state/field_state.dart';
 
 class FormSectionContainerWithControlledInputs extends StatelessWidget {
   final D2FormSection section;
@@ -40,21 +38,31 @@ class FormSectionContainerWithControlledInputs extends StatelessWidget {
             style: const TextStyle(color: Colors.blueGrey, fontSize: 16),
           ),
         ),
-        ListView.separated(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              D2BaseInputFieldConfig input = section.fields[index];
-              return D2FormControlledInputField(
-                  disabled: disabled,
-                  input: input,
-                  controller: controller,
-                  color: color);
-            },
-            separatorBuilder: (context, index) => const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8.0),
-                ),
-            itemCount: section.fields.length)
+        Column(
+          children: section.fields.map((D2BaseInputFieldConfig input) {
+            return ListenableBuilder(
+                listenable: controller,
+                builder: (BuildContext context, Widget? child) {
+                  FieldState fieldState = controller.getFieldState(input.name);
+                  return Visibility(
+                    visible: !(fieldState.hidden ?? false),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: D2InputFieldContainer(
+                        input: input,
+                        onChange: fieldState.onChange,
+                        color: color,
+                        error: fieldState.error,
+                        warning: fieldState.warning,
+                        value: fieldState.value,
+                        disabled: (fieldState.disabled ?? false) ||
+                            (disabled ?? false),
+                      ),
+                    ),
+                  );
+                });
+          }).toList(),
+        )
       ],
     );
   }
