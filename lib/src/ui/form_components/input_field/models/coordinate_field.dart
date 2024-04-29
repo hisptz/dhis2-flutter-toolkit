@@ -18,7 +18,7 @@ class D2GeometryValue {
 
   Map<String, dynamic> toGeoJson() {
     return {
-      "type": "POINT",
+      "type": "Point",
       "coordinates": [latitude, longitude]
     };
   }
