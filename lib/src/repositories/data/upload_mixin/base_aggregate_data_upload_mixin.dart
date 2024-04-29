@@ -74,6 +74,9 @@ mixin BaseAggregateDataUploadServiceMixin<T extends SyncDataSource>
     try {
       Query<T> query = getUnSyncedQuery();
       int count = query.count();
+      if (count == 0) {
+        return;
+      }
       int pages = (count / uploadPageSize).ceil().clamp(1, 10);
       D2SyncStatus status = D2SyncStatus(
           synced: 0,

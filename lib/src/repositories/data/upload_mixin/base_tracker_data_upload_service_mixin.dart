@@ -106,8 +106,11 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     }
     try {
       Query<T> query = getUnSyncedQuery();
-      //TODO: Handle import summary
       int count = query.count();
+      if (count == 0) {
+        await uploadController.close();
+        return;
+      }
       int pages = (count / uploadPageSize).ceil().clamp(1, 10);
       D2SyncStatus status = D2SyncStatus(
           synced: 0,
