@@ -105,9 +105,12 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
       throw "Error starting upload. Make sure you call setClient first";
     }
     try {
+      uploadController.stream.listen(null);
       Query<T> query = getUnSyncedQuery();
       int count = query.count();
       if (count == 0) {
+        uploadController
+            .add(D2SyncStatus(status: D2SyncStatusEnum.complete, label: label));
         await uploadController.close();
         return;
       }

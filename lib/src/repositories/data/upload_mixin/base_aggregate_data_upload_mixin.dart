@@ -72,13 +72,16 @@ mixin BaseAggregateDataUploadServiceMixin<T extends SyncDataSource>
       throw "Error starting upload. Make sure you call setClient first";
     }
     try {
+      uploadController.stream.listen(null);
       Query<T> query = getUnSyncedQuery();
       int count = query.count();
       if (count == 0) {
+        uploadController
+            .add(D2SyncStatus(status: D2SyncStatusEnum.complete, label: label));
         await uploadController.close();
         return;
       }
-      int pages = (count / uploadPageSize).ceil().clamp(1, 10);
+      int pages = (count / uploadPageSize).ceil();
       D2SyncStatus status = D2SyncStatus(
           synced: 0,
           total: pages,
