@@ -1,6 +1,6 @@
 name: dhis2_flutter_toolkit
 description: A collection of tools and utilities for interacting with DHIS2 authentication, Metadata, and Tracker data
-version: 0.0.40
+version: 0.0.41
 homepage: null
 environment:
   sdk: '>=3.3.0 <4.0.0'
