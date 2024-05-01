@@ -76,6 +76,10 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
     return this;
   }
 
+  setLabel(String label) {
+    this.label = label;
+  }
+
   Future<D2Pagination> getPagination() async {
     Map<String, dynamic>? response = await client!
         .httpGetPagination<Map<String, dynamic>>(downloadURL,
@@ -135,8 +139,7 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
   Future initializeDownload() async {
     try {
       D2SyncStatus status = D2SyncStatus(
-          status: D2SyncStatusEnum.initialized,
-          label: "$label for ${program!.name} program");
+          status: D2SyncStatusEnum.initialized, label: label);
       downloadController.add(status);
       D2Pagination pagination = await getPagination();
       status.setTotal(pagination.pageCount);

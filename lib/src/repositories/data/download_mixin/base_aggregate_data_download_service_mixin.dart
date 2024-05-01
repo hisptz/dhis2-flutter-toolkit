@@ -10,6 +10,7 @@ mixin BaseAggregateDataDownloadServiceMixin
   StreamController<D2SyncStatus> downloadController =
       StreamController<D2SyncStatus>();
   String downloadResource = "dataValueSets";
+  String label = 'Data value sets';
   int downloadPageSize = 100;
 
   List<String> orgUnitIds = [];
@@ -39,6 +40,10 @@ mixin BaseAggregateDataDownloadServiceMixin
     await saveOffline(dataValueObjects);
   }
 
+  setLabel(String label) {
+    this.label = label;
+  }
+
   BaseAggregateDataDownloadServiceMixin setupDownload(
       {required D2ClientService client,
       required List<String> dataSetIds,
@@ -53,8 +58,7 @@ mixin BaseAggregateDataDownloadServiceMixin
 
   Future<void> download() async {
     try {
-      D2SyncStatus status = D2SyncStatus(
-          status: D2SyncStatusEnum.initialized, label: 'Data value sets');
+      D2SyncStatus status = D2SyncStatus(status: D2SyncStatusEnum.initialized, label: label);
       downloadController.add(status);
       status.setTotal(dataSetIds.length);
       status.updateStatus(D2SyncStatusEnum.syncing);
