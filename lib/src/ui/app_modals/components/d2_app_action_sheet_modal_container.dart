@@ -96,13 +96,8 @@ class D2AppActionSheetModalContainer extends StatelessWidget {
                         ),
                       ),
                 body: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom,
-                    ), // Adds padding to the bottom of the sheet to avoid covering
-                    // the on-screen keyboard.
-                    child: actionSheetContainer,
-                  ),
+                  // the on-screen keyboard.
+                  child: actionSheetContainer,
                 ),
               ),
             );
