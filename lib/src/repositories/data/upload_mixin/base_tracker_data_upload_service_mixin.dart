@@ -114,7 +114,7 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
         await uploadController.close();
         return;
       }
-      int pages = (count / uploadPageSize).ceil().clamp(1, 10);
+      int pages = (count / uploadPageSize).ceil();
       D2SyncStatus status = D2SyncStatus(
           synced: 0,
           total: pages,

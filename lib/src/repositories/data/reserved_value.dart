@@ -101,6 +101,8 @@ class D2ReservedValueRepository {
         status.increment();
         downloadController.add(status);
       }
+      downloadController.add(status.complete());
+      await downloadController.close();
     } catch (e) {
       downloadController.addError(e);
       rethrow;
