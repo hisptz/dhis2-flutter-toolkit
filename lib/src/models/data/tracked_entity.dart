@@ -5,11 +5,6 @@ import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../repositories/data/entry.dart';
-import '../../repositories/metadata/entry.dart';
-import '../../ui/form_components/entry.dart';
-import '../../utils/uid.dart';
-import '../metadata/entry.dart';
 import 'base.dart';
 import 'upload_base.dart';
 
@@ -45,6 +40,8 @@ class D2TrackedEntity extends SyncDataSource
 
   @Backlink("trackedEntity")
   final attributes = ToMany<D2TrackedEntityAttributeValue>();
+
+  final attributesForQuery = ToMany<D2TrackedEntityAttributeValue>();
 
   final trackedEntityType = ToOne<D2TrackedEntityType>();
 

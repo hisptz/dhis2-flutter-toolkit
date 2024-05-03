@@ -1858,7 +1858,11 @@ final _entities = <obx_int.ModelEntity>[
         obx_int.ModelRelation(
             id: const obx_int.IdUid(11, 7737513459837759207),
             name: 'enrollmentsForQuery',
-            targetId: const obx_int.IdUid(4, 8139154496331483919))
+            targetId: const obx_int.IdUid(4, 8139154496331483919)),
+        obx_int.ModelRelation(
+            id: const obx_int.IdUid(24, 2410478793112935215),
+            name: 'attributesForQuery',
+            targetId: const obx_int.IdUid(27, 8981732063320211832))
       ],
       backlinks: <obx_int.ModelBacklink>[
         obx_int.ModelBacklink(
@@ -3044,7 +3048,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
       entities: _entities,
       lastEntityId: const obx_int.IdUid(45, 3763153855658092189),
       lastIndexId: const obx_int.IdUid(112, 4813961995256656351),
-      lastRelationId: const obx_int.IdUid(23, 5077612807594130060),
+      lastRelationId: const obx_int.IdUid(24, 2410478793112935215),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [4845029629663650184],
       retiredIndexUids: const [1380213729038111912],
@@ -5003,6 +5007,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
         toManyRelations: (D2TrackedEntity object) => {
               obx_int.RelInfo<D2TrackedEntity>.toMany(11, object.id):
                   object.enrollmentsForQuery,
+              obx_int.RelInfo<D2TrackedEntity>.toMany(24, object.id):
+                  object.attributesForQuery,
               obx_int.RelInfo<D2Enrollment>.toOneBacklink(11, object.id,
                       (D2Enrollment srcObject) => srcObject.trackedEntity):
                   object.enrollments,
@@ -5082,6 +5088,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
               object.enrollmentsForQuery,
               store,
               obx_int.RelInfo<D2TrackedEntity>.toMany(11, object.id));
+          obx_int.InternalToManyAccess.setRelInfo<D2TrackedEntity>(
+              object.attributesForQuery,
+              store,
+              obx_int.RelInfo<D2TrackedEntity>.toMany(24, object.id));
           obx_int.InternalToManyAccess.setRelInfo<D2TrackedEntity>(
               object.enrollments,
               store,
@@ -7662,6 +7672,11 @@ class D2TrackedEntity_ {
   static final enrollmentsForQuery =
       obx.QueryRelationToMany<D2TrackedEntity, D2Enrollment>(
           _entities[23].relations[0]);
+
+  /// see [D2TrackedEntity.attributesForQuery]
+  static final attributesForQuery =
+      obx.QueryRelationToMany<D2TrackedEntity, D2TrackedEntityAttributeValue>(
+          _entities[23].relations[1]);
 
   /// see [D2TrackedEntity.enrollments]
   static final enrollments =
