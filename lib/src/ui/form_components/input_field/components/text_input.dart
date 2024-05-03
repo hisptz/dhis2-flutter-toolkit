@@ -11,7 +11,7 @@ class TextFieldInputType {
   TextFieldInputType({required this.type, required this.inputType});
 }
 
-class TextInput extends BaseStatelessInput<D2BaseInputFieldConfig, String> {
+class TextInput extends BaseStatefulInput<D2BaseInputFieldConfig, String> {
   final TextInputType textInputType;
   final int? maxLines;
 
@@ -27,16 +27,39 @@ class TextInput extends BaseStatelessInput<D2BaseInputFieldConfig, String> {
   });
 
   @override
+  State<StatefulWidget> createState() {
+    return TextInputState();
+  }
+}
+
+class TextInputState extends BaseStatefulInputState<TextInput> {
+  late TextEditingController controller;
+
+  @override
+  void initState() {
+    controller = TextEditingController(text: widget.value);
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant TextInput oldWidget) {
+    if (widget.value == null) {
+      controller = TextEditingController();
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      cursorColor: color,
-      enabled: !disabled,
-      initialValue: value,
+      controller: controller,
+      cursorColor: widget.color,
+      enabled: !widget.disabled,
       onChanged: (String? value) {
-        onChange(value);
+        widget.onChange(value);
       },
-      maxLines: maxLines,
-      keyboardType: textInputType,
+      maxLines: widget.maxLines,
+      keyboardType: widget.textInputType,
       style: const TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w500,
