@@ -31,10 +31,14 @@ class BooleanInput
               children: [
                 Radio(
                   toggleable: !disabled,
+                  overlayColor:
+                      MaterialStatePropertyAll(decoration.colorScheme.text),
                   fillColor: MaterialStatePropertyAll(
-                    "$value" == option.code ? color : const Color(0xFF94A0B1),
+                    "$value" == option.code
+                        ? decoration.colorScheme.active
+                        : decoration.colorScheme.inactive,
                   ),
-                  activeColor: color,
+                  activeColor: decoration.colorScheme.active,
                   value: option.code,
                   groupValue: value,
                   onChanged: disabled
