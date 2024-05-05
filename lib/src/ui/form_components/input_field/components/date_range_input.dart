@@ -13,7 +13,8 @@ class DateRangeInput
       required super.input,
       required super.onChange,
       required super.color,
-      super.value});
+      super.value,
+      required super.decoration});
 
   void onOpenDateSelection(context) async {
     DateTimeRange? selectedDateTime = await showDateRangePicker(

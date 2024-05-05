@@ -1,3 +1,5 @@
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/input_decoration_container.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'components/age_input/age_input.dart';
@@ -33,23 +35,24 @@ class D2InputFieldContainer extends StatelessWidget {
   final String? error;
   final String? warning;
   final bool disabled;
+  D2InputDecoration? inputDecoration;
 
-  const D2InputFieldContainer(
+  D2InputFieldContainer(
       {super.key,
       required this.input,
+      this.inputDecoration,
       this.value,
       required this.onChange,
       required this.color,
       this.error,
       this.disabled = false,
-      this.warning});
-
-  final BoxConstraints iconConstraints = const BoxConstraints(
-    maxHeight: 45.0,
-    minHeight: 42.0,
-    maxWidth: 45.0,
-    minWidth: 42.0,
-  );
+      this.warning}) {
+    inputDecoration ??=
+        D2InputDecoration.fromInput(input, color: color ?? Colors.blue);
+    if (kDebugMode) {
+      print(inputDecoration);
+    }
+  }
 
   void onClear() {
     onChange(null);
@@ -72,6 +75,7 @@ class D2InputFieldContainer extends StatelessWidget {
                 color: colorOverride,
                 onChange: onChange,
                 value: value,
+                decoration: inputDecoration!,
               )
             : SelectInput(
                 disabled: disabled,
@@ -79,6 +83,7 @@ class D2InputFieldContainer extends StatelessWidget {
                 color: colorOverride,
                 onChange: onChange,
                 value: value,
+                decoration: inputDecoration!,
               );
       }
       if (input is D2DateInputFieldConfig) {
@@ -88,6 +93,7 @@ class D2InputFieldContainer extends StatelessWidget {
           input: input as D2DateInputFieldConfig,
           color: colorOverride,
           onChange: onChange,
+          decoration: inputDecoration!,
         );
       }
       if (input is D2DateRangeInputFieldConfig) {
@@ -97,6 +103,7 @@ class D2InputFieldContainer extends StatelessWidget {
           input: input as D2DateRangeInputFieldConfig,
           color: colorOverride,
           onChange: onChange,
+          decoration: inputDecoration!,
         );
       }
       if (input is D2NumberInputFieldConfig) {
@@ -113,6 +120,7 @@ class D2InputFieldContainer extends StatelessWidget {
                 input: input,
                 value: value,
                 onChange: onChange,
+                decoration: inputDecoration!,
                 color: colorOverride);
           default:
             return TextInput(
@@ -122,6 +130,7 @@ class D2InputFieldContainer extends StatelessWidget {
                 input: input,
                 value: value,
                 onChange: onChange,
+                decoration: inputDecoration!,
                 color: colorOverride);
         }
       }
@@ -132,6 +141,7 @@ class D2InputFieldContainer extends StatelessWidget {
           case D2InputFieldType.email:
           case D2InputFieldType.url:
             return TextInput(
+              decoration: inputDecoration!,
               disabled: disabled,
               onChange: onChange,
               value: value,
@@ -155,6 +165,7 @@ class D2InputFieldContainer extends StatelessWidget {
               input: input,
               color: colorOverride,
               textInputType: TextInputType.text,
+              decoration: inputDecoration!,
             );
         }
       }
@@ -165,6 +176,7 @@ class D2InputFieldContainer extends StatelessWidget {
           value: value,
           input: input as D2BooleanInputFieldConfig,
           color: colorOverride,
+          decoration: inputDecoration!,
         );
       }
       if (input is D2TrueOnlyInputFieldConfig) {
@@ -174,15 +186,18 @@ class D2InputFieldContainer extends StatelessWidget {
           value: value,
           input: input as D2TrueOnlyInputFieldConfig,
           color: colorOverride,
+          decoration: inputDecoration!,
         );
       }
       if (input is D2OrgUnitInputFieldConfig) {
         return OrgUnitInput(
-            disabled: disabled,
-            value: value,
-            input: input as D2OrgUnitInputFieldConfig,
-            color: colorOverride,
-            onChange: onChange);
+          disabled: disabled,
+          value: value,
+          input: input as D2OrgUnitInputFieldConfig,
+          color: colorOverride,
+          onChange: onChange,
+          decoration: inputDecoration!,
+        );
       }
       if (input is D2GeometryInputConfig) {
         return CoordinateInput(
@@ -191,6 +206,7 @@ class D2InputFieldContainer extends StatelessWidget {
           value: value,
           input: input as D2GeometryInputConfig,
           color: colorOverride,
+          decoration: inputDecoration!,
         );
       }
       if (input is D2AgeInputFieldConfig) {
@@ -200,6 +216,7 @@ class D2InputFieldContainer extends StatelessWidget {
           color: colorOverride,
           value: value,
           disabled: disabled,
+          decoration: inputDecoration!,
         );
       }
 
@@ -210,6 +227,7 @@ class D2InputFieldContainer extends StatelessWidget {
         input: input,
         color: colorOverride,
         textInputType: TextInputType.text,
+        decoration: inputDecoration!,
       );
     }
 
@@ -217,12 +235,12 @@ class D2InputFieldContainer extends StatelessWidget {
       if (input.svgIconAsset != null || input.icon != null) {
         return Container(
           margin: const EdgeInsets.only(left: 16.0),
-          constraints: iconConstraints,
+          constraints: inputDecoration!.inputIconDecoration.iconConstraints,
           child: InputFieldIcon(
             backgroundColor: colorOverride,
             iconColor: colorOverride,
-            iconData: input.icon,
-            svgIcon: input.svgIconAsset,
+            iconData: inputDecoration!.inputIconDecoration.iconData,
+            svgIcon: inputDecoration!.inputIconDecoration.svgIconAsset,
           ),
         );
       } else {
@@ -233,34 +251,20 @@ class D2InputFieldContainer extends StatelessWidget {
     Widget getSuffix() {
       return Row(
         children: [
-          input.clearable && !disabled
-              ? IconButton(
-                  onPressed: onClear,
-                  icon: const Icon(Icons.clear),
-                )
-              : Container(),
+          Visibility(
+            visible: input.clearable && !disabled,
+            child: IconButton(
+              onPressed: onClear,
+              icon: const Icon(Icons.clear),
+            ),
+          )
         ],
       );
     }
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      decoration: BoxDecoration(
-        color: colorOverride.withOpacity(0.07),
-        border: Border(
-          left: BorderSide.none,
-          right: BorderSide.none,
-          top: BorderSide.none,
-          bottom: BorderSide(
-            width: 2,
-            color: colorOverride,
-          ),
-        ),
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(4.0),
-          topRight: Radius.circular(4.0),
-        ),
-      ),
+      decoration: inputDecoration!.inputContainerDecoration,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -13,6 +13,7 @@ class BooleanInput
     required super.input,
     required super.color,
     required super.onChange,
+    required super.decoration,
   });
 
   @override
@@ -45,7 +46,7 @@ class BooleanInput
                   style: const TextStyle().copyWith(
                     fontWeight: FontWeight.w400,
                     fontSize: 16.0,
-                    color: const Color(0xFF1D2B36),
+                    color: decoration.colorScheme.text,
                   ),
                 ),
               ],

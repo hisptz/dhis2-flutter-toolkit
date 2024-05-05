@@ -24,6 +24,7 @@ class TextInput extends BaseStatefulInput<D2BaseInputFieldConfig, String> {
     required super.color,
     required super.onChange,
     this.maxLines = 1,
+    required super.decoration,
   });
 
   @override
@@ -53,15 +54,16 @@ class TextInputState extends BaseStatefulInputState<TextInput> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      cursorColor: widget.color,
+      cursorColor: widget.decoration.colorScheme.active,
       enabled: !widget.disabled,
       onChanged: (String? value) {
         widget.onChange(value);
       },
       maxLines: widget.maxLines,
       keyboardType: widget.textInputType,
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 14,
+        color: widget.decoration.colorScheme.text,
         fontWeight: FontWeight.w500,
       ),
       textInputAction: TextInputAction.done,

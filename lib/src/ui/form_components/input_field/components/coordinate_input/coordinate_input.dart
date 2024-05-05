@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+
 import '../../models/coordinate_field.dart';
 import '../../utils/location.dart';
 import '../base_input.dart';
@@ -14,7 +15,8 @@ class CoordinateInput
       required super.onChange,
       required super.color,
       super.disabled,
-      super.value});
+      super.value,
+      required super.decoration});
 
   @override
   State<StatefulWidget> createState() {

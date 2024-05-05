@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../models/true_only_input_field.dart';
 import 'base_input.dart';
 
-class TrueOnlyInput extends BaseStatelessInput<D2TrueOnlyInputFieldConfig, String> {
+class TrueOnlyInput
+    extends BaseStatelessInput<D2TrueOnlyInputFieldConfig, String> {
   const TrueOnlyInput({
     super.key,
     super.value,
@@ -11,6 +12,7 @@ class TrueOnlyInput extends BaseStatelessInput<D2TrueOnlyInputFieldConfig, Strin
     required super.input,
     required super.color,
     required super.onChange,
+    required super.decoration,
   });
 
   bool isSelected() {
@@ -24,18 +26,27 @@ class TrueOnlyInput extends BaseStatelessInput<D2TrueOnlyInputFieldConfig, Strin
       alignment: Alignment.centerLeft,
       margin: const EdgeInsets.symmetric(),
       child: Switch(
-        activeTrackColor: color,
-        inactiveTrackColor: Colors.white,
+        activeTrackColor: input.colorScheme?.activeTrackColor ?? color,
+        inactiveTrackColor:
+            input.colorScheme?.inactiveTrackColor ?? Colors.white,
         trackOutlineColor: MaterialStatePropertyAll(
-          isSelected() ? color : const Color(0xFF94A0B1),
+          isSelected()
+              ? input.colorScheme?.activeTrackOutlineColor ?? color
+              : input.colorScheme?.inactiveTrackOutlineColor ??
+                  const Color(0xFF94A0B1),
         ),
         thumbColor: MaterialStatePropertyAll(
-          isSelected() ? Colors.white : const Color(0xFF94A0B1),
+          isSelected()
+              ? input.colorScheme?.activeThumbColor ?? Colors.white
+              : input.colorScheme?.inactiveThumbColor ??
+                  const Color(0xFF94A0B1),
         ),
         thumbIcon: MaterialStateProperty.all(
           Icon(
             isSelected() ? Icons.check : Icons.close,
-            color: isSelected() ? color : Colors.white,
+            color: isSelected()
+                ? input.colorScheme?.activeThumbIconColor ?? color
+                : input.colorScheme?.inactiveThumbIconColor ?? Colors.white,
           ),
         ),
         value: isSelected(),

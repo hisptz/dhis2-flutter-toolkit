@@ -12,7 +12,8 @@ class DateInput extends BaseStatelessInput<D2DateInputFieldConfig, String> {
       required super.input,
       required super.onChange,
       required super.color,
-      super.value});
+      super.value,
+      required super.decoration});
 
   void onOpenDateSelection(context) async {
     DateTime? selectedDateTime = await showDatePicker(
