@@ -30,17 +30,16 @@ class D2TrackedEntity extends SyncDataSource
 
   @Backlink("trackedEntity")
   final enrollments = ToMany<D2Enrollment>();
-
   final enrollmentsForQuery = ToMany<D2Enrollment>();
 
   @Backlink("fromTrackedEntity")
   final relationships = ToMany<D2Relationship>();
+  final relationshipsForQuery = ToMany<D2Relationship>();
 
   final orgUnit = ToOne<D2OrgUnit>();
 
   @Backlink("trackedEntity")
   final attributes = ToMany<D2TrackedEntityAttributeValue>();
-
   final attributesForQuery = ToMany<D2TrackedEntityAttributeValue>();
 
   final trackedEntityType = ToOne<D2TrackedEntityType>();
