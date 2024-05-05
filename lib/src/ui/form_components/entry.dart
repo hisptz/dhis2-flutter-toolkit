@@ -23,6 +23,7 @@ export "input_field/models/coordinate_field.dart" show D2GeometryValue;
 export "input_field/models/date_input_field.dart" show D2DateInputFieldConfig;
 export "input_field/models/date_range_input_field.dart"
     show D2DateRangeInputFieldConfig;
+export "input_field/models/input_decoration_container.dart";
 export "input_field/models/input_field_option.dart" show D2InputFieldOption;
 export "input_field/models/input_field_type_enum.dart" show D2InputFieldType;
 export "input_field/models/number_input_field.dart"
@@ -32,8 +33,7 @@ export "input_field/models/org_unit_input_field.dart"
 export "input_field/models/select_input_field.dart"
     show D2SelectInputFieldConfig;
 export "input_field/models/text_input_field.dart" show D2TextInputFieldConfig;
-export "input_field/models/true_only_input_field.dart"
-    show D2TrueOnlyInputFieldConfig;
+export "input_field/models/true_only_input_field.dart";
 export "state/aggregate/data_set_controller.dart"
     show D2DataSetStateFormController;
 export "state/form_state.dart" show D2FormController;

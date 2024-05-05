@@ -20,7 +20,8 @@ class AgeInputField extends BaseStatefulInput<D2AgeInputFieldConfig, String> {
       required super.onChange,
       required super.color,
       super.disabled,
-      super.value});
+      super.value,
+      required super.decoration});
 
   @override
   State<StatefulWidget> createState() {
@@ -107,24 +108,26 @@ class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
 
     if (selectedView == D2AgeInputFieldView.date) {
       return DateInput(
-          disabled: widget.disabled,
-          value: widget.value,
-          input: D2DateInputFieldConfig(
-              label: input.label,
-              type: D2InputFieldType.date,
-              allowFutureDates: false,
-              mandatory: input.mandatory,
-              name: input.name,
-              clearable: input.clearable,
-              icon: input.icon,
-              legends: input.legends,
-              svgIconAsset: input.svgIconAsset),
-          onChange: (String? value) {
-            if (value != null) {
-              widget.onChange(DateTime.tryParse(value)?.format(DATE_FORMAT));
-            }
-          },
-          color: widget.color);
+        disabled: widget.disabled,
+        value: widget.value,
+        input: D2DateInputFieldConfig(
+            label: input.label,
+            type: D2InputFieldType.date,
+            allowFutureDates: false,
+            mandatory: input.mandatory,
+            name: input.name,
+            clearable: input.clearable,
+            icon: input.icon,
+            legends: input.legends,
+            svgIconAsset: input.svgIconAsset),
+        onChange: (String? value) {
+          if (value != null) {
+            widget.onChange(DateTime.tryParse(value)?.format(DATE_FORMAT));
+          }
+        },
+        color: widget.color,
+        decoration: widget.decoration,
+      );
     }
 
     if (selectedView == D2AgeInputFieldView.age) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+
 import '../../models/coordinate_field.dart';
 import '../../utils/location.dart';
 import '../base_input.dart';
@@ -14,7 +15,8 @@ class CoordinateInput
       required super.onChange,
       required super.color,
       super.disabled,
-      super.value});
+      super.value,
+      required super.decoration});
 
   @override
   State<StatefulWidget> createState() {
@@ -34,15 +36,19 @@ class CoordinateInputState extends BaseStatefulInputState<CoordinateInput> {
     try {
       Position position = await determinePosition();
       onChange(D2GeometryValue(position.latitude, position.longitude));
-      setState(() {
-        _loadingLocation = false;
-        error = null;
-      });
+      if (mounted) {
+        setState(() {
+          _loadingLocation = false;
+          error = null;
+        });
+      }
     } catch (e) {
-      setState(() {
-        error = e.toString();
-        _loadingLocation = false;
-      });
+      if (mounted) {
+        setState(() {
+          error = e.toString();
+          _loadingLocation = false;
+        });
+      }
     }
   }
 
@@ -50,7 +56,7 @@ class CoordinateInputState extends BaseStatefulInputState<CoordinateInput> {
   void initState() {
     controller = TextEditingController(text: widget.value?.toString());
     super.initState();
-    if(widget.input.enableAutoLocation && widget.value == null) {
+    if (widget.input.enableAutoLocation && widget.value == null) {
       onGetCurrentLocation();
     }
   }

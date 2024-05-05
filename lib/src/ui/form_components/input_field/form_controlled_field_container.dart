@@ -1,3 +1,4 @@
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/input_decoration_container.dart';
 import 'package:flutter/material.dart';
 
 import '../state/field_state.dart';
@@ -10,11 +11,13 @@ class D2FormControlledInputField extends StatelessWidget {
   final Color? color;
   final D2FormController controller;
   final bool? disabled;
+  final D2InputDecoration? inputDecoration;
 
   const D2FormControlledInputField(
       {super.key,
       required this.input,
       this.disabled,
+      this.inputDecoration,
       required this.controller,
       required this.color});
 
@@ -27,6 +30,7 @@ class D2FormControlledInputField extends StatelessWidget {
           return Visibility(
             visible: !(fieldState.hidden ?? false),
             child: D2InputFieldContainer(
+              inputDecoration: inputDecoration,
               input: input,
               onChange: fieldState.onChange,
               color: color,

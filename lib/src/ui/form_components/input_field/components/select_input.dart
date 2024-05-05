@@ -15,6 +15,7 @@ class SelectInput extends BaseStatelessInput<D2SelectInputFieldConfig, String> {
     required super.input,
     required super.color,
     required super.onChange,
+    required super.decoration,
   });
 
   @override
@@ -48,7 +49,7 @@ class SelectInput extends BaseStatelessInput<D2SelectInputFieldConfig, String> {
               ))
           .toList(),
       value: valueOption,
-      focusColor: color,
+      focusColor: decoration.colorScheme.active,
       items: options,
       iconDisabledColor: Colors.grey,
       icon: Transform.rotate(

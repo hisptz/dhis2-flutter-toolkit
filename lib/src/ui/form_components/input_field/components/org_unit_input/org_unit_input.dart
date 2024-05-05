@@ -18,6 +18,7 @@ class OrgUnitInput
     required super.color,
     required super.onChange,
     this.maxLines = 1,
+    required super.decoration,
   });
 
   @override

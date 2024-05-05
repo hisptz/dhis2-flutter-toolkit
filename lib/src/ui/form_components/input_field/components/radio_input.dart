@@ -12,6 +12,7 @@ class RadioInput extends BaseStatelessInput<D2SelectInputFieldConfig, String> {
     required super.input,
     required super.color,
     required super.onChange,
+    required super.decoration,
   });
 
   @override
@@ -22,7 +23,6 @@ class RadioInput extends BaseStatelessInput<D2SelectInputFieldConfig, String> {
       child: Wrap(
         direction: Axis.horizontal,
         children: input.options!.map((D2InputFieldOption option) {
-          bool isSelected = option.code == value;
           return Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -30,17 +30,16 @@ class RadioInput extends BaseStatelessInput<D2SelectInputFieldConfig, String> {
                 value: option.code,
                 groupValue: value,
                 onChanged: disabled ? null : onChange,
-                activeColor: disabled ? Colors.grey : color,
+                activeColor: disabled
+                    ? decoration.colorScheme.disabled
+                    : decoration.colorScheme.active,
               ),
               Text(
                 option.name,
                 style: TextStyle(
-                  color: disabled
-                      ? Colors.grey
-                      : isSelected
-                          ? color
-                          : null,
-                ),
+                    color: disabled
+                        ? decoration.colorScheme.disabled
+                        : decoration.colorScheme.text),
               ),
             ],
           );
