@@ -228,9 +228,9 @@ class D2InputFieldContainer extends StatelessWidget {
     }
 
     Widget getPrefix() {
-      if (input.svgIconAsset != null || input.icon != null) {
-        return Container(
-          margin: const EdgeInsets.only(left: 16.0),
+      return Visibility(
+        visible: input.svgIconAsset != null || input.icon != null,
+        child: Container(
           constraints: inputDecoration!.inputIconDecoration.iconConstraints,
           child: InputFieldIcon(
             backgroundColor:
@@ -239,14 +239,13 @@ class D2InputFieldContainer extends StatelessWidget {
             iconData: inputDecoration!.inputIconDecoration.iconData,
             svgIcon: inputDecoration!.inputIconDecoration.svgIconAsset,
           ),
-        );
-      } else {
-        return Container();
-      }
+        ),
+      );
     }
 
     Widget getSuffix() {
       return Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Visibility(
             visible: input.clearable && !disabled,
@@ -297,6 +296,7 @@ class D2InputFieldContainer extends StatelessWidget {
             ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               getPrefix(),
               Expanded(child: getInput()),
