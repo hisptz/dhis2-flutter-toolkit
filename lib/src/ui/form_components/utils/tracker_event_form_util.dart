@@ -31,7 +31,8 @@ class D2TrackerEventFormUtil {
       return D2FormUtils.getFieldConfigFromDataItem(dataElement,
           mandatory: programStageDataElement.compulsory,
           allowFutureDates: programStageDataElement.allowFutureDate,
-          renderOptionsAsRadio: programStageDataElement.renderOptionsAsRadio);
+          renderOptionsAsRadio: programStageDataElement.renderOptionsAsRadio)
+        ..clearable = options.clearable;
     }).toList();
   }
 

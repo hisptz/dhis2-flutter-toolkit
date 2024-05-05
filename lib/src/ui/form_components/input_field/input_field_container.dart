@@ -1,5 +1,4 @@
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/input_decoration_container.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'components/age_input/age_input.dart';
@@ -47,11 +46,8 @@ class D2InputFieldContainer extends StatelessWidget {
       this.error,
       this.disabled = false,
       this.warning}) {
-    inputDecoration ??=
-        D2InputDecoration.fromInput(input, color: color ?? Colors.blue);
-    if (kDebugMode) {
-      print(inputDecoration);
-    }
+    inputDecoration ??= D2InputDecoration.fromInput(input,
+        color: color ?? Colors.blue, disabled: disabled);
   }
 
   void onClear() {
@@ -255,7 +251,10 @@ class D2InputFieldContainer extends StatelessWidget {
             visible: input.clearable && !disabled,
             child: IconButton(
               onPressed: onClear,
-              icon: const Icon(Icons.clear),
+              icon: Icon(
+                Icons.clear,
+                color: inputDecoration!.colorScheme.text,
+              ),
             ),
           )
         ],
