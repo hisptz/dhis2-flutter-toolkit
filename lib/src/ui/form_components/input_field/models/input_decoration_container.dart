@@ -41,12 +41,21 @@ class D2InputContainerColorScheme {
 class D2InputIconDecoration {
   final BoxConstraints iconConstraints;
   final Color backgroundColor;
+  final Color? iconColor;
   final IconData? iconData;
   final String? svgIconAsset;
+
+  D2InputIconDecoration(
+      {required this.iconConstraints,
+      required this.backgroundColor,
+      this.iconColor,
+      this.iconData,
+      this.svgIconAsset});
 
   D2InputIconDecoration.fromInput(D2BaseInputFieldConfig input, {Color? color})
       : iconData = input.icon,
         svgIconAsset = input.svgIconAsset,
+        iconColor = color,
         iconConstraints = const BoxConstraints(
           maxHeight: 45.0,
           minHeight: 42.0,

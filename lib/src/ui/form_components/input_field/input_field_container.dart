@@ -233,8 +233,9 @@ class D2InputFieldContainer extends StatelessWidget {
           margin: const EdgeInsets.only(left: 16.0),
           constraints: inputDecoration!.inputIconDecoration.iconConstraints,
           child: InputFieldIcon(
-            backgroundColor: colorOverride,
-            iconColor: colorOverride,
+            backgroundColor:
+                inputDecoration!.inputIconDecoration.backgroundColor,
+            iconColor: inputDecoration!.inputIconDecoration.iconColor,
             iconData: inputDecoration!.inputIconDecoration.iconData,
             svgIcon: inputDecoration!.inputIconDecoration.svgIconAsset,
           ),
