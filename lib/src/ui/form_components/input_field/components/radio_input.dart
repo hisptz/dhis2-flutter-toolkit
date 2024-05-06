@@ -27,6 +27,9 @@ class RadioInput extends BaseStatelessInput<D2SelectInputFieldConfig, String> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Radio(
+                overlayColor:
+                    MaterialStatePropertyAll(decoration.colorScheme.text),
+                toggleable: !disabled,
                 fillColor: MaterialStatePropertyAll(
                   "$value" == option.code
                       ? decoration.colorScheme.active
