@@ -84,12 +84,31 @@ class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
     }
   }
 
+  AgeType normalizeAgeType() {
+    if (widget.value == null) {
+      return AgeType.years;
+    }
+    int noOfDays =
+        DateTime.parse(widget.value!).differenceInDays(DateTime.now()).abs();
+
+    if (noOfDays > 365) {
+      return AgeType.years;
+    }
+
+    if (noOfDays > 31) {
+      //More than a month
+      return AgeType.months;
+    }
+
+    return AgeType.days;
+  }
+
   @override
   void initState() {
     textFocusNode = FocusNode();
     if (widget.value != null) {
       selectedView = D2AgeInputFieldView.age;
-      ageType = AgeType.years;
+      ageType = normalizeAgeType();
     }
     _textEditingController = TextEditingController(text: getTextValue());
     super.initState();
@@ -105,7 +124,7 @@ class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
   void didUpdateWidget(covariant AgeInputField oldWidget) {
     if (widget.value != oldWidget.value) {
       //User has cleared the value
-      if (widget.value == null && ageType == null) {
+      if (widget.value == null) {
         setState(() {
           selectedView = null;
         });
@@ -196,7 +215,7 @@ class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
                           onChanged: (value) {
                             setState(() {
                               ageType = option;
-                              widget.onChange(null);
+                              setTextValue(_textEditingController.text);
                               textFocusNode.requestFocus();
                             });
                           },
