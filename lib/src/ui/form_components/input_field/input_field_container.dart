@@ -59,7 +59,7 @@ class D2InputFieldContainer extends StatelessWidget {
     Color? colorOverride = (error != null && error!.isNotEmpty)
         ? Colors.red
         : disabled
-            ? Colors.grey
+            ? inputDecoration!.colorScheme.disabled
             : color ?? Theme.of(context).primaryColor;
 
     Widget getInput() {

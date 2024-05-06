@@ -38,7 +38,9 @@ class BooleanInput
                         ? decoration.colorScheme.active
                         : decoration.colorScheme.inactive,
                   ),
-                  activeColor: decoration.colorScheme.active,
+                  activeColor: disabled
+                      ? decoration.colorScheme.disabled
+                      : decoration.colorScheme.active,
                   value: option.code,
                   groupValue: value,
                   onChanged: disabled

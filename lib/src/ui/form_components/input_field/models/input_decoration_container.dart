@@ -104,8 +104,8 @@ class D2InputDecoration {
   D2InputDecoration.fromInput(D2BaseInputFieldConfig input,
       {required Color color, required bool disabled})
       : colorScheme = D2InputContainerColorScheme.fromMainColor(color),
-        inputIconDecoration =
-            D2InputIconDecoration.fromInput(input, color: color),
+        inputIconDecoration = D2InputIconDecoration.fromInput(input,
+            color: disabled ? Colors.grey : color),
         inputContainerDecoration = BoxDecoration(
           color: disabled
               ? Colors.grey.withOpacity(0.07)
