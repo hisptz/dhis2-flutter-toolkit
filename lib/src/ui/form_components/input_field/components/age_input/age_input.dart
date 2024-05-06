@@ -91,11 +91,11 @@ class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
     int noOfDays =
         DateTime.parse(widget.value!).differenceInDays(DateTime.now()).abs();
 
-    if (noOfDays > 365) {
+    if (noOfDays > DAYS_IN_YEAR) {
       return AgeType.years;
     }
 
-    if (noOfDays > 31) {
+    if (noOfDays > DAYS_IN_MONTH) {
       //More than a month
       return AgeType.months;
     }
