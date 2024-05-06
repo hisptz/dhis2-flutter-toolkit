@@ -32,11 +32,12 @@ class AgeInputField extends BaseStatefulInput<D2AgeInputFieldConfig, String> {
 class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
   D2AgeInputFieldView? selectedView;
   late TextEditingController _textEditingController;
+  late FocusNode textFocusNode;
+
   AgeType? ageType;
 
   String? getTextValue() {
     String? value = widget.value;
-    AgeType ageType = AgeType.years;
 
     if (value == null) {
       return null;
@@ -55,6 +56,8 @@ class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
         return (days / DAYS_IN_MONTH).round().toString();
       case AgeType.years:
         return (days / DAYS_IN_YEAR).round().toString();
+      case null:
+        return '';
     }
   }
 
@@ -83,15 +86,26 @@ class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
 
   @override
   void initState() {
+    textFocusNode = FocusNode();
+    if (widget.value != null) {
+      selectedView = D2AgeInputFieldView.age;
+      ageType = AgeType.years;
+    }
     _textEditingController = TextEditingController(text: getTextValue());
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    textFocusNode.dispose();
+    super.dispose();
   }
 
   @override
   void didUpdateWidget(covariant AgeInputField oldWidget) {
     if (widget.value != oldWidget.value) {
       //User has cleared the value
-      if (widget.value == null) {
+      if (widget.value == null && ageType == null) {
         setState(() {
           selectedView = null;
         });
@@ -135,6 +149,7 @@ class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
+            focusNode: textFocusNode,
             enabled: !widget.disabled,
             controller: _textEditingController,
             onChanged: (String? value) {
@@ -181,7 +196,8 @@ class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
                           onChanged: (value) {
                             setState(() {
                               ageType = option;
-                              setTextValue(_textEditingController.text);
+                              widget.onChange(null);
+                              textFocusNode.requestFocus();
                             });
                           },
                         ),
@@ -205,30 +221,27 @@ class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
 
     return Wrap(
       children: [
-        if (widget.value != null)
-          Text('${getTextValue()} years')
-        else
-          Row(
-            children: [
-              TextButton(
-                  onPressed: () {
-                    setState(() {
-                      selectedView = D2AgeInputFieldView.date;
-                    });
-                  },
-                  child: const Text("DATE OF BIRTH")),
-              const Text("OR"),
-              TextButton(
+        Row(
+          children: [
+            TextButton(
                 onPressed: () {
                   setState(() {
-                    selectedView = D2AgeInputFieldView.age;
-                    ageType = AgeType.years;
+                    selectedView = D2AgeInputFieldView.date;
                   });
                 },
-                child: const Text("AGE"),
-              ),
-            ],
-          )
+                child: const Text("DATE OF BIRTH")),
+            const Text("OR"),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  selectedView = D2AgeInputFieldView.age;
+                  ageType = AgeType.years;
+                });
+              },
+              child: const Text("AGE"),
+            ),
+          ],
+        )
       ],
     );
   }
