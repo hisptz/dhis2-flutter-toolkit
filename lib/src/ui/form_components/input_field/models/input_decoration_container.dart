@@ -102,13 +102,19 @@ class D2InputDecoration {
             );
 
   D2InputDecoration.fromInput(D2BaseInputFieldConfig input,
-      {required Color color, required bool disabled})
+      {required Color color, required bool disabled, required bool error})
       : colorScheme = D2InputContainerColorScheme.fromMainColor(color),
         inputIconDecoration = D2InputIconDecoration.fromInput(input,
-            color: disabled ? Colors.grey : color),
+            color: disabled
+                ? Colors.grey
+                : error
+                ? Colors.red
+                : color),
         inputContainerDecoration = BoxDecoration(
           color: disabled
               ? Colors.grey.withOpacity(0.07)
+              : error
+              ? Colors.red.withOpacity(0.07)
               : color.withOpacity(0.07),
           border: Border(
             left: BorderSide.none,
@@ -116,7 +122,11 @@ class D2InputDecoration {
             top: BorderSide.none,
             bottom: BorderSide(
               width: 2,
-              color: disabled ? Colors.grey : color,
+              color: disabled
+                  ? Colors.grey
+                  : error
+                  ? Colors.red
+                  : color,
             ),
           ),
           borderRadius: const BorderRadius.only(

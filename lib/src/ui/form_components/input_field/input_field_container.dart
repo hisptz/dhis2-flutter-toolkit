@@ -47,7 +47,7 @@ class D2InputFieldContainer extends StatelessWidget {
       this.disabled = false,
       this.warning}) {
     inputDecoration ??= D2InputDecoration.fromInput(input,
-        color: color ?? Colors.blue, disabled: disabled);
+        color: color ?? Colors.blue, disabled: disabled, error: error != null);
   }
 
   void onClear() {
