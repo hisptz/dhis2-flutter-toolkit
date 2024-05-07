@@ -26,15 +26,8 @@ class D2FormControlledInputField extends StatelessWidget {
           FieldState fieldState = controller.getFieldState(input.name);
 
           if (input is D2SelectInputFieldConfig) {
-            //Filtering out the options as per the state
-            if (fieldState.optionsToHide.isNotEmpty) {
-              (input as D2SelectInputFieldConfig).options =
-                  (input as D2SelectInputFieldConfig)
-                      .options!
-                      .where((element) =>
-                          !fieldState.optionsToHide.contains(element.code))
-                      .toList();
-            }
+            (input as D2SelectInputFieldConfig).optionsToHide =
+                fieldState.optionsToHide;
           }
 
           return Visibility(

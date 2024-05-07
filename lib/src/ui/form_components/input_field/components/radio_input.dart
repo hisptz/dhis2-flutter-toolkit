@@ -22,7 +22,7 @@ class RadioInput extends BaseStatelessInput<D2SelectInputFieldConfig, String> {
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Wrap(
         direction: Axis.horizontal,
-        children: input.options!.map((D2InputFieldOption option) {
+        children: input.filteredOptions.map((D2InputFieldOption option) {
           return Row(
             mainAxisSize: MainAxisSize.min,
             children: [

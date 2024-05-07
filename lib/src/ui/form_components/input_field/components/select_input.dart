@@ -21,17 +21,16 @@ class SelectInput extends BaseStatelessInput<D2SelectInputFieldConfig, String> {
   @override
   Widget build(BuildContext context) {
     List<DropdownMenuItem<D2InputFieldOption>> options =
-        input.options?.map((D2InputFieldOption option) {
-              bool isSelected = option.code == value;
-              return DropdownMenuItem<D2InputFieldOption>(
-                value: option,
-                child: Text(
-                  option.name,
-                  style: TextStyle(color: isSelected ? color : null),
-                ),
-              );
-            }).toList() ??
-            <DropdownMenuItem<D2InputFieldOption>>[];
+        input.filteredOptions.map((D2InputFieldOption option) {
+      bool isSelected = option.code == value;
+      return DropdownMenuItem<D2InputFieldOption>(
+        value: option,
+        child: Text(
+          option.name,
+          style: TextStyle(color: isSelected ? color : null),
+        ),
+      );
+    }).toList();
 
     D2InputFieldOption? valueOption = input.options!
         .firstWhereOrNull((D2InputFieldOption option) => option.code == value);
