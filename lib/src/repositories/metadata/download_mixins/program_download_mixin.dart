@@ -114,6 +114,9 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
 
       List<Map<String, dynamic>> value =
           element.value.cast<Map<String, dynamic>>();
+
+      await getLegendSets(value);
+
       await syncMeta(element.key, value);
     });
   }
@@ -136,6 +139,27 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
     } catch (e) {
       downloadController.addError(e);
       rethrow;
+    }
+  }
+
+  getLegendSets(List<Map<String, dynamic>> value) async {
+    List<String> legendSetIds = [];
+    for (Map<String, dynamic> entry in value) {
+      if (entry['legendSets'] != null) {
+        legendSetIds.addAll(entry['legendSets']
+            .map<String>((legendSet) => legendSet['id'] as String));
+      }
+    }
+    if (legendSetIds.isNotEmpty) {
+      Map<String, dynamic>? legendSets = await client!
+          .httpGet<Map<String, dynamic>>("legendSets", queryParameters: {
+        'filter': 'id:in:[${legendSetIds.join(",")}]',
+        'fields': '*,legends[*]'
+      });
+      if (legendSets != null) {
+        await D2LegendSetRepository(db)
+            .saveOffline(legendSets['legendSets'].cast<Map<String, dynamic>>());
+      }
     }
   }
 }
