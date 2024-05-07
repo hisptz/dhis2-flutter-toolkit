@@ -3,6 +3,7 @@ import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/form_disabled
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/form_error_state.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/form_hidden_state.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/form_mandatory_state.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/form_option_state.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/form_value_state.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/form_warning_state.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/section_state.dart';
@@ -18,7 +19,8 @@ class D2FormController extends ChangeNotifier
         D2FormMandatoryState,
         D2FormValueState,
         D2FormErrorState,
-        D2FormDataState {
+        D2FormDataState,
+        D2FormOptionState {
   D2FormController(
       {Map<String, dynamic>? initialValues,
       List<String>? hiddenFields,
@@ -39,6 +41,7 @@ class D2FormController extends ChangeNotifier
     dynamic value = getValue(key);
     String? error = getError(key);
     String? warning = getWarning(key);
+    List<String> optionsToHide = getFieldOptionsToHide(key);
 
     void onChange(value) {
       setValue(key, value);
@@ -46,6 +49,7 @@ class D2FormController extends ChangeNotifier
 
     return FieldState(
         onChange: onChange,
+        optionsToHide: optionsToHide,
         hidden: hidden,
         value: value,
         disabled: disabled,
