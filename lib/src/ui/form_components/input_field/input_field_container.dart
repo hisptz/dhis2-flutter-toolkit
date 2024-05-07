@@ -1,4 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/input_decoration_container.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/input_field_legend.dart';
 import 'package:flutter/material.dart';
 
 import 'components/age_input/age_input.dart';
@@ -56,11 +58,27 @@ class D2InputFieldContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BoxDecoration containerDecoration =
+        inputDecoration!.inputContainerDecoration;
     Color? colorOverride = (error != null && error!.isNotEmpty)
         ? Colors.red
         : disabled
             ? inputDecoration!.colorScheme.disabled
             : color ?? Theme.of(context).primaryColor;
+
+    if (hasLegends) {
+      containerDecoration = inputDecoration!.inputContainerDecoration.copyWith(
+          borderRadius: BorderRadius.zero,
+          border: Border(
+            left: BorderSide.none,
+            right: BorderSide(
+              width: 16,
+              color: getActiveLegendColor(),
+            ),
+            top: BorderSide.none,
+            bottom: containerDecoration.border!.bottom,
+          ));
+    }
 
     Widget getInput() {
       if (input is D2SelectInputFieldConfig) {
@@ -256,14 +274,14 @@ class D2InputFieldContainer extends StatelessWidget {
                 color: inputDecoration!.colorScheme.text,
               ),
             ),
-          )
+          ),
         ],
       );
     }
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      decoration: inputDecoration!.inputContainerDecoration,
+      decoration: containerDecoration,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -278,7 +296,11 @@ class D2InputFieldContainer extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: colorOverride,
+                          color: disabled
+                              ? inputDecoration!.colorScheme.disabled
+                              : hasError
+                                  ? inputDecoration!.colorScheme.error
+                                  : inputDecoration!.colorScheme.active,
                         ),
                       ),
                       TextSpan(
@@ -315,5 +337,34 @@ class D2InputFieldContainer extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  bool get hasError => error != null;
+
+  bool get hasLegends => input.legends != null && input.legends!.isNotEmpty;
+
+  Color getActiveLegendColor() {
+    if (input.legends == null || input.legends!.isEmpty) {
+      return Colors.transparent;
+    }
+    if (value == null) {
+      return Colors.transparent;
+    }
+    double? numberValue = double.tryParse(value);
+    if (numberValue == null) {
+      return Colors.transparent;
+    }
+
+    D2InputFieldLegend? selectedLegend =
+        input.legends!.firstWhereOrNull((legend) {
+      return (numberValue >= legend.startValue &&
+          numberValue < legend.endValue);
+    });
+
+    if (selectedLegend == null) {
+      return Colors.transparent;
+    }
+
+    return selectedLegend.color;
   }
 }

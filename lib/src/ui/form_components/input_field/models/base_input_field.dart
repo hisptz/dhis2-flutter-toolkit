@@ -11,7 +11,7 @@ class D2BaseInputFieldConfig {
   bool clearable;
   IconData? icon;
   String? svgIconAsset;
-  List<InputFieldLegend>? legends;
+  List<D2InputFieldLegend>? legends;
 
   D2BaseInputFieldConfig(
       {required this.label,
