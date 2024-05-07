@@ -1,10 +1,7 @@
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/input_decoration_container.dart';
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:flutter/material.dart';
 
 import '../state/field_state.dart';
-import '../state/form_state.dart';
-import 'input_field_container.dart';
-import 'models/base_input_field.dart';
 
 class D2FormControlledInputField extends StatelessWidget {
   final D2BaseInputFieldConfig input;
@@ -27,6 +24,12 @@ class D2FormControlledInputField extends StatelessWidget {
         listenable: controller,
         builder: (BuildContext context, Widget? child) {
           FieldState fieldState = controller.getFieldState(input.name);
+
+          if (input is D2SelectInputFieldConfig) {
+            (input as D2SelectInputFieldConfig).optionsToHide =
+                fieldState.optionsToHide;
+          }
+
           return Visibility(
             visible: !(fieldState.hidden ?? false),
             child: D2InputFieldContainer(

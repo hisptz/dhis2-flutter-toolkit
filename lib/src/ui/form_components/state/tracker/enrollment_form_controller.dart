@@ -33,9 +33,10 @@ class D2TrackerEnrollmentFormController extends D2FormController
     this.trackedEntity,
     this.enrollment,
     super.mandatoryFields,
-    super.hiddenFields,
+      super.disabledFields,
+      super.hiddenFields,
     super.hiddenSections,
-  }) {
+      super.initialValues}) {
     if (trackedEntity != null) {
       List<D2TrackedEntityAttributeValue> attributes =
           trackedEntity!.getAttributesByProgram(program);

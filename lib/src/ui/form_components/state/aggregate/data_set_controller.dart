@@ -15,6 +15,7 @@ class D2DataSetStateFormController extends D2FormController {
       required String orgUnitId,
       D2CategoryOptionCombo? attributeOptionCombo,
       super.hiddenFields,
+      super.disabledFields,
       super.initialValues,
       super.hiddenSections,
       super.mandatoryFields}) {

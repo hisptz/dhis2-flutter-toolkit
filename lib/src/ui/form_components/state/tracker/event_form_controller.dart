@@ -25,6 +25,8 @@ class D2TrackerEventFormController extends D2FormController
       super.mandatoryFields,
       super.hiddenFields,
       super.hiddenSections,
+      super.disabledFields,
+      super.initialValues,
       this.orgUnit}) {
     if (event != null) {
       Map<String, dynamic> formValues = event!.toFormValues();
