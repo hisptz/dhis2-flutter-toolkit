@@ -55,8 +55,7 @@ class FormSectionContainerWithControlledInputs extends StatelessWidget {
                         error: fieldState.error,
                         warning: fieldState.warning,
                         value: fieldState.value,
-                        disabled: (fieldState.disabled ?? false) ||
-                            (disabled ?? false),
+                        disabled: (fieldState.disabled ?? false) || disabled,
                       ),
                     ),
                   );

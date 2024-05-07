@@ -23,11 +23,13 @@ class D2FormController extends ChangeNotifier
       {Map<String, dynamic>? initialValues,
       List<String>? hiddenFields,
       List<String>? hiddenSections,
+      List<String>? disabledFields,
       List<String>? mandatoryFields}) {
     setValues(initialValues ?? {});
     this.hiddenFields = hiddenFields ?? [];
     this.hiddenSections = hiddenSections ?? [];
     this.mandatoryFields = mandatoryFields ?? [];
+    this.disabledFields = disabledFields ?? [];
   }
 
   FieldState getFieldState(String key) {
