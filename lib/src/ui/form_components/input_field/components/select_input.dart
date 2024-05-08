@@ -48,7 +48,7 @@ class SelectInput extends BaseStatelessInput<D2SelectInputFieldConfig, String> {
               ))
           .toList(),
       value: valueOption,
-      focusColor: decoration.colorScheme.active,
+      focusColor: decoration.colorScheme.active.withOpacity(0.1),
       items: options,
       iconDisabledColor: Colors.grey,
       icon: Transform.rotate(

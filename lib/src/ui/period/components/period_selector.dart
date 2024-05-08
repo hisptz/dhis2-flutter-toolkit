@@ -34,7 +34,8 @@ class D2PeriodValueSelector extends StatelessWidget {
 
       if (!selected) {
         if (selectedPeriodsList.isNotEmpty) {
-          selectedPeriodsList.remove(period.id);
+          String? latestPeriod = selectedPeriodsList.last;
+          selectedPeriodsList.removeWhere((element) => element != latestPeriod);
         }
         periodChips.add(
           Padding(
