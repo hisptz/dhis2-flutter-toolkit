@@ -50,9 +50,11 @@ class TrueOnlyInput
           ),
         ),
         value: isSelected(),
-        onChanged: (bool selectedValue) => onChange(
-          selectedValue ? "$selectedValue" : "",
-        ),
+        onChanged: disabled
+            ? null
+            : (bool selectedValue) => onChange(
+                  selectedValue ? "$selectedValue" : "",
+                ),
       ),
     );
   }

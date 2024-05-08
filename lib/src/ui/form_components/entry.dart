@@ -24,6 +24,7 @@ export "input_field/models/date_input_field.dart" show D2DateInputFieldConfig;
 export "input_field/models/date_range_input_field.dart"
     show D2DateRangeInputFieldConfig;
 export "input_field/models/input_decoration_container.dart";
+export "input_field/models/input_field_legend.dart" show D2InputFieldLegend;
 export "input_field/models/input_field_option.dart" show D2InputFieldOption;
 export "input_field/models/input_field_type_enum.dart" show D2InputFieldType;
 export "input_field/models/number_input_field.dart"

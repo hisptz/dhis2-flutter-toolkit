@@ -1,8 +1,7 @@
 import 'package:dhis2_flutter_toolkit/objectbox.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../repositories/metadata/option_set.dart';
-import '../../repositories/metadata/tracked_entity_attribute.dart';
+import '../../repositories/metadata/entry.dart';
 import 'base.dart';
 import 'legend_set.dart';
 import 'option_set.dart';
@@ -70,12 +69,16 @@ class D2TrackedEntityAttribute extends D2MetaResource {
         pattern = json["pattern"],
         optionSetValue = json["optionSetValue"] {
     id = D2TrackedEntityAttributeRepository(db).getIdByUid(json["id"]) ?? 0;
-    List<D2LegendSet> legendSet = json["attributeValues"]
-        .cast<Map>()
-        .map<D2LegendSet>((Map json) => D2LegendSet.fromMap(db, json))
-        .toList();
+    if (json['legendSets'] != null) {
+      List<D2LegendSet?> sets = json['legendSets']
+          .map<D2LegendSet?>(
+              (json) => D2LegendSetRepository(db).getByUid(json['id']))
+          .toList();
 
-    legendSets.addAll(legendSet);
+      List<D2LegendSet> nonNullSets =
+          sets.where((legend) => legend != null).cast<D2LegendSet>().toList();
+      legendSets.addAll(nonNullSets);
+    }
     if (json["optionSet"] != null) {
       optionSet.target =
           D2OptionSetRepository(db).getByUid(json["optionSet"]["id"]);

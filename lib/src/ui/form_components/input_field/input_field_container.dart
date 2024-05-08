@@ -1,4 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/input_decoration_container.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/input_field_legend.dart';
 import 'package:flutter/material.dart';
 
 import 'components/age_input/age_input.dart';
@@ -56,6 +58,8 @@ class D2InputFieldContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BoxDecoration containerDecoration =
+        inputDecoration!.inputContainerDecoration;
     Color? colorOverride = (error != null && error!.isNotEmpty)
         ? Colors.red
         : disabled
@@ -243,77 +247,123 @@ class D2InputFieldContainer extends StatelessWidget {
       );
     }
 
-    Widget getSuffix() {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Visibility(
-            visible: input.clearable && !disabled,
-            child: IconButton(
-              onPressed: onClear,
-              icon: Icon(
-                Icons.clear,
-                color: inputDecoration!.colorScheme.text,
-              ),
+    List<Widget> getSuffix() {
+      return [
+        Visibility(
+          visible: input.clearable && !disabled,
+          child: IconButton(
+            onPressed: onClear,
+            icon: Icon(
+              Icons.clear,
+              color: inputDecoration!.colorScheme.text,
             ),
-          )
-        ],
-      );
+          ),
+        ),
+      ];
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      decoration: inputDecoration!.inputContainerDecoration,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      decoration: containerDecoration,
+      constraints: const BoxConstraints(minHeight: 96),
+      child: Row(
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: RichText(
-                  text: TextSpan(
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
                     children: [
-                      TextSpan(
-                        text: input.label,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: colorOverride,
+                      Expanded(
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: input.label,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: disabled
+                                      ? inputDecoration!.colorScheme.disabled
+                                      : hasError
+                                          ? inputDecoration!.colorScheme.error
+                                          : inputDecoration!.colorScheme.active,
+                                ),
+                              ),
+                              TextSpan(
+                                text: input.mandatory ? ' *' : '',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.redAccent,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                      TextSpan(
-                        text: input.mandatory ? ' *' : '',
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.redAccent,
-                        ),
-                      )
                     ],
                   ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              getPrefix(),
-              Expanded(child: getInput()),
-              getSuffix(),
-            ],
-          ),
-          error != null
-              ? Text(
-                  error!,
-                  style: TextStyle(
-                    color: colorOverride,
-                    fontSize: 12.0,
+                  Row(
+                    children: [
+                      getPrefix(),
+                      Expanded(child: getInput()),
+                      ...getSuffix(),
+                    ],
                   ),
-                )
-              : const Offstage()
+                  Visibility(
+                      visible: error != null,
+                      child: Text(
+                        error ?? '',
+                        style: TextStyle(
+                          color: colorOverride,
+                          fontSize: 12.0,
+                        ),
+                      ))
+                ],
+              ),
+            ),
+          ),
+          Container(
+            width: 16,
+            constraints: const BoxConstraints(minHeight: 96),
+            decoration: BoxDecoration(color: getActiveLegendColor()),
+          )
         ],
       ),
     );
+  }
+
+  bool get hasError => error != null;
+
+  bool get hasLegends => input.legends != null && input.legends!.isNotEmpty;
+
+  Color getActiveLegendColor() {
+    if (value is String) {
+      if (input.legends == null || input.legends!.isEmpty) {
+        return Colors.transparent;
+      }
+      if (value == null) {
+        return Colors.transparent;
+      }
+      double? numberValue = double.tryParse(value);
+      if (numberValue == null) {
+        return Colors.transparent;
+      }
+
+      D2InputFieldLegend? selectedLegend =
+          input.legends!.firstWhereOrNull((legend) {
+        return legend.valueInRange(numberValue);
+      });
+
+      if (selectedLegend == null) {
+        return Colors.transparent;
+      }
+
+      return selectedLegend.color;
+    }
+    return Colors.transparent;
   }
 }

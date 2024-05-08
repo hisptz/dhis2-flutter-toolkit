@@ -35,8 +35,7 @@ class D2LegendSet extends D2MetaResource {
         displayName = json["displayName"] {
     List<D2Legend> allLegends = json["legends"]
         .cast<Map>()
-        .map<D2Legend>(
-            (Map json) => D2Legend.fromMap(db, json, legendSet: this))
+        .map<D2Legend>((Map json) => D2Legend.fromMap(db, json))
         .toList();
     legends.addAll(allLegends);
 

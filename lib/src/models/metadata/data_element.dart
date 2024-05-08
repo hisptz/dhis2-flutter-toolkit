@@ -73,6 +73,17 @@ class D2DataElement extends D2MetaResource {
       categoryCombo.target =
           D2CategoryComboRepository(db).getByUid(json['categoryCombo']['id']);
     }
+
+    if (json['legendSets'] != null) {
+      List<D2LegendSet?> sets = json['legendSets']
+          .map<D2LegendSet?>(
+              (json) => D2LegendSetRepository(db).getByUid(json['id']))
+          .toList();
+
+      List<D2LegendSet> nonNullSets =
+          sets.where((legend) => legend != null).cast<D2LegendSet>().toList();
+      legendSets.addAll(nonNullSets);
+    }
   }
 
   @override
