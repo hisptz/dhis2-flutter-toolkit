@@ -115,23 +115,30 @@ class _PeriodSelectorState extends State<D2PeriodSelector>
     }
     if (widget.excludePeriodTypes != null) {
       validRelativePeriodTypes = validRelativePeriodTypes
-          .where((element) =>
-              !widget.excludePeriodTypes!.contains(element['id']))
+          .where(
+              (element) => !widget.excludePeriodTypes!.contains(element['id']))
           .toList();
       validFixedPeriodTypes = validFixedPeriodTypes
-          .where((element) =>
-              !widget.excludePeriodTypes!.contains(element['id']))
+          .where(
+              (element) => !widget.excludePeriodTypes!.contains(element['id']))
           .toList();
     }
     if (widget.initialSelection != null) {
-      setState(() {
-        _selectedCategory = widget.initialSelection?.category ?? '';
-        _selectedPeriodType = widget.initialSelection?.type ??
-            validFixedPeriodTypes.first['id'];
-        _selectedPeriods = widget.initialSelection?.selected ?? [];
-        _start = widget.initialSelection?.start;
-        _end = widget.initialSelection?.end;
-      });
+      setState(
+        () {
+          _selectedCategory = widget.initialSelection?.category ?? '';
+          _selectedPeriodType = widget.initialSelection?.type ??
+              validFixedPeriodTypes.first['id'];
+          _selectedPeriods = widget.initialSelection?.selected ?? [];
+          _start = widget.initialSelection?.start;
+          _end = widget.initialSelection?.end;
+          if (_selectedPeriods.isNotEmpty) {
+            year = int.parse(_selectedPeriods.last.substring(0, 4));
+          } else {
+            year = DateTime.now().year;
+          }
+        },
+      );
       int selectedCategory = getVisiblePeriodCategories()
           .toList()
           .indexOf(widget.initialSelection?.category ?? '');
