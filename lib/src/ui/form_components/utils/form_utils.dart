@@ -1,18 +1,5 @@
 import 'package:collection/collection.dart';
-
-import '../../../models/metadata/option.dart';
-import '../../../models/metadata/option_set.dart';
-import '../input_field/models/age_input_field.dart';
-import '../input_field/models/base_input_field.dart';
-import '../input_field/models/boolean_input_field.dart';
-import '../input_field/models/date_input_field.dart';
-import '../input_field/models/date_range_input_field.dart';
-import '../input_field/models/input_field_option.dart';
-import '../input_field/models/input_field_type_enum.dart';
-import '../input_field/models/number_input_field.dart';
-import '../input_field/models/select_input_field.dart';
-import '../input_field/models/text_input_field.dart';
-import '../input_field/models/true_only_input_field.dart';
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
 class D2FormUtils {
   static D2BaseInputFieldConfig getFieldConfigFromDataItem(dataItem,
@@ -55,6 +42,16 @@ class D2FormUtils {
           renderOptionsAsRadio: renderOptionsAsRadio ?? false);
     }
 
+    List<D2InputFieldLegend>? getLegends() {
+      if (dataItem.legendSets.isEmpty) {
+        return null;
+      }
+      return dataItem.legendSets.first.legends
+          .map<D2InputFieldLegend>(
+              (legend) => D2InputFieldLegend.fromD2Legend(legend))
+          .toList();
+    }
+
     if (D2InputFieldType.isDateType(type)) {
       return D2DateInputFieldConfig(
           label: label,
@@ -75,12 +72,12 @@ class D2FormUtils {
     }
     if (D2InputFieldType.isNumber(type)) {
       return D2NumberInputFieldConfig(
-        label: label,
-        type: type,
-        name: name,
-        mandatory: mandatory,
-        clearable: clearable ?? false,
-      );
+          label: label,
+          type: type,
+          name: name,
+          mandatory: mandatory,
+          clearable: clearable ?? false,
+          legends: getLegends());
     }
     if (D2InputFieldType.isText(type)) {
       return D2TextInputFieldConfig(

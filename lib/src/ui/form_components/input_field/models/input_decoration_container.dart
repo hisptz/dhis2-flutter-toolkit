@@ -108,14 +108,14 @@ class D2InputDecoration {
             color: disabled
                 ? Colors.grey
                 : error
-                ? Colors.red
-                : color),
+                    ? Colors.red
+                    : color),
         inputContainerDecoration = BoxDecoration(
           color: disabled
               ? Colors.grey.withOpacity(0.07)
               : error
-              ? Colors.red.withOpacity(0.07)
-              : color.withOpacity(0.07),
+                  ? Colors.red.withOpacity(0.07)
+                  : color.withOpacity(0.07),
           border: Border(
             left: BorderSide.none,
             right: BorderSide.none,
@@ -125,8 +125,8 @@ class D2InputDecoration {
               color: disabled
                   ? Colors.grey
                   : error
-                  ? Colors.red
-                  : color,
+                      ? Colors.red
+                      : color,
             ),
           ),
           borderRadius: const BorderRadius.only(
