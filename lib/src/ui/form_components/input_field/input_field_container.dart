@@ -262,80 +262,76 @@ class D2InputFieldContainer extends StatelessWidget {
       ];
     }
 
-    return LimitedBox(
-      maxHeight: 96,
-      child: Container(
-        decoration: containerDecoration,
-        child: Row(
-          children: [
-            Expanded(
-              child: Container(
-                padding:
-                    const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: input.label,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: disabled
-                                        ? inputDecoration!.colorScheme.disabled
-                                        : hasError
-                                            ? inputDecoration!.colorScheme.error
-                                            : inputDecoration!
-                                                .colorScheme.active,
-                                  ),
+    return Container(
+      decoration: containerDecoration,
+      constraints: const BoxConstraints(minHeight: 96),
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: input.label,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: disabled
+                                      ? inputDecoration!.colorScheme.disabled
+                                      : hasError
+                                          ? inputDecoration!.colorScheme.error
+                                          : inputDecoration!.colorScheme.active,
                                 ),
-                                TextSpan(
-                                  text: input.mandatory ? ' *' : '',
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.redAccent,
-                                  ),
-                                )
-                              ],
-                            ),
+                              ),
+                              TextSpan(
+                                text: input.mandatory ? ' *' : '',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.redAccent,
+                                ),
+                              )
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                    Expanded(
-                        child: Row(
-                      children: [
-                        getPrefix(),
-                        Expanded(child: getInput()),
-                        ...getSuffix(),
-                      ],
-                    )),
-                    Visibility(
-                        visible: error != null,
-                        child: Text(
-                          error ?? '',
-                          style: TextStyle(
-                            color: colorOverride,
-                            fontSize: 12.0,
-                          ),
-                        ))
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      getPrefix(),
+                      Expanded(child: getInput()),
+                      ...getSuffix(),
+                    ],
+                  ),
+                  Visibility(
+                      visible: error != null,
+                      child: Text(
+                        error ?? '',
+                        style: TextStyle(
+                          color: colorOverride,
+                          fontSize: 12.0,
+                        ),
+                      ))
+                ],
               ),
             ),
-            Container(
-              width: 16,
-              decoration: BoxDecoration(color: getActiveLegendColor()),
-            )
-          ],
-        ),
+          ),
+          Container(
+            width: 16,
+            constraints: const BoxConstraints(minHeight: 96),
+            decoration: BoxDecoration(color: getActiveLegendColor()),
+          )
+        ],
       ),
     );
   }
