@@ -51,7 +51,15 @@ class D2InputFieldContainer extends StatelessWidget {
       this.disabled = false,
       this.warning}) {
     inputDecoration ??= D2InputDecoration.fromInput(input,
-        color: color ?? Colors.blue, disabled: disabled, error: error != null);
+        color: color ?? Colors.blue,
+        disabled: disabled,
+        error: error != null,
+        warning: warning != null);
+  }
+
+  Color get colorOverride {
+    return inputDecoration!.colorScheme.getStatusColor(
+        hasWarning: hasWarning, isDisabled: disabled, hasError: hasError);
   }
 
   void onClear() {
@@ -62,11 +70,6 @@ class D2InputFieldContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     BoxDecoration containerDecoration =
         inputDecoration!.inputContainerDecoration;
-    Color? colorOverride = (error != null && error!.isNotEmpty)
-        ? Colors.red
-        : disabled
-            ? inputDecoration!.colorScheme.disabled
-            : color ?? Theme.of(context).primaryColor;
 
     Widget getInput() {
       if (input is D2MultiSelectInputFieldConfig) {
@@ -295,14 +298,9 @@ class D2InputFieldContainer extends StatelessWidget {
                               TextSpan(
                                 text: input.label,
                                 style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: disabled
-                                      ? inputDecoration!.colorScheme.disabled
-                                      : hasError
-                                          ? inputDecoration!.colorScheme.error
-                                          : inputDecoration!.colorScheme.active,
-                                ),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: colorOverride),
                               ),
                               TextSpan(
                                 text: input.mandatory ? ' *' : '',
@@ -326,9 +324,18 @@ class D2InputFieldContainer extends StatelessWidget {
                     ],
                   ),
                   Visibility(
-                      visible: error != null,
+                      visible: hasError,
                       child: Text(
                         error ?? '',
+                        style: TextStyle(
+                          color: colorOverride,
+                          fontSize: 12.0,
+                        ),
+                      )),
+                  Visibility(
+                      visible: hasWarning && !hasError,
+                      child: Text(
+                        warning ?? '',
                         style: TextStyle(
                           color: colorOverride,
                           fontSize: 12.0,
@@ -349,6 +356,8 @@ class D2InputFieldContainer extends StatelessWidget {
   }
 
   bool get hasError => error != null;
+
+  bool get hasWarning => warning != null;
 
   bool get hasLegends => input.legends != null && input.legends!.isNotEmpty;
 
