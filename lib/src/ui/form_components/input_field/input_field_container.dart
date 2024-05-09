@@ -1,6 +1,8 @@
 import 'package:collection/collection.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/multi_select_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/input_decoration_container.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/input_field_legend.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/multi_select_input_field.dart';
 import 'package:flutter/material.dart';
 
 import 'components/age_input/age_input.dart';
@@ -67,6 +69,16 @@ class D2InputFieldContainer extends StatelessWidget {
             : color ?? Theme.of(context).primaryColor;
 
     Widget getInput() {
+      if (input is D2MultiSelectInputFieldConfig) {
+        return MultiSelectInput(
+          disabled: disabled,
+          input: input as D2MultiSelectInputFieldConfig,
+          color: colorOverride,
+          onChange: onChange,
+          value: value,
+          decoration: inputDecoration!,
+        );
+      }
       if (input is D2SelectInputFieldConfig) {
         return (input as D2SelectInputFieldConfig).renderOptionsAsRadio
             ? RadioInput(
