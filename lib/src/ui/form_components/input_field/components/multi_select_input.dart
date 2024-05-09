@@ -43,9 +43,15 @@ class MultiSelectInput
                         value: isOptionSelected(option),
                         onChanged: (checked) {
                           if (isOptionSelected(option)) {
-                            onChange(value
-                                ?.where((val) => val != option.code)
-                                .toList());
+                            List<String> updatedValue = value
+                                    ?.where((val) => val != option.code)
+                                    .toList() ??
+                                [];
+                            if (updatedValue.isEmpty) {
+                              onChange(null);
+                            } else {
+                              onChange(updatedValue);
+                            }
                           } else {
                             onChange([...(value ?? []), option.code]);
                           }
