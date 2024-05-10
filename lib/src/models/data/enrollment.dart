@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dhis2_flutter_toolkit/src/models/data/base_deletable.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../../objectbox.dart';
@@ -17,7 +18,7 @@ import 'upload_base.dart';
 
 @Entity()
 class D2Enrollment extends SyncDataSource
-    implements SyncableData, D2BaseEditable {
+    implements SyncableData, D2BaseEditable, D2BaseDeletable {
   @override
   int id = 0;
   @override
@@ -192,5 +193,28 @@ class D2Enrollment extends SyncDataSource
   @override
   void save(D2ObjectBox db) {
     id = D2EnrollmentRepository(db).saveEntity(this);
+  }
+
+  @override
+  bool delete(D2ObjectBox db) {
+    for (D2Event event in events) {
+      event.delete(db);
+    }
+    for (D2Relationship relationship in relationships) {
+      relationship.delete(db);
+    }
+    return D2EnrollmentRepository(db).deleteEntity(this);
+  }
+
+  @override
+  void softDelete(db) {
+    deleted = true;
+    for (D2Event event in events) {
+      event.softDelete(db);
+    }
+    for (D2Relationship relationship in relationships) {
+      relationship.softDelete(db);
+    }
+    save(db);
   }
 }

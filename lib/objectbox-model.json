@@ -1439,7 +1439,7 @@
     },
     {
       "id": "22:4637318393876658704",
-      "lastPropertyId": "19:6541457634682263798",
+      "lastPropertyId": "20:2977754300713055469",
       "name": "D2Relationship",
       "properties": [
         {
@@ -1525,6 +1525,11 @@
           "flags": 520,
           "indexId": "87:5516752848296392221",
           "relationTarget": "D2RelationshipType"
+        },
+        {
+          "id": "20:2977754300713055469",
+          "name": "deleted",
+          "type": 1
         }
       ],
       "relations": []
