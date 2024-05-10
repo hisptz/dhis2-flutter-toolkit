@@ -4,6 +4,7 @@
 library;
 
 import 'package:dhis2_flutter_toolkit/src/ui/period/components/selected_period_container.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../utils/period_engine/constants/fixed_period_types.dart';
 import 'package:dhis2_flutter_toolkit/src/utils/period_engine/constants/period_categories.dart';
 import 'package:dhis2_flutter_toolkit/src/utils/period_engine/constants/relative_period_types.dart';
@@ -293,12 +294,22 @@ class _PeriodSelectorState extends State<D2PeriodSelector>
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () {
-                  widget.onUpdate(D2PeriodSelection(
-                      category: _selectedCategory,
-                      type: _selectedPeriodType,
-                      selected: _selectedPeriods,
-                      start: _start,
-                      end: _end));
+                   if (_selectedPeriods.isEmpty) {
+                    Fluttertoast.showToast(
+                      msg: "Please select at least one period.",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                    );
+                  } else {
+                    widget.onUpdate(D2PeriodSelection(
+                        category: _selectedCategory,
+                        type: _selectedPeriodType,
+                        selected: _selectedPeriods,
+                        start: _start,
+                        end: _end));
+                  }
                 },
               ),
             ))
