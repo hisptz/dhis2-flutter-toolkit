@@ -61,4 +61,9 @@ class D2TrackedEntityRepository
     queryBuilder!.linkMany(D2TrackedEntity_.enrollmentsForQuery,
         D2Enrollment_.program.equals(program!.id));
   }
+
+  @override
+  Query<D2TrackedEntity> getDeletedQuery() {
+    return box.query(D2TrackedEntity_.deleted.equals(false)).build();
+  }
 }

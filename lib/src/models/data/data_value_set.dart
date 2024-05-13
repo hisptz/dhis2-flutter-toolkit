@@ -2,9 +2,10 @@ import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
 
 import 'base.dart';
+import 'base_deletable.dart';
 
 @Entity()
-class D2DataValueSet extends SyncDataSource {
+class D2DataValueSet extends SyncDataSource implements D2BaseDeletable {
   @override
   int id = 0;
   @override
@@ -102,4 +103,12 @@ class D2DataValueSet extends SyncDataSource {
   void save(D2ObjectBox db) {
     db.store.box<D2DataValueSet>().put(this);
   }
+
+  @override
+  bool delete(D2ObjectBox db) {
+    return D2DataValueSetRepository(db).box.remove(id);
+  }
+
+  @override
+  void softDelete(db) {}
 }
