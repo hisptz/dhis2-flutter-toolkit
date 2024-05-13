@@ -50,6 +50,7 @@ mixin ProgramRuleEngineState
     programRuleEvaluation.forEach((actionProperty, fields) {
       if (actionProperty == 'assignedFields') {
         fields.forEach((fieldKey, value) {
+          disableFields([fieldKey]);
           setValue(fieldKey, value);
         });
       } else if (actionProperty == 'hiddenFields') {
