@@ -66,4 +66,9 @@ class D2EventRepository extends D2BaseTrackerDataRepository<D2Event>
   void addProgramToQuery() {
     if (program != null) {}
   }
+
+  @override
+  Query<D2Event> getDeletedQuery() {
+    return box.query(D2Event_.deleted.equals(true)).build();
+  }
 }
