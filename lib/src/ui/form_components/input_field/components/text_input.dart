@@ -44,9 +44,7 @@ class TextInputState extends BaseStatefulInputState<TextInput> {
 
   @override
   void didUpdateWidget(covariant TextInput oldWidget) {
-    if (widget.value == null) {
-      controller = TextEditingController();
-    }
+    controller = TextEditingController(text: widget.value);
     super.didUpdateWidget(oldWidget);
   }
 
