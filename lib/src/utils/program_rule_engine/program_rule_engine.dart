@@ -220,17 +220,31 @@ class D2ProgramRuleEngine {
   /// `D2ProgramRuleEngine._filterProgramRulesByFieldId` is a private helper function that filters the program rules by the input field id
   /// The function accepts a `String` input field id
   /// The function returns a filtered `List` of `D2ProgramRule`
-  List<D2ProgramRule> _filterProgramRulesByFieldId(String inputFields) {
+  List<D2ProgramRule> _filterProgramRulesByFieldId(String inputFieldId) {
     List<String> inputFieldProgramRuleVariables = programRuleVariables
         .where((programVariable) =>
-            programVariable.dataElement.target?.uid == inputFields ||
-            programVariable.trackedEntityAttribute.target?.uid == inputFields)
+            programVariable.dataElement.target?.uid == inputFieldId ||
+            programVariable.trackedEntityAttribute.target?.uid == inputFieldId)
         .map((programVariable) => programVariable.name)
         .toList();
 
     return programRules
-        .where((programRule) => inputFieldProgramRuleVariables
-            .any((String variable) => programRule.condition.contains(variable)))
+        .where(
+          (programRule) =>
+              inputFieldProgramRuleVariables.any(
+                (String variable) =>
+                    programRule.condition.contains(variable) ||
+                    programRule.programRuleActions.any(
+                        (D2ProgramRuleAction programRuleAction) =>
+                            (programRuleAction.data ?? '').contains(variable)),
+              ) ||
+              programRule.programRuleActions.any(
+                  (D2ProgramRuleAction programRuleAction) =>
+                      programRuleAction.dataElement.target?.uid ==
+                          inputFieldId ||
+                      programRuleAction.trackedEntityAttribute.target?.uid ==
+                          inputFieldId),
+        )
         .toList();
   }
 
