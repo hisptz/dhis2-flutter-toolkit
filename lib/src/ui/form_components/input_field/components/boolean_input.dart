@@ -35,7 +35,9 @@ class BooleanInput
                       MaterialStatePropertyAll(decoration.colorScheme.text),
                   fillColor: MaterialStatePropertyAll(
                     "$value" == option.code
-                        ? decoration.colorScheme.active
+                        ? disabled
+                            ? decoration.colorScheme.disabled
+                            : decoration.colorScheme.active
                         : decoration.colorScheme.inactive,
                   ),
                   activeColor: disabled

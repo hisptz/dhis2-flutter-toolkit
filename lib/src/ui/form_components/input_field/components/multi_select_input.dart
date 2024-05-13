@@ -37,7 +37,9 @@ class MultiSelectInput
                             decoration.colorScheme.text),
                         fillColor: MaterialStatePropertyAll(
                           isOptionSelected(option)
-                              ? decoration.colorScheme.active
+                              ? disabled
+                                  ? decoration.colorScheme.disabled
+                                  : decoration.colorScheme.active
                               : Colors.transparent,
                         ),
                         value: isOptionSelected(option),
