@@ -64,6 +64,6 @@ class D2TrackedEntityRepository
 
   @override
   Query<D2TrackedEntity> getDeletedQuery() {
-    return box.query(D2TrackedEntity_.deleted.equals(false)).build();
+    return box.query(D2TrackedEntity_.deleted.equals(true)).build();
   }
 }
