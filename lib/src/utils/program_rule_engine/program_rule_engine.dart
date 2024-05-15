@@ -66,6 +66,9 @@ class D2ProgramRuleEngine {
     var hiddenProgramStages = {};
     var errorMessages = {};
     var warningMessages = {};
+    var hiddenOptions = {};
+    var hiddenOptionGroups = {};
+    var mandatoryFields = {};
 
     List<D2ProgramRule> sortedProgramRules = _sortProgramRulesByPriority(
       inputFieldId.isEmpty
@@ -106,6 +109,9 @@ class D2ProgramRuleEngine {
                 programRuleAction.trackedEntityAttribute.target?.uid ?? '';
             String programStageSection =
                 programRuleAction.programStageSection.target?.uid ?? '';
+            String option = programRuleAction.option.target?.uid ?? '';
+            String optionGroup =
+                programRuleAction.optionGroup.target?.uid ?? '';
 
             String dataItemTargetedByProgramAction = dataElement.isNotEmpty
                 ? dataElement
@@ -186,6 +192,26 @@ class D2ProgramRuleEngine {
                 "isComplete": isOnComplete,
               };
             } else if (evaluatedConditionResults.runtimeType == bool &&
+                programRuleActionType ==
+                    ProgramRuleActionsConstants.hideOption) {
+              hiddenOptions[dataItemTargetedByProgramAction] = [
+                ...(hiddenOptions[dataItemTargetedByProgramAction] ?? []),
+                {option: evaluatedConditionResults}
+              ];
+            } else if (evaluatedConditionResults.runtimeType == bool &&
+                programRuleActionType ==
+                    ProgramRuleActionsConstants.hideOptionGroup) {
+              hiddenOptionGroups[dataItemTargetedByProgramAction] = [
+                ...(hiddenOptionGroups[dataItemTargetedByProgramAction] ?? []),
+                {optionGroup: evaluatedConditionResults},
+              ];
+            } else if (evaluatedConditionResults.runtimeType == bool &&
+                evaluatedConditionResults == true &&
+                programRuleActionType ==
+                    ProgramRuleActionsConstants.makeMandatory) {
+              mandatoryFields[dataItemTargetedByProgramAction] =
+                  evaluatedConditionResults;
+            } else if (evaluatedConditionResults.runtimeType == bool &&
                 evaluatedConditionResults == true) {
               var message = '';
               if (content != null) {
@@ -201,7 +227,7 @@ class D2ProgramRuleEngine {
           }
         } catch (error) {
           var exception = ProgramRuleException(
-              'evaluateProgramRule(${programRule.id}): $error');
+              'evaluateProgramRule(${programRule.uid}): $error');
           debugPrint(exception.toString());
         }
       }
@@ -213,7 +239,10 @@ class D2ProgramRuleEngine {
       "hiddenSections": hiddenSections,
       "hiddenProgramStages": hiddenProgramStages,
       "warningMessages": warningMessages,
-      "errorMessages": errorMessages
+      "errorMessages": errorMessages,
+      "hiddenOptions": hiddenOptions,
+      "hiddenOptionGroups": hiddenOptionGroups,
+      "mandatoryFields": mandatoryFields
     };
   }
 
@@ -305,15 +334,27 @@ class D2ProgramRuleEngine {
       for (var variable in dhis2Variables) {
         String sanitizedVariable =
             D2StringUtils.convertSnakeCaseToCamelCase(variable);
+
+        String sanitizedVariableValue =
+            sanitizedVariable == 'currentDate' ? DateTime.now().toString() : '';
+
         expression = formDataObject.keys.contains(sanitizedVariable)
             ? ProgramRuleHelper.sanitizeExpression(
                 expression: expression,
                 programRuleVariable: variable,
                 value: formDataObject[sanitizedVariable],
               )
-            : expression;
+            : sanitizedVariableValue.isNotEmpty
+                ? ProgramRuleHelper.sanitizeExpression(
+                    expression: expression,
+                    programRuleVariable: variable,
+                    value: sanitizedVariableValue,
+                  )
+                : expression;
       }
     }
+
+    print('sanitized Expression $expression');
 
     return expression;
   }

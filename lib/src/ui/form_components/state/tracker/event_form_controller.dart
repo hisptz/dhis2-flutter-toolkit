@@ -12,6 +12,7 @@ class D2TrackerEventFormController extends D2FormController
     with ProgramRuleEngineState {
   D2ProgramStage programStage;
   D2Enrollment? enrollment;
+  @override
   D2ObjectBox db;
   String? orgUnit;
   D2Event? event;

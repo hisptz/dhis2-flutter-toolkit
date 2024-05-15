@@ -15,9 +15,9 @@ import 'program_rule_engine_state.dart';
 class D2TrackerEnrollmentFormController extends D2FormController
     with ProgramRuleEngineState {
   D2Program program;
-  D2ObjectBox db;
   D2Enrollment? enrollment;
   D2TrackedEntity? trackedEntity;
+  D2ObjectBox db;
   String orgUnit;
   List<D2ReservedValue> reservedValues = [];
   late D2ProgramRuleEngine programRuleEngine;
