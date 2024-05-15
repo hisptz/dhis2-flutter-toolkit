@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../form_section/models/form_section.dart';
 import '../state/form_state.dart';
+import '../state/section_state.dart';
 import 'models/form.dart';
 
 class D2ControlledForm extends StatelessWidget {
@@ -45,13 +46,23 @@ class D2ControlledForm extends StatelessWidget {
           form.sections != null
               ? Column(
                   children: form.sections!.map((D2FormSection section) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    child: FormSectionContainerWithControlledInputs(
-                      disabled: disabled,
-                      section: section,
-                      controller: controller,
-                      color: color,
+                  return ListenableBuilder(
+                    listenable: controller,
+                    builder: (context, child) {
+                      SectionState state =
+                          controller.getSectionState(section.id, []);
+                      return Visibility(
+                          visible: !(state.hidden ?? false),
+                          child: child ?? Container());
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: FormSectionContainerWithControlledInputs(
+                        disabled: disabled,
+                        section: section,
+                        controller: controller,
+                        color: color,
+                      ),
                     ),
                   );
                 }).toList())
