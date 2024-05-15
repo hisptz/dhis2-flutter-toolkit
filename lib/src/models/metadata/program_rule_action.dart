@@ -1,20 +1,11 @@
-
-import 'package:dhis2_flutter_toolkit/objectbox.dart';
-
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../repositories/metadata/data_element.dart';
+import '../../repositories/metadata/option_group.dart';
 import '../../repositories/metadata/program_rule.dart';
-import '../../repositories/metadata/program_rule_variable.dart';
-import '../../repositories/metadata/program_section.dart';
-import '../../repositories/metadata/program_stage_section.dart';
-import '../../repositories/metadata/tracked_entity_attribute.dart';
 import 'base.dart';
-import 'data_element.dart';
+import 'option_group.dart';
 import 'program_rule.dart';
-import 'program_section.dart';
-import 'program_stage_section.dart';
-import 'tracked_entity_attribute.dart';
 
 @Entity()
 class D2ProgramRuleAction extends D2MetaResource {
@@ -39,6 +30,8 @@ class D2ProgramRuleAction extends D2MetaResource {
   final programStageSection = ToOne<D2ProgramStageSection>();
   final programSection = ToOne<D2ProgramSection>();
   final trackedEntityAttribute = ToOne<D2TrackedEntityAttribute>();
+  final option = ToOne<D2Option>();
+  final optionGroup = ToOne<D2OptionGroup>();
 
   D2ProgramRuleAction(
       this.id,
@@ -80,6 +73,13 @@ class D2ProgramRuleAction extends D2MetaResource {
     if (json["programSection"] != null) {
       programSection.target =
           D2ProgramSectionRepository(db).getByUid(json["programSection"]["id"]);
+    }
+    if (json["option"] != null) {
+      option.target = D2OptionRepository(db).getByUid(json["option"]["id"]);
+    }
+    if (json["optionGroup"] != null) {
+      optionGroup.target =
+          D2OptionGroupRepository(db).getByUid(json["optionGroup"]["id"]);
     }
   }
 
