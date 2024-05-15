@@ -155,7 +155,9 @@ on D2BaseTrackerDataRepository<T>, D2BaseTrackerDataQueryMixin<T> {
       Query<T> query = getUnSyncedQuery();
       int count = query.count();
       if (count == 0) {
-        uploadController.stream.listen(null);
+        if (!uploadController.hasListener) {
+          uploadController.stream.listen(null);
+        }
         uploadController
             .add(D2SyncStatus(status: D2SyncStatusEnum.complete, label: label));
         await uploadController.close();
