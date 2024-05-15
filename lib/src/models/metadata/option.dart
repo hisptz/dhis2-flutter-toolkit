@@ -1,4 +1,5 @@
 import 'package:dhis2_flutter_toolkit/objectbox.dart';
+import 'package:dhis2_flutter_toolkit/src/models/metadata/option_group.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../repositories/metadata/option.dart';
@@ -24,6 +25,7 @@ class D2Option extends D2MetaResource {
   int sortOrder;
 
   final optionSet = ToOne<D2OptionSet>();
+  final optionGroups = ToMany<D2OptionGroup>();
 
   D2Option(this.id, this.created, this.lastUpdated, this.uid, this.name,
       this.code, this.sortOrder, this.displayName);
