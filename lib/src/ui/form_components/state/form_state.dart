@@ -61,6 +61,7 @@ class D2FormController extends ChangeNotifier
   SectionState getSectionState(String id, List<String> fieldKeys) {
     return SectionState(
         id: id,
+        hidden: isSectionHidden(id),
         fieldsStates:
             fieldKeys.map((String key) => getFieldState(key)).toList());
   }
