@@ -33,11 +33,13 @@ mixin D2FormHiddenState on ChangeNotifier {
 
   void hideSection(String key) {
     hiddenSections.add(key);
+    hiddenSections = hiddenSections.toSet().toList();
     notifyListeners();
   }
 
   void hideSections(List<String> keys) {
     hiddenSections.addAll(keys);
+    hiddenSections = hiddenSections.toSet().toList();
     notifyListeners();
   }
 
