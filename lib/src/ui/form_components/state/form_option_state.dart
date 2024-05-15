@@ -9,6 +9,20 @@ mixin D2FormOptionState on ChangeNotifier {
     notifyListeners();
   }
 
+  void removeOptionsToHide(String key, List<String> options) {
+    optionsToHide[key] = (optionsToHide[key] ?? [])
+        .where((hiddenOption) => !options.contains(hiddenOption))
+        .toList();
+    notifyListeners();
+  }
+
+  void clearHiddenOptions(String key) {
+    if (getFieldOptionsToHide(key).isNotEmpty) {
+      optionsToHide.remove(key);
+      notifyListeners();
+    }
+  }
+
   List<String> getFieldOptionsToHide(String key) {
     return optionsToHide[key] ?? [];
   }

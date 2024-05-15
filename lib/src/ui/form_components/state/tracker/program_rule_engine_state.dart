@@ -26,11 +26,15 @@ mixin ProgramRuleEngineState
         D2FormDisabledState,
         D2FormWarningState,
         D2FormMandatoryState,
+        D2FormOptionState,
         D2FormValueState,
         D2FormErrorState,
         D2FormDataState {
+  abstract D2ObjectBox db;
+
   void spawnProgramRuleEngine(
       D2ProgramRuleEngine programRuleEngine, String inputFieldKey) async {
+    clearFormFieldStates(inputFieldKey);
     ProgramRuleEngineArguments args = ProgramRuleEngineArguments(
       programRuleEngine: programRuleEngine,
       inputFieldKey: inputFieldKey,
@@ -44,6 +48,13 @@ mixin ProgramRuleEngineState
       inputFieldId: args.inputFieldKey,
       formDataObject: formValues,
     );
+  }
+
+  void clearFormFieldStates(String inputFieldId) {
+    clearError(inputFieldId);
+    clearWarning(inputFieldId);
+    clearDisabledField(inputFieldId);
+    clearFromMandatoryField(inputFieldId);
   }
 
   void updateFormStates(Map programRuleEvaluation, String inputFieldKey) {
