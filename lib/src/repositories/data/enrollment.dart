@@ -58,4 +58,9 @@ class D2EnrollmentRepository extends D2BaseTrackerDataRepository<D2Enrollment>
       updateQueryCondition(D2Enrollment_.program.equals(program!.id));
     }
   }
+
+  @override
+  Query<D2Enrollment> getDeletedQuery() {
+    return box.query(D2Enrollment_.deleted.equals(true)).build();
+  }
 }

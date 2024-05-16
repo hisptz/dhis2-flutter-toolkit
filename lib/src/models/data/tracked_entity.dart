@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import 'package:dhis2_flutter_toolkit/src/models/data/base_deletable.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
 import 'package:objectbox/objectbox.dart';
 
@@ -10,7 +11,7 @@ import 'upload_base.dart';
 
 @Entity()
 class D2TrackedEntity extends SyncDataSource
-    implements SyncableData, D2BaseEditable {
+    implements SyncableData, D2BaseEditable, D2BaseDeletable {
   @override
   int id = 0;
   @override
@@ -235,5 +236,33 @@ class D2TrackedEntity extends SyncDataSource
   D2Enrollment? getActiveEnrollmentByProgram(D2Program program) {
     return enrollments.firstWhereOrNull(
         (enrollment) => enrollment.program.target?.id == program.id);
+  }
+
+  @override
+  void softDelete(db) {
+    deleted = true;
+    for (D2Relationship relationship in relationships) {
+      relationship.softDelete(db);
+    }
+    //Delete enrollments
+    for (D2Enrollment enrollment in enrollments) {
+      enrollment.softDelete(db);
+    }
+    save(db);
+  }
+
+  @override
+  bool delete(D2ObjectBox db) {
+    D2TrackedEntityAttributeValueRepository(db).deleteEntities(attributes);
+
+    for (D2Relationship relationship in relationships) {
+      relationship.delete(db);
+    }
+    //Delete enrollments
+    for (D2Enrollment enrollment in enrollments) {
+      enrollment.delete(db);
+    }
+
+    return D2TrackedEntityRepository(db).deleteEntity(this);
   }
 }

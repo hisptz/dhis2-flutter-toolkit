@@ -1,4 +1,5 @@
 import 'package:dhis2_flutter_toolkit/objectbox.dart';
+import 'package:dhis2_flutter_toolkit/src/models/data/base_deletable.dart';
 import 'package:dhis2_flutter_toolkit/src/utils/uid.dart';
 import 'package:objectbox/objectbox.dart';
 
@@ -11,11 +12,12 @@ import '../metadata/relationship_type.dart';
 import 'base.dart';
 import 'enrollment.dart';
 import 'event.dart';
-import 'upload_base.dart';
 import 'tracked_entity.dart';
+import 'upload_base.dart';
 
 @Entity()
-class D2Relationship extends SyncDataSource implements SyncableData {
+class D2Relationship extends SyncDataSource
+    implements SyncableData, D2BaseDeletable {
   @override
   int id = 0;
   @override
@@ -27,6 +29,8 @@ class D2Relationship extends SyncDataSource implements SyncableData {
   @override
   @Unique()
   String uid;
+
+  bool deleted;
 
   final fromTrackedEntity = ToOne<D2TrackedEntity>();
   final fromEnrollment = ToOne<D2Enrollment>();
@@ -118,13 +122,14 @@ class D2Relationship extends SyncDataSource implements SyncableData {
     return null;
   }
 
-  D2Relationship(
-      this.id, this.createdAt, this.updatedAt, this.uid, this.synced);
+  D2Relationship(this.id, this.createdAt, this.updatedAt, this.uid, this.synced,
+      this.deleted);
 
   D2Relationship.fromMap(D2ObjectBox db, Map json)
       : createdAt = DateTime.parse(json["createdAt"]),
         updatedAt = DateTime.parse(json["updatedAt"]),
         uid = json["relationship"],
+        deleted = false,
         synced = true {
     id = D2RelationshipRepository(db).getIdByUid(json["relationship"]) ?? 0;
     relationshipType.target =
@@ -158,6 +163,7 @@ class D2Relationship extends SyncDataSource implements SyncableData {
       required D2RelationshipType type})
       : uid = D2UID.generate(),
         synced = false,
+        deleted = false,
         createdAt = DateTime.now(),
         updatedAt = DateTime.now() {
     relationshipType.target = type;
@@ -171,7 +177,7 @@ class D2Relationship extends SyncDataSource implements SyncableData {
     if (from is D2Event) {
       fromEvent.target = from;
     }
-    
+
     if (to is D2TrackedEntity) {
       toTrackedEntity.target = to;
     }
@@ -181,5 +187,16 @@ class D2Relationship extends SyncDataSource implements SyncableData {
     if (to is D2Event) {
       toEvent.target = to;
     }
+  }
+
+  @override
+  void softDelete(db) {
+    deleted = true;
+    D2RelationshipRepository(db).saveEntity(this);
+  }
+
+  @override
+  bool delete(D2ObjectBox db) {
+    return D2RelationshipRepository(db).deleteEntity(this);
   }
 }

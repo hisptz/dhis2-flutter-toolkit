@@ -37,25 +37,29 @@ class MultiSelectInput
                             decoration.colorScheme.text),
                         fillColor: MaterialStatePropertyAll(
                           isOptionSelected(option)
-                              ? decoration.colorScheme.active
+                              ? disabled
+                                  ? decoration.colorScheme.disabled
+                                  : decoration.colorScheme.active
                               : Colors.transparent,
                         ),
                         value: isOptionSelected(option),
-                        onChanged: (checked) {
-                          if (isOptionSelected(option)) {
-                            List<String> updatedValue = value
-                                    ?.where((val) => val != option.code)
-                                    .toList() ??
-                                [];
-                            if (updatedValue.isEmpty) {
-                              onChange(null);
-                            } else {
-                              onChange(updatedValue);
-                            }
-                          } else {
-                            onChange([...(value ?? []), option.code]);
-                          }
-                        }),
+                        onChanged: disabled
+                            ? null
+                            : (checked) {
+                                if (isOptionSelected(option)) {
+                                  List<String> updatedValue = value
+                                          ?.where((val) => val != option.code)
+                                          .toList() ??
+                                      [];
+                                  if (updatedValue.isEmpty) {
+                                    onChange(null);
+                                  } else {
+                                    onChange(updatedValue);
+                                  }
+                                } else {
+                                  onChange([...(value ?? []), option.code]);
+                                }
+                              }),
                     Flexible(child: Text(option.name))
                   ],
                 ))

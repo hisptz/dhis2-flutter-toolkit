@@ -1,19 +1,22 @@
 import 'dart:convert';
 
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import 'package:dhis2_flutter_toolkit/src/models/data/base_deletable.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
 import 'package:dhis2_flutter_toolkit/src/utils/uid.dart';
 import 'package:objectbox/objectbox.dart';
 
+import '../../../objectbox.dart';
 import '../../repositories/data/entry.dart';
 import '../../repositories/metadata/entry.dart';
 import '../../ui/form_components/entry.dart';
 import '../metadata/entry.dart';
 import 'base.dart';
+import 'entry.dart';
 import 'upload_base.dart';
 
 @Entity()
-class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
+class D2Event extends SyncDataSource
+    implements SyncableData, D2BaseEditable, D2BaseDeletable {
   @override
   int id = 0;
   @override
@@ -236,5 +239,21 @@ class D2Event extends SyncDataSource implements SyncableData, D2BaseEditable {
         dataValue.save(db);
       }
     }
+  }
+
+  @override
+  bool delete(D2ObjectBox db) {
+    //Deletes event and all associated data values & relationships
+    D2DataValueRepository(db).deleteEntities(dataValues);
+    for (D2Relationship relationship in relationships) {
+      relationship.delete(db);
+    }
+    return D2EventRepository(db).deleteEntity(this);
+  }
+
+  @override
+  void softDelete(db) {
+    deleted = true;
+    save(db);
   }
 }
