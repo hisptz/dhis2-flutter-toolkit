@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:flutter/foundation.dart';
 
@@ -84,24 +85,21 @@ mixin ProgramRuleEngineState
         });
       } else if (actionProperty == 'hiddenOptions') {
         fields.forEach((inputFieldId, options) {
+          List<Map<String, dynamic>> fieldHiddenOptions = [];
           for (var hiddenOption in options) {
             hiddenOption.forEach((optionKey, hiddenState) {
               var option =
                   D2OptionRepository(db).getByUid(optionKey as String)?.code ??
                       '';
-              if (hiddenState == true) {
-                if (getValue(inputFieldId) == option) {
-                  clearValueSilently(inputFieldId);
-                }
-                setOptionsToHideSilently(inputFieldId, [option]);
-              } else {
-                removeOptionsToHideSilently(inputFieldId, [option]);
-              }
+              fieldHiddenOptions
+                  .add({'option': option, 'hiddenState': hiddenState});
             });
           }
+          _hideFieldOptions(inputFieldId, fieldHiddenOptions);
         });
       } else if (actionProperty == 'hiddenOptionGroups') {
         fields.forEach((inputFieldId, optionGroups) {
+          List<Map<String, dynamic>> fieldHiddenOptions = [];
           for (var hiddenOptionGroup in (optionGroups as List<Map>)) {
             hiddenOptionGroup.forEach((optionGroupKey, hiddenState) {
               var options = (D2OptionGroupRepository(db)
@@ -110,17 +108,13 @@ mixin ProgramRuleEngineState
                       [] as List<D2Option>)
                   .map((D2Option option) => option.code)
                   .toList();
-
-              if (hiddenState == true) {
-                if (options.contains(getValue(inputFieldId))) {
-                  clearValueSilently(inputFieldId);
-                }
-                setOptionsToHideSilently(inputFieldId, options);
-              } else {
-                removeOptionsToHideSilently(inputFieldId, options);
+              for (String option in options) {
+                fieldHiddenOptions
+                    .add({'option': option, 'hiddenState': hiddenState});
               }
             });
           }
+          _hideFieldOptions(inputFieldId, fieldHiddenOptions);
         });
       } else if (actionProperty == 'mandatoryFields') {
         fields.forEach((fieldKey, value) {
@@ -131,5 +125,22 @@ mixin ProgramRuleEngineState
       }
     });
     notifyListeners();
+  }
+
+  void _hideFieldOptions(
+      String inputFieldId, List<Map<String, dynamic>> fieldHiddenOptions) {
+    groupBy(fieldHiddenOptions, (fieldOption) => fieldOption['hiddenState'])
+        .forEach((hiddenState, options) {
+      var optionCodes =
+          options.map((option) => option['option'] as String).toList();
+      if (optionCodes.contains(getValue(inputFieldId))) {
+        clearValueSilently(inputFieldId);
+      }
+      if (hiddenState == true) {
+        setOptionsToHideSilently(inputFieldId, optionCodes);
+      } else {
+        removeOptionsToHideSilently(inputFieldId, optionCodes);
+      }
+    });
   }
 }
