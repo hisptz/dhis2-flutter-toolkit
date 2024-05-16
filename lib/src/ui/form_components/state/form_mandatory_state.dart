@@ -8,14 +8,24 @@ mixin D2FormMandatoryState on ChangeNotifier {
     notifyListeners();
   }
 
-  void addMandatoryField(String key) {
+  void addMandatoryFieldSilently(String key) {
     mandatoryFields.add(key);
+  }
+
+  void addMandatoryField(String key) {
+    addMandatoryFieldSilently(key);
     notifyListeners();
+  }
+
+  void clearFromMandatoryFieldSilently(String key) {
+    if (isFieldMandatory(key)) {
+      mandatoryFields.remove(key);
+    }
   }
 
   void clearFromMandatoryField(String key) {
     if (isFieldMandatory(key)) {
-      mandatoryFields.remove(key);
+      clearFromMandatoryFieldSilently(key);
       notifyListeners();
     }
   }

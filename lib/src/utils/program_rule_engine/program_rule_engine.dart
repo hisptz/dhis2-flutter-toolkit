@@ -184,7 +184,6 @@ class D2ProgramRuleEngine {
                 "isComplete": isOnComplete,
               };
             } else if (evaluatedConditionResults.runtimeType == bool &&
-                evaluatedConditionResults == true &&
                 (programRuleActionType ==
                         ProgramRuleActionsConstants.showError ||
                     programRuleActionType ==

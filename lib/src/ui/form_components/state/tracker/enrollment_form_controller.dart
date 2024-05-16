@@ -17,25 +17,27 @@ class D2TrackerEnrollmentFormController extends D2FormController
   D2Program program;
   D2Enrollment? enrollment;
   D2TrackedEntity? trackedEntity;
+  @override
   D2ObjectBox db;
   String orgUnit;
   List<D2ReservedValue> reservedValues = [];
+  @override
   late D2ProgramRuleEngine programRuleEngine;
 
   bool get editMode {
     return trackedEntity != null;
   }
 
-  D2TrackerEnrollmentFormController({
-    required this.db,
-    required this.program,
-    required this.orgUnit,
-    this.trackedEntity,
-    this.enrollment,
-    super.mandatoryFields,
+  D2TrackerEnrollmentFormController(
+      {required this.db,
+      required this.program,
+      required this.orgUnit,
+      this.trackedEntity,
+      this.enrollment,
+      super.mandatoryFields,
       super.disabledFields,
       super.hiddenFields,
-    super.hiddenSections,
+      super.hiddenSections,
       super.initialValues}) {
     if (trackedEntity != null) {
       List<D2TrackedEntityAttributeValue> attributes =
@@ -86,7 +88,6 @@ class D2TrackerEnrollmentFormController extends D2FormController
     for (var section in program.programSections) {
       for (var attribute in section.programSectionTrackedEntityAttributes) {
         spawnProgramRuleEngine(
-          programRuleEngine,
           attribute.trackedEntityAttribute.target?.uid ?? "",
         );
       }
@@ -146,7 +147,7 @@ class D2TrackerEnrollmentFormController extends D2FormController
   FieldState getFieldState(String key) {
     void onChange(value) {
       setValue(key, value);
-      spawnProgramRuleEngine(programRuleEngine, key);
+      spawnProgramRuleEngine(key);
     }
 
     bool hidden = isFieldHidden(key);

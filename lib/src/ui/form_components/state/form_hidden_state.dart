@@ -5,7 +5,7 @@ mixin D2FormHiddenState on ChangeNotifier {
   List<String> hiddenFields = [];
   List<String> hiddenSections = [];
 
-  void toggleFieldVisibility(String key) {
+  void toggleFieldVisibilitySilently(String key) {
     if (hiddenFields.contains(key)) {
       hiddenFields = hiddenFields
           .whereNot((String hiddenKey) => key == hiddenKey)
@@ -13,6 +13,10 @@ mixin D2FormHiddenState on ChangeNotifier {
     } else {
       hiddenFields.add(key);
     }
+  }
+
+  void toggleFieldVisibility(String key) {
+    toggleFieldVisibilitySilently(key);
     notifyListeners();
   }
 
@@ -20,7 +24,7 @@ mixin D2FormHiddenState on ChangeNotifier {
     return hiddenFields.contains(key);
   }
 
-  void toggleSectionVisibility(String key) {
+  void toggleSectionVisibilitySilently(String key) {
     if (hiddenSections.contains(key)) {
       hiddenSections = hiddenSections
           .whereNot((String hiddenKey) => key == hiddenKey)
@@ -28,18 +32,30 @@ mixin D2FormHiddenState on ChangeNotifier {
     } else {
       hiddenSections.add(key);
     }
+  }
+
+  void toggleSectionVisibility(String key) {
+    toggleSectionVisibilitySilently(key);
     notifyListeners();
+  }
+
+  void hideSectionSilently(String key) {
+    hiddenSections.add(key);
+    hiddenSections = hiddenSections.toSet().toList();
   }
 
   void hideSection(String key) {
-    hiddenSections.add(key);
-    hiddenSections = hiddenSections.toSet().toList();
+    hideSectionSilently(key);
     notifyListeners();
   }
 
-  void hideSections(List<String> keys) {
+  void hideSectionsSilently(List<String> keys) {
     hiddenSections.addAll(keys);
     hiddenSections = hiddenSections.toSet().toList();
+  }
+
+  void hideSections(List<String> keys) {
+    hideSectionsSilently(keys);
     notifyListeners();
   }
 

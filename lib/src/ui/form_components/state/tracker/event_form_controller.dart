@@ -16,6 +16,7 @@ class D2TrackerEventFormController extends D2FormController
   D2ObjectBox db;
   String? orgUnit;
   D2Event? event;
+  @override
   late D2ProgramRuleEngine programRuleEngine;
 
   D2TrackerEventFormController(
@@ -59,7 +60,6 @@ class D2TrackerEventFormController extends D2FormController
     for (var section in programStage.programStageSections) {
       for (var attribute in section.programStageSectionDataElements) {
         spawnProgramRuleEngine(
-          programRuleEngine,
           attribute.dataElement.target?.uid ?? "",
         );
       }
@@ -89,8 +89,8 @@ class D2TrackerEventFormController extends D2FormController
   @override
   FieldState getFieldState(String key) {
     void onChange(value) {
-      setValue(key, value);
-      spawnProgramRuleEngine(programRuleEngine, key);
+      setValueSilently(key, value);
+      spawnProgramRuleEngine(key);
     }
 
     bool hidden = isFieldHidden(key);

@@ -1,10 +1,7 @@
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../../../objectbox.dart';
-import '../../../../models/metadata/option.dart';
-import '../../../../repositories/metadata/option.dart';
 import '../../../../repositories/metadata/option_group.dart';
-import '../../../../utils/program_rule_engine/program_rule_engine.dart';
 import '../form_data_state.dart';
 import '../form_disabled_state.dart';
 import '../form_error_state.dart';
@@ -13,16 +10,6 @@ import '../form_mandatory_state.dart';
 import '../form_option_state.dart';
 import '../form_value_state.dart';
 import '../form_warning_state.dart';
-
-class ProgramRuleEngineArguments {
-  final D2ProgramRuleEngine programRuleEngine;
-  final String inputFieldKey;
-
-  ProgramRuleEngineArguments({
-    required this.programRuleEngine,
-    required this.inputFieldKey,
-  });
-}
 
 mixin ProgramRuleEngineState
     on
@@ -36,20 +23,17 @@ mixin ProgramRuleEngineState
         D2FormErrorState,
         D2FormDataState {
   abstract D2ObjectBox db;
+  abstract D2ProgramRuleEngine programRuleEngine;
 
-  void spawnProgramRuleEngine(
-      D2ProgramRuleEngine programRuleEngine, String inputFieldKey) async {
-    ProgramRuleEngineArguments args = ProgramRuleEngineArguments(
-      programRuleEngine: programRuleEngine,
-      inputFieldKey: inputFieldKey,
-    );
-    Map programRuleEvaluationResults = startProgramRuleEvaluation(args);
+  void spawnProgramRuleEngine(String inputFieldKey) async {
+    Map programRuleEvaluationResults =
+        startProgramRuleEvaluation(inputFieldKey);
     updateFormStates(programRuleEvaluationResults, inputFieldKey);
   }
 
-  Map startProgramRuleEvaluation(ProgramRuleEngineArguments args) {
-    return args.programRuleEngine.evaluateProgramRule(
-      inputFieldId: args.inputFieldKey,
+  Map startProgramRuleEvaluation(String key) {
+    return programRuleEngine.evaluateProgramRule(
+      inputFieldId: key,
       formDataObject: formValues,
     );
   }
@@ -59,44 +43,44 @@ mixin ProgramRuleEngineState
       if (actionProperty == 'assignedFields') {
         fields.forEach((fieldKey, value) {
           disableFields([fieldKey]);
-          setValue(fieldKey, value);
+          setValueSilently(fieldKey, value);
         });
       } else if (actionProperty == 'hiddenFields') {
         fields.forEach((fieldKey, value) {
           if ((value == true && !isFieldHidden(fieldKey)) ||
               (value == false && isFieldHidden(fieldKey))) {
-            toggleFieldVisibility(fieldKey);
-            setValue(fieldKey, null);
+            toggleFieldVisibilitySilently(fieldKey);
+            setValueSilently(fieldKey, null);
           }
         });
       } else if (actionProperty == 'hiddenSections') {
         fields.forEach((sectionKey, value) {
           if ((value == true && !isSectionHidden(sectionKey)) ||
               (value == false && isSectionHidden(sectionKey))) {
-            toggleSectionVisibility(sectionKey);
+            toggleSectionVisibilitySilently(sectionKey);
           }
         });
       } else if (actionProperty == 'warningMessages') {
         fields.forEach((fieldKey, value) {
-          var hiddenStatus = value['hidden'] ?? false;
+          var hiddenStatus = value['hiddenStatus'] ?? false;
           if (hiddenStatus == true) {
-            setWarning(fieldKey, value['message'] ?? '');
+            setWarningSilently(fieldKey, value['message'] ?? '');
           } else {
-            clearWarning(fieldKey);
+            if (value['message'] == getWarning(fieldKey)) {
+              clearWarningSilently(fieldKey);
+            }
           }
         });
       } else if (actionProperty == 'errorMessages') {
         fields.forEach((fieldKey, value) {
-          var hiddenStatus = value['hidden'] ?? false;
-          if (hiddenStatus == true) {
-            setError(fieldKey, value['message'] ?? '');
+          var hiddenStatus = value['hiddenStatus'] ?? false;
+          if (hiddenStatus) {
+            setErrorSilently(fieldKey, value['message'] ?? '');
           } else {
-            clearError(fieldKey);
+            if (value['message'] == getError(fieldKey)) {
+              clearErrorSilently(fieldKey);
+            }
           }
-        });
-      } else if (actionProperty == 'errorMessages') {
-        fields.forEach((fieldKey, value) {
-          setError(fieldKey, value['message'] ?? '');
         });
       } else if (actionProperty == 'hiddenOptions') {
         fields.forEach((inputFieldId, options) {
@@ -107,11 +91,11 @@ mixin ProgramRuleEngineState
                       '';
               if (hiddenState == true) {
                 if (getValue(inputFieldId) == option) {
-                  clearValue(inputFieldId);
+                  clearValueSilently(inputFieldId);
                 }
-                setOptionsToHide(inputFieldId, [option]);
+                setOptionsToHideSilently(inputFieldId, [option]);
               } else {
-                removeOptionsToHide(inputFieldId, [option]);
+                removeOptionsToHideSilently(inputFieldId, [option]);
               }
             });
           }
@@ -129,11 +113,11 @@ mixin ProgramRuleEngineState
 
               if (hiddenState == true) {
                 if (options.contains(getValue(inputFieldId))) {
-                  clearValue(inputFieldId);
+                  clearValueSilently(inputFieldId);
                 }
-                setOptionsToHide(inputFieldId, options);
+                setOptionsToHideSilently(inputFieldId, options);
               } else {
-                removeOptionsToHide(inputFieldId, options);
+                removeOptionsToHideSilently(inputFieldId, options);
               }
             });
           }
@@ -141,8 +125,8 @@ mixin ProgramRuleEngineState
       } else if (actionProperty == 'mandatoryFields') {
         fields.forEach((fieldKey, value) {
           value == true
-              ? addMandatoryField(fieldKey)
-              : clearFromMandatoryField(fieldKey);
+              ? addMandatoryFieldSilently(fieldKey)
+              : clearFromMandatoryFieldSilently(fieldKey);
         });
       }
     });
