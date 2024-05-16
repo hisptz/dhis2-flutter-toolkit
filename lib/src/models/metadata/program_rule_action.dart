@@ -15,6 +15,7 @@ class D2ProgramRuleAction extends D2MetaResource {
   DateTime lastUpdated;
 
   @override
+  @Unique()
   String uid;
 
   String programRuleActionType;
