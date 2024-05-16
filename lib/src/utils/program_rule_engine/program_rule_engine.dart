@@ -178,11 +178,16 @@ class D2ProgramRuleEngine {
                           ProgramRuleActionsConstants.errorOnComplete
                   ? true
                   : false;
-              warningMessages[dataItemTargetedByProgramAction] = {
-                "message": content,
-                "hiddenStatus": evaluatedConditionResults,
-                "isComplete": isOnComplete,
-              };
+              warningMessages[dataItemTargetedByProgramAction] =
+                  warningMessages[dataItemTargetedByProgramAction]
+                              ?['visibilityStatus'] ==
+                          true
+                      ? warningMessages[dataItemTargetedByProgramAction]
+                      : {
+                          "message": content,
+                          "visibilityStatus": evaluatedConditionResults,
+                          "isComplete": isOnComplete,
+                        };
             } else if (evaluatedConditionResults.runtimeType == bool &&
                 (programRuleActionType ==
                         ProgramRuleActionsConstants.showError ||
@@ -194,11 +199,17 @@ class D2ProgramRuleEngine {
                           ProgramRuleActionsConstants.errorOnComplete
                   ? true
                   : false;
-              errorMessages[dataItemTargetedByProgramAction] = {
-                "message": content,
-                "hiddenStatus": evaluatedConditionResults,
-                "isComplete": isOnComplete,
-              };
+              errorMessages[dataItemTargetedByProgramAction] =
+                  errorMessages[dataItemTargetedByProgramAction] != null &&
+                          errorMessages[dataItemTargetedByProgramAction]
+                                  ?['visibilityStatus'] ==
+                              true
+                      ? errorMessages[dataItemTargetedByProgramAction]
+                      : {
+                          "message": content,
+                          "visibilityStatus": evaluatedConditionResults,
+                          "isComplete": isOnComplete,
+                        };
             } else if (evaluatedConditionResults.runtimeType == bool &&
                 programRuleActionType ==
                     ProgramRuleActionsConstants.hideOption) {

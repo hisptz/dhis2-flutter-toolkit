@@ -62,8 +62,8 @@ mixin ProgramRuleEngineState
         });
       } else if (actionProperty == 'warningMessages') {
         fields.forEach((fieldKey, value) {
-          var hiddenStatus = value['hiddenStatus'] ?? false;
-          if (hiddenStatus == true) {
+          var visibilityStatus = value['visibilityStatus'] ?? false;
+          if (visibilityStatus == true) {
             setWarningSilently(fieldKey, value['message'] ?? '');
           } else {
             if (value['message'] == getWarning(fieldKey)) {
@@ -73,8 +73,8 @@ mixin ProgramRuleEngineState
         });
       } else if (actionProperty == 'errorMessages') {
         fields.forEach((fieldKey, value) {
-          var hiddenStatus = value['hiddenStatus'] ?? false;
-          if (hiddenStatus) {
+          var visibilityStatus = value['visibilityStatus'] ?? false;
+          if (visibilityStatus == true) {
             setErrorSilently(fieldKey, value['message'] ?? '');
           } else {
             if (value['message'] == getError(fieldKey)) {
