@@ -46,4 +46,9 @@ class D2RelationshipRepository
   void addProgramToQuery() {
     // TODO: implement addProgramToQuery
   }
+
+  @override
+  Query<D2Relationship> getDeletedQuery() {
+    return box.query(D2Relationship_.deleted.equals(true)).build();
+  }
 }

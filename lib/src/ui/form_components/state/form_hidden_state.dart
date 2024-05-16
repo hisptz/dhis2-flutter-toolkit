@@ -19,7 +19,7 @@ mixin D2FormHiddenState on ChangeNotifier {
   bool isFieldHidden(String key) {
     return hiddenFields.contains(key);
   }
-  
+
   void toggleSectionVisibility(String key) {
     if (hiddenSections.contains(key)) {
       hiddenSections = hiddenSections
@@ -28,6 +28,18 @@ mixin D2FormHiddenState on ChangeNotifier {
     } else {
       hiddenSections.add(key);
     }
+    notifyListeners();
+  }
+
+  void hideSection(String key) {
+    hiddenSections.add(key);
+    hiddenSections = hiddenSections.toSet().toList();
+    notifyListeners();
+  }
+
+  void hideSections(List<String> keys) {
+    hiddenSections.addAll(keys);
+    hiddenSections = hiddenSections.toSet().toList();
     notifyListeners();
   }
 

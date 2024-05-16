@@ -1,7 +1,6 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
 import '../../../../objectbox.g.dart';
-import '../base_tracker.dart';
 
 mixin D2BaseTrackerDataQueryMixin<T extends D2DataResource>
     on D2BaseTrackerDataRepository<T> {

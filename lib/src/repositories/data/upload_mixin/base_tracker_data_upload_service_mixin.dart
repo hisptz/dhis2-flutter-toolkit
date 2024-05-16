@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:dhis2_flutter_toolkit/src/models/data/base_deletable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../../models/data/base.dart';
@@ -10,7 +12,7 @@ import '../base_tracker.dart';
 import '../query_mixin/base_tracker_query_mixin.dart';
 
 mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
-    on D2BaseTrackerDataRepository<T>, D2BaseTrackerDataQueryMixin<T> {
+on D2BaseTrackerDataRepository<T>, D2BaseTrackerDataQueryMixin<T> {
   D2ClientService? client;
   int uploadPageSize = 10;
   String uploadResource = "tracker";
@@ -21,7 +23,9 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
 
   Query<T> getUnSyncedQuery();
 
-  get uploadQueryParams {
+  Query<T> getDeletedQuery();
+
+  Map<String, String> get uploadQueryParams {
     return {
       "async": "false",
       "reportMode": "ERRORS",
@@ -49,6 +53,48 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     return errorReports
         .map<String>((errorReport) => errorReport["uid"])
         .toList();
+  }
+
+  Future<void> deleteSoftDeletedEntitiesByPage(int page) async {
+    Query<T> query = getDeletedQuery();
+
+    query
+      ..limit = uploadPageSize
+      ..offset = uploadPageSize * page;
+
+    List<T> entities = await query.findAsync();
+    List<Map<String, dynamic>> entityPayload =
+        await Future.wait(entities.map((entity) => entity.toMap(db: db)));
+    Map<String, dynamic> payload = {uploadDataKey: entityPayload};
+
+    Map<String, String> params = uploadQueryParams;
+
+    params.addAll({"importStrategy": "DELETE", "atomicMode": "OBJECT"});
+    try {
+      Map<String, dynamic> response = await client!
+          .httpPost<Map<String, dynamic>>(uploadURL, payload,
+              queryParameters: params);
+      debugPrint(response.toString());
+      //We won't deal with this response as it will contain errors. This is because the entities may not exist in the server
+      //We then delete them locally
+      for (T entity in entities) {
+        if (entity is D2BaseDeletable) {
+          (entity as D2BaseDeletable).delete(db);
+        }
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {}
+  }
+
+  Future<void> deleteSoftDeletedEntities() async {
+    Query<T> query = getDeletedQuery();
+    int count = query.count();
+    int pages = (count / uploadPageSize).ceil();
+
+    for (int page = 0; page < pages; page++) {
+      await deleteSoftDeletedEntitiesByPage(page);
+    }
   }
 
   Future<Map<String, dynamic>> uploadPage(int page,
@@ -105,10 +151,13 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
       throw "Error starting upload. Make sure you call setClient first";
     }
     try {
-      uploadController.stream.listen(null);
+      await deleteSoftDeletedEntities();
       Query<T> query = getUnSyncedQuery();
       int count = query.count();
       if (count == 0) {
+        if (!uploadController.hasListener) {
+          uploadController.stream.listen(null);
+        }
         uploadController
             .add(D2SyncStatus(status: D2SyncStatusEnum.complete, label: label));
         await uploadController.close();

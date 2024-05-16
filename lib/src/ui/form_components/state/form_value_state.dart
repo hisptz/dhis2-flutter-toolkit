@@ -9,6 +9,7 @@ mixin D2FormValueState on ChangeNotifier {
 
   void setValues(Map<String, dynamic> values) {
     _formValues.addAll(values);
+    notifyListeners();
   }
 
   void setValue(String key, value) {

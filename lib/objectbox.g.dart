@@ -1538,7 +1538,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(22, 4637318393876658704),
       name: 'D2Relationship',
-      lastPropertyId: const obx_int.IdUid(19, 6541457634682263798),
+      lastPropertyId: const obx_int.IdUid(20, 2977754300713055469),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -1615,7 +1615,12 @@ final _entities = <obx_int.ModelEntity>[
             type: 11,
             flags: 520,
             indexId: const obx_int.IdUid(87, 5516752848296392221),
-            relationTarget: 'D2RelationshipType')
+            relationTarget: 'D2RelationshipType'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(20, 2977754300713055469),
+            name: 'deleted',
+            type: 1,
+            flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[]),
@@ -4838,7 +4843,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         },
         objectToFB: (D2Relationship object, fb.Builder fbb) {
           final uidOffset = fbb.writeString(object.uid);
-          fbb.startTable(20);
+          fbb.startTable(21);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.createdAt.millisecondsSinceEpoch);
           fbb.addInt64(2, object.updatedAt.millisecondsSinceEpoch);
@@ -4851,6 +4856,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addInt64(16, object.toEnrollment.targetId);
           fbb.addInt64(17, object.toEvent.targetId);
           fbb.addInt64(18, object.relationshipType.targetId);
+          fbb.addBool(19, object.deleted);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -4867,8 +4873,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
               .vTableGet(buffer, rootOffset, 10, '');
           final syncedParam =
               const fb.BoolReader().vTableGet(buffer, rootOffset, 26, false);
-          final object = D2Relationship(
-              idParam, createdAtParam, updatedAtParam, uidParam, syncedParam);
+          final deletedParam =
+              const fb.BoolReader().vTableGet(buffer, rootOffset, 42, false);
+          final object = D2Relationship(idParam, createdAtParam, updatedAtParam,
+              uidParam, syncedParam, deletedParam);
           object.fromTrackedEntity.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 28, 0);
           object.fromTrackedEntity.attach(store);
@@ -7649,6 +7657,10 @@ class D2Relationship_ {
   static final relationshipType =
       obx.QueryRelationToOne<D2Relationship, D2RelationshipType>(
           _entities[20].properties[11]);
+
+  /// see [D2Relationship.deleted]
+  static final deleted =
+      obx.QueryBooleanProperty<D2Relationship>(_entities[20].properties[12]);
 }
 
 /// [D2RelationshipType] entity fields to define ObjectBox queries.
