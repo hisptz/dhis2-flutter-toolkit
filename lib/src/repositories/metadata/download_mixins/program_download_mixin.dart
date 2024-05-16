@@ -1,3 +1,5 @@
+import 'package:dhis2_flutter_toolkit/src/repositories/metadata/option_group.dart';
+
 import '../../../models/metadata/program.dart';
 import '../../../services/client/client.dart';
 import '../../../utils/sync_status.dart';
@@ -44,6 +46,8 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
         return D2OptionRepository(db).saveOffline(value);
       case "optionSets":
         return D2OptionSetRepository(db).saveOffline(value);
+      case "optionGroups":
+        return D2OptionGroupRepository(db).saveOffline(value);
       case "programRuleVariables":
         return D2ProgramRuleVariableRepository(db).saveOffline(value);
       case "programTrackedEntityAttributes":
@@ -78,18 +82,19 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
     "options",
     "legendSets",
     "legends",
+    "optionGroups",
     "dataElements",
     "trackedEntityAttributes",
     "trackedEntityTypes",
     "programs",
     "programRuleVariables",
-    "programRules",
-    "programRuleActions",
     "programTrackedEntityAttributes",
     "programSections",
     "programStages",
     "programStageDataElements",
     "programStageSections",
+    "programRules",
+    "programRuleActions",
   ];
 
   Future<void> syncProgram(String programId) async {

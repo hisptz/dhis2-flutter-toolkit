@@ -7,13 +7,21 @@ mixin D2FormErrorState on ChangeNotifier {
     return Map.from(_errorState);
   }
 
-  void setError(String key, String error) {
+  void setErrorSilently(String key, String error) {
     _errorState.addAll({key: error});
+  }
+
+  void setError(String key, String error) {
+    setErrorSilently(key, error);
     notifyListeners();
   }
 
-  void clearError(String key) {
+  void clearErrorSilently(String key) {
     _errorState.remove(key);
+  }
+
+  void clearError(String key) {
+    clearErrorSilently(key);
     notifyListeners();
   }
 

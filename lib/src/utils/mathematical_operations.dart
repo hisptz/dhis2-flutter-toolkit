@@ -5,24 +5,30 @@ library;
 
 import 'package:flutter/foundation.dart';
 
-import './program_rule_engine/constants/default_values.dart';
 import '../constants/operators_constants.dart';
+import './program_rule_engine/constants/default_values.dart';
 
 //
 ///`MathematicalOperations` is a collection of utilities for performing mathematical operations
 //
 class D2MathematicalOperations {
   //
-  ///`MathematicalOperations.sanitizeStringValue` sanitizes values ready for evaluations by other methods
+  ///`__sanitizeStringValue` sanitizes values ready for evaluations by other methods
   ///It takes in a `dynamic` value as input and returns a sanitized value
   //
-  static dynamic sanitizeStringValue(dynamic value) {
+  static dynamic _sanitizeStringValue(dynamic value,
+      {bool resolveToDouble = false}) {
     String sanitizedValue =
         value == DefaultValues.dataObjectValue ? '0' : value;
     if (value.runtimeType == String) {
       value = sanitizedValue.replaceAll("'", '').trim();
       try {
-        return double.parse(value);
+        String valueInDouble = resolveToDouble
+            ? (value as String).isEmpty
+                ? '0'
+                : value
+            : value;
+        return double.parse(valueInDouble);
       } catch (error) {
         return value;
       }
@@ -52,10 +58,12 @@ class D2MathematicalOperations {
         if (!("'".allMatches(leftOperand).length % 2 == 1 &&
             "'".allMatches(leftOperand).length % 2 == 1)) {
           hasOperator = true;
-          var leftValue =
-              sanitizeStringValue(evaluateMathematicalOperation(leftOperand));
-          var rightValue =
-              sanitizeStringValue(evaluateMathematicalOperation(rightOperand));
+          var leftValue = _sanitizeStringValue(
+              evaluateMathematicalOperation(leftOperand),
+              resolveToDouble: true);
+          var rightValue = _sanitizeStringValue(
+              evaluateMathematicalOperation(rightOperand),
+              resolveToDouble: true);
           return evaluateArithmeticOperation(
             operator: arithmeticOperator,
             leftOperand: leftValue,
@@ -77,8 +85,16 @@ class D2MathematicalOperations {
         String leftValue = '${evaluateMathematicalOperation(leftOperand)}';
         String rightValue = '${evaluateMathematicalOperation(rightOperand)}';
 
-        var sanitizedLeftValue = sanitizeStringValue(leftValue);
-        var sanitizedRightValue = sanitizeStringValue(rightValue);
+        var sanitizedLeftValue = _sanitizeStringValue(
+          leftValue,
+          resolveToDouble: OperatorsConstants.comparisonLogicalOperators
+              .contains(logicalOperator),
+        );
+        var sanitizedRightValue = _sanitizeStringValue(
+          rightValue,
+          resolveToDouble: OperatorsConstants.comparisonLogicalOperators
+              .contains(logicalOperator),
+        );
 
         try {
           var val = evaluateLogicalOperation(

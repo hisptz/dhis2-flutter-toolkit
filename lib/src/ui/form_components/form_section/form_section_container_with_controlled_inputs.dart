@@ -46,7 +46,7 @@ class FormSectionContainerWithControlledInputs extends StatelessWidget {
                   FieldState fieldState = controller.getFieldState(input.name);
 
                   if (input is D2SelectInputFieldConfig) {
-                    input.optionsToHide = fieldState.optionsToHide;
+                    input.optionsToHide = controller.optionsToHide[input.name];
                   }
                   return Visibility(
                     visible: !(fieldState.hidden ?? false),

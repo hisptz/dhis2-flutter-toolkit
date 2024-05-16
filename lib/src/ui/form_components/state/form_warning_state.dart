@@ -3,13 +3,21 @@ import 'package:flutter/material.dart';
 mixin D2FormWarningState on ChangeNotifier {
   Map<String, String> warningState = {};
 
-  void setWarning(String key, String warning) {
+  void setWarningSilently(String key, String warning) {
     warningState.addAll({key: warning});
+  }
+
+  void setWarning(String key, String warning) {
+    setWarningSilently(key, warning);
     notifyListeners();
   }
 
-  void clearWarning(String key) {
+  void clearWarningSilently(String key) {
     warningState.remove(key);
+  }
+
+  void clearWarning(String key) {
+    clearWarningSilently(key);
     notifyListeners();
   }
 
