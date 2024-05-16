@@ -109,6 +109,8 @@ class D2ProgramRuleEngine {
                 programRuleAction.trackedEntityAttribute.target?.uid ?? '';
             String programStageSection =
                 programRuleAction.programStageSection.target?.uid ?? '';
+            String programSection =
+                programRuleAction.programSection.target?.uid ?? '';
             String option = programRuleAction.option.target?.uid ?? '';
             String optionGroup =
                 programRuleAction.optionGroup.target?.uid ?? '';
@@ -119,7 +121,9 @@ class D2ProgramRuleEngine {
                     ? trackedEntityAttribute
                     : programStageSection.isNotEmpty
                         ? programStageSection
-                        : '';
+                        : programSection.isNotEmpty
+                            ? programSection
+                            : '';
 
             /// Decoding the expression with program rule variables
             dataExpression = _decodeExpressionWithProgramRuleVariables(
@@ -156,7 +160,11 @@ class D2ProgramRuleEngine {
                     ProgramRuleActionsConstants.hideSection &&
                 evaluatedConditionResults.runtimeType == bool) {
               if (programStageSection.isNotEmpty == true) {
-                String sectionId = programStageSection;
+                String sectionId = programStageSection.isNotEmpty
+                    ? programStageSection
+                    : programSection.isNotEmpty
+                        ? programSection
+                        : '';
                 hiddenSections[sectionId] = evaluatedConditionResults;
               }
             } else if (evaluatedConditionResults.runtimeType == bool &&
