@@ -11,10 +11,7 @@ import 'program_rule.dart';
 class D2ProgramRuleAction extends D2MetaResource {
   @override
   int id = 0;
-  @override
   DateTime created;
-
-  @override
   DateTime lastUpdated;
 
   @override

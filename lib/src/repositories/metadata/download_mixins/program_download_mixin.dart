@@ -88,13 +88,13 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
     "trackedEntityTypes",
     "programs",
     "programRuleVariables",
-    "programRules",
-    "programRuleActions",
     "programTrackedEntityAttributes",
     "programSections",
     "programStages",
     "programStageDataElements",
     "programStageSections",
+    "programRules",
+    "programRuleActions",
   ];
 
   Future<void> syncProgram(String programId) async {
