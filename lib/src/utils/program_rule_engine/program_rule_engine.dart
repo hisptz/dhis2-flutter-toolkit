@@ -160,7 +160,6 @@ class D2ProgramRuleEngine {
                 hiddenSections[sectionId] = evaluatedConditionResults;
               }
             } else if (evaluatedConditionResults.runtimeType == bool &&
-                evaluatedConditionResults == true &&
                 (programRuleActionType ==
                         ProgramRuleActionsConstants.showWarning ||
                     programRuleActionType ==
@@ -173,6 +172,7 @@ class D2ProgramRuleEngine {
                   : false;
               warningMessages[dataItemTargetedByProgramAction] = {
                 "message": content,
+                "hiddenStatus": evaluatedConditionResults,
                 "isComplete": isOnComplete,
               };
             } else if (evaluatedConditionResults.runtimeType == bool &&
@@ -189,6 +189,7 @@ class D2ProgramRuleEngine {
                   : false;
               errorMessages[dataItemTargetedByProgramAction] = {
                 "message": content,
+                "hiddenStatus": evaluatedConditionResults,
                 "isComplete": isOnComplete,
               };
             } else if (evaluatedConditionResults.runtimeType == bool &&
@@ -353,9 +354,6 @@ class D2ProgramRuleEngine {
                 : expression;
       }
     }
-
-    print('sanitized Expression $expression');
-
     return expression;
   }
 

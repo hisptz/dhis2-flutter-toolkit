@@ -39,7 +39,6 @@ mixin ProgramRuleEngineState
 
   void spawnProgramRuleEngine(
       D2ProgramRuleEngine programRuleEngine, String inputFieldKey) async {
-    clearFormFieldStates(inputFieldKey);
     ProgramRuleEngineArguments args = ProgramRuleEngineArguments(
       programRuleEngine: programRuleEngine,
       inputFieldKey: inputFieldKey,
@@ -53,13 +52,6 @@ mixin ProgramRuleEngineState
       inputFieldId: args.inputFieldKey,
       formDataObject: formValues,
     );
-  }
-
-  void clearFormFieldStates(String inputFieldId) {
-    clearError(inputFieldId);
-    clearWarning(inputFieldId);
-    clearDisabledField(inputFieldId);
-    clearFromMandatoryField(inputFieldId);
   }
 
   void updateFormStates(Map programRuleEvaluation, String inputFieldKey) {
@@ -86,11 +78,21 @@ mixin ProgramRuleEngineState
         });
       } else if (actionProperty == 'warningMessages') {
         fields.forEach((fieldKey, value) {
-          setWarning(fieldKey, value['message'] ?? '');
+          var hiddenStatus = value['hidden'] ?? false;
+          if (hiddenStatus == true) {
+            setWarning(fieldKey, value['message'] ?? '');
+          } else {
+            clearWarning(fieldKey);
+          }
         });
       } else if (actionProperty == 'errorMessages') {
         fields.forEach((fieldKey, value) {
-          setError(fieldKey, value['message'] ?? '');
+          var hiddenStatus = value['hidden'] ?? false;
+          if (hiddenStatus == true) {
+            setError(fieldKey, value['message'] ?? '');
+          } else {
+            clearError(fieldKey);
+          }
         });
       } else if (actionProperty == 'errorMessages') {
         fields.forEach((fieldKey, value) {
