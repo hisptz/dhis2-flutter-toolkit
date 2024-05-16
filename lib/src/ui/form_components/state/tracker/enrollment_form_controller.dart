@@ -146,7 +146,7 @@ class D2TrackerEnrollmentFormController extends D2FormController
   @override
   FieldState getFieldState(String key) {
     void onChange(value) {
-      setValue(key, value);
+      setValueSilently(key, value);
       spawnProgramRuleEngine(key);
     }
 
