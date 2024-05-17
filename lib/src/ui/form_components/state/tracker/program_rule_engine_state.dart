@@ -133,7 +133,7 @@ mixin ProgramRuleEngineState
         .forEach((hiddenState, options) {
       var optionCodes =
           options.map((option) => option['option'] as String).toList();
-      if (optionCodes.contains(getValue(inputFieldId))) {
+      if (optionCodes.contains(getValue(inputFieldId)) && hiddenState == true) {
         clearValueSilently(inputFieldId);
       }
       if (hiddenState == true) {
