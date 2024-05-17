@@ -6,6 +6,7 @@ class D2FormUtils {
       {bool mandatory = false,
       bool? allowFutureDates,
       bool? renderOptionsAsRadio,
+      D2ObjectBox? db,
       bool? clearable}) {
     // if (dataItem is D2TrackedEntityAttribute) {
     D2InputFieldType? type =
@@ -114,6 +115,22 @@ class D2FormUtils {
           mandatory: mandatory,
           clearable: clearable ?? false,
         );
+      case D2InputFieldType.organisationUnit:
+        if (db == null) {
+          return D2BaseInputFieldConfig(
+            label: label,
+            type: type,
+            name: name,
+            mandatory: mandatory,
+            clearable: clearable ?? false,
+          );
+        }
+        return D2OrgUnitInputFieldConfig(
+            label: label,
+            type: type,
+            name: name,
+            mandatory: mandatory,
+            service: D2LocalOrgUnitSelectorService(db));
       default:
         return D2BaseInputFieldConfig(
           label: label,

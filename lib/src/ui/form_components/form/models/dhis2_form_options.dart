@@ -1,4 +1,4 @@
-import '../../form_section/models/form_section.dart';
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
 class D2TrackerFormOptions {
   final bool showTitle;

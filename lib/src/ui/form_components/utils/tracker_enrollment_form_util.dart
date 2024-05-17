@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/utils/form_utils.dart';
 
+import '../../../../objectbox.dart';
 import '../../../models/metadata/program.dart';
 import '../../../models/metadata/program_section.dart';
 import '../../../models/metadata/program_tracked_entity_attribute.dart';
@@ -11,10 +12,11 @@ import '../input_field/models/base_input_field.dart';
 
 class D2TrackerEnrollmentFormUtil {
   D2Program program;
-
   D2TrackerFormOptions options;
+  D2ObjectBox db;
 
-  D2TrackerEnrollmentFormUtil({required this.program, required this.options});
+  D2TrackerEnrollmentFormUtil(
+      {required this.program, required this.options, required this.db});
 
   List<D2BaseInputFieldConfig> _getFields(
       List<D2TrackedEntityAttribute> attributes) {

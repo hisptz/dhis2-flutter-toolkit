@@ -29,7 +29,7 @@ class OrgUnitInput
 
 class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
   List<OrgUnitData> selectedOrgUnitData = [];
-  late final TextEditingController controller;
+  late TextEditingController controller;
   final BoxConstraints iconConstraints = const BoxConstraints(
       maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
 
@@ -75,6 +75,16 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(oldWidget) {
+    if (widget.value == null) {
+      controller = TextEditingController();
+    } else if (widget.value != controller.text) {
+      controller.text = widget.value ?? '';
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
