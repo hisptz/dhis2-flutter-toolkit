@@ -10,18 +10,23 @@ class OperatorsConstants {
   ///This is a list of arithmetic operators supported by the library
   static List<String> arithmeticOperators = ['+', '-', '*', '/', '%'];
 
+  ///This is a list of all comparison logical operators supported by the library
+  static List<String> comparisonLogicalOperators = [
+    '>=',
+    '<=',
+    '>',
+    '<',
+  ];
+
   ///This is a list of all logical operators supported by the library
   static List<String> logicalOperators = [
     '&&',
     '||',
-    '>=',
-    '===',
-    '==',
-    '<=',
     '!=',
     '!',
-    '>',
-    '<',
+    '===',
+    '==',
+    ...comparisonLogicalOperators
   ];
 
   ///This is a list of all supported DHIS2 operators

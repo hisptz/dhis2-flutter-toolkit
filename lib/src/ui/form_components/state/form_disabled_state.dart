@@ -15,6 +15,11 @@ mixin D2FormDisabledState on ChangeNotifier {
     notifyListeners();
   }
 
+  void clearDisabledField(String key) {
+    disabledFields.remove(key);
+    notifyListeners();
+  }
+
   void disableFields(List<String> keys) {
     disabledFields.addAll(keys);
     disabledFields = disabledFields.toSet().toList();

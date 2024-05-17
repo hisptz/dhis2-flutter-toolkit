@@ -12,13 +12,21 @@ mixin D2FormValueState on ChangeNotifier {
     notifyListeners();
   }
 
-  void setValue(String key, value) {
+  void setValueSilently(String key, value) {
     _formValues[key] = value;
+  }
+
+  void setValue(String key, value) {
+    setValueSilently(key, value);
     notifyListeners();
   }
 
-  void clearValue(String key) {
+  void clearValueSilently(String key) {
     _formValues.remove(key);
+  }
+
+  void clearValue(String key) {
+    clearValueSilently(key);
     notifyListeners();
   }
 

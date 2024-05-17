@@ -32,7 +32,7 @@ class SelectInput extends BaseStatelessInput<D2SelectInputFieldConfig, String> {
       );
     }).toList();
 
-    D2InputFieldOption? valueOption = input.options!
+    D2InputFieldOption? valueOption = input.filteredOptions
         .firstWhereOrNull((D2InputFieldOption option) => option.code == value);
     return DropdownButton<D2InputFieldOption>(
       alignment: Alignment.centerLeft,
@@ -41,7 +41,7 @@ class SelectInput extends BaseStatelessInput<D2SelectInputFieldConfig, String> {
         color: Colors.transparent,
       ),
       iconEnabledColor: color,
-      selectedItemBuilder: (context) => input.options!
+      selectedItemBuilder: (context) => input.filteredOptions
           .map((e) => Align(
                 alignment: Alignment.centerLeft,
                 child: Text(e.name),
