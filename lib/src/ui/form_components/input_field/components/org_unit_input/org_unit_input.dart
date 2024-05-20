@@ -30,12 +30,12 @@ class OrgUnitInput
 class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
   List<OrgUnitData> selectedOrgUnitData = [];
   late TextEditingController controller;
+  @override
   final BoxConstraints iconConstraints = const BoxConstraints(
       maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
 
   void onSelect(List<String> selected) {
     widget.onChange(selected.first);
-    loadSelectedNames(selected);
   }
 
   onOpenSelector(BuildContext context) {
@@ -54,12 +54,14 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
     controller.text = "...";
     List<OrgUnitData> orgUnits =
         await widget.input.service.getOrgUnitDataFromId(selected ?? []);
-    setState(() {
-      selectedOrgUnitData = orgUnits;
-      controller.text = selectedOrgUnitData
-          .map((OrgUnitData orgUnit) => orgUnit.displayName)
-          .join(", ");
-    });
+    if (mounted) {
+      setState(() {
+        selectedOrgUnitData = orgUnits;
+        controller.text = selectedOrgUnitData
+            .map((OrgUnitData orgUnit) => orgUnit.displayName)
+            .join(", ");
+      });
+    }
   }
 
   @override
@@ -81,8 +83,8 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
   void didUpdateWidget(oldWidget) {
     if (widget.value == null) {
       controller = TextEditingController();
-    } else if (widget.value != controller.text) {
-      controller.text = widget.value ?? '';
+    } else {
+      loadSelectedNames([widget.value!]);
     }
     super.didUpdateWidget(oldWidget);
   }
