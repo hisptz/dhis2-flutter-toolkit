@@ -23,63 +23,58 @@ class D2ControlledForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          form.title != null
-              ? Text(
-                  form.title!,
-                  style: TextStyle(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        form.title != null
+            ? Text(
+                form.title!,
+                style: TextStyle(
+                  color: color,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
+              )
+            : Container(),
+        form.subtitle != null
+            ? Text(
+                form.subtitle!,
+                style: const TextStyle(color: Colors.blueGrey, fontSize: 16),
+              )
+            : Container(),
+        form.sections != null
+            ? Column(
+                children: form.sections!.map((D2FormSection section) {
+                return ListenableBuilder(
+                  listenable: controller,
+                  builder: (context, child) {
+                    SectionState state =
+                        controller.getSectionState(section.id, []);
+                    return Visibility(
+                        visible: !(state.hidden ?? false),
+                        child: child ?? Container());
+                  },
+                  child: FormSectionContainerWithControlledInputs(
+                    disabled: disabled,
+                    section: section,
+                    controller: controller,
                     color: color,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
                   ),
-                )
-              : Container(),
-          form.subtitle != null
-              ? Text(
-                  form.subtitle!,
-                  style: const TextStyle(color: Colors.blueGrey, fontSize: 16),
-                )
-              : Container(),
-          form.sections != null
-              ? Column(
-                  children: form.sections!.map((D2FormSection section) {
-                  return ListenableBuilder(
-                    listenable: controller,
-                    builder: (context, child) {
-                      SectionState state =
-                          controller.getSectionState(section.id, []);
-                      return Visibility(
-                          visible: !(state.hidden ?? false),
-                          child: child ?? Container());
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: FormSectionContainerWithControlledInputs(
-                        disabled: disabled,
-                        section: section,
-                        controller: controller,
-                        color: color,
-                      ),
-                    ),
-                  );
-                }).toList())
-              : Column(
-                  children: form.fields!.map((D2BaseInputFieldConfig input) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: D2FormControlledInputField(
-                      disabled: disabled,
-                      color: color,
-                      input: input,
-                      controller: controller,
-                    ),
-                  );
-                }).toList())
-        ],
-      ),
+                );
+              }).toList())
+            : Column(
+                children: form.fields!.map((D2BaseInputFieldConfig input) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: D2FormControlledInputField(
+                    disabled: disabled,
+                    color: color,
+                    input: input,
+                    controller: controller,
+                  ),
+                );
+              }).toList())
+      ],
     );
   }
 }

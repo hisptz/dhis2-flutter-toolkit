@@ -21,23 +21,22 @@ class FormSectionContainerWithControlledInputs extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Visibility(
-          visible: section.title != null,
-          child: Text(
+        if (section.title != null && section.title!.isNotEmpty)
+          Text(
             section.title ?? '',
             style: TextStyle(
               color: color,
               fontSize: 24,
             ),
           ),
-        ),
-        Visibility(
-          visible: section.subtitle != null,
-          child: Text(
+        if (section.subtitle != null && section.subtitle!.isNotEmpty)
+          Text(
             section.subtitle ?? '',
-            style: const TextStyle(color: Colors.blueGrey, fontSize: 16),
+            style: const TextStyle(
+              color: Colors.blueGrey,
+              fontSize: 16,
+            ),
           ),
-        ),
         Column(
           children: section.fields.map((D2BaseInputFieldConfig input) {
             return ListenableBuilder(
