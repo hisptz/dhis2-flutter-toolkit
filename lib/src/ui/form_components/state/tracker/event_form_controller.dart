@@ -54,16 +54,15 @@ class D2TrackerEventFormController extends D2FormController
     programRuleEngine = D2ProgramRuleEngine(
       programRules: programRules,
       programRuleVariables: programRuleVariables,
-      trackedEntity: event?.trackedEntity.target,
+      trackedEntity: event != null
+          ? event!.trackedEntity.target
+          : enrollment?.trackedEntity.target,
     );
 
-    for (var section in programStage.programStageSections) {
-      for (var attribute in section.programStageSectionDataElements) {
-        spawnProgramRuleEngine(
-          attribute.dataElement.target?.uid ?? "",
-        );
-      }
-    }
+    spawnProgramRuleEngine(programStage.programStageDataElements
+        .map((programStageDataElement) =>
+            programStageDataElement.dataElement.target?.uid ?? '')
+        .toList());
   }
 
   Future<D2Event> create() async {
@@ -90,7 +89,10 @@ class D2TrackerEventFormController extends D2FormController
   FieldState getFieldState(String key) {
     void onChange(value) {
       setValueSilently(key, value);
-      spawnProgramRuleEngine(key);
+      spawnProgramRuleEngine(programStage.programStageDataElements
+          .map((programStageDataElement) =>
+              programStageDataElement.dataElement.target?.uid ?? '')
+          .toList());
     }
 
     bool hidden = isFieldHidden(key);

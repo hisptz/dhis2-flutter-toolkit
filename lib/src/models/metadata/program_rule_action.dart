@@ -1,11 +1,22 @@
-import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
 
+import '../../../objectbox.dart';
+import '../../repositories/metadata/data_element.dart';
+import '../../repositories/metadata/option.dart';
 import '../../repositories/metadata/option_group.dart';
 import '../../repositories/metadata/program_rule.dart';
+import '../../repositories/metadata/program_rule_action.dart';
+import '../../repositories/metadata/program_section.dart';
+import '../../repositories/metadata/program_stage_section.dart';
+import '../../repositories/metadata/tracked_entity_attribute.dart';
 import 'base.dart';
+import 'data_element.dart';
+import 'option.dart';
 import 'option_group.dart';
 import 'program_rule.dart';
+import 'program_section.dart';
+import 'program_stage_section.dart';
+import 'tracked_entity_attribute.dart';
 
 @Entity()
 class D2ProgramRuleAction extends D2MetaResource {
@@ -51,7 +62,7 @@ class D2ProgramRuleAction extends D2MetaResource {
         data = json["data"],
         displayName = json["displayName"],
         location = json["location"] {
-    id = D2ProgramRuleVariableRepository(db).getIdByUid(json["id"]) ?? 0;
+    id = D2ProgramRuleActionRepository(db).getIdByUid(json["id"]) ?? 0;
 
     programRule.target =
         D2ProgramRuleRepository(db).getByUid(json["programRule"]["id"]);

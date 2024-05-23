@@ -109,7 +109,7 @@ class ProgramRuleHelper {
             ? event2.occurredAt!.compareTo(event1.occurredAt!) // Reverse order
             : 0);
 
-    var value = "''";
+    var value = '';
 
     if (ProgramRuleVariableSourceTypes.supportedTypes
         .contains(programRuleVariable.programRuleVariableSourceType)) {
@@ -127,7 +127,7 @@ class ProgramRuleHelper {
           );
 
           if (dataValues.isNotEmpty) {
-            value = dataValues.first.value ?? '';
+            value = dataValues.first.value ?? "''";
           }
         }
       }
@@ -136,14 +136,21 @@ class ProgramRuleHelper {
       else if (programRuleVariable.programRuleVariableSourceType ==
           ProgramRuleVariableSourceTypes.teiAttribute) {
         if (trackedEntityAttribute.isNotEmpty) {
-          var teiAttributeWithValue = trackedEntity.attributes.where(
-            (element) =>
-                element.trackedEntityAttribute.target?.uid ==
-                trackedEntityAttribute,
-          );
+          var teiAttributeWithValue = trackedEntity.attributes
+              .where(
+                (element) =>
+                    element.trackedEntityAttribute.target?.uid ==
+                    trackedEntityAttribute,
+              )
+              .toList();
 
           if (teiAttributeWithValue.isNotEmpty) {
-            value = teiAttributeWithValue.first.value ?? '';
+            value = value.isEmpty
+                ? teiAttributeWithValue.first.value ?? "''"
+                : getProgramVariableValueFromFormDataObject(
+                    programRuleVariable: programRuleVariable,
+                    formDataObject: formDataObject,
+                  );
           }
         }
       }
@@ -151,6 +158,7 @@ class ProgramRuleHelper {
       // for data element current event
       else if (programRuleVariable.programRuleVariableSourceType ==
           ProgramRuleVariableSourceTypes.dataElementCurrentEvent) {
+        // TODO check if can extract current event. As of current it takes values from the form data object
         value = getProgramVariableValueFromFormDataObject(
           programRuleVariable: programRuleVariable,
           formDataObject: formDataObject,
@@ -170,7 +178,7 @@ class ProgramRuleHelper {
                 (element) => element.dataElement.target?.uid == dataElement,
               )
               .value;
-          value = dataValue ?? '';
+          value = dataValue ?? "''";
         }
       }
     } else {
