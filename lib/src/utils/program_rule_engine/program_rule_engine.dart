@@ -15,6 +15,7 @@ import '../string_utils.dart';
 import './constants/program_rule_actions_constants.dart';
 import './exceptions/program_rule_exception.dart';
 import './helpers/program_rule_helper.dart';
+import 'models/program_rule_results.dart';
 
 ///
 ///`D2ProgramRuleEngine` is the engine class for evaluation of DHI2 program rules
@@ -43,37 +44,29 @@ class D2ProgramRuleEngine {
     this.trackedEntity,
   });
 
+  ///
   ///`D2ProgramRuleEngine.evaluateProgramRule` is a helper function for evaluation of program rule on given form data object
   /// The function takes aa `Map` of form data object and an optional `String` id of the input field in current evaluations to return a `Map` result
-  /// The result from this function follows below format:
-  ///```dart
-  ///  {
-  ///    "hiddenFields" : {...}
-  ///    "assignedFields" : {...}
-  ///    "hiddenSections" : {...}
-  ///    "hiddenProgramStages" : {...}
-  ///    "errorMessages" : {...}
-  ///    "warningMessages" : {...}
-  ///  }
-  ///```
-  Map evaluateProgramRule({
+  /// The result from this function is an object of `ProgramRuleResult`
+  ///
+  ProgramRuleResult evaluateProgramRule({
     Map formDataObject = const {},
-    String inputFieldId = '',
+    List<String> inputFieldIds = const [],
   }) {
-    var hiddenFields = {};
-    var assignedFields = {};
-    var hiddenSections = {};
-    var hiddenProgramStages = {};
-    var errorMessages = {};
-    var warningMessages = {};
-    var hiddenOptions = {};
-    var hiddenOptionGroups = {};
-    var mandatoryFields = {};
+    ProgramRuleHiddenFields hiddenFields = ProgramRuleHiddenFields();
+    ProgramRuleAssignedValues assignedFields = ProgramRuleAssignedValues();
+    ProgramRuleHiddenSections hiddenSections = ProgramRuleHiddenSections();
+    ProgramRuleErrorMessages errorMessages = ProgramRuleErrorMessages();
+    ProgramRuleWarningMessages warningMessages = ProgramRuleWarningMessages();
+    ProgramRuleHiddenOptions hiddenOptions = ProgramRuleHiddenOptions();
+    ProgramRuleHiddenOptionGroups hiddenOptionGroups =
+        ProgramRuleHiddenOptionGroups();
+    ProgramRuleMandatoryFields mandatoryFields = ProgramRuleMandatoryFields();
 
     List<D2ProgramRule> sortedProgramRules = _sortProgramRulesByPriority(
-      inputFieldId.isEmpty
+      inputFieldIds.isEmpty
           ? programRules
-          : _filterProgramRulesByFieldId(inputFieldId),
+          : _filterProgramRulesByFieldId(inputFieldIds),
     );
 
     if (sortedProgramRules.isNotEmpty) {
@@ -134,8 +127,10 @@ class D2ProgramRuleEngine {
             if (programRuleActionType ==
                     ProgramRuleActionsConstants.hideField &&
                 evaluatedConditionResults.runtimeType == bool) {
-              hiddenFields[dataItemTargetedByProgramAction] =
-                  evaluatedConditionResults;
+              hiddenFields.setFieldHidden(
+                dataItemTargetedByProgramAction,
+                evaluatedConditionResults,
+              );
             } else if (programRuleActionType ==
                     ProgramRuleActionsConstants.assignField &&
                 evaluatedConditionResults.runtimeType == bool) {
@@ -152,8 +147,10 @@ class D2ProgramRuleEngine {
                   var assignedValue = D2StringUtils.escapeQuotes(
                     '$evaluatedDataExpression',
                   );
-                  assignedFields[dataItemTargetedByProgramAction] =
-                      assignedValue;
+                  assignedFields.setAssignedValue(
+                    dataItemTargetedByProgramAction,
+                    assignedValue,
+                  );
                 }
               }
             } else if (programRuleActionType ==
@@ -165,7 +162,10 @@ class D2ProgramRuleEngine {
                     : programSection.isNotEmpty
                         ? programSection
                         : '';
-                hiddenSections[sectionId] = evaluatedConditionResults;
+                hiddenSections.setSectionHidden(
+                  sectionId,
+                  evaluatedConditionResults,
+                );
               }
             } else if (evaluatedConditionResults.runtimeType == bool &&
                 (programRuleActionType ==
@@ -178,16 +178,16 @@ class D2ProgramRuleEngine {
                           ProgramRuleActionsConstants.errorOnComplete
                   ? true
                   : false;
-              warningMessages[dataItemTargetedByProgramAction] =
-                  warningMessages[dataItemTargetedByProgramAction]
-                              ?['visibilityStatus'] ==
-                          true
-                      ? warningMessages[dataItemTargetedByProgramAction]
-                      : {
-                          "message": content,
-                          "visibilityStatus": evaluatedConditionResults,
-                          "isComplete": isOnComplete,
-                        };
+
+              var message = ProgramRuleMessage(
+                message: content ?? '',
+                visibilityStatus: evaluatedConditionResults,
+                showOnComplete: isOnComplete,
+              );
+              warningMessages.setWarningMessage(
+                dataItemTargetedByProgramAction,
+                message,
+              );
             } else if (evaluatedConditionResults.runtimeType == bool &&
                 (programRuleActionType ==
                         ProgramRuleActionsConstants.showError ||
@@ -199,49 +199,42 @@ class D2ProgramRuleEngine {
                           ProgramRuleActionsConstants.errorOnComplete
                   ? true
                   : false;
-              errorMessages[dataItemTargetedByProgramAction] =
-                  errorMessages[dataItemTargetedByProgramAction] != null &&
-                          errorMessages[dataItemTargetedByProgramAction]
-                                  ?['visibilityStatus'] ==
-                              true
-                      ? errorMessages[dataItemTargetedByProgramAction]
-                      : {
-                          "message": content,
-                          "visibilityStatus": evaluatedConditionResults,
-                          "isComplete": isOnComplete,
-                        };
+              var message = ProgramRuleMessage(
+                message: content ?? '',
+                visibilityStatus: evaluatedConditionResults,
+                showOnComplete: isOnComplete,
+              );
+              errorMessages.setErrorMessage(
+                dataItemTargetedByProgramAction,
+                message,
+              );
             } else if (evaluatedConditionResults.runtimeType == bool &&
                 programRuleActionType ==
                     ProgramRuleActionsConstants.hideOption) {
-              hiddenOptions[dataItemTargetedByProgramAction] = [
-                ...(hiddenOptions[dataItemTargetedByProgramAction] ?? []),
-                {option: evaluatedConditionResults}
-              ];
+              hiddenOptions.setOptionHidden(
+                dataItemTargetedByProgramAction,
+                option,
+                evaluatedConditionResults,
+              );
             } else if (evaluatedConditionResults.runtimeType == bool &&
                 programRuleActionType ==
                     ProgramRuleActionsConstants.hideOptionGroup) {
-              hiddenOptionGroups[dataItemTargetedByProgramAction] = [
-                ...(hiddenOptionGroups[dataItemTargetedByProgramAction] ?? []),
-                {optionGroup: evaluatedConditionResults},
-              ];
+              hiddenOptionGroups.setOptionGroupHidden(
+                dataItemTargetedByProgramAction,
+                optionGroup,
+                evaluatedConditionResults,
+              );
             } else if (evaluatedConditionResults.runtimeType == bool &&
                 evaluatedConditionResults == true &&
                 programRuleActionType ==
                     ProgramRuleActionsConstants.makeMandatory) {
-              mandatoryFields[dataItemTargetedByProgramAction] =
-                  evaluatedConditionResults;
-            } else if (evaluatedConditionResults.runtimeType == bool &&
-                evaluatedConditionResults == true) {
-              var message = '';
-              if (content != null) {
-                message += content;
-              }
-              if (data != null) {
-                message += ' $data';
-              }
-              errorMessages[dataItemTargetedByProgramAction] = {
-                message: message,
-              };
+              mandatoryFields.setFieldMandatory(
+                dataItemTargetedByProgramAction,
+                evaluatedConditionResults,
+              );
+            } else if (evaluatedConditionResults.runtimeType == bool) {
+              debugPrint(
+                  'Program Rule Action $programRuleActionType is not implemented');
             }
           }
         } catch (error) {
@@ -252,27 +245,27 @@ class D2ProgramRuleEngine {
       }
     }
 
-    return {
-      "hiddenFields": hiddenFields,
-      "assignedFields": assignedFields,
-      "hiddenSections": hiddenSections,
-      "hiddenProgramStages": hiddenProgramStages,
-      "warningMessages": warningMessages,
-      "errorMessages": errorMessages,
-      "hiddenOptions": hiddenOptions,
-      "hiddenOptionGroups": hiddenOptionGroups,
-      "mandatoryFields": mandatoryFields
-    };
+    return ProgramRuleResult(
+      hiddenFields: hiddenFields,
+      assignedFields: assignedFields,
+      hiddenSections: hiddenSections,
+      warningMessages: warningMessages,
+      errorMessages: errorMessages,
+      hiddenOptions: hiddenOptions,
+      hiddenOptionGroups: hiddenOptionGroups,
+      mandatoryFields: mandatoryFields,
+    );
   }
 
   /// `D2ProgramRuleEngine._filterProgramRulesByFieldId` is a private helper function that filters the program rules by the input field id
   /// The function accepts a `String` input field id
   /// The function returns a filtered `List` of `D2ProgramRule`
-  List<D2ProgramRule> _filterProgramRulesByFieldId(String inputFieldId) {
+  List<D2ProgramRule> _filterProgramRulesByFieldId(List<String> inputFieldIds) {
     List<String> inputFieldProgramRuleVariables = programRuleVariables
         .where((programVariable) =>
-            programVariable.dataElement.target?.uid == inputFieldId ||
-            programVariable.trackedEntityAttribute.target?.uid == inputFieldId)
+            inputFieldIds.contains(programVariable.dataElement.target?.uid) ||
+            inputFieldIds
+                .contains(programVariable.trackedEntityAttribute.target?.uid))
         .map((programVariable) => programVariable.name)
         .toList();
 
@@ -286,12 +279,12 @@ class D2ProgramRuleEngine {
                         (D2ProgramRuleAction programRuleAction) =>
                             (programRuleAction.data ?? '').contains(variable)),
               ) ||
-              programRule.programRuleActions.any(
-                  (D2ProgramRuleAction programRuleAction) =>
-                      programRuleAction.dataElement.target?.uid ==
-                          inputFieldId ||
-                      programRuleAction.trackedEntityAttribute.target?.uid ==
-                          inputFieldId),
+              programRule.programRuleActions.any((D2ProgramRuleAction
+                      programRuleAction) =>
+                  inputFieldIds
+                      .contains(programRuleAction.dataElement.target?.uid) ||
+                  inputFieldIds.contains(
+                      programRuleAction.trackedEntityAttribute.target?.uid)),
         )
         .toList();
   }
@@ -354,8 +347,10 @@ class D2ProgramRuleEngine {
         String sanitizedVariable =
             D2StringUtils.convertSnakeCaseToCamelCase(variable);
 
-        String sanitizedVariableValue =
-            sanitizedVariable == 'currentDate' ? DateTime.now().toString() : '';
+        String sanitizedVariableValue = '';
+        if (sanitizedVariable == 'currentDate') {
+          sanitizedVariableValue = DateTime.now().toString();
+        }
 
         expression = formDataObject.keys.contains(sanitizedVariable)
             ? ProgramRuleHelper.sanitizeExpression(
