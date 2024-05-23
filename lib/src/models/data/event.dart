@@ -43,6 +43,8 @@ class D2Event extends SyncDataSource
 
   @Backlink("event")
   final dataValues = ToMany<D2DataValue>();
+
+  final dataValuesForQuery = ToMany<D2DataValue>();
   final enrollment = ToOne<D2Enrollment>();
   final trackedEntity = ToOne<D2TrackedEntity>();
   final program = ToOne<D2Program>();

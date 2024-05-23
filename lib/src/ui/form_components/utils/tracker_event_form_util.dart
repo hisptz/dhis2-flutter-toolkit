@@ -4,6 +4,7 @@ import 'package:dhis2_flutter_toolkit/src/models/metadata/program_stage_section.
 import 'package:dhis2_flutter_toolkit/src/models/metadata/program_stage_section_data_element.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/utils/form_utils.dart';
 
+import '../../../../objectbox.dart';
 import '../../../models/metadata/data_element.dart';
 import '../../../models/metadata/program_stage.dart';
 import '../form/models/dhis2_form_options.dart';
@@ -13,8 +14,10 @@ import '../input_field/models/base_input_field.dart';
 class D2TrackerEventFormUtil {
   D2ProgramStage programStage;
   D2TrackerFormOptions options;
+  D2ObjectBox db;
 
-  D2TrackerEventFormUtil({required this.programStage, required this.options});
+  D2TrackerEventFormUtil(
+      {required this.programStage, required this.options, required this.db});
 
   List<D2BaseInputFieldConfig> _getFields(List<D2DataElement> dataElements) {
     return dataElements.map((D2DataElement dataElement) {
@@ -29,6 +32,7 @@ class D2TrackerEventFormUtil {
       }
 
       return D2FormUtils.getFieldConfigFromDataItem(dataElement,
+          db: db,
           mandatory: programStageDataElement.compulsory,
           allowFutureDates: programStageDataElement.allowFutureDate,
           renderOptionsAsRadio: programStageDataElement.renderOptionsAsRadio)

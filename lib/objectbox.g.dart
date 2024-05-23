@@ -474,7 +474,12 @@ final _entities = <obx_int.ModelEntity>[
             type: 9,
             flags: 0)
       ],
-      relations: <obx_int.ModelRelation>[],
+      relations: <obx_int.ModelRelation>[
+        obx_int.ModelRelation(
+            id: const obx_int.IdUid(27, 722672923808169924),
+            name: 'dataValuesForQuery',
+            targetId: const obx_int.IdUid(3, 5116683257084345145))
+      ],
       backlinks: <obx_int.ModelBacklink>[
         obx_int.ModelBacklink(
             name: 'relationships',
@@ -3128,7 +3133,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
       entities: _entities,
       lastEntityId: const obx_int.IdUid(47, 3304769199229587498),
       lastIndexId: const obx_int.IdUid(118, 194554128317908364),
-      lastRelationId: const obx_int.IdUid(26, 6704557593210454334),
+      lastRelationId: const obx_int.IdUid(27, 722672923808169924),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [4845029629663650184, 3304769199229587498],
       retiredIndexUids: const [1380213729038111912],
@@ -3501,6 +3506,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
               object.orgUnit
             ],
         toManyRelations: (D2Event object) => {
+              obx_int.RelInfo<D2Event>.toMany(27, object.id):
+                  object.dataValuesForQuery,
               obx_int.RelInfo<D2Relationship>.toOneBacklink(15, object.id,
                       (D2Relationship srcObject) => srcObject.fromEvent):
                   object.relationships,
@@ -3617,6 +3624,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.orgUnit.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 36, 0);
           object.orgUnit.attach(store);
+          obx_int.InternalToManyAccess.setRelInfo<D2Event>(
+              object.dataValuesForQuery,
+              store,
+              obx_int.RelInfo<D2Event>.toMany(27, object.id));
           obx_int.InternalToManyAccess.setRelInfo<D2Event>(
               object.relationships,
               store,
@@ -6810,6 +6821,10 @@ class D2Event_ {
   /// see [D2Event.geometry]
   static final geometry =
       obx.QueryStringProperty<D2Event>(_entities[4].properties[18]);
+
+  /// see [D2Event.dataValuesForQuery]
+  static final dataValuesForQuery =
+      obx.QueryRelationToMany<D2Event, D2DataValue>(_entities[4].relations[0]);
 
   /// see [D2Event.relationships]
   static final relationships = obx.QueryBacklinkToMany<D2Relationship, D2Event>(

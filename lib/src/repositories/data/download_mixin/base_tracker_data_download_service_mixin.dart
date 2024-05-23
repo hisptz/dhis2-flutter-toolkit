@@ -35,7 +35,7 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
       "pageSize": "$downloadPageSize",
       "totalPages": "true",
       "program": program!.uid,
-      "ouMode": "ACCESSIBLE",
+      "ouMode": "CAPTURE",
     };
     if (fields.isNotEmpty) {
       params["fields"] = fields.join(",");
@@ -138,8 +138,8 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
 
   Future initializeDownload() async {
     try {
-      D2SyncStatus status = D2SyncStatus(
-          status: D2SyncStatusEnum.initialized, label: label);
+      D2SyncStatus status =
+          D2SyncStatus(status: D2SyncStatusEnum.initialized, label: label);
       downloadController.add(status);
       D2Pagination pagination = await getPagination();
       status.setTotal(pagination.pageCount);
