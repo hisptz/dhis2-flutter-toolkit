@@ -71,8 +71,8 @@ mixin BaseAggregateDataUploadServiceMixin<T extends SyncDataSource>
     if (client == null) {
       throw "Error starting upload. Make sure you call setClient first";
     }
+
     try {
-      uploadController.stream.listen(null);
       Query<T> query = getUnSyncedQuery();
       int count = query.count();
       if (count == 0) {
@@ -96,6 +96,9 @@ mixin BaseAggregateDataUploadServiceMixin<T extends SyncDataSource>
       }
       status.complete();
       uploadController.add(status);
+      if (!uploadController.hasListener) {
+        uploadController.stream.listen(null);
+      }
       await uploadController.close();
     } catch (e) {
       uploadController.addError(e);

@@ -12,7 +12,7 @@ import '../base_tracker.dart';
 import '../query_mixin/base_tracker_query_mixin.dart';
 
 mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
-on D2BaseTrackerDataRepository<T>, D2BaseTrackerDataQueryMixin<T> {
+    on D2BaseTrackerDataRepository<T>, D2BaseTrackerDataQueryMixin<T> {
   D2ClientService? client;
   int uploadPageSize = 10;
   String uploadResource = "tracker";
@@ -179,6 +179,9 @@ on D2BaseTrackerDataRepository<T>, D2BaseTrackerDataQueryMixin<T> {
       }
       status.complete();
       uploadController.add(status);
+      if (!uploadController.hasListener) {
+        uploadController.stream.listen(null);
+      }
       await uploadController.close();
     } catch (e) {
       uploadController.addError(e);
