@@ -3058,17 +3058,128 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "49:1556330959682150884",
+      "lastPropertyId": "10:2476774999271674881",
+      "name": "D2ImportSummaryError",
+      "properties": [
+        {
+          "id": "1:3275305471238614188",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1743045929292110687",
+          "name": "message",
+          "type": 9
+        },
+        {
+          "id": "3:5235124802535617585",
+          "name": "errorCode",
+          "type": 9
+        },
+        {
+          "id": "4:7129717966868285907",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "5:8959532656193672",
+          "name": "type",
+          "type": 9
+        },
+        {
+          "id": "6:4942307096925975325",
+          "name": "timestamp",
+          "type": 10
+        },
+        {
+          "id": "7:3730379832200056342",
+          "name": "trackedEntityId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "119:2160560134524471167",
+          "relationTarget": "D2TrackedEntity"
+        },
+        {
+          "id": "8:3716410654116167592",
+          "name": "eventId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "120:7431645064698892712",
+          "relationTarget": "D2Event"
+        },
+        {
+          "id": "9:3595531916135965704",
+          "name": "relationshipId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "121:9154092580187784373",
+          "relationTarget": "D2Relationship"
+        },
+        {
+          "id": "10:2476774999271674881",
+          "name": "enrollmentId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "122:2991693433776428510",
+          "relationTarget": "D2Enrollment"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "50:3788266274691932455",
+      "lastPropertyId": "6:5902005856441101283",
+      "name": "D2AppLog",
+      "properties": [
+        {
+          "id": "1:8440721803834387146",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5757290207690745087",
+          "name": "timestamp",
+          "type": 10
+        },
+        {
+          "id": "3:970301316675070852",
+          "name": "code",
+          "type": 6
+        },
+        {
+          "id": "4:438061837435576048",
+          "name": "message",
+          "type": 9
+        },
+        {
+          "id": "5:1267691703084189843",
+          "name": "process",
+          "type": 9
+        },
+        {
+          "id": "6:5902005856441101283",
+          "name": "stackTrace",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "47:3304769199229587498",
-  "lastIndexId": "118:194554128317908364",
+  "lastEntityId": "50:3788266274691932455",
+  "lastIndexId": "122:2991693433776428510",
   "lastRelationId": "27:722672923808169924",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [
     4845029629663650184,
-    3304769199229587498
+    3304769199229587498,
+    3198847875200918398
   ],
   "retiredIndexUids": [
     1380213729038111912
@@ -3102,7 +3213,13 @@
     4992566855950665266,
     8963758446873291324,
     4273258582491092142,
-    2557556231974650069
+    2557556231974650069,
+    6078903857736620697,
+    7588572253583047185,
+    3651093929227157814,
+    5235438825146600120,
+    7922301324287560950,
+    8205999314347292812
   ],
   "retiredRelationUids": [
     6008783994488891808,
