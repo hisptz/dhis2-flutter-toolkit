@@ -1,18 +1,15 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_deletable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../../models/data/base.dart';
-import '../../../services/entry.dart';
-import '../../../utils/entry.dart';
-import '../base_tracker.dart';
-import '../query_mixin/base_tracker_query_mixin.dart';
 
 mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
-on D2BaseTrackerDataRepository<T>, D2BaseTrackerDataQueryMixin<T> {
+    on D2BaseTrackerDataRepository<T>, D2BaseTrackerDataQueryMixin<T> {
   D2ClientService? client;
   int uploadPageSize = 10;
   String uploadResource = "tracker";
@@ -47,11 +44,12 @@ on D2BaseTrackerDataRepository<T>, D2BaseTrackerDataQueryMixin<T> {
     return uploadController.stream;
   }
 
-  List<String> getItemsWithErrorsEntityUidFromImportSummary(
+  List<D2ImportSummaryError> getItemsWithErrorsEntityUidFromImportSummary(
       Map<String, dynamic> importSummary) {
     List errorReports = importSummary["validationReport"]["errorReports"];
     return errorReports
-        .map<String>((errorReport) => errorReport["uid"])
+        .map<D2ImportSummaryError>(
+            (errorReport) => D2ImportSummaryError.fromMap(db, errorReport))
         .toList();
   }
 
@@ -113,8 +111,11 @@ on D2BaseTrackerDataRepository<T>, D2BaseTrackerDataQueryMixin<T> {
             queryParameters: uploadQueryParams);
 
     if (response["status"] == "ERROR") {
-      List<String> entitiesIdsWithErrors =
+      List<D2ImportSummaryError> importSummary =
           getItemsWithErrorsEntityUidFromImportSummary(response);
+      List<String> entitiesIdsWithErrors =
+          importSummary.map<String>((summary) => summary.uid).toList();
+
       List<T> entitiesWithoutErrors = entities
           .whereNot((T entity) => entitiesIdsWithErrors.contains(entity.uid))
           .toList();
@@ -122,6 +123,9 @@ on D2BaseTrackerDataRepository<T>, D2BaseTrackerDataQueryMixin<T> {
         entity.synced = true;
       }
       await box.putManyAsync(entitiesWithoutErrors);
+      if (importSummary.isNotEmpty) {
+        await D2ImportSummaryErrorRepository(db).saveEntities(importSummary);
+      }
     } else {
       for (T entity in entities) {
         entity.synced = true;
@@ -152,6 +156,7 @@ on D2BaseTrackerDataRepository<T>, D2BaseTrackerDataQueryMixin<T> {
     }
     try {
       await deleteSoftDeletedEntities();
+      await D2ImportSummaryErrorRepository(db).clearErrors();
       Query<T> query = getUnSyncedQuery();
       int count = query.count();
       if (count == 0) {
@@ -179,9 +184,16 @@ on D2BaseTrackerDataRepository<T>, D2BaseTrackerDataQueryMixin<T> {
       }
       status.complete();
       uploadController.add(status);
+      if (!uploadController.hasListener) {
+        uploadController.stream.listen(null);
+      }
       await uploadController.close();
     } catch (e) {
+      if (!uploadController.hasListener) {
+        uploadController.stream.listen(null);
+      }
       uploadController.addError(e);
+      uploadController.close();
       rethrow;
     }
   }

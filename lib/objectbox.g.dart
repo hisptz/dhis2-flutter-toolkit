@@ -15,12 +15,14 @@ import 'package:objectbox/internal.dart'
 import 'package:objectbox/objectbox.dart' as obx;
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
+import 'src/models/app/logs.dart';
 import 'src/models/data/attribute_value.dart';
 import 'src/models/data/data_store.dart';
 import 'src/models/data/data_value.dart';
 import 'src/models/data/data_value_set.dart';
 import 'src/models/data/enrollment.dart';
 import 'src/models/data/event.dart';
+import 'src/models/data/import_summary_error.dart';
 import 'src/models/data/relationship.dart';
 import 'src/models/data/reserved_value.dart';
 import 'src/models/data/tracked_entity.dart';
@@ -3093,7 +3095,113 @@ final _entities = <obx_int.ModelEntity>[
       backlinks: <obx_int.ModelBacklink>[
         obx_int.ModelBacklink(
             name: 'options', srcEntity: 'D2Option', srcField: 'optionGroups')
-      ])
+      ]),
+  obx_int.ModelEntity(
+      id: const obx_int.IdUid(49, 1556330959682150884),
+      name: 'D2ImportSummaryError',
+      lastPropertyId: const obx_int.IdUid(10, 2476774999271674881),
+      flags: 0,
+      properties: <obx_int.ModelProperty>[
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(1, 3275305471238614188),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(2, 1743045929292110687),
+            name: 'message',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(3, 5235124802535617585),
+            name: 'errorCode',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(4, 7129717966868285907),
+            name: 'uid',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(5, 8959532656193672),
+            name: 'type',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(6, 4942307096925975325),
+            name: 'timestamp',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(7, 3730379832200056342),
+            name: 'trackedEntityId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(119, 2160560134524471167),
+            relationTarget: 'D2TrackedEntity'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(8, 3716410654116167592),
+            name: 'eventId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(120, 7431645064698892712),
+            relationTarget: 'D2Event'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(9, 3595531916135965704),
+            name: 'relationshipId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(121, 9154092580187784373),
+            relationTarget: 'D2Relationship'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(10, 2476774999271674881),
+            name: 'enrollmentId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(122, 2991693433776428510),
+            relationTarget: 'D2Enrollment')
+      ],
+      relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[]),
+  obx_int.ModelEntity(
+      id: const obx_int.IdUid(50, 3788266274691932455),
+      name: 'D2AppLog',
+      lastPropertyId: const obx_int.IdUid(6, 5902005856441101283),
+      flags: 0,
+      properties: <obx_int.ModelProperty>[
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(1, 8440721803834387146),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(2, 5757290207690745087),
+            name: 'timestamp',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(3, 970301316675070852),
+            name: 'code',
+            type: 6,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(4, 438061837435576048),
+            name: 'message',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(5, 1267691703084189843),
+            name: 'process',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(6, 5902005856441101283),
+            name: 'stackTrace',
+            type: 9,
+            flags: 0)
+      ],
+      relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[])
 ];
 
 /// Shortcut for [Store.new] that passes [getObjectBoxModel] and for Flutter
@@ -3131,11 +3239,15 @@ Future<obx.Store> openStore(
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
-      lastEntityId: const obx_int.IdUid(47, 3304769199229587498),
-      lastIndexId: const obx_int.IdUid(118, 194554128317908364),
+      lastEntityId: const obx_int.IdUid(50, 3788266274691932455),
+      lastIndexId: const obx_int.IdUid(122, 2991693433776428510),
       lastRelationId: const obx_int.IdUid(27, 722672923808169924),
       lastSequenceId: const obx_int.IdUid(0, 0),
-      retiredEntityUids: const [4845029629663650184, 3304769199229587498],
+      retiredEntityUids: const [
+        4845029629663650184,
+        3304769199229587498,
+        3198847875200918398
+      ],
       retiredIndexUids: const [1380213729038111912],
       retiredPropertyUids: const [
         6415074213713321569,
@@ -3166,7 +3278,13 @@ obx_int.ModelDefinition getObjectBoxModel() {
         4992566855950665266,
         8963758446873291324,
         4273258582491092142,
-        2557556231974650069
+        2557556231974650069,
+        6078903857736620697,
+        7588572253583047185,
+        3651093929227157814,
+        5235438825146600120,
+        7922301324287560950,
+        8205999314347292812
       ],
       retiredRelationUids: const [
         6008783994488891808,
@@ -6524,6 +6642,112 @@ obx_int.ModelDefinition getObjectBoxModel() {
           obx_int.InternalToManyAccess.setRelInfo<D2OptionGroup>(object.options,
               store, obx_int.RelInfo<D2Option>.toManyBacklink(26, object.id));
           return object;
+        }),
+    D2ImportSummaryError: obx_int.EntityDefinition<D2ImportSummaryError>(
+        model: _entities[45],
+        toOneRelations: (D2ImportSummaryError object) => [
+              object.trackedEntity,
+              object.event,
+              object.relationship,
+              object.enrollment
+            ],
+        toManyRelations: (D2ImportSummaryError object) => {},
+        getId: (D2ImportSummaryError object) => object.id,
+        setId: (D2ImportSummaryError object, int id) {
+          object.id = id;
+        },
+        objectToFB: (D2ImportSummaryError object, fb.Builder fbb) {
+          final messageOffset = fbb.writeString(object.message);
+          final errorCodeOffset = fbb.writeString(object.errorCode);
+          final uidOffset = fbb.writeString(object.uid);
+          final typeOffset = fbb.writeString(object.type);
+          fbb.startTable(11);
+          fbb.addInt64(0, object.id);
+          fbb.addOffset(1, messageOffset);
+          fbb.addOffset(2, errorCodeOffset);
+          fbb.addOffset(3, uidOffset);
+          fbb.addOffset(4, typeOffset);
+          fbb.addInt64(5, object.timestamp.millisecondsSinceEpoch);
+          fbb.addInt64(6, object.trackedEntity.targetId);
+          fbb.addInt64(7, object.event.targetId);
+          fbb.addInt64(8, object.relationship.targetId);
+          fbb.addInt64(9, object.enrollment.targetId);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (obx.Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+          final messageParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 6, '');
+          final uidParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 10, '');
+          final errorCodeParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 8, '');
+          final typeParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 12, '');
+          final timestampParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0));
+          final object = D2ImportSummaryError(
+              messageParam, uidParam, errorCodeParam, typeParam, timestampParam)
+            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+          object.trackedEntity.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0);
+          object.trackedEntity.attach(store);
+          object.event.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
+          object.event.attach(store);
+          object.relationship.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0);
+          object.relationship.attach(store);
+          object.enrollment.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 22, 0);
+          object.enrollment.attach(store);
+          return object;
+        }),
+    D2AppLog: obx_int.EntityDefinition<D2AppLog>(
+        model: _entities[46],
+        toOneRelations: (D2AppLog object) => [],
+        toManyRelations: (D2AppLog object) => {},
+        getId: (D2AppLog object) => object.id,
+        setId: (D2AppLog object, int id) {
+          object.id = id;
+        },
+        objectToFB: (D2AppLog object, fb.Builder fbb) {
+          final messageOffset = fbb.writeString(object.message);
+          final processOffset = fbb.writeString(object.process);
+          final stackTraceOffset = object.stackTrace == null
+              ? null
+              : fbb.writeString(object.stackTrace!);
+          fbb.startTable(7);
+          fbb.addInt64(0, object.id);
+          fbb.addInt64(1, object.timestamp.millisecondsSinceEpoch);
+          fbb.addInt64(2, object.code);
+          fbb.addOffset(3, messageOffset);
+          fbb.addOffset(4, processOffset);
+          fbb.addOffset(5, stackTraceOffset);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (obx.Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+          final codeParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0);
+          final messageParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 10, '');
+          final stackTraceParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGetNullable(buffer, rootOffset, 14);
+          final idParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+          final timestampParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0));
+          final processParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 12, '');
+          final object = D2AppLog(codeParam, messageParam, stackTraceParam,
+              idParam, timestampParam, processParam);
+
+          return object;
         })
   };
 
@@ -8737,4 +8961,77 @@ class D2OptionGroup_ {
   /// see [D2OptionGroup.code]
   static final code =
       obx.QueryStringProperty<D2OptionGroup>(_entities[44].properties[6]);
+}
+
+/// [D2ImportSummaryError] entity fields to define ObjectBox queries.
+class D2ImportSummaryError_ {
+  /// see [D2ImportSummaryError.id]
+  static final id = obx.QueryIntegerProperty<D2ImportSummaryError>(
+      _entities[45].properties[0]);
+
+  /// see [D2ImportSummaryError.message]
+  static final message = obx.QueryStringProperty<D2ImportSummaryError>(
+      _entities[45].properties[1]);
+
+  /// see [D2ImportSummaryError.errorCode]
+  static final errorCode = obx.QueryStringProperty<D2ImportSummaryError>(
+      _entities[45].properties[2]);
+
+  /// see [D2ImportSummaryError.uid]
+  static final uid = obx.QueryStringProperty<D2ImportSummaryError>(
+      _entities[45].properties[3]);
+
+  /// see [D2ImportSummaryError.type]
+  static final type = obx.QueryStringProperty<D2ImportSummaryError>(
+      _entities[45].properties[4]);
+
+  /// see [D2ImportSummaryError.timestamp]
+  static final timestamp =
+      obx.QueryDateProperty<D2ImportSummaryError>(_entities[45].properties[5]);
+
+  /// see [D2ImportSummaryError.trackedEntity]
+  static final trackedEntity =
+      obx.QueryRelationToOne<D2ImportSummaryError, D2TrackedEntity>(
+          _entities[45].properties[6]);
+
+  /// see [D2ImportSummaryError.event]
+  static final event = obx.QueryRelationToOne<D2ImportSummaryError, D2Event>(
+      _entities[45].properties[7]);
+
+  /// see [D2ImportSummaryError.relationship]
+  static final relationship =
+      obx.QueryRelationToOne<D2ImportSummaryError, D2Relationship>(
+          _entities[45].properties[8]);
+
+  /// see [D2ImportSummaryError.enrollment]
+  static final enrollment =
+      obx.QueryRelationToOne<D2ImportSummaryError, D2Enrollment>(
+          _entities[45].properties[9]);
+}
+
+/// [D2AppLog] entity fields to define ObjectBox queries.
+class D2AppLog_ {
+  /// see [D2AppLog.id]
+  static final id =
+      obx.QueryIntegerProperty<D2AppLog>(_entities[46].properties[0]);
+
+  /// see [D2AppLog.timestamp]
+  static final timestamp =
+      obx.QueryDateProperty<D2AppLog>(_entities[46].properties[1]);
+
+  /// see [D2AppLog.code]
+  static final code =
+      obx.QueryIntegerProperty<D2AppLog>(_entities[46].properties[2]);
+
+  /// see [D2AppLog.message]
+  static final message =
+      obx.QueryStringProperty<D2AppLog>(_entities[46].properties[3]);
+
+  /// see [D2AppLog.process]
+  static final process =
+      obx.QueryStringProperty<D2AppLog>(_entities[46].properties[4]);
+
+  /// see [D2AppLog.stackTrace]
+  static final stackTrace =
+      obx.QueryStringProperty<D2AppLog>(_entities[46].properties[5]);
 }

@@ -116,6 +116,9 @@ class D2Event extends SyncDataSource
     if (enrollment != null) {
       this.enrollment.target = enrollment;
       trackedEntity.target = enrollment.trackedEntity.target;
+      if (enrollment.program.targetId != programStage.program.targetId) {
+        throw 'Enrollment program ${enrollment.program.target!.displayName} is not the same as the specified program of the program stage ${programStage.program.target!.displayName}';
+      }
     }
 
     program.target = programStage.program.target;

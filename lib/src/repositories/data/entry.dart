@@ -4,6 +4,7 @@ export "data_value.dart" show D2DataValueRepository;
 export 'data_value_set.dart' show D2DataValueSetRepository;
 export "enrollment.dart" show D2EnrollmentRepository;
 export "event.dart" show D2EventRepository;
+export 'import_summary_error.dart' show D2ImportSummaryErrorRepository;
 export "query_mixin/base_tracker_query_mixin.dart"
     show D2BaseTrackerDataQueryMixin;
 export "relationship.dart" show D2RelationshipRepository;
