@@ -139,7 +139,9 @@ class D2InputFieldContainer extends StatelessWidget {
                 disabled: disabled,
                 textInputType:
                     const TextInputType.numberWithOptions(decimal: false),
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^-?\d+$'))
+                ],
                 input: input,
                 value: value,
                 onChange: onChange,
