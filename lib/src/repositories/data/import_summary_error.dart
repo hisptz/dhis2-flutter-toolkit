@@ -27,6 +27,10 @@ class D2ImportSummaryErrorRepository extends BaseDataRepository {
     return box.putManyAsync(entities);
   }
 
+  Future clearErrors() async {
+    return box.removeAllAsync();
+  }
+
   Future<List<D2ImportSummaryError>> saveOffline(
       List<Map<String, dynamic>> json) async {
     List<D2ImportSummaryError> entities = json

@@ -156,6 +156,7 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     }
     try {
       await deleteSoftDeletedEntities();
+      await D2ImportSummaryErrorRepository(db).clearErrors();
       Query<T> query = getUnSyncedQuery();
       int count = query.count();
       if (count == 0) {
@@ -188,7 +189,11 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
       }
       await uploadController.close();
     } catch (e) {
+      if (!uploadController.hasListener) {
+        uploadController.stream.listen(null);
+      }
       uploadController.addError(e);
+      uploadController.close();
       rethrow;
     }
   }
