@@ -4,6 +4,7 @@ import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/input_field_legend.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/multi_select_input_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'components/age_input/age_input.dart';
 import 'components/base_input.dart';
@@ -124,24 +125,70 @@ class D2InputFieldContainer extends StatelessWidget {
       if (input is D2NumberInputFieldConfig) {
         switch (input.type) {
           case D2InputFieldType.number:
-          case D2InputFieldType.integer:
-          case D2InputFieldType.positiveInteger:
-          case D2InputFieldType.negativeInteger:
-          case D2InputFieldType.integerZeroOrPositive:
-            return TextInput(
+            return CustomTextInput(
                 disabled: disabled,
-                textInputType:
-                    const TextInputType.numberWithOptions(decimal: false),
+                textInputType: const TextInputType.numberWithOptions(
+                    signed: true, decimal: true),
                 input: input,
                 value: value,
                 onChange: onChange,
                 decoration: inputDecoration!,
                 color: colorOverride);
-          default:
-            return TextInput(
+          case D2InputFieldType.integer:
+            return CustomTextInput(
                 disabled: disabled,
                 textInputType:
                     const TextInputType.numberWithOptions(decimal: false),
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                input: input,
+                value: value,
+                onChange: onChange,
+                decoration: inputDecoration!,
+                color: colorOverride);
+          case D2InputFieldType.positiveInteger:
+            return CustomTextInput(
+                disabled: disabled,
+                textInputType: const TextInputType.numberWithOptions(
+                    decimal: false, signed: false),
+                input: input,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^[0-9]*$'))
+                ],
+                value: value,
+                onChange: onChange,
+                decoration: inputDecoration!,
+                color: colorOverride);
+          case D2InputFieldType.negativeInteger:
+            return CustomTextInput(
+                disabled: disabled,
+                textInputType: const TextInputType.numberWithOptions(
+                    decimal: false, signed: true),
+                input: input,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^-\d*$'))
+                ],
+                value: value,
+                onChange: onChange,
+                decoration: inputDecoration!,
+                color: colorOverride);
+          case D2InputFieldType.integerZeroOrPositive:
+            return CustomTextInput(
+                disabled: disabled,
+                textInputType: const TextInputType.numberWithOptions(
+                    decimal: false, signed: true),
+                input: input,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d*$'))
+                ],
+                value: value,
+                onChange: onChange,
+                decoration: inputDecoration!,
+                color: colorOverride);
+          default:
+            return CustomTextInput(
+                disabled: disabled,
+                textInputType: const TextInputType.numberWithOptions(
+                    decimal: true, signed: true),
                 input: input,
                 value: value,
                 onChange: onChange,
@@ -155,7 +202,7 @@ class D2InputFieldContainer extends StatelessWidget {
           case D2InputFieldType.longText:
           case D2InputFieldType.email:
           case D2InputFieldType.url:
-            return TextInput(
+            return CustomTextInput(
               decoration: inputDecoration!,
               disabled: disabled,
               onChange: onChange,
@@ -173,7 +220,7 @@ class D2InputFieldContainer extends StatelessWidget {
                           : TextInputType.text,
             );
           default:
-            return TextInput(
+            return CustomTextInput(
               disabled: disabled,
               onChange: onChange,
               value: value,
@@ -235,7 +282,7 @@ class D2InputFieldContainer extends StatelessWidget {
         );
       }
 
-      return TextInput(
+      return CustomTextInput(
         disabled: disabled,
         onChange: onChange,
         value: value,

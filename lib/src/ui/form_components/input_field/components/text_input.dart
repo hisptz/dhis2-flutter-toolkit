@@ -1,5 +1,6 @@
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../models/input_field_type_enum.dart';
 import 'base_input.dart';
@@ -8,24 +9,29 @@ class TextFieldInputType {
   D2InputFieldType type;
   TextInputType inputType;
 
-  TextFieldInputType({required this.type, required this.inputType});
+  TextFieldInputType({
+    required this.type,
+    required this.inputType,
+  });
 }
 
-class TextInput extends BaseStatefulInput<D2BaseInputFieldConfig, String> {
+class CustomTextInput
+    extends BaseStatefulInput<D2BaseInputFieldConfig, String> {
   final TextInputType textInputType;
+  final List<TextInputFormatter> inputFormatters;
   final int? maxLines;
 
-  const TextInput({
-    super.key,
-    super.value,
-    super.disabled,
-    required this.textInputType,
-    required super.input,
-    required super.color,
-    required super.onChange,
-    this.maxLines = 1,
-    required super.decoration,
-  });
+  const CustomTextInput(
+      {super.key,
+      super.value,
+      super.disabled,
+      required this.textInputType,
+      required super.input,
+      required super.color,
+      required super.onChange,
+      this.maxLines = 1,
+      required super.decoration,
+      this.inputFormatters = const []});
 
   @override
   State<StatefulWidget> createState() {
@@ -33,7 +39,7 @@ class TextInput extends BaseStatefulInput<D2BaseInputFieldConfig, String> {
   }
 }
 
-class TextInputState extends BaseStatefulInputState<TextInput> {
+class TextInputState extends BaseStatefulInputState<CustomTextInput> {
   late TextEditingController controller;
 
   @override
@@ -43,7 +49,7 @@ class TextInputState extends BaseStatefulInputState<TextInput> {
   }
 
   @override
-  void didUpdateWidget(covariant TextInput oldWidget) {
+  void didUpdateWidget(covariant CustomTextInput oldWidget) {
     if (widget.value == null) {
       controller = TextEditingController();
     } else if (widget.value != controller.text) {
@@ -55,6 +61,7 @@ class TextInputState extends BaseStatefulInputState<TextInput> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      inputFormatters: widget.inputFormatters,
       controller: controller,
       cursorColor: widget.decoration.colorScheme.active,
       enabled: !widget.disabled,
