@@ -135,6 +135,10 @@ class ProgramRuleHelper {
       // for tracked entity instance attribute
       else if (programRuleVariable.programRuleVariableSourceType ==
           ProgramRuleVariableSourceTypes.teiAttribute) {
+        String dataObjectValue = getProgramVariableValueFromFormDataObject(
+          programRuleVariable: programRuleVariable,
+          formDataObject: formDataObject,
+        );
         if (trackedEntityAttribute.isNotEmpty) {
           var teiAttributeWithValue = trackedEntity.attributes
               .where(
@@ -145,13 +149,14 @@ class ProgramRuleHelper {
               .toList();
 
           if (teiAttributeWithValue.isNotEmpty) {
-            value = value.isEmpty
+            value = dataObjectValue == "''"
                 ? teiAttributeWithValue.first.value ?? "''"
-                : getProgramVariableValueFromFormDataObject(
-                    programRuleVariable: programRuleVariable,
-                    formDataObject: formDataObject,
-                  );
+                : dataObjectValue;
+          } else {
+            value = dataObjectValue;
           }
+        } else {
+          value = dataObjectValue;
         }
       }
 
