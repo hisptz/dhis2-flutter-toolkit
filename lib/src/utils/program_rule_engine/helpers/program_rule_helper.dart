@@ -109,7 +109,10 @@ class ProgramRuleHelper {
             ? event2.occurredAt!.compareTo(event1.occurredAt!) // Reverse order
             : 0);
 
-    var value = '';
+    var value = getProgramVariableValueFromFormDataObject(
+      programRuleVariable: programRuleVariable,
+      formDataObject: formDataObject,
+    );
 
     if (ProgramRuleVariableSourceTypes.supportedTypes
         .contains(programRuleVariable.programRuleVariableSourceType)) {
@@ -145,12 +148,9 @@ class ProgramRuleHelper {
               .toList();
 
           if (teiAttributeWithValue.isNotEmpty) {
-            value = value.isEmpty
+            value = value == "''"
                 ? teiAttributeWithValue.first.value ?? "''"
-                : getProgramVariableValueFromFormDataObject(
-                    programRuleVariable: programRuleVariable,
-                    formDataObject: formDataObject,
-                  );
+                : value;
           }
         }
       }
@@ -158,11 +158,9 @@ class ProgramRuleHelper {
       // for data element current event
       else if (programRuleVariable.programRuleVariableSourceType ==
           ProgramRuleVariableSourceTypes.dataElementCurrentEvent) {
+        // Pass for the mean time, as value comes from the form data Object
         // TODO check if can extract current event. As of current it takes values from the form data object
-        value = getProgramVariableValueFromFormDataObject(
-          programRuleVariable: programRuleVariable,
-          formDataObject: formDataObject,
-        );
+        value = value;
       }
 
       // for data element newest event program stage
@@ -178,7 +176,7 @@ class ProgramRuleHelper {
                 (element) => element.dataElement.target?.uid == dataElement,
               )
               .value;
-          value = dataValue ?? "''";
+          value = value == "''" ? dataValue ?? "''" : value;
         }
       }
     } else {
