@@ -122,15 +122,14 @@ class AgeInputFieldState extends BaseStatefulInputState<AgeInputField> {
 
   @override
   void didUpdateWidget(covariant AgeInputField oldWidget) {
+    if (widget.value == null) {
+      setState(() {
+        _textEditingController.text = "";
+        selectedView = null;
+      });
+    }
     if (widget.value != oldWidget.value) {
-      //User has cleared the value
-      if (widget.value == null) {
-        setState(() {
-          selectedView = null;
-        });
-      } else {
-        _textEditingController.text = getTextValue() ?? "";
-      }
+      _textEditingController.text = getTextValue() ?? "";
     }
     super.didUpdateWidget(oldWidget);
   }
