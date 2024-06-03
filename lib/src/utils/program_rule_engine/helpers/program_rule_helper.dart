@@ -109,7 +109,10 @@ class ProgramRuleHelper {
             ? event2.occurredAt!.compareTo(event1.occurredAt!) // Reverse order
             : 0);
 
-    var value = '';
+    var value = getProgramVariableValueFromFormDataObject(
+      programRuleVariable: programRuleVariable,
+      formDataObject: formDataObject,
+    );
 
     if (ProgramRuleVariableSourceTypes.supportedTypes
         .contains(programRuleVariable.programRuleVariableSourceType)) {
@@ -135,10 +138,6 @@ class ProgramRuleHelper {
       // for tracked entity instance attribute
       else if (programRuleVariable.programRuleVariableSourceType ==
           ProgramRuleVariableSourceTypes.teiAttribute) {
-        String dataObjectValue = getProgramVariableValueFromFormDataObject(
-          programRuleVariable: programRuleVariable,
-          formDataObject: formDataObject,
-        );
         if (trackedEntityAttribute.isNotEmpty) {
           var teiAttributeWithValue = trackedEntity.attributes
               .where(
@@ -149,25 +148,19 @@ class ProgramRuleHelper {
               .toList();
 
           if (teiAttributeWithValue.isNotEmpty) {
-            value = dataObjectValue == "''"
+            value = value == "''"
                 ? teiAttributeWithValue.first.value ?? "''"
-                : dataObjectValue;
-          } else {
-            value = dataObjectValue;
+                : value;
           }
-        } else {
-          value = dataObjectValue;
         }
       }
 
       // for data element current event
       else if (programRuleVariable.programRuleVariableSourceType ==
           ProgramRuleVariableSourceTypes.dataElementCurrentEvent) {
+        // Pass for the mean time, as value comes from the form data Object
         // TODO check if can extract current event. As of current it takes values from the form data object
-        value = getProgramVariableValueFromFormDataObject(
-          programRuleVariable: programRuleVariable,
-          formDataObject: formDataObject,
-        );
+        value = value;
       }
 
       // for data element newest event program stage
@@ -183,7 +176,7 @@ class ProgramRuleHelper {
                 (element) => element.dataElement.target?.uid == dataElement,
               )
               .value;
-          value = dataValue ?? "''";
+          value = value == "''" ? dataValue ?? "''" : value;
         }
       }
     } else {
