@@ -8,13 +8,13 @@ import 'form_value_state.dart';
 import 'form_warning_state.dart';
 
 mixin D2FormDataState
-on
-    ChangeNotifier,
-    D2FormHiddenState,
-    D2FormWarningState,
-    D2FormMandatoryState,
-    D2FormValueState,
-    D2FormErrorState {
+    on
+        ChangeNotifier,
+        D2FormHiddenState,
+        D2FormWarningState,
+        D2FormMandatoryState,
+        D2FormValueState,
+        D2FormErrorState {
   ///Validity of form. Only to be set to true by the validate function
   bool _valid = false;
 
@@ -37,8 +37,12 @@ on
   }
 
   void validateMandatoryFields() {
-    List<String> unFilledMandatoryFields =
-    mandatoryFields.whereNot(fieldHasValue).toList();
+    List<String> unFilledMandatoryFields = mandatoryFields
+        .where((field) {
+          return !hiddenFields.contains(field);
+        })
+        .whereNot(fieldHasValue)
+        .toList();
     //Remove errors for all filled fields
     errorState.forEach((key, value) {
       if (!unFilledMandatoryFields.contains(key)) {
