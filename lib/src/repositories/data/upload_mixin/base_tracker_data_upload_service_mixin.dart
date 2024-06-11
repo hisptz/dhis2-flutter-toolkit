@@ -28,7 +28,7 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
       "reportMode": "ERRORS",
       "importMode": "COMMIT",
       "importStrategy": "CREATE_AND_UPDATE",
-      "atomicMode": "ALL",
+      "atomicMode": "OBJECT",
       "validationMode": "FULL",
       "skipSideEffects": "TRUE",
       "skipPatternValidation": "TRUE",
