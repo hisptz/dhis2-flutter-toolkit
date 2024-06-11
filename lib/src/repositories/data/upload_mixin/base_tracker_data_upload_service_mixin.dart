@@ -110,7 +110,9 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
         .httpPost<Map<String, dynamic>>(uploadURL, payload,
             queryParameters: uploadQueryParams);
 
-    if (response["status"] == "ERROR") {
+    List errorReports = response["validationReport"]["errorReports"];
+
+    if (errorReports.isNotEmpty) {
       List<D2ImportSummaryError> importSummary =
           getItemsWithErrorsEntityUidFromImportSummary(response);
       List<String> entitiesIdsWithErrors =
