@@ -147,6 +147,16 @@ mixin ProgramRuleEngineState
     notifyListeners();
   }
 
+  void runProgramRules() {
+    spawnProgramRuleEngine(formFields.map((field) => field.name).toList());
+  }
+
+  @override
+  void setValue(String key, value) {
+    setValueSilently(key, value);
+    runProgramRules();
+  }
+
   void _hideFieldOptions(
       String inputFieldId, List<Map<String, dynamic>> fieldHiddenOptions) {
     groupBy(fieldHiddenOptions, (fieldOption) => fieldOption['hiddenState'])
