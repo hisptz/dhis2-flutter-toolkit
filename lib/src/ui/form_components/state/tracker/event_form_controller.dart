@@ -29,6 +29,7 @@ class D2TrackerEventFormController extends D2FormController
       super.hiddenSections,
       super.disabledFields,
       super.initialValues,
+      super.formFields,
       this.orgUnit}) {
     if (event != null) {
       Map<String, dynamic> formValues = event!.toFormValues();
@@ -39,6 +40,7 @@ class D2TrackerEventFormController extends D2FormController
         enrollment == null) {
       throw "Enrollment is required for tracker programs";
     }
+
     List<String> mandatoryFields = programStage.programStageDataElements
         .where((pDataElement) => pDataElement.compulsory)
         .map((pDataElement) => pDataElement.dataElement.target!.uid)

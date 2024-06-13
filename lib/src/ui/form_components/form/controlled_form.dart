@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/form_section/form_section_container_with_controlled_inputs.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/form_controlled_field_container.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
@@ -23,6 +24,14 @@ class D2ControlledForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<D2BaseInputFieldConfig> formFields = [
+      ...(form.sections?.map((section) => section.fields).flattened.toList() ??
+          []),
+      ...(form.fields ?? [])
+    ];
+
+    controller.setFormFields(formFields);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

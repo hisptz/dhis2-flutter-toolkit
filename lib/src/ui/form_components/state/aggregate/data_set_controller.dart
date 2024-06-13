@@ -18,6 +18,7 @@ class D2DataSetStateFormController extends D2FormController {
       super.disabledFields,
       super.initialValues,
       super.hiddenSections,
+      super.formFields,
       super.mandatoryFields}) {
     ///A data set with default attribute option combo will only have one option. If it has more than one option it should be passed as an attributeOptionCombo in the controller's constructor
     if (dataSet.categoryCombo.target!.categoryOptionCombos.length > 1) {
