@@ -47,7 +47,7 @@ abstract class D2BaseTrackerDataRepository<T extends D2DataResource>
     D2Program? program = D2ProgramRepository(db).getByUid(programId);
 
     if (program == null) {
-      throw Exception("Program with id $programId does not exist");
+      throw "Program with id $programId does not exist";
     }
     setProgram(program);
     return this;
