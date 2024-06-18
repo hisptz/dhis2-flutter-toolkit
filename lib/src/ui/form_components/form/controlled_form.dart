@@ -3,18 +3,31 @@ import 'package:dhis2_flutter_toolkit/src/ui/form_components/form_section/form_s
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/form_controlled_field_container.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
 import 'package:flutter/material.dart';
-
 import '../form_section/models/form_section.dart';
 import '../state/form_state.dart';
 import '../state/section_state.dart';
 import 'models/form.dart';
 
+/// This is a widget for displaying a controlled form in DHIS2.
 class D2ControlledForm extends StatelessWidget {
+  /// The form to display.
   final D2Form form;
+
+  /// The controller for the form.
   final D2FormController controller;
+
+  /// The color of the form.
   final Color? color;
+
+  /// Indicates whether the form is disabled.
   final bool disabled;
 
+  /// Constructs a new instance of [D2ControlledForm].
+  ///
+  /// - [form]: The form to display.
+  /// - [controller]: The controller for the form.
+  /// - [color]: The color of the form.
+  /// - [disabled]: Indicates whether the form is disabled. Defaults to `false`.
   const D2ControlledForm(
       {super.key,
       required this.form,
