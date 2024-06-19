@@ -1,7 +1,18 @@
 import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
+/// This is a utility class for handling form-related operations.
 class D2FormUtils {
+  /// Returns the appropriate [D2BaseInputFieldConfig] based on the provided data item.
+  ///
+  /// - [dataItem]: The data item to derive the field configuration from.
+  /// - [mandatory]: Indicates if the field is mandatory (default is false).
+  /// - [allowFutureDates]: Allows future dates for date input fields.
+  /// - [renderOptionsAsRadio]: Renders options as radio buttons if true.
+  /// - [db]: An optional instance of [D2ObjectBox].
+  /// - [clearable]: Indicates if the field is clearable (default is false).
+  ///
+  /// Throws an error if the field type derived from [dataItem.valueType] is invalid or not supported.
   static D2BaseInputFieldConfig getFieldConfigFromDataItem(dataItem,
       {bool mandatory = false,
       bool? allowFutureDates,
@@ -22,6 +33,7 @@ class D2FormUtils {
 
     String name = dataItem.uid;
 
+    // Handle option sets if present.
     if (dataItem.optionSet.target != null) {
       D2OptionSet optionSet = dataItem.optionSet.target!;
       List<D2InputFieldOption> options = optionSet.options
@@ -43,6 +55,9 @@ class D2FormUtils {
           renderOptionsAsRadio: renderOptionsAsRadio ?? false);
     }
 
+    /// Retrieves the legends associated with the data item.
+    ///
+    /// Returns a list of [D2InputFieldLegend] if legends are present, otherwise returns null.
     List<D2InputFieldLegend>? getLegends() {
       if (dataItem.legendSets.isEmpty) {
         return null;
@@ -53,6 +68,7 @@ class D2FormUtils {
           .toList();
     }
 
+    // Handle different input field types.
     if (D2InputFieldType.isDateType(type)) {
       return D2DateInputFieldConfig(
           label: label,
