@@ -1,3 +1,4 @@
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/form_data_state.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/form_disabled_state.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/form_error_state.dart';
@@ -23,6 +24,7 @@ class D2FormController extends ChangeNotifier
         D2FormOptionState {
   D2FormController(
       {Map<String, dynamic>? initialValues,
+      List<D2BaseInputFieldConfig>? formFields,
       List<String>? hiddenFields,
       List<String>? hiddenSections,
       List<String>? disabledFields,
@@ -32,6 +34,7 @@ class D2FormController extends ChangeNotifier
     this.hiddenSections = hiddenSections ?? [];
     this.mandatoryFields = mandatoryFields ?? [];
     this.disabledFields = disabledFields ?? [];
+    this.formFields = formFields ?? [];
   }
 
   FieldState getFieldState(String key) {

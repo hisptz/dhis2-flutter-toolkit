@@ -9,46 +9,44 @@ import 'form_warning_state.dart';
 
 mixin D2FormDataState
 on
-    ChangeNotifier,
-    D2FormHiddenState,
-    D2FormWarningState,
-    D2FormMandatoryState,
-    D2FormValueState,
-    D2FormErrorState {
+        ChangeNotifier,
+        D2FormHiddenState,
+        D2FormWarningState,
+        D2FormMandatoryState,
+        D2FormValueState,
+        D2FormErrorState {
   ///Validity of form. Only to be set to true by the validate function
-  bool _valid = false;
-
   get valid {
-    return _valid;
+    return errorState.isEmpty;
   }
+
+  String mandatoryErrorMessage = "This field is required";
 
   /// Runs validation in the form. Supported validations:
   /// - Mandatory fields have values
   ///
   validate() {
     validateMandatoryFields();
-    if (errorState.isNotEmpty) {
-      _valid = false;
-      notifyListeners();
-    } else {
-      _valid = true;
-      notifyListeners();
-    }
+    notifyListeners();
   }
 
   void validateMandatoryFields() {
-    List<String> unFilledMandatoryFields =
-    mandatoryFields.whereNot(fieldHasValue).toList();
+    List<String> unFilledMandatoryFields = mandatoryFields
+        .where((field) {
+          return !hiddenFields.contains(field);
+        })
+        .whereNot(fieldHasValue)
+        .toList();
     //Remove errors for all filled fields
     errorState.forEach((key, value) {
-      if (!unFilledMandatoryFields.contains(key)) {
+      if (!unFilledMandatoryFields.contains(key) &&
+          value == mandatoryErrorMessage) {
         clearError(key);
       }
     });
     if (unFilledMandatoryFields.isNotEmpty) {
       for (String key in unFilledMandatoryFields) {
-        setError(key,
-            "This field is required"); //TODO: should be passed as a variable
+        setError(key, mandatoryErrorMessage); //TODO: should be passed as a variable
       }
     }
   }

@@ -20,9 +20,12 @@ class D2TrackerEventForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<D2FormSection> formSections = D2TrackerEventFormUtil(
-            programStage: programStage, options: options, db: controller.db)
-        .formSections;
+    List<D2FormSection> formSections = [
+      ...D2TrackerEventFormUtil(
+              programStage: programStage, options: options, db: controller.db)
+          .formSections,
+      ...options.formSections
+    ];
 
     Color formColor = color ?? Theme.of(context).primaryColor;
 
@@ -33,7 +36,7 @@ class D2TrackerEventForm extends StatelessWidget {
             title: options.showTitle
                 ? programStage.displayName ?? programStage.name
                 : null,
-            sections: [...options.formSections, ...formSections]),
+            sections: formSections),
         controller: controller);
   }
 }
