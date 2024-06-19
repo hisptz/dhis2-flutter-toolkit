@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 
 import 'field_state.dart';
 
+/// This class is a controller for managing the state and behavior of a dynamic form.
 class D2FormController extends ChangeNotifier
     with
         D2FormHiddenState,
@@ -22,13 +23,21 @@ class D2FormController extends ChangeNotifier
         D2FormErrorState,
         D2FormDataState,
         D2FormOptionState {
-  D2FormController(
-      {Map<String, dynamic>? initialValues,
-      List<D2BaseInputFieldConfig>? formFields,
-      List<String>? hiddenFields,
-      List<String>? hiddenSections,
-      List<String>? disabledFields,
-      List<String>? mandatoryFields}) {
+  /// Constructs a [D2FormController] with optional initial values and configuration.
+  /// - [initialValues]: Initial values for the form fields.
+  /// - [formFields]: List of form field configurations.
+  /// - [hiddenFields]: List of initially hidden field keys.
+  /// - [hiddenSections]: List of initially hidden section IDs.
+  /// - [disabledFields]: List of initially disabled field keys.
+  /// - [mandatoryFields]: List of mandatory field keys.
+  D2FormController({
+    Map<String, dynamic>? initialValues,
+    List<D2BaseInputFieldConfig>? formFields,
+    List<String>? hiddenFields,
+    List<String>? hiddenSections,
+    List<String>? disabledFields,
+    List<String>? mandatoryFields,
+  }) {
     setValues(initialValues ?? {});
     this.hiddenFields = hiddenFields ?? [];
     this.hiddenSections = hiddenSections ?? [];
@@ -37,6 +46,8 @@ class D2FormController extends ChangeNotifier
     this.formFields = formFields ?? [];
   }
 
+  /// Returns the state of a specific field within the form.
+  /// - [key]: The identifier key of the field.
   FieldState getFieldState(String key) {
     bool hidden = isFieldHidden(key);
     bool disabled = isFieldDisabled(key);
@@ -51,21 +62,25 @@ class D2FormController extends ChangeNotifier
     }
 
     return FieldState(
-        onChange: onChange,
-        optionsToHide: optionsToHide,
-        hidden: hidden,
-        value: value,
-        disabled: disabled,
-        warning: warning,
-        mandatory: mandatory,
-        error: error);
+      onChange: onChange,
+      optionsToHide: optionsToHide,
+      hidden: hidden,
+      value: value,
+      disabled: disabled,
+      warning: warning,
+      mandatory: mandatory,
+      error: error,
+    );
   }
 
+  /// Returns the state of a specific section within the form.
+  /// - [id]: The identifier of the section.
+  /// - [fieldKeys]: List of field keys belonging to the section.
   SectionState getSectionState(String id, List<String> fieldKeys) {
     return SectionState(
-        id: id,
-        hidden: isSectionHidden(id),
-        fieldsStates:
-            fieldKeys.map((String key) => getFieldState(key)).toList());
+      id: id,
+      hidden: isSectionHidden(id),
+      fieldsStates: fieldKeys.map((String key) => getFieldState(key)).toList(),
+    );
   }
 }
