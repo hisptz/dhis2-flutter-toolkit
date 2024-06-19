@@ -26,13 +26,13 @@ class D2FormControlledInputField extends StatelessWidget {
   /// - [disabled]: Whether the input field is disabled.
   /// - [inputDecoration]: Custom input decoration for the field.
   const D2FormControlledInputField({
-    Key? key,
+    super.key,
     required this.input,
     this.disabled,
     this.inputDecoration,
     required this.controller,
     required this.color,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
