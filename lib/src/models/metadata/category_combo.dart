@@ -51,8 +51,8 @@ class D2CategoryCombo extends D2MetaResource {
 
   /// Creates a [D2CategoryCombo] instance from a map.
   ///
-  /// [db]: The ObjectBox database instance.
-  /// [json]: The map containing the category combination data.
+  /// - [db]: The ObjectBox database instance.
+  /// - [json]: The map containing the category combination data.
   D2CategoryCombo.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),
