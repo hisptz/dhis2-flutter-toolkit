@@ -15,42 +15,94 @@ import 'entry.dart';
 import 'upload_base.dart';
 
 @Entity()
+
+/// This class represents an event in the DHIS2 system, implementing various interfaces for syncing, editing, and deletion.
 class D2Event extends SyncDataSource
     implements SyncableData, D2BaseEditable, D2BaseDeletable {
+  /// The unique identifier of the event.
   @override
   int id = 0;
+
+  /// The creation timestamp of the event.
   @override
   DateTime createdAt;
 
+  /// The last updated timestamp of the event.
   @override
   DateTime updatedAt;
 
+  /// The UID of the event.
   @override
   String uid;
+
+  /// The scheduled timestamp of the event.
   DateTime? scheduledAt;
+
+  /// The occurred timestamp of the event.
   DateTime? occurredAt;
+
+  /// The status of the event.
   String status;
+
+  /// The attribute category options associated with the event.
   String? attributeCategoryOptions;
+
+  /// Indicates whether the event is deleted.
   bool deleted;
+
+  /// Indicates whether the event is marked for follow-up.
   bool followup;
+
+  /// The attribute option combo associated with the event.
   String? attributeOptionCombo;
+
+  /// Notes associated with the event.
   String? notes;
 
+  /// The geometry of the event in serialized JSON format.
   String? geometry;
 
+  /// The relationships associated with the event.
   @Backlink("fromEvent")
   final relationships = ToMany<D2Relationship>();
 
+  /// The data values associated with the event.
   @Backlink("event")
   final dataValues = ToMany<D2DataValue>();
 
+  /// Additional data values for querying.
   final dataValuesForQuery = ToMany<D2DataValue>();
+
+  /// The enrollment associated with the event.
   final enrollment = ToOne<D2Enrollment>();
+
+  /// The tracked entity associated with the event.
   final trackedEntity = ToOne<D2TrackedEntity>();
+
+  /// The program associated with the event.
   final program = ToOne<D2Program>();
+
+  /// The program stage associated with the event.
   final programStage = ToOne<D2ProgramStage>();
+
+  /// The organizational unit associated with the event.
   final orgUnit = ToOne<D2OrgUnit>();
 
+  /// Constructs a new instance of the [D2Event] class.
+  ///
+  /// - [attributeCategoryOptions]: The attribute category options associated with the event.
+  /// - [attributeOptionCombo]: The attribute option combo associated with the event.
+  /// - [updatedAt]: The last updated timestamp of the event.
+  /// - [createdAt]: The creation timestamp of the event.
+  /// - [followup]: Indicates whether the event is marked for follow-up.
+  /// - [deleted]: Indicates whether the event is deleted.
+  /// - [status]: The status of the event.
+  /// - [notes]: Notes associated with the event.
+  /// - [scheduledAt]: The scheduled timestamp of the event.
+  /// - [uid]: The UID of the event.
+  /// - [occurredAt]: The occurred timestamp of the event.
+  /// - [synced]: Indicates whether the event is synced.
+  /// - [geometry]: The geometry of the event in serialized JSON format.
   D2Event(
       this.attributeCategoryOptions,
       this.attributeOptionCombo,
@@ -66,6 +118,19 @@ class D2Event extends SyncDataSource
       this.synced,
       this.geometry);
 
+  /// Constructs a new instance of the [D2Event] class from a JSON map.
+  ///
+  /// - [db]: The ObjectBox database instance.
+  /// - [json]: The JSON map representing the event.
+  ///
+  /// The constructor performs the following initializations:
+  /// - Assigns values to [attributeCategoryOptions], [attributeOptionCombo],
+  ///   [updatedAt], [createdAt], [followup], [deleted], [status], [synced],
+  ///   [notes], [scheduledAt], [uid], [geometry], and [occurredAt].
+  /// - Retrieves the event ID from the repository using the event UID.
+  /// - Sets up the [enrollment], [trackedEntity], [program], [programStage],
+  ///   and [orgUnit] relationships by querying their respective repositories
+  ///   with the provided UIDs in the JSON map.
   D2Event.fromMap(D2ObjectBox db, Map json)
       : attributeCategoryOptions = json["attributeCategoryOptions"],
         attributeOptionCombo = json["attributeOptionCombo"],
@@ -99,6 +164,13 @@ class D2Event extends SyncDataSource
     orgUnit.target = D2OrgUnitRepository(db).getByUid(json["orgUnit"]);
   }
 
+  /// Constructs a new instance of the [D2Event] class from form values [formValues].
+  ///
+  /// - [formValues]: The form values representing the event.
+  /// - [db]: The ObjectBox database instance.
+  /// - [enrollment]: The enrollment associated with the event.
+  /// - [programStage]: The program stage associated with the event.
+  /// - [orgUnit]: The organizational unit associated with the event.
   D2Event.fromFormValues(Map<String, dynamic> formValues,
       {required D2ObjectBox db,
       D2Enrollment? enrollment,
@@ -148,9 +220,14 @@ class D2Event extends SyncDataSource
     }
   }
 
+  /// Whether the event is synced.
   @override
   bool synced;
 
+  /// Converts the event to a map for JSON serialization.
+  ///
+  /// - [db]: The ObjectBox database instance.
+  /// - Returns: A map representing the event.
   @override
   Future<Map<String, dynamic>> toMap({D2ObjectBox? db}) async {
     if (db == null) {
@@ -192,6 +269,12 @@ class D2Event extends SyncDataSource
     return payload;
   }
 
+  /// Converts the [D2Event] instance into a map of form values.
+  ///
+  /// Includes the event's occurrence date, organization unit ID, data values,
+  /// and geometry information if available.
+  ///
+  /// Returns a [Map<String, dynamic>] of the form values.
   @override
   Map<String, dynamic> toFormValues() {
     Map<String, dynamic> data = {
@@ -211,6 +294,13 @@ class D2Event extends SyncDataSource
     return data;
   }
 
+  /// Updates the [D2Event] instance with values from a form.
+  ///
+  /// Parameters:
+  /// - [values]: A map containing form values.
+  /// - [db]: An instance of [D2ObjectBox].
+  /// - [program]: An optional [D2Program] instance.
+  /// - [orgUnit]: An optional [D2OrgUnit] instance.
   @override
   void updateFromFormValues(Map<String, dynamic> values,
       {required D2ObjectBox db, D2Program? program, D2OrgUnit? orgUnit}) {
@@ -234,6 +324,10 @@ class D2Event extends SyncDataSource
     synced = false;
   }
 
+  /// Saves the [D2Event] instance to the database.
+  ///
+  /// Parameters:
+  /// - [db]: An instance of [D2ObjectBox].
   @override
   void save(D2ObjectBox db) {
     if (id == 0) {
@@ -246,9 +340,14 @@ class D2Event extends SyncDataSource
     }
   }
 
+  /// Deletes the [D2Event] instance from the database along with associated data values and relationships.
+  ///
+  /// Parameters:
+  /// - [db]: An instance of [D2ObjectBox].
+  ///
+  /// Returns [bool] whether the deletion was successful.
   @override
   bool delete(D2ObjectBox db) {
-    //Deletes event and all associated data values & relationships
     D2DataValueRepository(db).deleteEntities(dataValues);
     for (D2Relationship relationship in relationships) {
       relationship.delete(db);
@@ -256,6 +355,10 @@ class D2Event extends SyncDataSource
     return D2EventRepository(db).deleteEntity(this);
   }
 
+  /// Soft deletes the [D2Event] instance by marking it as deleted and saving the changes.
+  ///
+  /// Parameters:
+  /// - [db]: An instance of [D2ObjectBox].
   @override
   void softDelete(db) {
     deleted = true;
