@@ -14,17 +14,42 @@ import 'components/period_selector.dart';
 import 'components/period_type_selector.dart';
 import '../../utils/period_engine/models/period_filter_selection.dart';
 
+/// A widget for selecting periods with various customization options.
 class D2PeriodSelector extends StatefulWidget {
+  /// Callback function to handle updates.
   final Function onUpdate;
+
+  /// Whether to show relative periods.
   final bool showRelative;
+
+  /// Whether to show range periods.
   final bool showRange;
+
+  /// Whether to show fixed periods.
   final bool showFixed;
+
+  /// The color of the selector.
   final Color color;
 
+  /// Initial selection for the period.
   final D2PeriodSelection? initialSelection;
+
+  /// List of period types to exclude.
   final List<String>? excludePeriodTypes;
+
+  /// List of period types to allow.
   final List<String>? onlyAllowPeriodTypes;
 
+  /// Constructs a [D2PeriodSelector].
+  ///
+  /// - [onUpdate]: Callback function to handle updates.
+  /// - [excludePeriodTypes]: List of period types to exclude.
+  /// - [onlyAllowPeriodTypes]: List of period types to allow.
+  /// - [initialSelection]: Initial selection for the period.
+  /// - [color]: The color of the selector.
+  /// - [showRelative]: Whether to show relative periods.
+  /// - [showRange]: Whether to show range periods.
+  /// - [showFixed]: Whether to show fixed periods.
   const D2PeriodSelector({
     super.key,
     required this.onUpdate,
@@ -37,6 +62,7 @@ class D2PeriodSelector extends StatefulWidget {
     this.showFixed = true,
   });
 
+  /// Creates the mutable state for this widget.
   @override
   State<D2PeriodSelector> createState() => _PeriodSelectorState();
 }
