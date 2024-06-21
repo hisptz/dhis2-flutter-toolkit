@@ -18,13 +18,13 @@ import './helpers/program_rule_helper.dart';
 import 'models/program_rule_results.dart';
 
 ///
-///`D2ProgramRuleEngine` is the engine class for evaluation of DHI2 program rules
+///[D2ProgramRuleEngine] is the engine class for evaluation of DHI2 program rules
 ///
 class D2ProgramRuleEngine {
-  /// A list of `D2ProgramRule` to be evaluated
+  /// A list of [D2ProgramRule] to be evaluated
   final List<D2ProgramRule> programRules;
 
-  /// A list of `D2ProgramRuleVariable` to be used in evaluation of program rules
+  /// A list of [D2ProgramRuleVariable] to be used in evaluation of program rules
   final List<D2ProgramRuleVariable> programRuleVariables;
 
   final D2TrackedEntity? trackedEntity;
@@ -35,7 +35,7 @@ class D2ProgramRuleEngine {
   }
 
   ///
-  ///`D2ProgramRuleEngine` is constructor for the `D2ProgramRuleEngine` class
+  ///[D2ProgramRuleEngine] is constructor for the [D2ProgramRuleEngine] class
   /// The constructor takes a list of `D2ProgramRule` and a list of `D2ProgramRuleVariable` as required parameters and an optional `D2TrackedEntity` object
   ///
   D2ProgramRuleEngine({
@@ -45,7 +45,7 @@ class D2ProgramRuleEngine {
   });
 
   ///
-  ///`D2ProgramRuleEngine.evaluateProgramRule` is a helper function for evaluation of program rule on given form data object
+  ///[D2ProgramRuleEngine.evaluateProgramRule] is a helper function for evaluation of program rule on given form data object
   /// The function takes aa `Map` of form data object and an optional `String` id of the input field in current evaluations to return a `Map` result
   /// The result from this function is an object of `ProgramRuleResult`
   ///
@@ -257,7 +257,7 @@ class D2ProgramRuleEngine {
     );
   }
 
-  /// `D2ProgramRuleEngine._filterProgramRulesByFieldId` is a private helper function that filters the program rules by the input field id
+  /// [D2ProgramRuleEngine._filterProgramRulesByFieldId] is a private helper function that filters the program rules by the input field id
   /// The function accepts a `String` input field id
   /// The function returns a filtered `List` of `D2ProgramRule`
   List<D2ProgramRule> _filterProgramRulesByFieldId(List<String> inputFieldIds) {
@@ -290,7 +290,7 @@ class D2ProgramRuleEngine {
   }
 
   //
-  /// `D2ProgramRuleEngine._decodeExpressionWithProgramRuleVariables` is a helper function that decodes and expression by replacing data object values with the program rule variables
+  /// [D2ProgramRuleEngine._decodeExpressionWithProgramRuleVariables] is a helper function that decodes and expression by replacing data object values with the program rule variables
   /// The function accepts `String` expression, `Map` data object and a `List` of `D2ProgramRuleVariable` .
   /// It returns a sanitized `String` expression
   String _decodeExpressionWithProgramRuleVariables(
@@ -371,7 +371,7 @@ class D2ProgramRuleEngine {
   }
 
   //
-  /// `D2ProgramRuleEngine._sortProgramRulesByPriority` is a  private helper function that sorts the program rules by priority
+  /// [D2ProgramRuleEngine._sortProgramRulesByPriority] is a  private helper function that sorts the program rules by priority
   /// The function accepts a `List` of `D2ProgramRule` and returns a sorted `List` of `D2ProgramRule`
   /// The function returns a sorted `List` of `D2ProgramRule`
   //
