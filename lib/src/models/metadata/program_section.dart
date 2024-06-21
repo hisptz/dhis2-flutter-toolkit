@@ -11,24 +11,45 @@ import 'program.dart';
 import 'tracked_entity_attribute.dart';
 
 @Entity()
+
+/// This class represents a program section in the DHIS2 system.
 class D2ProgramSection extends D2MetaResource {
   @override
   int id = 0;
+
+  /// The creation date of the program section.
   DateTime created;
 
+  /// The last updated date of the program section.
   DateTime lastUpdated;
 
+  /// Unique identifier (UID) for the program section.
   @override
   @Unique()
   String uid;
+
+  /// The sort order of the program section.
   int sortOrder;
+
+  /// The name of the program section.
   String name;
 
+  /// The program to which this section belongs.
   final program = ToOne<D2Program>();
+
+  /// The tracked entity attributes associated with this program section.
   @Backlink("programSection")
   final programSectionTrackedEntityAttributes =
       ToMany<D2ProgramSectionTrackedEntityAttribute>();
 
+  /// Constructs a [D2ProgramSection] instance.
+  ///
+  /// Parameters:
+  /// - [created]: The creation date.
+  /// - [lastUpdated]: The last updated date.
+  /// - [uid]: The unique identifier.
+  /// - [name]: The name of the program section.
+  /// - [sortOrder]: The sort order of the program section.
   D2ProgramSection(
       {required this.created,
       required this.lastUpdated,
@@ -36,6 +57,10 @@ class D2ProgramSection extends D2MetaResource {
       required this.name,
       required this.sortOrder});
 
+  /// Constructs a [D2ProgramSection] instance from a JSON object [json].
+  ///
+  /// - [db]: The [D2ObjectBox] instance used for repository operations.
+  /// - [json]: The JSON object containing the program section data.
   D2ProgramSection.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),
@@ -65,6 +90,7 @@ class D2ProgramSection extends D2MetaResource {
     program.target = D2ProgramRepository(db).getByUid(json["program"]["id"]);
   }
 
+  /// The display name of the program section.
   @override
   String? displayName;
 }
