@@ -1,4 +1,4 @@
-class ProgramRuleResult {
+class D2ProgramRuleResult {
   ProgramRuleHiddenFields hiddenFields;
   ProgramRuleMandatoryFields mandatoryFields;
   ProgramRuleHiddenSections hiddenSections;
@@ -8,7 +8,7 @@ class ProgramRuleResult {
   ProgramRuleWarningMessages warningMessages;
   ProgramRuleErrorMessages errorMessages;
 
-  ProgramRuleResult({
+  D2ProgramRuleResult({
     required this.hiddenFields,
     required this.mandatoryFields,
     required this.hiddenSections,

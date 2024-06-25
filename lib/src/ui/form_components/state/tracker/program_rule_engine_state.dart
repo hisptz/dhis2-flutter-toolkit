@@ -28,19 +28,19 @@ mixin ProgramRuleEngineState
   abstract D2ProgramRuleEngine programRuleEngine;
 
   void spawnProgramRuleEngine(List<String> inputFieldIds) async {
-    ProgramRuleResult programRuleEvaluationResults =
+    D2ProgramRuleResult programRuleEvaluationResults =
         startProgramRuleEvaluation(inputFieldIds);
     updateFormStates(programRuleEvaluationResults);
   }
 
-  ProgramRuleResult startProgramRuleEvaluation(List<String> inputFieldIds) {
+  D2ProgramRuleResult startProgramRuleEvaluation(List<String> inputFieldIds) {
     return programRuleEngine.evaluateProgramRule(
       inputFieldIds: inputFieldIds,
       formDataObject: formValues,
     );
   }
 
-  void updateFormStates(ProgramRuleResult programRuleEvaluation) {
+  void updateFormStates(D2ProgramRuleResult programRuleEvaluation) {
     if (programRuleEvaluation.hiddenFields.allFields.isNotEmpty) {
       programRuleEvaluation.hiddenFields.allFields.forEach((fieldKey, value) {
         if ((value == true && !isFieldHidden(fieldKey)) ||
