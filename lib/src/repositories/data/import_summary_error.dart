@@ -37,7 +37,7 @@ class D2ImportSummaryErrorRepository extends BaseDataRepository {
 
   /// Saves a list of [D2ImportSummaryError] entities.
   ///
-  /// - [entities]: The list of entities to save.
+  /// - [entities] The list of entities to save.
   /// - Returns a [Future] that completes when the operation is done.
   Future saveEntities(List<D2ImportSummaryError> entities) {
     return box.putManyAsync(entities);
@@ -52,7 +52,7 @@ class D2ImportSummaryErrorRepository extends BaseDataRepository {
 
   /// Saves a list of [D2ImportSummaryError] entities from JSON data.
   ///
-  /// - [json]: The list of JSON maps representing the entities to save.
+  /// - [json] The list of JSON maps representing the entities to save.
   /// - Returns a [Future] with the list of saved [D2ImportSummaryError] entities.
   Future<List<D2ImportSummaryError>> saveOffline(
       List<Map<String, dynamic>> json) async {

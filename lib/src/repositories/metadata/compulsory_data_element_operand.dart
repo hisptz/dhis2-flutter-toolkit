@@ -8,14 +8,14 @@ class D2CompulsoryDataElementOperandRepository
     extends BaseMetaRepository<D2CompulsoryDataElementOperand> {
   /// Creates a new instance of [D2CompulsoryDataElementOperandRepository].
   ///
-  /// - [db]: The ObjectBox database instance.
+  /// - [db] The ObjectBox database instance.
   D2CompulsoryDataElementOperandRepository(super.db);
 
   /// Retrieves a compulsory data element operand by its [uid].
   ///
   /// Returns a [D2CompulsoryDataElementOperand] instance if found, otherwise returns `null`.
   ///
-  /// - [uid]: The UID of the compulsory data element operand to retrieve.
+  /// - [uid] The UID of the compulsory data element operand to retrieve.
   @override
   D2CompulsoryDataElementOperand? getByUid(String uid) {
     Query<D2CompulsoryDataElementOperand> query =
@@ -25,7 +25,7 @@ class D2CompulsoryDataElementOperandRepository
 
   /// Maps a JSON representation to a [D2CompulsoryDataElementOperand] instance.
   ///
-  /// - [json]: The JSON map representing the compulsory data element operand.
+  /// - [json] The JSON map representing the compulsory data element operand.
   ///
   /// Returns a [D2CompulsoryDataElementOperand] instance.
   @override

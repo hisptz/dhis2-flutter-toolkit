@@ -24,10 +24,10 @@ class D2ControlledForm extends StatelessWidget {
 
   /// Constructs a new instance of [D2ControlledForm].
   ///
-  /// - [form]: The form to display.
-  /// - [controller]: The controller for the form.
-  /// - [color]: The color of the form.
-  /// - [disabled]: Indicates whether the form is disabled. Defaults to `false`.
+  /// - [form] The form to display.
+  /// - [controller] The controller for the form.
+  /// - [color] The color of the form.
+  /// - [disabled] Indicates whether the form is disabled. Defaults to `false`.
   const D2ControlledForm(
       {super.key,
       required this.form,

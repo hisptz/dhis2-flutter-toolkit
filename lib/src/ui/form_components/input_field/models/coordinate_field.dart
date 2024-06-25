@@ -16,7 +16,7 @@ class D2GeometryValue {
 
   /// Constructs a [D2GeometryValue] from a GeoJSON object.
   ///
-  /// - [geoJson]: A map representing the GeoJSON object with "coordinates" key.
+  /// - [geoJson] A map representing the GeoJSON object with "coordinates" key.
   D2GeometryValue.fromGeoJson(Map<String, dynamic> geoJson)
       : latitude = geoJson["coordinates"]?.first,
         longitude = geoJson["coordinates"]?.last;
@@ -39,16 +39,16 @@ class D2GeometryInputConfig extends D2BaseInputFieldConfig {
 
   /// Constructs a [D2GeometryInputConfig] with the given parameters.
   ///
-  /// - [label]: The label for the input field.
-  /// - [type]: The type of the input field.
-  /// - [name]: The name of the input field.
-  /// - [mandatory]: Indicates if the field is mandatory.
-  /// - [clearable]: Indicates if the field is clearable.
-  /// - [enableAutoLocation]: Enables automatic location detection if true.
-  /// - [disableMap]: Disables map functionality if true.
-  /// - [icon]: An optional icon for the input field.
-  /// - [legends]: An optional list of legends for the input field.
-  /// - [svgIconAsset]: An optional SVG icon asset for the input field.
+  /// - [label] The label for the input field.
+  /// - [type] The type of the input field.
+  /// - [name] The name of the input field.
+  /// - [mandatory] Indicates if the field is mandatory.
+  /// - [clearable] Indicates if the field is clearable.
+  /// - [enableAutoLocation] Enables automatic location detection if true.
+  /// - [disableMap] Disables map functionality if true.
+  /// - [icon] An optional icon for the input field.
+  /// - [legends] An optional list of legends for the input field.
+  /// - [svgIconAsset] An optional SVG icon asset for the input field.
   D2GeometryInputConfig(
       {required super.label,
       required super.type,

@@ -11,36 +11,75 @@ import 'program_stage.dart';
 import 'tracked_entity_type.dart';
 
 @Entity()
+
+/// This class represents a relationship type in the DHIS2 system.
+///
+/// This class extends [D2MetaResource] and includes various properties
+/// and methods for handling relationship types.
 class D2RelationshipType extends D2MetaResource {
   @override
   int id = 0;
+
+  /// Name of the relationship type.
   String name;
+
+  /// Date when the relationship type was created.
   DateTime created;
 
+  /// Date when the relationship type was last updated.
   DateTime lastUpdated;
 
+  /// Unique identifier string for the relationship type.
   @Unique()
   @override
   String uid;
 
+  /// Display name for the relationship type.
   String? displayName;
+
+  /// Name representing the relationship from the "from" entity to the "to" entity.
   String? fromToName;
+
+  /// Name representing the relationship from the "to" entity to the "from" entity.
   String? toFromName;
+
+  /// Display name for the "from" to "to" relationship.
   String? displayFromToName;
+
+  /// Display name for the "to" to "from" relationship.
   String? displayToFromName;
+
+  /// Indicates if the relationship type is a referral.
   bool? referral;
 
+  /// Entity type for the "from" side of the relationship.
   String fromRelationshipEntity;
+
+  /// Entity type for the "to" side of the relationship.
   String toRelationshipEntity;
 
+  /// Relationship to the [D2TrackedEntityType] for the "from" side.
   final fromTrackedEntityType = ToOne<D2TrackedEntityType>();
+
+  /// Relationship to the [D2Program] for the "from" side.
   final fromProgram = ToOne<D2Program>();
+
+  /// Relationship to the [D2ProgramStage] for the "from" side.
   final fromProgramStage = ToOne<D2ProgramStage>();
 
+  /// Relationship to the [D2TrackedEntityType] for the "to" side.
   final toTrackedEntityType = ToOne<D2TrackedEntityType>();
+
+  /// Relationship to the [D2Program] for the "to" side.
   final toProgram = ToOne<D2Program>();
+
+  /// Relationship to the [D2ProgramStage] for the "to" side.
   final toProgramStage = ToOne<D2ProgramStage>();
 
+  /// Populates the "from" side constraints from a given map.
+  ///
+  /// - [db] is the instance of [D2ObjectBox].
+  /// - [constraints] is a map containing the constraints for the "from" side.
   void getFromConstraints(D2ObjectBox db, Map constraints) {
     if (constraints["program"] != null) {
       fromProgram.target =
@@ -56,6 +95,10 @@ class D2RelationshipType extends D2MetaResource {
     }
   }
 
+  /// Populates the "to" side constraints from a given map.
+  ///
+  /// - [db] is the instance of [D2ObjectBox].
+  /// - [constraints] is a map containing the constraints for the "to" side.
   void getToConstraints(D2ObjectBox db, Map constraints) {
     if (constraints["program"] != null) {
       toProgram.target =
@@ -71,6 +114,7 @@ class D2RelationshipType extends D2MetaResource {
     }
   }
 
+  /// Constructs a [D2RelationshipType] instance with the given properties.
   D2RelationshipType(
       this.id,
       this.name,
@@ -86,6 +130,10 @@ class D2RelationshipType extends D2MetaResource {
       this.created,
       this.uid);
 
+  /// Constructs a [D2RelationshipType] instance from a map.
+  ///
+  /// - [db] is the instance of [D2ObjectBox].
+  /// - [json] is the map containing the relationship type data.
   D2RelationshipType.fromMap(D2ObjectBox db, Map json)
       : name = json["name"],
         uid = json["id"],

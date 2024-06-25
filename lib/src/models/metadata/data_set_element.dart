@@ -29,8 +29,8 @@ class D2DataSetElement implements D2MetaResource {
   ///
   /// The constructor initializes the [id] and [uid] properties.
   ///
-  /// - [id]: The unique identifier for the data set element.
-  /// - [uid]: The unique identifier (UID) for the data set element.
+  /// - [id] The unique identifier for the data set element.
+  /// - [uid] The unique identifier (UID) for the data set element.
   D2DataSetElement(this.id, this.uid);
 
   /// Creates a new instance of [D2DataSetElement] from a map.
@@ -38,8 +38,8 @@ class D2DataSetElement implements D2MetaResource {
   /// The [D2DataSetElement.fromMap] constructor initializes a [D2DataSetElement] instance using
   /// data from a [json] map and a reference to the [db] database.
   ///
-  /// - [db]: The database reference for fetching related entities.
-  /// - [json]: The JSON map containing the data set element information.
+  /// - [db] The database reference for fetching related entities.
+  /// - [json] The JSON map containing the data set element information.
   D2DataSetElement.fromMap(D2ObjectBox db, Map json)
       : uid = '${json["dataSet"]["id"]}-${json["dataElement"]["id"]}' {
     String dataElementUid = json["dataElement"]["id"];

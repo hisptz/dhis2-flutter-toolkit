@@ -7,12 +7,12 @@ import 'base.dart';
 class D2LegendSetRepository extends BaseMetaRepository<D2LegendSet> {
   /// Constructs a new instance of the [D2LegendSetRepository] class.
   ///
-  /// - [db]: The ObjectBox database instance.
+  /// - [db] The ObjectBox database instance.
   D2LegendSetRepository(super.db);
 
   /// Retrieves a [D2LegendSet] instance by its unique identifier [uid].
   ///
-  /// - [uid]: The unique identifier of the legend set to retrieve.
+  /// - [uid] The unique identifier of the legend set to retrieve.
   /// Returns: The [D2LegendSet] instance if found, otherwise null.
   @override
   D2LegendSet? getByUid(String uid) {
@@ -22,7 +22,7 @@ class D2LegendSetRepository extends BaseMetaRepository<D2LegendSet> {
 
   /// Maps a JSON object to a [D2LegendSet] instance.
   ///
-  /// - [json]: The JSON map containing the legend set data.
+  /// - [json] The JSON map containing the legend set data.
   /// Returns: A [D2LegendSet] instance constructed from the JSON data [json].
   @override
   D2LegendSet mapper(Map<String, dynamic> json) {

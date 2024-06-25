@@ -15,8 +15,8 @@ abstract class D2BaseTrackerDataRepository<T extends D2DataResource>
 
   /// Creates a new instance of [D2BaseTrackerDataRepository].
   ///
-  /// - [super.db]: The ObjectBox database instance.
-  /// - [program]: The program associated with the tracker data.
+  /// - [super.db] The ObjectBox database instance.
+  /// - [program] The program associated with the tracker data.
   D2BaseTrackerDataRepository(super.db, {this.program});
 
   /// Maps the JSON data to the tracker entity type [T].

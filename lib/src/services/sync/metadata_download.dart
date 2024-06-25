@@ -19,7 +19,7 @@ class D2MetadataDownloadService {
   /// Sets up the metadata download for the specified [user] and streams the download status.
   ///
   /// Parameters:
-  /// - [user]: The [D2User] whose metadata will be downloaded.
+  /// - [user] The [D2User] whose metadata will be downloaded.
   Future setupUserMetadataDownload(D2User user) async {
     D2ProgramRepository programRepository = D2ProgramRepository(db);
     List<String> programs = user.programs;

@@ -75,16 +75,16 @@ class D2Program extends D2MetaResource {
 
   /// Constructs a [D2Program].
   ///
-  /// - [created]: The creation date of the program.
-  /// - [lastUpdated]: The last updated date of the program.
-  /// - [uid]: The unique identifier of the program.
-  /// - [accessLevel]: The access level of the program.
-  /// - [name]: The name of the program.
-  /// - [shortName]: The short name of the program.
-  /// - [programType]: The type of the program.
-  /// - [onlyEnrollOnce]: Whether the program can only be enrolled once.
-  /// - [displayName]: The display name of the program.
-  /// - [featureType]: The feature type of the program.
+  /// - [created] The creation date of the program.
+  /// - [lastUpdated] The last updated date of the program.
+  /// - [uid] The unique identifier of the program.
+  /// - [accessLevel] The access level of the program.
+  /// - [name] The name of the program.
+  /// - [shortName] The short name of the program.
+  /// - [programType] The type of the program.
+  /// - [onlyEnrollOnce] Whether the program can only be enrolled once.
+  /// - [displayName] The display name of the program.
+  /// - [featureType] The feature type of the program.
   D2Program(
       this.created,
       this.lastUpdated,
@@ -99,8 +99,8 @@ class D2Program extends D2MetaResource {
 
   /// Constructs a [D2Program] from a JSON map [json].
   ///
-  /// - [db]: The database instance.
-  /// - [json]: The JSON map containing program data.
+  /// - [db] The database instance.
+  /// - [json] The JSON map containing program data.
   D2Program.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),

@@ -8,7 +8,7 @@ class D2DataSetElementRepository extends BaseMetaRepository<D2DataSetElement> {
 
   /// Retrieves a [D2DataSetElement] by its UID.
   ///
-  /// - [uid]: The unique identifier of the data set element.
+  /// - [uid] The unique identifier of the data set element.
   ///
   /// Returns the [D2DataSetElement] if found, otherwise null.
   @override
@@ -20,7 +20,7 @@ class D2DataSetElementRepository extends BaseMetaRepository<D2DataSetElement> {
 
   /// Maps a JSON map to a [D2DataSetElement] instance.
   ///
-  /// - [json]: The JSON map containing data set element information.
+  /// - [json] The JSON map containing data set element information.
   ///
   /// Returns a new instance of [D2DataSetElement].
   @override

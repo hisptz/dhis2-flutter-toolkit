@@ -10,12 +10,12 @@ class D2ProgramRuleActionRepository
     extends BaseMetaRepository<D2ProgramRuleAction> {
   /// Constructs a [D2ProgramRuleActionRepository] with the provided database instance.
   ///
-  /// - [db]: The database instance.
+  /// - [db] The database instance.
   D2ProgramRuleActionRepository(super.db);
 
   /// Retrieves a [D2ProgramRuleAction] by its unique identifier (UID) [uid].
   ///
-  /// - [uid]: The unique identifier of the program rule action.
+  /// - [uid] The unique identifier of the program rule action.
   ///
   /// Returns a [D2ProgramRuleAction] object if found, or `null` if not found.
   @override
@@ -27,7 +27,7 @@ class D2ProgramRuleActionRepository
 
   /// Maps a JSON object [json] to a [D2ProgramRuleAction] entity.
   ///
-  /// - [json]: The JSON map containing program rule action data.
+  /// - [json] The JSON map containing program rule action data.
   ///
   /// Returns a [D2ProgramRuleAction] object constructed from the JSON data.
   @override

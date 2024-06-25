@@ -30,12 +30,12 @@ class D2CategoryOptionCombo extends D2MetaResource {
 
   /// Creates a new instance of [D2CategoryOptionCombo].
   ///
-  /// - [lastUpdated]: The date and time when the category option combo was last updated.
-  /// - [uid]: The UID of the category option combo.
-  /// - [created]: The date and time when the category option combo was created.
-  /// - [name]: The name of the category option combo.
-  /// - [code]: The code of the category option combo.
-  /// - [id]: The ID of the category option combo.
+  /// - [lastUpdated] The date and time when the category option combo was last updated.
+  /// - [uid] The UID of the category option combo.
+  /// - [created] The date and time when the category option combo was created.
+  /// - [name] The name of the category option combo.
+  /// - [code] The code of the category option combo.
+  /// - [id] The ID of the category option combo.
 
   D2CategoryOptionCombo(
     this.lastUpdated,
@@ -48,8 +48,8 @@ class D2CategoryOptionCombo extends D2MetaResource {
 
   /// Creates a [D2CategoryOptionCombo] instance from a map.
   ///
-  /// - [db]: The ObjectBox database instance.
-  /// - [json]: The map containing the category option combo data.
+  /// - [db] The ObjectBox database instance.
+  /// - [json] The map containing the category option combo data.
 
   D2CategoryOptionCombo.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),

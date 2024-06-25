@@ -28,7 +28,7 @@ class D2InputContainerColorScheme {
 
   /// Creates a color scheme from a main color.
   ///
-  /// - [main]: The main color.
+  /// - [main] The main color.
   D2InputContainerColorScheme.fromMainColor(this.main)
       : text = Colors.black,
         active = main,
@@ -39,13 +39,13 @@ class D2InputContainerColorScheme {
 
   /// Creates a color scheme with specified colors.
   ///
-  /// - [error]: The color for error states.
-  /// - [warning]: The color for warning states.
-  /// - [main]: The main color.
-  /// - [text]: The color for text.
-  /// - [active]: The color for active states.
-  /// - [inactive]: The color for inactive states.
-  /// - [disabled]: The color for disabled states.
+  /// - [error] The color for error states.
+  /// - [warning] The color for warning states.
+  /// - [main] The main color.
+  /// - [text] The color for text.
+  /// - [active] The color for active states.
+  /// - [inactive] The color for inactive states.
+  /// - [disabled] The color for disabled states.
   D2InputContainerColorScheme(
       {required this.error,
       required this.warning,
@@ -57,9 +57,9 @@ class D2InputContainerColorScheme {
 
   /// Gets the status color based on the current state.
   ///
-  /// - [hasError]: Indicates if there is an error.
-  /// - [isDisabled]: Indicates if the field is disabled.
-  /// - [hasWarning]: Indicates if there is a warning.
+  /// - [hasError] Indicates if there is an error.
+  /// - [isDisabled] Indicates if the field is disabled.
+  /// - [hasWarning] Indicates if there is a warning.
   /// - Returns the appropriate color based on the state.
   Color getStatusColor(
       {bool hasError = false,
@@ -113,11 +113,11 @@ class D2InputIconDecoration {
 
   /// Constructs an input icon decoration with the provided parameters.
   ///
-  /// - [iconConstraints]: Constraints for the icon size.
-  /// - [backgroundColor]: Background color of the icon.
-  /// - [iconColor]: Color of the icon.
-  /// - [iconData]: Data for the icon.
-  /// - [svgIconAsset]: Asset path for an SVG icon.
+  /// - [iconConstraints] Constraints for the icon size.
+  /// - [backgroundColor] Background color of the icon.
+  /// - [iconColor] Color of the icon.
+  /// - [iconData] Data for the icon.
+  /// - [svgIconAsset] Asset path for an SVG icon.
   D2InputIconDecoration(
       {required this.iconConstraints,
       required this.backgroundColor,
@@ -127,8 +127,8 @@ class D2InputIconDecoration {
 
   /// Constructs an input icon decoration from an input field configuration.
   ///
-  /// - [input]: The input field configuration.
-  /// - [color]: The color for the icon.
+  /// - [input] The input field configuration.
+  /// - [color] The color for the icon.
   D2InputIconDecoration.fromInput(D2BaseInputFieldConfig input, {Color? color})
       : iconData = input.icon,
         svgIconAsset = input.svgIconAsset,
@@ -167,9 +167,9 @@ class D2InputDecoration {
 
   /// Constructs an input decoration with the provided parameters.
   ///
-  /// - [inputContainerDecoration]: Decoration for the input container.
-  /// - [inputIconDecoration]: Decoration configuration for the input icon.
-  /// - [colorScheme]: The color scheme for the input container.
+  /// - [inputContainerDecoration] Decoration for the input container.
+  /// - [inputIconDecoration] Decoration configuration for the input icon.
+  /// - [colorScheme] The color scheme for the input container.
   D2InputDecoration(
       {BoxDecoration? inputContainerDecoration,
       required this.inputIconDecoration,
@@ -194,11 +194,11 @@ class D2InputDecoration {
 
   /// Constructs an input decoration from an input field configuration.
   ///
-  /// - [input]: The input field configuration.
-  /// - [color]: The color for the input container.
-  /// - [disabled]: Indicates if the input is disabled.
-  /// - [error]: Indicates if the input has an error.
-  /// - [warning]: Indicates if the input has a warning.
+  /// - [input] The input field configuration.
+  /// - [color] The color for the input container.
+  /// - [disabled] Indicates if the input is disabled.
+  /// - [error] Indicates if the input has an error.
+  /// - [warning] Indicates if the input has a warning.
   D2InputDecoration.fromInput(D2BaseInputFieldConfig input,
       {required Color color,
       required bool disabled,

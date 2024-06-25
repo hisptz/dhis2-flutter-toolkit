@@ -18,8 +18,8 @@ class D2DataStoreRepository extends BaseDataRepository
 
   /// Constructs a new instance of [D2DataStoreRepository].
   ///
-  /// - [db]: The database reference.
-  /// - [namespace]: The namespace for the data store, optional.
+  /// - [db] The database reference.
+  /// - [namespace] The namespace for the data store, optional.
   D2DataStoreRepository(super.db, {this.namespace})
       : conditions =
             namespace != null ? D2DataStore_.namespace.equals(namespace) : null;
@@ -34,14 +34,14 @@ class D2DataStoreRepository extends BaseDataRepository
 
   /// Sets the namespace for the data store.
   ///
-  /// - [namespace]: The namespace to be set.
+  /// - [namespace] The namespace to be set.
   setNamespace(String namespace) {
     this.namespace = namespace;
   }
 
   /// Retrieves a [D2DataStore] by its key.
   ///
-  /// - [key]: The key associated with the data store.
+  /// - [key] The key associated with the data store.
   ///
   /// Returns the [D2DataStore] if found, otherwise throws an exception if the namespace is not set.
   D2DataStore? getByKey(String key) {
@@ -56,7 +56,7 @@ class D2DataStoreRepository extends BaseDataRepository
 
   /// Retrieves the ID of a [D2DataStore] by its [uid].
   ///
-  /// - [uid]: The unique identifier of the data store.
+  /// - [uid] The unique identifier of the data store.
   ///
   /// Returns the ID as an [int] if found, otherwise null.
   int? getIdByUid(String uid) {

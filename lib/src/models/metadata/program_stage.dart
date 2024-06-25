@@ -62,17 +62,17 @@ class D2ProgramStage extends D2MetaResource {
 
   /// Constructs a [D2ProgramStage] instance with the given parameters.
   ///
-  /// - [created]: The date and time when the program stage was created.
-  /// - [displayName]: The display name for the program stage.
-  /// - [id]: The unique identifier for the program stage.
-  /// - [lastUpdated]: The date and time when the program stage was last updated.
-  /// - [uid]: The unique UID for the program stage.
-  /// - [name]: The name of the program stage.
-  /// - [sortOrder]: The sort order for the program stage.
-  /// - [validationStrategy]: The validation strategy for the program stage.
-  /// - [reportDateToUse]: The report date to use for the program stage.
-  /// - [featureType]: The feature type for the program stage.
-  /// - [description]: A description of the program stage.
+  /// - [created] The date and time when the program stage was created.
+  /// - [displayName] The display name for the program stage.
+  /// - [id] The unique identifier for the program stage.
+  /// - [lastUpdated] The date and time when the program stage was last updated.
+  /// - [uid] The unique UID for the program stage.
+  /// - [name] The name of the program stage.
+  /// - [sortOrder] The sort order for the program stage.
+  /// - [validationStrategy] The validation strategy for the program stage.
+  /// - [reportDateToUse] The report date to use for the program stage.
+  /// - [featureType] The feature type for the program stage.
+  /// - [description] A description of the program stage.
   D2ProgramStage(
     this.created,
     this.displayName,
@@ -89,8 +89,8 @@ class D2ProgramStage extends D2MetaResource {
 
   /// Constructs a [D2ProgramStage] instance from a JSON map [json].
   ///
-  /// - [db]: The [D2ObjectBox] instance used for repository operations.
-  /// - [json]: The JSON map containing the program stage data.
+  /// - [db] The [D2ObjectBox] instance used for repository operations.
+  /// - [json] The JSON map containing the program stage data.
   D2ProgramStage.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),

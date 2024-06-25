@@ -14,8 +14,8 @@ class D2LocalOrgUnitSelectorService
 
   /// Constructs a new instance of the [D2LocalOrgUnitSelectorService] class.
   ///
-  /// - [db]: The ObjectBox database instance.
-  /// - [initialRoots]: An optional list of initial root organizational units.
+  /// - [db] The ObjectBox database instance.
+  /// - [initialRoots] An optional list of initial root organizational units.
   D2LocalOrgUnitSelectorService(this.db, {List<OrgUnitData>? initialRoots}) {
     if (initialRoots != null) {
       roots = initialRoots.map(getTreeNodeFromOrgUnitData).toList();
@@ -37,7 +37,7 @@ class D2LocalOrgUnitSelectorService
 
   /// Converts a [D2OrgUnit] instance to an [OrgUnitData] instance.
   ///
-  /// - [orgUnit]: The organizational unit to convert.
+  /// - [orgUnit] The organizational unit to convert.
   /// - Returns: The corresponding [OrgUnitData] instance.
   @override
   OrgUnitData getOrgUnitDataFromOrgUnit(D2OrgUnit orgUnit) {
@@ -51,7 +51,7 @@ class D2LocalOrgUnitSelectorService
 
   /// Converts an [OrgUnitData] instance to a [TreeNode] instance.
   ///
-  /// - [orgUnitData]: The organizational unit data to convert.
+  /// - [orgUnitData] The organizational unit data to convert.
   /// - Returns: The corresponding [TreeNode] instance.
   @override
   TreeNode<OrgUnitData> getTreeNodeFromOrgUnitData(OrgUnitData orgUnitData) {
@@ -72,7 +72,7 @@ class D2LocalOrgUnitSelectorService
 
   /// Retrieves the children of a given organizational unit node.
   ///
-  /// - [node]: The node whose children are to be retrieved.
+  /// - [node] The node whose children are to be retrieved.
   /// - Returns: A list of [TreeNode] instances representing the children of the node.
   @override
   Future<List<TreeNode<OrgUnitData>>> getChildren(
@@ -89,7 +89,7 @@ class D2LocalOrgUnitSelectorService
 
   /// Retrieves the organizational unit data for a given list of IDs.
   ///
-  /// - [values]: The list of IDs for which to retrieve organizational unit data.
+  /// - [values] The list of IDs for which to retrieve organizational unit data.
   /// - Returns: A list of [OrgUnitData] instances corresponding to the given IDs.
   @override
   Future<List<OrgUnitData>> getOrgUnitDataFromId(List<String> values) async {

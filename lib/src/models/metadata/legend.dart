@@ -43,21 +43,21 @@ class D2Legend extends D2MetaResource {
 
   /// Constructs a new instance of the [D2Legend] class.
   ///
-  /// - [created]: The creation timestamp of the legend.
-  /// - [lastUpdated]: The last updated timestamp of the legend.
-  /// - [uid]: The unique UID of the legend.
-  /// - [name]: The name of the legend.
-  /// - [startValue]: The start value of the legend range.
-  /// - [endValue]: The end value of the legend range.
-  /// - [color]: The color associated with the legend, represented as a hex string.
-  /// - [displayName]: An optional display name for the legend.
+  /// - [created] The creation timestamp of the legend.
+  /// - [lastUpdated] The last updated timestamp of the legend.
+  /// - [uid] The unique UID of the legend.
+  /// - [name] The name of the legend.
+  /// - [startValue] The start value of the legend range.
+  /// - [endValue] The end value of the legend range.
+  /// - [color] The color associated with the legend, represented as a hex string.
+  /// - [displayName] An optional display name for the legend.
   D2Legend(this.created, this.lastUpdated, this.uid, this.name, this.startValue,
       this.endValue, this.color, this.displayName);
 
   /// Constructs a new instance of the [D2Legend] class from a map of JSON data [json].
   ///
-  /// - [db]: The ObjectBox database instance.
-  /// - [json]: The JSON map containing the legend data.
+  /// - [db] The ObjectBox database instance.
+  /// - [json] The JSON map containing the legend data.
   D2Legend.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),

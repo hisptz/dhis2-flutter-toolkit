@@ -90,19 +90,19 @@ class D2Event extends SyncDataSource
 
   /// Constructs a new instance of the [D2Event] class.
   ///
-  /// - [attributeCategoryOptions]: The attribute category options associated with the event.
-  /// - [attributeOptionCombo]: The attribute option combo associated with the event.
-  /// - [updatedAt]: The last updated timestamp of the event.
-  /// - [createdAt]: The creation timestamp of the event.
-  /// - [followup]: Indicates whether the event is marked for follow-up.
-  /// - [deleted]: Indicates whether the event is deleted.
-  /// - [status]: The status of the event.
-  /// - [notes]: Notes associated with the event.
-  /// - [scheduledAt]: The scheduled timestamp of the event.
-  /// - [uid]: The UID of the event.
-  /// - [occurredAt]: The occurred timestamp of the event.
-  /// - [synced]: Indicates whether the event is synced.
-  /// - [geometry]: The geometry of the event in serialized JSON format.
+  /// - [attributeCategoryOptions] The attribute category options associated with the event.
+  /// - [attributeOptionCombo] The attribute option combo associated with the event.
+  /// - [updatedAt] The last updated timestamp of the event.
+  /// - [createdAt] The creation timestamp of the event.
+  /// - [followup] Indicates whether the event is marked for follow-up.
+  /// - [deleted] Indicates whether the event is deleted.
+  /// - [status] The status of the event.
+  /// - [notes] Notes associated with the event.
+  /// - [scheduledAt] The scheduled timestamp of the event.
+  /// - [uid] The UID of the event.
+  /// - [occurredAt] The occurred timestamp of the event.
+  /// - [synced] Indicates whether the event is synced.
+  /// - [geometry] The geometry of the event in serialized JSON format.
   D2Event(
       this.attributeCategoryOptions,
       this.attributeOptionCombo,
@@ -120,8 +120,8 @@ class D2Event extends SyncDataSource
 
   /// Constructs a new instance of the [D2Event] class from a JSON map.
   ///
-  /// - [db]: The ObjectBox database instance.
-  /// - [json]: The JSON map representing the event.
+  /// - [db] The ObjectBox database instance.
+  /// - [json] The JSON map representing the event.
   ///
   /// The constructor performs the following initializations:
   /// - Assigns values to [attributeCategoryOptions], [attributeOptionCombo],
@@ -166,11 +166,11 @@ class D2Event extends SyncDataSource
 
   /// Constructs a new instance of the [D2Event] class from form values [formValues].
   ///
-  /// - [formValues]: The form values representing the event.
-  /// - [db]: The ObjectBox database instance.
-  /// - [enrollment]: The enrollment associated with the event.
-  /// - [programStage]: The program stage associated with the event.
-  /// - [orgUnit]: The organizational unit associated with the event.
+  /// - [formValues] The form values representing the event.
+  /// - [db] The ObjectBox database instance.
+  /// - [enrollment] The enrollment associated with the event.
+  /// - [programStage] The program stage associated with the event.
+  /// - [orgUnit] The organizational unit associated with the event.
   D2Event.fromFormValues(Map<String, dynamic> formValues,
       {required D2ObjectBox db,
       D2Enrollment? enrollment,
@@ -226,7 +226,7 @@ class D2Event extends SyncDataSource
 
   /// Converts the event to a map for JSON serialization.
   ///
-  /// - [db]: The ObjectBox database instance.
+  /// - [db] The ObjectBox database instance.
   /// - Returns: A map representing the event.
   @override
   Future<Map<String, dynamic>> toMap({D2ObjectBox? db}) async {
@@ -297,10 +297,10 @@ class D2Event extends SyncDataSource
   /// Updates the [D2Event] instance with values from a form.
   ///
   /// Parameters:
-  /// - [values]: A map containing form values.
-  /// - [db]: An instance of [D2ObjectBox].
-  /// - [program]: An optional [D2Program] instance.
-  /// - [orgUnit]: An optional [D2OrgUnit] instance.
+  /// - [values] A map containing form values.
+  /// - [db] An instance of [D2ObjectBox].
+  /// - [program] An optional [D2Program] instance.
+  /// - [orgUnit] An optional [D2OrgUnit] instance.
   @override
   void updateFromFormValues(Map<String, dynamic> values,
       {required D2ObjectBox db, D2Program? program, D2OrgUnit? orgUnit}) {
@@ -327,7 +327,7 @@ class D2Event extends SyncDataSource
   /// Saves the [D2Event] instance to the database.
   ///
   /// Parameters:
-  /// - [db]: An instance of [D2ObjectBox].
+  /// - [db] An instance of [D2ObjectBox].
   @override
   void save(D2ObjectBox db) {
     if (id == 0) {
@@ -343,7 +343,7 @@ class D2Event extends SyncDataSource
   /// Deletes the [D2Event] instance from the database along with associated data values and relationships.
   ///
   /// Parameters:
-  /// - [db]: An instance of [D2ObjectBox].
+  /// - [db] An instance of [D2ObjectBox].
   ///
   /// Returns [bool] whether the deletion was successful.
   @override
@@ -358,7 +358,7 @@ class D2Event extends SyncDataSource
   /// Soft deletes the [D2Event] instance by marking it as deleted and saving the changes.
   ///
   /// Parameters:
-  /// - [db]: An instance of [D2ObjectBox].
+  /// - [db] An instance of [D2ObjectBox].
   @override
   void softDelete(db) {
     deleted = true;

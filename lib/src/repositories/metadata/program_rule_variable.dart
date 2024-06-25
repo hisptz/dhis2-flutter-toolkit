@@ -11,12 +11,12 @@ class D2ProgramRuleVariableRepository
     extends BaseMetaRepository<D2ProgramRuleVariable> {
   /// Constructs a [D2ProgramRuleVariableRepository].
   ///
-  /// - [db]: The [D2ObjectBox] instance used for repository operations.
+  /// - [db] The [D2ObjectBox] instance used for repository operations.
   D2ProgramRuleVariableRepository(super.db);
 
   /// Retrieves a [D2ProgramRuleVariable] by its unique identifier [uid].
   ///
-  /// - [uid]: The unique identifier of the program rule variable.
+  /// - [uid] The unique identifier of the program rule variable.
   ///
   /// Returns a [D2ProgramRuleVariable] instance with the specified UID, or `null` if not found.
   @override
@@ -28,7 +28,7 @@ class D2ProgramRuleVariableRepository
 
   /// Maps a JSON object [json] to a [D2ProgramRuleVariable] instance.
   ///
-  /// - [json]: The JSON object containing the program rule variable data.
+  /// - [json] The JSON object containing the program rule variable data.
   ///
   /// Returns a [D2ProgramRuleVariable] instance created from the JSON data.
   @override

@@ -13,7 +13,7 @@ class D2DataSetRepository extends BaseMetaRepository<D2DataSet>
 
   /// Retrieves a [D2DataSet] by its UID.
   ///
-  /// - [uid]: The unique identifier of the data set.
+  /// - [uid] The unique identifier of the data set.
   ///
   /// Returns the [D2DataSet] if found, otherwise null.
   @override
@@ -24,7 +24,7 @@ class D2DataSetRepository extends BaseMetaRepository<D2DataSet>
 
   /// Maps a JSON map to a [D2DataSet] instance.
   ///
-  /// - [json]: The JSON map containing data set information.
+  /// - [json] The JSON map containing data set information.
   ///
   /// Returns a new instance of [D2DataSet].
   @override

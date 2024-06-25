@@ -12,12 +12,12 @@ class D2OrgUnitGroupRepository extends BaseMetaRepository<D2OrgUnitGroup>
         D2OrgUnitGroupDownloadServiceMixin {
   /// Constructs a [D2OrgUnitGroupRepository].
   ///
-  /// - [db]: The [D2ObjectBox] instance.
+  /// - [db] The [D2ObjectBox] instance.
   D2OrgUnitGroupRepository(super.db);
 
   /// Retrieves a [D2OrgUnitGroup] by its unique identifier [uid].
   ///
-  /// - [uid]: The unique identifier string (UID) of the organizational unit group.
+  /// - [uid] The unique identifier string (UID) of the organizational unit group.
   ///
   /// Returns a [D2OrgUnitGroup] instance, or `null` if not found.
   @override
@@ -30,7 +30,7 @@ class D2OrgUnitGroupRepository extends BaseMetaRepository<D2OrgUnitGroup>
 
   /// Maps a JSON object [json] to a [D2OrgUnitGroup] entity.
   ///
-  /// - [json]: The JSON map containing organizational unit group data.
+  /// - [json] The JSON map containing organizational unit group data.
   ///
   /// Returns a [D2OrgUnitGroup] instance created from the JSON map.
   @override

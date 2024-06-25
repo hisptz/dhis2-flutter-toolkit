@@ -33,20 +33,20 @@ class D2OrgUnitLevel implements D2MetaResource {
   /// Constructs a [D2OrgUnitLevel].
   ///
   /// Parameters:
-  /// - [id]: The unique identifier of the organizational unit level.
-  /// - [displayName]: The display name of the organizational unit level.
-  /// - [name]: The name of the organizational unit level.
-  /// - [uid]: The unique UID of the organizational unit level.
-  /// - [level]: The level of the organizational unit.
-  /// - [created]: The date and time when the organizational unit level was created.
-  /// - [lastUpdated]: The date and time when the organizational unit level was last updated.
+  /// - [id] The unique identifier of the organizational unit level.
+  /// - [displayName] The display name of the organizational unit level.
+  /// - [name] The name of the organizational unit level.
+  /// - [uid] The unique UID of the organizational unit level.
+  /// - [level] The level of the organizational unit.
+  /// - [created] The date and time when the organizational unit level was created.
+  /// - [lastUpdated] The date and time when the organizational unit level was last updated.
   D2OrgUnitLevel(this.id, this.displayName, this.name, this.uid, this.level,
       this.created, this.lastUpdated);
 
   /// Constructs a [D2OrgUnitLevel] from a map [json].
   ///
-  /// - [db]: The database instance.
-  /// - [json]: The map containing the organizational unit level data.
+  /// - [db] The database instance.
+  /// - [json] The map containing the organizational unit level data.
   D2OrgUnitLevel.fromMap(D2ObjectBox db, Map json)
       : name = json["name"],
         uid = json["id"],

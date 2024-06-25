@@ -59,14 +59,14 @@ class D2InputFieldContainer extends StatelessWidget {
 
   /// Constructs an input field container with the provided parameters.
   ///
-  /// - [input]: Configuration for the input field.
-  /// - [onChange]: Callback for when the value changes.
-  /// - [value]: The current value of the input field.
-  /// - [color]: The main color used for the input field's decoration.
-  /// - [error]: Error message to display if there is an error.
-  /// - [warning]: Warning message to display if there is a warning.
-  /// - [disabled]: Indicates if the input field is disabled.
-  /// - [inputDecoration]: Decoration configuration for the input field.
+  /// - [input] Configuration for the input field.
+  /// - [onChange] Callback for when the value changes.
+  /// - [value] The current value of the input field.
+  /// - [color] The main color used for the input field's decoration.
+  /// - [error] Error message to display if there is an error.
+  /// - [warning] Warning message to display if there is a warning.
+  /// - [disabled] Indicates if the input field is disabled.
+  /// - [inputDecoration] Decoration configuration for the input field.
   D2InputFieldContainer(
       {super.key,
       required this.input,

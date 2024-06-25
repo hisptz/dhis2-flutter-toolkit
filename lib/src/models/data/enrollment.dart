@@ -82,17 +82,17 @@ class D2Enrollment extends SyncDataSource
 
   /// Constructor for creating an instance of [D2Enrollment].
   /// Parameters:
-  /// - [uid]: Unique identifier for the enrollment.
-  /// - [updatedAt]: Date and time when the enrollment was last updated.
-  /// - [createdAt]: Date and time when the enrollment was created.
-  /// - [enrolledAt]: Date when the enrollment was started.
-  /// - [followup]: Whether follow-up is required for the enrollment.
-  /// - [deleted]: Whether the enrollment has been deleted.
-  /// - [occurredAt]: Date when the enrollment event occurred.
-  /// - [status]: Current status of the enrollment.
-  /// - [notes]: Additional notes related to the enrollment.
-  /// - [synced]: Whether the enrollment has been synced with the server.
-  /// - [geometry]: JSON string representation of the geometry associated with the enrollment.
+  /// - [uid] Unique identifier for the enrollment.
+  /// - [updatedAt] Date and time when the enrollment was last updated.
+  /// - [createdAt] Date and time when the enrollment was created.
+  /// - [enrolledAt] Date when the enrollment was started.
+  /// - [followup] Whether follow-up is required for the enrollment.
+  /// - [deleted] Whether the enrollment has been deleted.
+  /// - [occurredAt] Date when the enrollment event occurred.
+  /// - [status] Current status of the enrollment.
+  /// - [notes] Additional notes related to the enrollment.
+  /// - [synced] Whether the enrollment has been synced with the server.
+  /// - [geometry] JSON string representation of the geometry associated with the enrollment.
   D2Enrollment(
       this.uid,
       this.updatedAt,

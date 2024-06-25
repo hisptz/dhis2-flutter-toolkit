@@ -7,12 +7,12 @@ import 'base.dart';
 class D2LegendRepository extends BaseMetaRepository<D2Legend> {
   /// Constructs a new instance of the [D2LegendRepository] class.
   ///
-  /// - [db]: The ObjectBox database instance.
+  /// - [db] The ObjectBox database instance.
   D2LegendRepository(super.db);
 
   /// Retrieves a [D2Legend] entity by its UID.
   ///
-  /// - [uid]: The unique identifier of the legend.
+  /// - [uid] The unique identifier of the legend.
   ///
   /// Returns the [D2Legend] entity if found, otherwise null.
   @override
@@ -23,7 +23,7 @@ class D2LegendRepository extends BaseMetaRepository<D2Legend> {
 
   /// Maps a JSON object to a [D2Legend] entity.
   ///
-  /// - [json]: The JSON map containing the legend data.
+  /// - [json] The JSON map containing the legend data.
   ///
   /// Returns the mapped [D2Legend] entity.
   @override

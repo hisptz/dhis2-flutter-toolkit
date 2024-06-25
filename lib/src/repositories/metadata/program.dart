@@ -13,12 +13,12 @@ class D2ProgramRepository extends BaseMetaRepository<D2Program>
         D2ProgramDownloadServiceMixin {
   /// Constructs a [D2ProgramRepository].
   ///
-  /// - [db]: The database instance.
+  /// - [db] The database instance.
   D2ProgramRepository(super.db);
 
   /// Retrieves a [D2Program] by its UID [uid].
   ///
-  /// - [uid]: The unique identifier of the program.
+  /// - [uid] The unique identifier of the program.
   ///
   /// Returns the [D2Program] with the specified UID, or `null` if not found.
   @override
@@ -29,7 +29,7 @@ class D2ProgramRepository extends BaseMetaRepository<D2Program>
 
   /// Maps a JSON object [json] to a [D2Program] instance.
   ///
-  /// - [json]: The JSON object containing program data.
+  /// - [json] The JSON object containing program data.
   ///
   /// Returns the [D2Program] instance created from the JSON data.
   @override
@@ -39,7 +39,7 @@ class D2ProgramRepository extends BaseMetaRepository<D2Program>
 
   /// Creates a query to find [D2Program] by an identifiable token [keyword].
   ///
-  /// - [keyword]: The keyword to search for in UID, name, or short name.
+  /// - [keyword] The keyword to search for in UID, name, or short name.
   ///
   /// Returns the [D2ProgramRepository] instance with the query conditions applied.
   D2ProgramRepository byIdentifiableToken(String keyword) {

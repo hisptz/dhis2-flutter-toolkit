@@ -13,7 +13,7 @@ abstract class D2BaseOrgUnitSelectorService<T> {
 
   /// Creates a new instance of [D2BaseOrgUnitSelectorService].
   ///
-  /// [selectedOrgUnits]: List of IDs representing the initially selected organization units.
+  /// [selectedOrgUnits] List of IDs representing the initially selected organization units.
   D2BaseOrgUnitSelectorService({this.selectedOrgUnits});
 
   /// Returns the root tree node representing the organization unit hierarchy.
@@ -58,7 +58,7 @@ abstract class D2BaseOrgUnitSelectorService<T> {
 
   /// Expands the initially selected nodes in the tree view.
   ///
-  /// [initiallySelected]: List of IDs representing the initially selected nodes.
+  /// [initiallySelected] List of IDs representing the initially selected nodes.
   void expandInitiallySelected({List<String>? initiallySelected}) {
     //TODO: Implement how to expand the selected nodes;
   }

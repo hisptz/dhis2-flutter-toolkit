@@ -55,23 +55,23 @@ class D2OrgUnit implements D2MetaResource {
 
   /// Constructs a [D2OrgUnit].
   ///
-  /// - [id]: Unique identifier of the organizational unit.
-  /// - [displayName]: Display name of the organizational unit.
-  /// - [name]: Name of the organizational unit.
-  /// - [uid]: Unique identifier string (UID) of the organizational unit.
-  /// - [shortName]: Short name of the organizational unit.
-  /// - [path]: Path representing the hierarchy of the organizational unit.
-  /// - [created]: Date when the organizational unit was created.
-  /// - [lastUpdated]: Date when the organizational unit was last updated.
-  /// - [openingDate]: Date when the organizational unit was opened.
-  /// - [code]: Optional code of the organizational unit.
+  /// - [id] Unique identifier of the organizational unit.
+  /// - [displayName] Display name of the organizational unit.
+  /// - [name] Name of the organizational unit.
+  /// - [uid] Unique identifier string (UID) of the organizational unit.
+  /// - [shortName] Short name of the organizational unit.
+  /// - [path] Path representing the hierarchy of the organizational unit.
+  /// - [created] Date when the organizational unit was created.
+  /// - [lastUpdated] Date when the organizational unit was last updated.
+  /// - [openingDate] Date when the organizational unit was opened.
+  /// - [code] Optional code of the organizational unit.
   D2OrgUnit(this.id, this.displayName, this.name, this.uid, this.shortName,
       this.path, this.created, this.lastUpdated, this.openingDate, this.code);
 
   /// Constructs a [D2OrgUnit] from a JSON map.
   ///
-  /// - [db]: The [D2ObjectBox] instance.
-  /// - [json]: The JSON [Map] containing organizational unit data.
+  /// - [db] The [D2ObjectBox] instance.
+  /// - [json] The JSON [Map] containing organizational unit data.
   D2OrgUnit.fromMap(D2ObjectBox db, Map json)
       : uid = json["id"],
         name = json["name"],

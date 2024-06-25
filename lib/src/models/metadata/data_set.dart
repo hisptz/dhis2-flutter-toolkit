@@ -73,18 +73,18 @@ class D2DataSet extends D2MetaResource {
   ///
   /// The constructor initializes all required properties.
   ///
-  /// - [id]: The unique identifier for the data set.
-  /// - [shortName]: The short name for the data set.
-  /// - [lastUpdated]: The date and time when the data set was last updated.
-  /// - [name]: The name of the data set.
-  /// - [code]: An optional code associated with the data set.
-  /// - [created]: The date and time when the data set was created.
-  /// - [periodType]: The period type for the data set.
-  /// - [expiryDays]: The number of days after which the data set expires.
-  /// - [timelyDays]: The number of days within which data entry is considered timely.
-  /// - [uid]: The unique identifier (UID) for the data set.
-  /// - [openFuturePeriods]: The number of future periods that are open for data entry.
-  /// - [openPeriodsAfterCoEndDate]: The number of periods open after the completion of the end date.
+  /// - [id] The unique identifier for the data set.
+  /// - [shortName] The short name for the data set.
+  /// - [lastUpdated] The date and time when the data set was last updated.
+  /// - [name] The name of the data set.
+  /// - [code] An optional code associated with the data set.
+  /// - [created] The date and time when the data set was created.
+  /// - [periodType] The period type for the data set.
+  /// - [expiryDays] The number of days after which the data set expires.
+  /// - [timelyDays] The number of days within which data entry is considered timely.
+  /// - [uid] The unique identifier (UID) for the data set.
+  /// - [openFuturePeriods] The number of future periods that are open for data entry.
+  /// - [openPeriodsAfterCoEndDate] The number of periods open after the completion of the end date.
 
   D2DataSet(
     this.id,
@@ -103,8 +103,8 @@ class D2DataSet extends D2MetaResource {
 
   /// Creates a new instance of [D2DataSet] from a map.
   ///
-  /// - [db]: The database reference for fetching related entities.
-  /// - [json]: The JSON map containing the data set information.
+  /// - [db] The database reference for fetching related entities.
+  /// - [json] The JSON map containing the data set information.
   D2DataSet.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json['created']),
         lastUpdated = DateTime.parse(json['lastUpdated']),

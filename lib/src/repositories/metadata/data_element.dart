@@ -6,12 +6,12 @@ import 'base.dart';
 class D2DataElementRepository extends BaseMetaRepository<D2DataElement> {
   /// Constructs a new [D2DataElementRepository].
   ///
-  /// - [db]: The ObjectBox database.
+  /// - [db] The ObjectBox database.
   D2DataElementRepository(super.db);
 
   /// Returns a data element by its [uid].
   ///
-  /// - [uid]: The UID of the data element to retrieve.
+  /// - [uid] The UID of the data element to retrieve.
   @override
   D2DataElement? getByUid(String uid) {
     Query<D2DataElement> query =
@@ -21,7 +21,7 @@ class D2DataElementRepository extends BaseMetaRepository<D2DataElement> {
 
   /// Maps JSON data to a [D2DataElement] object.
   ///
-  /// - [json]: The JSON data to map.
+  /// - [json] The JSON data to map.
   @override
   D2DataElement mapper(Map<String, dynamic> json) {
     return D2DataElement.fromMap(db, json);

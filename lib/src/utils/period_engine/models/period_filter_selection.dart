@@ -30,11 +30,11 @@ class D2PeriodSelection {
 
   /// Constructs a [D2PeriodSelection].
   ///
-  /// - [category]: The category of the period selection.
-  /// - [type]: The type of the period selection.
-  /// - [selected]: List of selected period IDs.
-  /// - [start]: Start date of the period.
-  /// - [end]: End date of the period.
+  /// - [category] The category of the period selection.
+  /// - [type] The type of the period selection.
+  /// - [selected] List of selected period IDs.
+  /// - [start] Start date of the period.
+  /// - [end] End date of the period.
   D2PeriodSelection(
       {required this.category, this.type, this.selected, this.start, this.end});
 
@@ -47,8 +47,8 @@ class D2PeriodSelection {
 
   /// Converts camelCase to snake_case.
   ///
-  /// - [value]: The camelCase string.
-  /// - [separator]: The separator to use (default is '_').
+  /// - [value] The camelCase string.
+  /// - [separator] The separator to use (default is '_').
   ///
   /// Returns the snake_case version of the input string.
   String uncamelize(String value, {String separator = '_'}) {
@@ -59,7 +59,7 @@ class D2PeriodSelection {
 
   /// Creates a [D2PeriodSelection] object from a list of selection IDs.
   ///
-  /// - [selection]: List of period IDs.
+  /// - [selection] List of period IDs.
   D2PeriodSelection.fromSelection(List<String> selection) {
     if (selection.isNotEmpty) {
       D2Period period = D2PeriodType.getPeriodById(selection.first);
@@ -74,7 +74,7 @@ class D2PeriodSelection {
 
   /// Creates a [D2PeriodSelection] object from JSON.
   ///
-  /// - [json]: The map containing the period selection data.
+  /// - [json] The map containing the period selection data.
   D2PeriodSelection.fromJSON(Map json) {
     selected = (json['periods'].cast<Map>())
         ?.map<String>((period) => period['id'] as String)
@@ -110,7 +110,7 @@ class D2PeriodSelection {
 
   /// Clone constructor to create a copy of a [D2PeriodSelection] object.
   ///
-  /// - [selection]: The [D2PeriodSelection] object to clone.
+  /// - [selection] The [D2PeriodSelection] object to clone.
   D2PeriodSelection.clone(D2PeriodSelection selection) {
     category = selection.category;
     selected = [...?selection.selected];

@@ -5,12 +5,12 @@ import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 class D2FormUtils {
   /// Returns the appropriate [D2BaseInputFieldConfig] based on the provided data item.
   ///
-  /// - [dataItem]: The data item to derive the field configuration from.
-  /// - [mandatory]: Indicates if the field is mandatory (default is false).
-  /// - [allowFutureDates]: Allows future dates for date input fields.
-  /// - [renderOptionsAsRadio]: Renders options as radio buttons if true.
-  /// - [db]: An optional instance of [D2ObjectBox].
-  /// - [clearable]: Indicates if the field is clearable (default is false).
+  /// - [dataItem] The data item to derive the field configuration from.
+  /// - [mandatory] Indicates if the field is mandatory (default is false).
+  /// - [allowFutureDates] Allows future dates for date input fields.
+  /// - [renderOptionsAsRadio] Renders options as radio buttons if true.
+  /// - [db] An optional instance of [D2ObjectBox].
+  /// - [clearable] Indicates if the field is clearable (default is false).
   ///
   /// Throws an error if the field type derived from [dataItem.valueType] is invalid or not supported.
   static D2BaseInputFieldConfig getFieldConfigFromDataItem(dataItem,

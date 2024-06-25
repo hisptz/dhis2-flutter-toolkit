@@ -37,17 +37,17 @@ class D2CompulsoryDataElementOperand implements D2MetaResource {
 
   /// Creates a [D2CompulsoryDataElementOperand] instance.
   ///
-  /// - [id]: The ID of the operand.
-  /// - [created]: The timestamp when the operand was created.
-  /// - [lastUpdated]: The timestamp when the operand was last updated.
-  /// - [uid]: The UID of the operand.
+  /// - [id] The ID of the operand.
+  /// - [created] The timestamp when the operand was created.
+  /// - [lastUpdated] The timestamp when the operand was last updated.
+  /// - [uid] The UID of the operand.
   D2CompulsoryDataElementOperand(
       this.id, this.created, this.lastUpdated, this.uid);
 
   /// Creates a [D2CompulsoryDataElementOperand] instance from a JSON map.
   ///
-  /// - [db]: The ObjectBox database instance.
-  /// - [json]: The JSON map representing the operand.
+  /// - [db] The ObjectBox database instance.
+  /// - [json] The JSON map representing the operand.
   D2CompulsoryDataElementOperand.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json['created']),
         lastUpdated = DateTime.parse(json['lastUpdated']),

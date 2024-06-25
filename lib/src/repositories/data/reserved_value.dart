@@ -8,27 +8,41 @@ import '../../services/client/client.dart';
 import '../../utils/sync_status.dart';
 import '../metadata/entry.dart';
 
+/// This is a repository class for managing [D2ReservedValue] entities.
 class D2ReservedValueRepository {
+  /// The database instance.
   D2ObjectBox db;
+
+  /// The client service used for downloading reserved values.
   D2ClientService? client;
 
+  /// This getter function returns the [Box] instance for [D2ReservedValue].
   Box<D2ReservedValue> get box {
     return db.store.box<D2ReservedValue>();
   }
 
+  /// Constructs a [D2ReservedValueRepository] instance with the given database.
   D2ReservedValueRepository(this.db);
 
+  /// This is a Stream controller for download status updates.
   StreamController<D2SyncStatus> downloadController =
       StreamController<D2SyncStatus>();
 
+  /// This function sets up the download client.
+  ///
+  /// - [client] is the [D2ClientService] instance used for downloading reserved values.
   setupDownload({required D2ClientService client}) {
     this.client = client;
   }
 
+  /// This getter function returns the stream of download status updates.
   get downloadStream {
     return downloadController.stream;
   }
 
+  /// Downloads all reserved values and updates the download status.
+  ///
+  /// - [numberToReserve] is the number of values to reserve.
   Future downloadAllReservedValues({required int numberToReserve}) async {
     if (client == null) {
       throw "You need to call setupDownload first";
@@ -111,10 +125,15 @@ class D2ReservedValueRepository {
     }
   }
 
+  /// Checks if the pattern is organization unit dependent.
+  ///
+  /// - [pattern] is the pattern string.
+  /// Returns [bool] Whether the pattern contains "ORG_UNIT_CODE".
   bool isOrgUnitDependent(String pattern) {
     return pattern.contains("ORG_UNIT_CODE");
   }
 
+  /// Deletes expired reserved values from the database.
   Future deleteExpiredValues() async {
     QueryBuilder<D2ReservedValue> queryBuilder =
         box.query(D2ReservedValue_.expiresOn.lessOrEqualDate(DateTime.now()));
@@ -122,6 +141,11 @@ class D2ReservedValueRepository {
     await box.removeManyAsync(values.map((value) => value.id).toList());
   }
 
+  /// This function downloads reserved values for a tracked entity attribute.
+  ///
+  /// - [numberToReserve] is the number of values to reserve.
+  /// - [owner] is the tracked entity attribute owning the reserved values.
+  /// - [orgUnit] is the optional organization unit.
   Future downloadReservedValues(
       {required int numberToReserve,
       required D2TrackedEntityAttribute owner,
@@ -154,6 +178,12 @@ class D2ReservedValueRepository {
     }
   }
 
+  /// This function gets an unassigned reserved value for the specified owner and organization unit.
+  ///
+  /// - [owner] is the tracked entity attribute owning the reserved values.
+  /// - [orgUnit] is the organization unit.
+  ///
+  /// Returns the first unassigned reserved value found.
   D2ReservedValue? getReservedValue(
       {required D2ProgramTrackedEntityAttribute owner,
       required D2OrgUnit orgUnit}) {
@@ -172,11 +202,17 @@ class D2ReservedValueRepository {
     return query.findFirst();
   }
 
+  /// This function sets the reserved value as assigned and updates the database.
+  ///
+  /// - [value] is the reserved value to be assigned.
   void setValueAsAssigned(D2ReservedValue value) {
     value.assigned = true;
     box.put(value);
   }
 
+  /// This function Saves a list of reserved values to the database.
+  ///
+  /// - [values] is the list of reserved values to be saved.
   Future<void> saveEntities(List<D2ReservedValue> values) async {
     await box.putManyAsync(values);
   }

@@ -33,20 +33,20 @@ class D2OrgUnitGroup implements D2MetaResource {
   /// Constructs a [D2OrgUnitGroup].
   ///
   /// Parameters:
-  /// - [id]: Unique identifier of the organizational unit group.
-  /// - [displayName]: Display name of the organizational unit group.
-  /// - [name]: Name of the organizational unit group.
-  /// - [uid]: Unique identifier string (UID) of the organizational unit group.
-  /// - [created]: Date when the organizational unit group was created.
-  /// - [lastUpdated]: Date when the organizational unit group was last updated.
+  /// - [id] Unique identifier of the organizational unit group.
+  /// - [displayName] Display name of the organizational unit group.
+  /// - [name] Name of the organizational unit group.
+  /// - [uid] Unique identifier string (UID) of the organizational unit group.
+  /// - [created] Date when the organizational unit group was created.
+  /// - [lastUpdated] Date when the organizational unit group was last updated.
   D2OrgUnitGroup(this.id, this.displayName, this.name, this.uid, this.created,
       this.lastUpdated);
 
   /// Constructs a [D2OrgUnitGroup] from a JSON map.
   ///
   /// Parameters:
-  /// - [db]: The [D2ObjectBox] instance.
-  /// - [json]: The JSON [Map] containing organizational unit group data.
+  /// - [db] The [D2ObjectBox] instance.
+  /// - [json] The JSON [Map] containing organizational unit group data.
   D2OrgUnitGroup.fromMap(D2ObjectBox db, Map json)
       : name = json["name"],
         uid = json["id"],

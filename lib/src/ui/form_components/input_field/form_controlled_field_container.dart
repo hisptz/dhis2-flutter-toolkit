@@ -20,11 +20,11 @@ class D2FormControlledInputField extends StatelessWidget {
   final D2InputDecoration? inputDecoration;
 
   /// Constructs a [D2FormControlledInputField] instance.
-  /// - [input]: The configuration for the input field.
-  /// - [color]: The color theme for the input field.
-  /// - [controller]: The form controller managing the state of the form.
-  /// - [disabled]: Whether the input field is disabled.
-  /// - [inputDecoration]: Custom input decoration for the field.
+  /// - [input] The configuration for the input field.
+  /// - [color] The color theme for the input field.
+  /// - [controller] The form controller managing the state of the form.
+  /// - [disabled] Whether the input field is disabled.
+  /// - [inputDecoration] Custom input decoration for the field.
   const D2FormControlledInputField({
     super.key,
     required this.input,

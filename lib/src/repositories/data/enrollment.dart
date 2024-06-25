@@ -17,8 +17,8 @@ class D2EnrollmentRepository extends D2BaseTrackerDataRepository<D2Enrollment>
         BaseTrackerDataUploadServiceMixin<D2Enrollment> {
   /// Constructs a [D2EnrollmentRepository] instance.
   /// Parameters:
-  /// - [db]: The ObjectBox database instance.
-  /// - [program]: Optional. The DHIS2 program associated with the enrollments.
+  /// - [db] The ObjectBox database instance.
+  /// - [program] Optional. The DHIS2 program associated with the enrollments.
   D2EnrollmentRepository(super.db, {super.program});
 
   /// Retrieves a [D2Enrollment] object by its unique identifier [uid].

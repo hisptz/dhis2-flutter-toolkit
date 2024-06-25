@@ -24,12 +24,12 @@ class D2FormController extends ChangeNotifier
         D2FormDataState,
         D2FormOptionState {
   /// Constructs a [D2FormController] with optional initial values and configuration.
-  /// - [initialValues]: Initial values for the form fields.
-  /// - [formFields]: List of form field configurations.
-  /// - [hiddenFields]: List of initially hidden field keys.
-  /// - [hiddenSections]: List of initially hidden section IDs.
-  /// - [disabledFields]: List of initially disabled field keys.
-  /// - [mandatoryFields]: List of mandatory field keys.
+  /// - [initialValues] Initial values for the form fields.
+  /// - [formFields] List of form field configurations.
+  /// - [hiddenFields] List of initially hidden field keys.
+  /// - [hiddenSections] List of initially hidden section IDs.
+  /// - [disabledFields] List of initially disabled field keys.
+  /// - [mandatoryFields] List of mandatory field keys.
   D2FormController({
     Map<String, dynamic>? initialValues,
     List<D2BaseInputFieldConfig>? formFields,
@@ -47,7 +47,7 @@ class D2FormController extends ChangeNotifier
   }
 
   /// Returns the state of a specific field within the form.
-  /// - [key]: The identifier key of the field.
+  /// - [key] The identifier key of the field.
   FieldState getFieldState(String key) {
     bool hidden = isFieldHidden(key);
     bool disabled = isFieldDisabled(key);
@@ -74,8 +74,8 @@ class D2FormController extends ChangeNotifier
   }
 
   /// Returns the state of a specific section within the form.
-  /// - [id]: The identifier of the section.
-  /// - [fieldKeys]: List of field keys belonging to the section.
+  /// - [id] The identifier of the section.
+  /// - [fieldKeys] List of field keys belonging to the section.
   SectionState getSectionState(String id, List<String> fieldKeys) {
     return SectionState(
       id: id,

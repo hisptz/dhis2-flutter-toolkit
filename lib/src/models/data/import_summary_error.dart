@@ -40,18 +40,18 @@ class D2ImportSummaryError {
 
   /// Constructs a [D2ImportSummaryError] with the given parameters.
   ///
-  /// - [message]: The error message.
-  /// - [uid]: The unique identifier of the related entity.
-  /// - [errorCode]: The error code.
-  /// - [type]: The type of the related entity (EVENT, TRACKED_ENTITY, RELATIONSHIP, ENROLLMENT).
-  /// - [timestamp]: The timestamp when the error occurred.
+  /// - [message] The error message.
+  /// - [uid] The unique identifier of the related entity.
+  /// - [errorCode] The error code.
+  /// - [type] The type of the related entity (EVENT, TRACKED_ENTITY, RELATIONSHIP, ENROLLMENT).
+  /// - [timestamp] The timestamp when the error occurred.
   D2ImportSummaryError(
       this.message, this.uid, this.errorCode, this.type, this.timestamp);
 
   /// Constructs a [D2ImportSummaryError] from a map.
   ///
-  /// - [db]: The [D2ObjectBox] instance.
-  /// - [json]: A map representing the error data.
+  /// - [db] The [D2ObjectBox] instance.
+  /// - [json] A map representing the error data.
   D2ImportSummaryError.fromMap(D2ObjectBox db, Map json)
       : message = json['message'],
         errorCode = json['errorCode'],

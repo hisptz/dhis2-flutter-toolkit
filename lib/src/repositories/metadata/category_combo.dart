@@ -7,7 +7,7 @@ import './base.dart';
 class D2CategoryComboRepository extends BaseMetaRepository<D2CategoryCombo> {
   /// Creates a new instance of [D2CategoryComboRepository].
   ///
-  /// - [db]: The ObjectBox database instance.
+  /// - [db] The ObjectBox database instance.
   D2CategoryComboRepository(super.db);
 
   /// Retrieves a [D2CategoryCombo] instance by its [uid].
@@ -22,7 +22,7 @@ class D2CategoryComboRepository extends BaseMetaRepository<D2CategoryCombo> {
 
   /// Maps JSON data to a [D2CategoryCombo] instance.
   ///
-  /// - [json]: The JSON data to be mapped.
+  /// - [json] The JSON data to be mapped.
   ///
   /// Returns the mapped [D2CategoryCombo] instance.
   @override

@@ -40,20 +40,20 @@ class D2LegendSet extends D2MetaResource {
 
   /// Constructs a new instance of the [D2LegendSet] class.
   ///
-  /// - [id]: The unique identifier for the legend set.
-  /// - [created]: The creation date and time.
-  /// - [lastUpdated]: The last update date and time.
-  /// - [uid]: The unique identifier string.
-  /// - [name]: The name of the legend set.
-  /// - [code]: An optional code for the legend set.
-  /// - [displayName]: The display name of the legend set.
+  /// - [id] The unique identifier for the legend set.
+  /// - [created] The creation date and time.
+  /// - [lastUpdated] The last update date and time.
+  /// - [uid] The unique identifier string.
+  /// - [name] The name of the legend set.
+  /// - [code] An optional code for the legend set.
+  /// - [displayName] The display name of the legend set.
   D2LegendSet(this.id, this.created, this.lastUpdated, this.uid, this.name,
       this.code, this.displayName);
 
   /// Constructs a new instance of the [D2LegendSet] class from a JSON map.
   ///
-  /// - [db]: The ObjectBox database instance.
-  /// - [json]: The JSON map containing the legend set data.
+  /// - [db] The ObjectBox database instance.
+  /// - [json] The JSON map containing the legend set data.
   ///
   /// This constructor parses the JSON map to initialize the legend set properties and
   /// populates the [legends] collection with legends from the JSON map.

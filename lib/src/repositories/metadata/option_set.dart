@@ -8,13 +8,13 @@ class D2OptionSetRepository extends BaseMetaRepository<D2OptionSet> {
   /// Constructs a [D2OptionSetRepository].
   ///
   /// Parameters:
-  /// - [db]: The [D2ObjectBox] instance.
+  /// - [db] The [D2ObjectBox] instance.
   D2OptionSetRepository(super.db);
 
   /// Retrieves a [D2OptionSet] by its [uid].
   ///
   /// Parameters:
-  /// - [uid]: The unique identifier of the option set.
+  /// - [uid] The unique identifier of the option set.
   ///
   /// Returns the [D2OptionSet] with the specified UID, or `null` if not found.
   @override
@@ -26,7 +26,7 @@ class D2OptionSetRepository extends BaseMetaRepository<D2OptionSet> {
   /// Maps a JSON object to a [D2OptionSet] instance.
   ///
   /// Parameters:
-  /// - [json]: The JSON map containing option set data.
+  /// - [json] The JSON map containing option set data.
   ///
   /// Returns a [D2OptionSet] instance created from the provided JSON data.
 

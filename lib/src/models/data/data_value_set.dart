@@ -37,8 +37,8 @@ class D2DataValueSet extends SyncDataSource implements D2BaseDeletable {
 
   /// Creates an instance of [D2DataValueSet] from a JSON map.
   ///
-  /// - [db]: The database reference.
-  /// - [json]: The JSON map containing the data value set information.
+  /// - [db] The database reference.
+  /// - [json] The JSON map containing the data value set information.
   D2DataValueSet.fromMap(D2ObjectBox db, Map json)
       : updatedAt = DateTime.parse(json["lastUpdated"]),
         createdAt = DateTime.parse(json["created"]),
@@ -62,13 +62,13 @@ class D2DataValueSet extends SyncDataSource implements D2BaseDeletable {
 
   /// Creates an instance of [D2DataValueSet] from form values.
   ///
-  /// - [db]: The database reference.
-  /// - [orgUnit]: The organization unit.
-  /// - [attributeOptionCombo]: The attribute option combo.
-  /// - [period]: The period.
-  /// - [value]: The value.
-  /// - [dataElement]: The data element.
-  /// - [categoryOptionCombo]: The category option combo.
+  /// - [db] The database reference.
+  /// - [orgUnit] The organization unit.
+  /// - [attributeOptionCombo] The attribute option combo.
+  /// - [period] The period.
+  /// - [value] The value.
+  /// - [dataElement] The data element.
+  /// - [categoryOptionCombo] The category option combo.
   D2DataValueSet.fromForm(
       {required D2ObjectBox db,
       required D2OrgUnit orgUnit,
@@ -92,7 +92,7 @@ class D2DataValueSet extends SyncDataSource implements D2BaseDeletable {
 
   /// Converts the data value set to a JSON map.
   ///
-  /// - [db]: Optional database reference.
+  /// - [db] Optional database reference.
   ///
   /// Returns a [Future<Map<String, dynamic>>] containing the JSON map.
   @override
@@ -122,14 +122,14 @@ class D2DataValueSet extends SyncDataSource implements D2BaseDeletable {
 
   /// Saves the data value set to the database.
   ///
-  /// - [db]: The database reference.
+  /// - [db] The database reference.
   void save(D2ObjectBox db) {
     db.store.box<D2DataValueSet>().put(this);
   }
 
   /// Deletes the data value set from the database.
   ///
-  /// - [db]: The database reference.
+  /// - [db] The database reference.
   ///
   /// Returns a [bool] indicating the success of the operation.
   @override
@@ -139,7 +139,7 @@ class D2DataValueSet extends SyncDataSource implements D2BaseDeletable {
 
   /// Soft deletes the data value set.
   ///
-  /// - [db]: The database reference.
+  /// - [db] The database reference.
   @override
   void softDelete(db) {}
 }

@@ -7,7 +7,7 @@ class D2CategoryOptionComboRepository
     extends BaseMetaRepository<D2CategoryOptionCombo> {
   /// Creates a new instance of [D2CategoryOptionComboRepository].
   ///
-  /// - [db]: The ObjectBox database instance.
+  /// - [db] The ObjectBox database instance.
   D2CategoryOptionComboRepository(super.db);
 
   /// Retrieves a [D2CategoryOptionCombo] instance by its [uid].
@@ -22,7 +22,7 @@ class D2CategoryOptionComboRepository
 
   /// Maps JSON data to a [D2CategoryOptionCombo] instance.
   ///
-  /// - [json]: The JSON data to be mapped.
+  /// - [json] The JSON data to be mapped.
   ///
   /// Returns the mapped [D2CategoryOptionCombo] instance.
   @override

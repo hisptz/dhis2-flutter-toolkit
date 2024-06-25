@@ -75,15 +75,15 @@ class D2ProgramRuleAction extends D2MetaResource {
 
   /// Constructs a [D2ProgramRuleAction] with the provided details.
   ///
-  /// - [id]: The unique identifier of the program rule action.
-  /// - [displayName]: The display name of the program rule action.
-  /// - [created]: The creation date of the program rule action.
-  /// - [lastUpdated]: The last updated date of the program rule action.
-  /// - [uid]: The unique identifier string of the program rule action.
-  /// - [programRuleActionType]: The type of action to be taken.
-  /// - [content]: The content associated with the action, if any.
-  /// - [data]: The data associated with the action, if any.
-  /// - [location]: The location associated with the action, if any.
+  /// - [id] The unique identifier of the program rule action.
+  /// - [displayName] The display name of the program rule action.
+  /// - [created] The creation date of the program rule action.
+  /// - [lastUpdated] The last updated date of the program rule action.
+  /// - [uid] The unique identifier string of the program rule action.
+  /// - [programRuleActionType] The type of action to be taken.
+  /// - [content] The content associated with the action, if any.
+  /// - [data] The data associated with the action, if any.
+  /// - [location] The location associated with the action, if any.
   D2ProgramRuleAction(
       this.id,
       this.displayName,
@@ -97,8 +97,8 @@ class D2ProgramRuleAction extends D2MetaResource {
 
   /// Constructs a [D2ProgramRuleAction] from a JSON map [json].
   ///
-  /// - [db]: The database instance.
-  /// - [json]: The JSON map containing program rule action data.
+  /// - [db] The database instance.
+  /// - [json] The JSON map containing program rule action data.
   D2ProgramRuleAction.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),

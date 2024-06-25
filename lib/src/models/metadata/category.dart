@@ -25,14 +25,14 @@ class D2Category extends D2MetaResource {
 
   /// Creates a new instance of [D2Category].
   ///
-  /// - [id]: The ID of the category.
-  /// - [shortName]: The short name of the category.
-  /// - [lastUpdated]: The date and time when the category was last updated.
-  /// - [name]: The name of the category.
-  /// - [code]: The code of the category.
-  /// - [created]: The date and time when the category was created.
-  /// - [dataDimensionType]: The data dimension type of the category.
-  /// - [uid]: The UID of the category.
+  /// - [id] The ID of the category.
+  /// - [shortName] The short name of the category.
+  /// - [lastUpdated] The date and time when the category was last updated.
+  /// - [name] The name of the category.
+  /// - [code] The code of the category.
+  /// - [created] The date and time when the category was created.
+  /// - [dataDimensionType] The data dimension type of the category.
+  /// - [uid] The UID of the category.
   D2Category(
     this.id,
     this.shortName,
@@ -46,8 +46,8 @@ class D2Category extends D2MetaResource {
 
   /// Creates a [D2Category] instance from a map.
   ///
-  /// - [db]: The ObjectBox database instance.
-  /// - [json]: The map containing the category data.
+  /// - [db] The ObjectBox database instance.
+  /// - [json] The map containing the category data.
   D2Category.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json['created']),
         lastUpdated = DateTime.parse(json['lastUpdated']),

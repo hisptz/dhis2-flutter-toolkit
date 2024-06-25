@@ -11,9 +11,9 @@ class D2InputFieldOption {
 
   /// Constructs an option with the specified code, name, and optional sort order.
   ///
-  /// - [code]: The code of the option.
-  /// - [name]: The name of the option.
-  /// - [sortOrder]: The sort order of the option (default is 0).
+  /// - [code] The code of the option.
+  /// - [name] The name of the option.
+  /// - [sortOrder] The sort order of the option (default is 0).
   D2InputFieldOption({
     required this.code,
     required this.name,

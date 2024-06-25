@@ -11,17 +11,17 @@ class D2DataSetStateFormController extends D2FormController {
 
   /// Constructs a new instance of [D2DataSetStateFormController].
   ///
-  /// - [dataSet]: The data set being handled.
-  /// - [db]: The database instance.
-  /// - [period]: The period for which the data set is being managed.
-  /// - [orgUnitId]: The ID of the organisation unit.
-  /// - [attributeOptionCombo]: An optional attribute option combo.
-  /// - [hiddenFields]: Fields to be hidden in the form.
-  /// - [disabledFields]: Fields to be disabled in the form.
-  /// - [initialValues]: Initial values for the form fields.
-  /// - [hiddenSections]: Sections to be hidden in the form.
-  /// - [formFields]: Fields included in the form.
-  /// - [mandatoryFields]: Fields that are mandatory in the form.
+  /// - [dataSet] The data set being handled.
+  /// - [db] The database instance.
+  /// - [period] The period for which the data set is being managed.
+  /// - [orgUnitId] The ID of the organisation unit.
+  /// - [attributeOptionCombo] An optional attribute option combo.
+  /// - [hiddenFields] Fields to be hidden in the form.
+  /// - [disabledFields] Fields to be disabled in the form.
+  /// - [initialValues] Initial values for the form fields.
+  /// - [hiddenSections] Sections to be hidden in the form.
+  /// - [formFields] Fields included in the form.
+  /// - [mandatoryFields] Fields that are mandatory in the form.
   D2DataSetStateFormController(
       {required this.dataSet,
       required this.db,

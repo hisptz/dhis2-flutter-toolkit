@@ -11,14 +11,14 @@ class D2ClientService {
 
   /// Creates a new instance of [D2ClientService].
   ///
-  /// [credentials]: User credentials for accessing DHIS2.
+  /// [credentials] User credentials for accessing DHIS2.
   D2ClientService(this.credentials);
 
   /// Initializes the [D2ClientService] with provided credentials.
   ///
-  /// - [username]: The username for authentication.
-  /// - [password]: The password for authentication.
-  /// - [baseURL]: The base URL of the DHIS2 instance.
+  /// - [username] The username for authentication.
+  /// - [password] The password for authentication.
+  /// - [baseURL] The base URL of the DHIS2 instance.
   D2ClientService.initialize(
       {required String username,
       required String password,
@@ -57,8 +57,8 @@ class D2ClientService {
 
   /// Returns the API URL with optional query parameters.
   ///
-  /// - [url]: The URL endpoint.
-  /// - [queryParameters]: Optional query parameters.
+  /// - [url] The URL endpoint.
+  /// - [queryParameters] Optional query parameters.
   Uri getApiUrl(String url, {Map<String, String>? queryParameters}) {
     return uri.replace(
         pathSegments: [...uri.pathSegments, ...url.split("/")],
@@ -69,9 +69,9 @@ class D2ClientService {
   ///
   /// This method creates a new entity in the DHIS2 instance server.
   ///
-  /// - [url]: The URL endpoint.
-  /// - [body]: The JSON data body.
-  /// - [queryParameters]: Optional query parameters.
+  /// - [url] The URL endpoint.
+  /// - [body] The JSON data body.
+  /// - [queryParameters] Optional query parameters.
   ///
   /// Returns a Future representing the result of the POST request.
   Future<T> httpPost<T>(
@@ -92,9 +92,9 @@ class D2ClientService {
   ///
   /// This method updates an existing entity in the DHIS2 instance server.
   ///
-  /// - [url]: The URL endpoint.
-  /// - [body]: The JSON data body.
-  /// - [queryParameters]: Optional query parameters.
+  /// - [url] The URL endpoint.
+  /// - [body] The JSON data body.
+  /// - [queryParameters] Optional query parameters.
   ///
   /// Returns a Future representing the result of the PUT request.
   Future<T> httpPut<T>(
@@ -116,8 +116,8 @@ class D2ClientService {
   ///
   /// This method deletes an existing entity in the DHIS2 instance server.
   ///
-  /// - [url]: The URL endpoint.
-  /// - [queryParameters]: Optional query parameters.
+  /// - [url] The URL endpoint.
+  /// - [queryParameters] Optional query parameters.
   ///
   /// Returns a Future representing the result of the DELETE request.
   Future<T> httpDelete<T>(
@@ -133,8 +133,8 @@ class D2ClientService {
   ///
   /// This method reads entities in the DHIS2 instance server.
   ///
-  /// - [url]: The URL endpoint.
-  /// - [queryParameters]: Optional query parameters.
+  /// - [url] The URL endpoint.
+  /// - [queryParameters] Optional query parameters.
   ///
   /// Returns a Future representing the result of the GET request.
   Future<T?> httpGet<T>(
@@ -159,8 +159,8 @@ class D2ClientService {
   ///
   /// This method reads entities in the DHIS2 instance server with pagination.
   ///
-  /// - [url]: The URL endpoint.
-  /// - [queryParameters]: Optional query parameters.
+  /// - [url] The URL endpoint.
+  /// - [queryParameters] Optional query parameters.
   ///
   /// Returns a Future representing the result of the GET request with a page size of 1.
   Future<T?> httpGetPagination<T>(

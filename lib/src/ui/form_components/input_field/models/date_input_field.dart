@@ -8,11 +8,11 @@ class D2DateInputFieldConfig extends D2BaseInputFieldConfig {
   /// Constructs a [D2DateInputFieldConfig] instance.
   ///
   /// Parameters [label], [type], [name], and [mandatory] are inherited from [D2BaseInputFieldConfig].
-  /// - [label]: The label of the input field.
-  /// - [type]: The type of the input field.
-  /// - [name]: The name of the input field.
-  /// - [mandatory]: Indicates if the field is mandatory.
-  /// - [allowFutureDates]: Whether future dates are allowed (default is false).
+  /// - [label] The label of the input field.
+  /// - [type] The type of the input field.
+  /// - [name] The name of the input field.
+  /// - [mandatory] Indicates if the field is mandatory.
+  /// - [allowFutureDates] Whether future dates are allowed (default is false).
   D2DateInputFieldConfig({
     required super.label,
     required super.type,

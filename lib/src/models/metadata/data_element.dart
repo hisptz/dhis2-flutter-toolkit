@@ -67,21 +67,21 @@ class D2DataElement extends D2MetaResource {
 
   /// Constructs a new instance of [D2DataElement].
   ///
-  /// - [created]: The date and time when the data element was created.
-  /// - [lastUpdated]: The date and time when the data element was last updated.
-  /// - [uid]: The UID of the data element.
-  /// - [name]: The name of the data element.
-  /// - [code]: The code associated with the data element.
-  /// - [formName]: The form name of the data element.
-  /// - [shortName]: The short name of the data element.
-  /// - [description]: The description of the data element.
-  /// - [aggregationType]: The aggregation type of the data element.
-  /// - [valueType]: The value type of the data element.
-  /// - [domainType]: The domain type of the data element.
-  /// - [zeroIsSignificant]: Indicates whether zero is significant for the data element.
-  /// - [displayFormName]: The display form name of the data element.
-  /// - [displayName]: The display name of the data element.
-  /// - [optionSetValue]: Indicates whether the data element has an option set.
+  /// - [created] The date and time when the data element was created.
+  /// - [lastUpdated] The date and time when the data element was last updated.
+  /// - [uid] The UID of the data element.
+  /// - [name] The name of the data element.
+  /// - [code] The code associated with the data element.
+  /// - [formName] The form name of the data element.
+  /// - [shortName] The short name of the data element.
+  /// - [description] The description of the data element.
+  /// - [aggregationType] The aggregation type of the data element.
+  /// - [valueType] The value type of the data element.
+  /// - [domainType] The domain type of the data element.
+  /// - [zeroIsSignificant] Indicates whether zero is significant for the data element.
+  /// - [displayFormName] The display form name of the data element.
+  /// - [displayName] The display name of the data element.
+  /// - [optionSetValue] Indicates whether the data element has an option set.
 
   D2DataElement(
       this.created,
@@ -102,8 +102,8 @@ class D2DataElement extends D2MetaResource {
 
   /// Constructs a new instance of [D2DataElement] from a map.
   ///
-  /// - [db]: The ObjectBox database.
-  /// - [json]: The JSON map representing the data element.
+  /// - [db] The ObjectBox database.
+  /// - [json] The JSON map representing the data element.
   D2DataElement.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),

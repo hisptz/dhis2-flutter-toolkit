@@ -16,32 +16,56 @@ import 'tracked_entity.dart';
 import 'upload_base.dart';
 
 @Entity()
+
+/// This class represents a relationship between entities in the DHIS2 system.
+///
+/// This class extends [SyncDataSource] and implements [SyncableData] and [D2BaseDeletable].
 class D2Relationship extends SyncDataSource
     implements SyncableData, D2BaseDeletable {
   @override
   int id = 0;
+
+  /// The creation date of the relationship.
   @override
   DateTime createdAt;
 
+  /// The last update date of the relationship.
   @override
   DateTime updatedAt;
 
+  /// The unique identifier string for the relationship.
   @override
   @Unique()
   String uid;
 
+  /// Whether the relationship is deleted.
   bool deleted;
 
+  /// The tracked entity from which the relationship originates.
   final fromTrackedEntity = ToOne<D2TrackedEntity>();
+
+  /// The enrollment from which the relationship originates.
   final fromEnrollment = ToOne<D2Enrollment>();
+
+  /// The event from which the relationship originates.
   final fromEvent = ToOne<D2Event>();
 
+  /// The tracked entity to which the relationship points.
   final toTrackedEntity = ToOne<D2TrackedEntity>();
+
+  /// The enrollment to which the relationship points.
   final toEnrollment = ToOne<D2Enrollment>();
+
+  /// The event to which the relationship points.
   final toEvent = ToOne<D2Event>();
 
+  /// The type of relationship.
   final relationshipType = ToOne<D2RelationshipType>();
 
+  /// Sets the constraints for the relationship based on the provided [constraint] map.
+  ///
+  /// - [type] specifies whether the constraint is "from" or "to".
+  /// - [db] is the database instance.
   setConstraints(Map<String, dynamic> constraint,
       {required String type, required D2ObjectBox db}) {
     switch (type) {
@@ -83,6 +107,10 @@ class D2Relationship extends SyncDataSource
     }
   }
 
+  /// Retrieves the constraints for the relationship based on the [type].
+  ///
+  /// - [type] specifies whether to retrieve "from" or "to" constraints.
+  /// - Returns a map of the constraints, or null if not set.
   Map<String, dynamic>? getConstraints(String type) {
     if (type case "from") {
       if (fromTrackedEntity.target != null) {
@@ -122,9 +150,14 @@ class D2Relationship extends SyncDataSource
     return null;
   }
 
+  /// Constructs a new [D2Relationship] instance.
   D2Relationship(this.id, this.createdAt, this.updatedAt, this.uid, this.synced,
       this.deleted);
 
+  /// Constructs a new [D2Relationship] instance from a map.
+  ///
+  /// - [db] is the database instance.
+  /// - [json] is the map containing the relationship data.
   D2Relationship.fromMap(D2ObjectBox db, Map json)
       : createdAt = DateTime.parse(json["createdAt"]),
         updatedAt = DateTime.parse(json["updatedAt"]),
@@ -138,9 +171,13 @@ class D2Relationship extends SyncDataSource
     setConstraints(json["to"], type: "to", db: db);
   }
 
+  /// Whether the relationship is synced.
   @override
   bool synced;
 
+  /// Converts the [D2Relationship] instance to a map.
+  ///
+  /// - [db] is the database instance.
   @override
   Future<Map<String, dynamic>> toMap({D2ObjectBox? db}) async {
     if (db == null) {
@@ -157,6 +194,11 @@ class D2Relationship extends SyncDataSource
     return payload;
   }
 
+  /// Constructs a new [D2Relationship] instance with the specified constraints.
+  ///
+  /// - [from] is the source entity.
+  /// - [to] is the target entity.
+  /// - [type] is the relationship type.
   D2Relationship.fromConstraints(
       {required D2DataResource from,
       required D2DataResource to,
@@ -189,12 +231,20 @@ class D2Relationship extends SyncDataSource
     }
   }
 
+  /// Marks the relationship as deleted without removing it from the database.
+  ///
+  /// - [db] is the database instance.
   @override
   void softDelete(db) {
     deleted = true;
     D2RelationshipRepository(db).saveEntity(this);
   }
 
+  /// Deletes the relationship from the database.
+  ///
+  /// - [db] is the database instance.
+  ///
+  /// Returns [bool] Whether the deletion was successful.
   @override
   bool delete(D2ObjectBox db) {
     return D2RelationshipRepository(db).deleteEntity(this);

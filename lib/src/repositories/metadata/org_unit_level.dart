@@ -11,12 +11,12 @@ class D2OrgUnitLevelRepository extends BaseMetaRepository<D2OrgUnitLevel>
         D2OrgUnitLevelDownloadServiceMixin {
   /// Constructs a [D2OrgUnitLevelRepository].
   ///
-  /// - [db]: The database instance.
+  /// - [db] The database instance.
   D2OrgUnitLevelRepository(super.db);
 
   /// Retrieves a [D2OrgUnitLevel] by its unique UID [uid].
   ///
-  /// - [uid]: The unique UID of the organizational unit level.
+  /// - [uid] The unique UID of the organizational unit level.
   ///
   /// Returns the [D2OrgUnitLevel] with the specified UID, or null if not found.
   @override
@@ -28,7 +28,7 @@ class D2OrgUnitLevelRepository extends BaseMetaRepository<D2OrgUnitLevel>
 
   /// Retrieves a [D2OrgUnitLevel] by its level.
   ///
-  /// - [level]: The level of the organizational unit.
+  /// - [level] The level of the organizational unit.
   ///
   /// Returns the [D2OrgUnitLevel] with the specified level, or null if not found.
   D2OrgUnitLevel? getByLevel(int level) {
@@ -39,7 +39,7 @@ class D2OrgUnitLevelRepository extends BaseMetaRepository<D2OrgUnitLevel>
 
   /// Maps a JSON object to a [D2OrgUnitLevel].
   ///
-  /// - [json]: The map containing the organizational unit level data.
+  /// - [json] The map containing the organizational unit level data.
   ///
   /// Returns a [D2OrgUnitLevel] instance.
   @override

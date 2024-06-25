@@ -45,11 +45,11 @@ class D2ProgramSection extends D2MetaResource {
   /// Constructs a [D2ProgramSection] instance.
   ///
   /// Parameters:
-  /// - [created]: The creation date.
-  /// - [lastUpdated]: The last updated date.
-  /// - [uid]: The unique identifier.
-  /// - [name]: The name of the program section.
-  /// - [sortOrder]: The sort order of the program section.
+  /// - [created] The creation date.
+  /// - [lastUpdated] The last updated date.
+  /// - [uid] The unique identifier.
+  /// - [name] The name of the program section.
+  /// - [sortOrder] The sort order of the program section.
   D2ProgramSection(
       {required this.created,
       required this.lastUpdated,
@@ -59,8 +59,8 @@ class D2ProgramSection extends D2MetaResource {
 
   /// Constructs a [D2ProgramSection] instance from a JSON object [json].
   ///
-  /// - [db]: The [D2ObjectBox] instance used for repository operations.
-  /// - [json]: The JSON object containing the program section data.
+  /// - [db] The [D2ObjectBox] instance used for repository operations.
+  /// - [json] The JSON object containing the program section data.
   D2ProgramSection.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),

@@ -18,11 +18,11 @@ class D2FormSection {
   final List<D2BaseInputFieldConfig> fields;
 
   /// Constructs a [D2FormSection] instance.
-  /// - [id]: Identifier of the form section.
-  /// - [fields]: List of input field configurations within the section.
-  /// - [title]: Title of the form section.
-  /// - [subtitle]: Subtitle of the form section.
-  /// - [sortOrder]: Sort order of the section within the form (default is 0).
+  /// - [id] Identifier of the form section.
+  /// - [fields] List of input field configurations within the section.
+  /// - [title] Title of the form section.
+  /// - [subtitle] Subtitle of the form section.
+  /// - [sortOrder] Sort order of the section within the form (default is 0).
   D2FormSection({
     required this.id,
     required this.fields,

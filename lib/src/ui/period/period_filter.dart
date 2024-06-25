@@ -42,14 +42,14 @@ class D2PeriodSelector extends StatefulWidget {
 
   /// Constructs a [D2PeriodSelector].
   ///
-  /// - [onUpdate]: Callback function to handle updates.
-  /// - [excludePeriodTypes]: List of period types to exclude.
-  /// - [onlyAllowPeriodTypes]: List of period types to allow.
-  /// - [initialSelection]: Initial selection for the period.
-  /// - [color]: The color of the selector.
-  /// - [showRelative]: Whether to show relative periods.
-  /// - [showRange]: Whether to show range periods.
-  /// - [showFixed]: Whether to show fixed periods.
+  /// - [onUpdate] Callback function to handle updates.
+  /// - [excludePeriodTypes] List of period types to exclude.
+  /// - [onlyAllowPeriodTypes] List of period types to allow.
+  /// - [initialSelection] Initial selection for the period.
+  /// - [color] The color of the selector.
+  /// - [showRelative] Whether to show relative periods.
+  /// - [showRange] Whether to show range periods.
+  /// - [showFixed] Whether to show fixed periods.
   const D2PeriodSelector({
     super.key,
     required this.onUpdate,
