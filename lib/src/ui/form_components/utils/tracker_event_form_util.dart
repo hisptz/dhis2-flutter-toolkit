@@ -11,14 +11,31 @@ import '../form/models/dhis2_form_options.dart';
 import '../form_section/models/form_section.dart';
 import '../input_field/models/base_input_field.dart';
 
+/// This is a utility class for constructing form sections and fields for a tracker event form.
 class D2TrackerEventFormUtil {
+  /// Program stage associated with the form.
   D2ProgramStage programStage;
+
+  /// Options for configuring the form.
   D2TrackerFormOptions options;
+
+  /// Database instance used for data operations.
   D2ObjectBox db;
 
+  /// Constructs a new [D2TrackerEventFormUtil] instance.
+  ///
+  /// - [programStage] Program stage associated with the form.
+  ///
+  /// - [options] Options for configuring the form.
+  /// - [db] Database instance used for data operations.
   D2TrackerEventFormUtil(
       {required this.programStage, required this.options, required this.db});
 
+  /// Retrieves form fields based on data elements associated with the program stage.
+  ///
+  /// - [dataElements] List of data elements to generate fields for.
+  ///
+  /// Returns a list of [D2BaseInputFieldConfig]
   List<D2BaseInputFieldConfig> _getFields(List<D2DataElement> dataElements) {
     return dataElements.map((D2DataElement dataElement) {
       D2ProgramStageDataElement? programStageDataElement =
@@ -40,6 +57,9 @@ class D2TrackerEventFormUtil {
     }).toList();
   }
 
+  /// Retrieves form sections based on program stage sections.
+  ///
+  /// Returns a list of [D2FormSection]
   List<D2FormSection> _getFormSections() {
     return programStage.programStageSections
         .map<D2FormSection>((D2ProgramStageSection programStageSection) {
@@ -65,6 +85,7 @@ class D2TrackerEventFormUtil {
         .toList();
   }
 
+  /// Retrieves form sections for the tracker event form.
   get formSections {
     return _getFormSections();
   }
