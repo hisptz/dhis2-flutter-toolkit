@@ -7,7 +7,6 @@ class D2DateInputFieldConfig extends D2BaseInputFieldConfig {
 
   /// Constructs a [D2DateInputFieldConfig] instance.
   ///
-  /// Parameters [label], [type], [name], and [mandatory] are inherited from [D2BaseInputFieldConfig].
   /// - [label] The label of the input field.
   /// - [type] The type of the input field.
   /// - [name] The name of the input field.
