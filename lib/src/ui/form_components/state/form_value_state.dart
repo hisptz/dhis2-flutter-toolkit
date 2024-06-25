@@ -39,10 +39,6 @@ mixin D2FormValueState on ChangeNotifier {
     if (D2InputFieldType.isNumber(type)) {
       if (value is String) {
         if (type == D2InputFieldType.number) {
-          double? sanitizedValue = double.tryParse(value);
-          if (sanitizedValue != null) {
-            return sanitizedValue.toString();
-          }
           return value;
         } else {
           int? sanitizedValue = double.tryParse(value)?.toInt();

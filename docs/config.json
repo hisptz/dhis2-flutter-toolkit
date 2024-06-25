@@ -1,0 +1,11 @@
+{
+  "sidebar": {
+    "Getting Started": [
+      "flutter-tools/intro",
+      "flutter-tools/installation"
+    ],
+    "Setting Up Configuration": [
+      "flutter-tools/configuration"
+    ]
+  }
+}
