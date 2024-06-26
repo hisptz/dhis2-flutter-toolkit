@@ -1,6 +1,10 @@
 import 'dart:math';
 
+/// This is a utility class for generating DHIS2 unique identifiers (UIDs).
 class D2UID {
+  /// Generates a unique identifier (UID).
+  ///
+  /// Returns a [String] representing the generated UID.
   static String generate() {
     Random rnd = Random();
     const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
