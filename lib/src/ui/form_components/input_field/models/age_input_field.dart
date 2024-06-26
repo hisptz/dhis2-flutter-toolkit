@@ -32,7 +32,6 @@ class D2AgeInputFieldConfig extends D2BaseInputFieldConfig {
   /// - [icon] (optional) The icon for the input field.
   /// - [legends] (optional) Additional legends for the input field.
   /// - [svgIconAsset] (optional) The SVG icon asset for the input field.
-
   D2AgeInputFieldConfig(
       {required super.label,
       required super.type,
