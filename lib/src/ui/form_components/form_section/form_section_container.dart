@@ -5,12 +5,26 @@ import '../input_field/input_field_container.dart';
 import '../input_field/models/base_input_field.dart';
 import 'models/form_section.dart';
 
+/// This is a widget for rendering a [D2FormSection] with its fields.
 class FormSectionContainer extends StatelessWidget {
+  /// The section to be rendered.
   final D2FormSection section;
+
+  /// Callback for handling changes in form fields.
   final OnFormFieldChange<String?> onFieldChange;
+
+  /// The primary color for the section elements.
   final Color? color;
+
+  /// Indicates whether the section is disabled.
   final bool disabled;
 
+  /// Constructs a [FormSectionContainer] with the given parameters.
+  ///
+  /// - [section] The section to be rendered.
+  /// - [onFieldChange] Callback for handling changes in form fields.
+  /// - [disabled] Indicates whether the section is disabled. Defaults to `false`.
+  /// - [color] The primary color for the section elements.
   const FormSectionContainer(
       {super.key,
       required this.section,
