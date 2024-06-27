@@ -5,6 +5,8 @@ import '../../repositories/metadata/user_group.dart';
 import 'base.dart';
 
 @Entity()
+
+/// This is class represents a user group in the DHIS2 system.
 class D2UserGroup extends D2MetaResource {
   @override
   int id = 0;
