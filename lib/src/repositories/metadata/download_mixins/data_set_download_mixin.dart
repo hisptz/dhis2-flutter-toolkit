@@ -88,6 +88,7 @@ mixin D2DataSetDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2DataSet> {
 
       List<Map<String, dynamic>> value =
           element.value.cast<Map<String, dynamic>>();
+
       await syncMeta(element.key, value);
     });
   }

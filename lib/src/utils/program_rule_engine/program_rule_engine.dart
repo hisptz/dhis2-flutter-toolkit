@@ -71,9 +71,9 @@ class D2ProgramRuleEngine {
 
     if (sortedProgramRules.isNotEmpty) {
       for (D2ProgramRule programRule in sortedProgramRules) {
-        String condition = programRule.condition;
+        String? condition = programRule.condition;
         String sanitizedCondition = D2StringUtils.escapeCharacter(
-          condition,
+          condition ?? "",
           escapeChar: StringConstants.escapedCharacters,
         );
 
@@ -274,10 +274,12 @@ class D2ProgramRuleEngine {
           (programRule) =>
               inputFieldProgramRuleVariables.any(
                 (String variable) =>
-                    programRule.condition.contains(variable) ||
-                    programRule.programRuleActions.any(
-                        (D2ProgramRuleAction programRuleAction) =>
-                            (programRuleAction.data ?? '').contains(variable)),
+                    programRule.condition?.contains(variable) ??
+                    false ||
+                        programRule.programRuleActions.any(
+                            (D2ProgramRuleAction programRuleAction) =>
+                                (programRuleAction.data ?? '')
+                                    .contains(variable)),
               ) ||
               programRule.programRuleActions.any((D2ProgramRuleAction
                       programRuleAction) =>

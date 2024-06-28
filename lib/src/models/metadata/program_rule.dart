@@ -23,7 +23,7 @@ class D2ProgramRule extends D2MetaResource {
 
   String name;
   String? description;
-  String condition;
+  String? condition;
   int? priority;
 
   var program = ToOne<D2Program>();
