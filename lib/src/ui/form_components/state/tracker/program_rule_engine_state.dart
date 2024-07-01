@@ -26,6 +26,7 @@ mixin ProgramRuleEngineState
         D2FormDataState {
   abstract D2ObjectBox db;
   abstract D2ProgramRuleEngine programRuleEngine;
+  abstract List<D2CustomProgramRule> customProgramRules;
 
   void spawnProgramRuleEngine(List<String> inputFieldIds) async {
     D2ProgramRuleResult programRuleEvaluationResults =
@@ -40,6 +41,7 @@ mixin ProgramRuleEngineState
     );
   }
 
+  // TODO include the custom rules
   void updateFormStates(D2ProgramRuleResult programRuleEvaluation) {
     if (programRuleEvaluation.hiddenFields.allFields.isNotEmpty) {
       programRuleEvaluation.hiddenFields.allFields.forEach((fieldKey, value) {
@@ -142,6 +144,10 @@ mixin ProgramRuleEngineState
           }
         }
       });
+    }
+
+    for (D2CustomProgramRule customProgramRule in customProgramRules) {
+      // TODO handle custom rules
     }
 
     notifyListeners();
