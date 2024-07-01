@@ -4,8 +4,10 @@ mixin D2FormOptionState on ChangeNotifier {
   Map<String, List<String>> optionsToHide =
       {}; //The key of this map is the field's name/id and the value is a list of option code to hide
 
-  void setOptionsToHideSilently(String key, List<String> optionsToHide) {
-    this.optionsToHide.addAll({key: optionsToHide});
+  void setOptionsToHideSilently(String key, List<String> options) {
+    optionsToHide.addAll({
+      key: [...(optionsToHide[key] ?? []), ...options]
+    });
   }
 
   void setOptionsToHide(String key, List<String> optionsToHide) {
