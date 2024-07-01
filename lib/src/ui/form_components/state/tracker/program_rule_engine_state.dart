@@ -41,41 +41,123 @@ mixin ProgramRuleEngineState
     );
   }
 
-  // TODO include the custom rules
+  void _toggleFieldVisibility(
+    String fieldKey,
+    bool hiddenStatus,
+  ) {
+    if ((hiddenStatus == true && !isFieldHidden(fieldKey)) ||
+        (hiddenStatus == false && isFieldHidden(fieldKey))) {
+      toggleFieldVisibilitySilently(fieldKey);
+      setValueSilently(fieldKey, null);
+    }
+  }
+
+  void _toggleSectionVisibility(
+    String sectionKey,
+    bool hiddenStatus,
+  ) {
+    if ((hiddenStatus == true && !isSectionHidden(sectionKey)) ||
+        (hiddenStatus == false && isSectionHidden(sectionKey))) {
+      toggleSectionVisibilitySilently(sectionKey);
+    }
+  }
+
+  void _toggleMandatoryField(
+    String fieldKey,
+    bool mandatoryStatus,
+  ) {
+    mandatoryStatus == true
+        ? addMandatoryFieldSilently(fieldKey)
+        : clearFromMandatoryFieldSilently(fieldKey);
+  }
+
+  void _assignFieldValue(
+    String fieldKey,
+    dynamic value,
+  ) {
+    disableFields([fieldKey]);
+    setValueSilently(fieldKey, value);
+  }
+
+  void _setErrorMessage(
+    String fieldKey,
+    String message,
+    bool visibilityStatus,
+  ) {
+    if (visibilityStatus == true) {
+      setErrorSilently(fieldKey, message);
+    } else {
+      if (message == getError(fieldKey)) {
+        clearErrorSilently(fieldKey);
+      }
+    }
+  }
+
+  void _setWarningMessage(
+    String fieldKey,
+    String message,
+    bool visibilityStatus,
+  ) {
+    if (visibilityStatus == true) {
+      setWarningSilently(fieldKey, message);
+    } else {
+      if (message == getWarning(fieldKey)) {
+        clearWarningSilently(fieldKey);
+      }
+    }
+  }
+
+  void _hideOptions(
+    String inputFieldId,
+    List<String> optionCodes,
+    bool hiddenState,
+  ) {
+    if (hiddenState == true) {
+      setOptionsToHideSilently(inputFieldId, optionCodes);
+    } else {
+      removeOptionsToHideSilently(inputFieldId, optionCodes);
+    }
+  }
+
+  void _hideFieldOptions(
+    String inputFieldId,
+    List<Map<String, dynamic>> fieldHiddenOptions,
+  ) {
+    groupBy(fieldHiddenOptions, (fieldOption) => fieldOption['hiddenState'])
+        .forEach((hiddenState, options) {
+      var optionCodes =
+          options.map((option) => option['option'] as String).toList();
+      if (optionCodes.contains(getValue(inputFieldId)) && hiddenState == true) {
+        clearValueSilently(inputFieldId);
+      }
+      _hideOptions(inputFieldId, optionCodes, hiddenState);
+    });
+  }
+
   void updateFormStates(D2ProgramRuleResult programRuleEvaluation) {
     if (programRuleEvaluation.hiddenFields.allFields.isNotEmpty) {
       programRuleEvaluation.hiddenFields.allFields.forEach((fieldKey, value) {
-        if ((value == true && !isFieldHidden(fieldKey)) ||
-            (value == false && isFieldHidden(fieldKey))) {
-          toggleFieldVisibilitySilently(fieldKey);
-          setValueSilently(fieldKey, null);
-        }
+        _toggleFieldVisibility(fieldKey, value);
       });
     }
 
     if (programRuleEvaluation.mandatoryFields.allFields.isNotEmpty) {
       programRuleEvaluation.mandatoryFields.allFields
           .forEach((fieldKey, value) {
-        value == true
-            ? addMandatoryFieldSilently(fieldKey)
-            : clearFromMandatoryFieldSilently(fieldKey);
+        _toggleMandatoryField(fieldKey, value);
       });
     }
 
     if (programRuleEvaluation.hiddenSections.allSections.isNotEmpty) {
       programRuleEvaluation.hiddenSections.allSections
           .forEach((sectionKey, value) {
-        if ((value == true && !isSectionHidden(sectionKey)) ||
-            (value == false && isSectionHidden(sectionKey))) {
-          toggleSectionVisibilitySilently(sectionKey);
-        }
+        _toggleSectionVisibility(sectionKey, value);
       });
     }
 
     if (programRuleEvaluation.assignedFields.allValues.isNotEmpty) {
       programRuleEvaluation.assignedFields.allValues.forEach((fieldKey, value) {
-        disableFields([fieldKey]);
-        setValueSilently(fieldKey, value);
+        _assignFieldValue(fieldKey, value);
       });
     }
 
@@ -120,13 +202,11 @@ mixin ProgramRuleEngineState
       programRuleEvaluation.warningMessages.allMessages
           .forEach((fieldKey, warningMessages) {
         for (var warningMessage in warningMessages) {
-          if (warningMessage.visibilityStatus == true) {
-            setWarningSilently(fieldKey, warningMessage.message);
-          } else {
-            if (warningMessage.message == getWarning(fieldKey)) {
-              clearWarningSilently(fieldKey);
-            }
-          }
+          _setWarningMessage(
+            fieldKey,
+            warningMessage.message,
+            warningMessage.visibilityStatus,
+          );
         }
       });
     }
@@ -135,13 +215,11 @@ mixin ProgramRuleEngineState
       programRuleEvaluation.errorMessages.allMessages
           .forEach((fieldKey, errorMessages) {
         for (var errorMessage in errorMessages) {
-          if (errorMessage.visibilityStatus == true) {
-            setErrorSilently(fieldKey, errorMessage.message);
-          } else {
-            if (errorMessage.message == getError(fieldKey)) {
-              clearErrorSilently(fieldKey);
-            }
-          }
+          _setErrorMessage(
+            fieldKey,
+            errorMessage.message,
+            errorMessage.visibilityStatus,
+          );
         }
       });
     }
@@ -161,22 +239,5 @@ mixin ProgramRuleEngineState
   void setValue(String key, value) {
     setValueSilently(key, value);
     runProgramRules();
-  }
-
-  void _hideFieldOptions(
-      String inputFieldId, List<Map<String, dynamic>> fieldHiddenOptions) {
-    groupBy(fieldHiddenOptions, (fieldOption) => fieldOption['hiddenState'])
-        .forEach((hiddenState, options) {
-      var optionCodes =
-          options.map((option) => option['option'] as String).toList();
-      if (optionCodes.contains(getValue(inputFieldId)) && hiddenState == true) {
-        clearValueSilently(inputFieldId);
-      }
-      if (hiddenState == true) {
-        setOptionsToHideSilently(inputFieldId, optionCodes);
-      } else {
-        removeOptionsToHideSilently(inputFieldId, optionCodes);
-      }
-    });
   }
 }
