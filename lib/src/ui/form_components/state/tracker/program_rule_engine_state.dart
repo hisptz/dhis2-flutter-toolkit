@@ -142,12 +142,14 @@ mixin ProgramRuleEngineState
   }
 
   void updateFormStates(D2ProgramRuleResult programRuleEvaluation) {
+    // Hide fields that are hidden by DHIS2 program rules
     if (programRuleEvaluation.hiddenFields.allFields.isNotEmpty) {
       programRuleEvaluation.hiddenFields.allFields.forEach((fieldKey, value) {
         _toggleFieldVisibility(fieldKey, value);
       });
     }
 
+    // Set mandatory fields that are set mandatory by DHIS2 program rules
     if (programRuleEvaluation.mandatoryFields.allFields.isNotEmpty) {
       programRuleEvaluation.mandatoryFields.allFields
           .forEach((fieldKey, value) {
@@ -155,6 +157,7 @@ mixin ProgramRuleEngineState
       });
     }
 
+    // Hide sections that are hidden by DHIS2 program rules
     if (programRuleEvaluation.hiddenSections.allSections.isNotEmpty) {
       programRuleEvaluation.hiddenSections.allSections
           .forEach((sectionKey, value) {
@@ -162,12 +165,14 @@ mixin ProgramRuleEngineState
       });
     }
 
+    // Assigned fields that are assigned by DHIS2 program rules
     if (programRuleEvaluation.assignedFields.allValues.isNotEmpty) {
       programRuleEvaluation.assignedFields.allValues.forEach((fieldKey, value) {
         _assignFieldValue(fieldKey, value);
       });
     }
 
+    // Hide options that are hidden by DHIS2 program rules
     if (programRuleEvaluation.hiddenOptions.allOptions.isNotEmpty) {
       programRuleEvaluation.hiddenOptions.allOptions
           .forEach((inputFieldId, options) {
@@ -183,6 +188,7 @@ mixin ProgramRuleEngineState
       });
     }
 
+    // Hide option groups that are hidden by DHIS2 program rules
     if (programRuleEvaluation.hiddenOptionGroups.allOptionGroups.isNotEmpty) {
       programRuleEvaluation.hiddenOptionGroups.allOptionGroups
           .forEach((inputFieldId, optionGroups) {
@@ -205,6 +211,7 @@ mixin ProgramRuleEngineState
       });
     }
 
+    // Set warning messages that are set by the DHIS2 program rules
     if (programRuleEvaluation.warningMessages.allMessages.isNotEmpty) {
       programRuleEvaluation.warningMessages.allMessages
           .forEach((fieldKey, warningMessages) {
@@ -218,6 +225,7 @@ mixin ProgramRuleEngineState
       });
     }
 
+    // Sett error messages that are set by the DHIS2 program rules
     if (programRuleEvaluation.errorMessages.allMessages.isNotEmpty) {
       programRuleEvaluation.errorMessages.allMessages
           .forEach((fieldKey, errorMessages) {
@@ -231,44 +239,55 @@ mixin ProgramRuleEngineState
       });
     }
 
+    // Process the custom program rules
     for (D2CustomProgramRule customProgramRule in customProgramRules) {
+      bool programRuleExpressionValue =
+          customProgramRule.expressionFunction(formValues);
       for (D2CustomAction action in customProgramRule.actions) {
         if (action.hiddenField != null) {
           _toggleFieldVisibility(
-              action.hiddenField!, customProgramRule.expression);
+            action.hiddenField!,
+            programRuleExpressionValue,
+          );
         }
         if (action.hiddenSection != null) {
           _toggleSectionVisibility(
-              action.hiddenSection!, customProgramRule.expression);
+            action.hiddenSection!,
+            programRuleExpressionValue,
+          );
         }
         if (action.hiddenOption != null) {
-          _hideOptions(action.hiddenOption!.fieldId,
-              [action.hiddenOption!.optionCode], customProgramRule.expression);
+          _hideOptions(
+            action.hiddenOption!.fieldId,
+            [action.hiddenOption!.optionCode],
+            programRuleExpressionValue,
+          );
         }
         if (action.hiddenOptionGroup != null) {
           _hideOptions(
-              action.hiddenOptionGroup!.fieldId,
-              [action.hiddenOptionGroup!.optionGroupId],
-              customProgramRule.expression);
+            action.hiddenOptionGroup!.fieldId,
+            [action.hiddenOptionGroup!.optionGroupId],
+            programRuleExpressionValue,
+          );
         }
         if (action.disabledField != null) {
           _toggleFieldDisable(
             action.disabledField!,
-            customProgramRule.expression,
+            programRuleExpressionValue,
           );
         }
         if (action.error != null) {
           _setErrorMessage(
             action.error!.fieldId ?? '',
             action.error!.message ?? '',
-            customProgramRule.expression,
+            programRuleExpressionValue,
           );
         }
         if (action.warning != null) {
           _setWarningMessage(
             action.warning!.fieldId ?? '',
             action.warning!.message ?? '',
-            customProgramRule.expression,
+            programRuleExpressionValue,
           );
         }
         if (action.value != null) {
