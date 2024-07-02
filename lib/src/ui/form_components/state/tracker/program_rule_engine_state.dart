@@ -52,6 +52,13 @@ mixin ProgramRuleEngineState
     }
   }
 
+  void _toggleFieldDisable(
+    String fieldKey,
+    bool disabledStatus,
+  ) {
+    disabledStatus ? disableFields([fieldKey]) : clearDisabledField(fieldKey);
+  }
+
   void _toggleSectionVisibility(
     String sectionKey,
     bool hiddenStatus,
@@ -225,7 +232,52 @@ mixin ProgramRuleEngineState
     }
 
     for (D2CustomProgramRule customProgramRule in customProgramRules) {
-      // TODO handle custom rules
+      for (D2CustomAction action in customProgramRule.actions) {
+        if (action.hiddenField != null) {
+          _toggleFieldVisibility(
+              action.hiddenField!, customProgramRule.expression);
+        }
+        if (action.hiddenSection != null) {
+          _toggleSectionVisibility(
+              action.hiddenSection!, customProgramRule.expression);
+        }
+        if (action.hiddenOption != null) {
+          _hideOptions(action.hiddenOption!.fieldId,
+              [action.hiddenOption!.optionCode], customProgramRule.expression);
+        }
+        if (action.hiddenOptionGroup != null) {
+          _hideOptions(
+              action.hiddenOptionGroup!.fieldId,
+              [action.hiddenOptionGroup!.optionGroupId],
+              customProgramRule.expression);
+        }
+        if (action.disabledField != null) {
+          _toggleFieldDisable(
+            action.disabledField!,
+            customProgramRule.expression,
+          );
+        }
+        if (action.error != null) {
+          _setErrorMessage(
+            action.error!.fieldId ?? '',
+            action.error!.message ?? '',
+            customProgramRule.expression,
+          );
+        }
+        if (action.warning != null) {
+          _setWarningMessage(
+            action.warning!.fieldId ?? '',
+            action.warning!.message ?? '',
+            customProgramRule.expression,
+          );
+        }
+        if (action.value != null) {
+          setValueSilently(
+            action.value?.fieldId ?? '',
+            action.value?.value ?? '',
+          );
+        }
+      }
     }
 
     notifyListeners();
