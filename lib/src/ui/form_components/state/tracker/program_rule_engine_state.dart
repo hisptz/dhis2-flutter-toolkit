@@ -56,7 +56,9 @@ mixin ProgramRuleEngineState
     String fieldKey,
     bool disabledStatus,
   ) {
-    disabledStatus ? disableFields([fieldKey]) : clearDisabledField(fieldKey);
+    disabledStatus
+        ? disableFieldsSilently([fieldKey])
+        : clearDisabledField(fieldKey);
   }
 
   void _toggleSectionVisibility(
@@ -82,7 +84,7 @@ mixin ProgramRuleEngineState
     String fieldKey,
     dynamic value,
   ) {
-    disableFields([fieldKey]);
+    _toggleFieldDisable(fieldKey, true);
     setValueSilently(fieldKey, value);
   }
 
@@ -290,10 +292,10 @@ mixin ProgramRuleEngineState
             programRuleExpressionValue,
           );
         }
-        if (action.value != null) {
-          setValueSilently(
-            action.value?.fieldId ?? '',
-            action.value?.value ?? '',
+        if (action.value != null && programRuleExpressionValue == true) {
+          _assignFieldValue(
+            action.value!.fieldId ?? '',
+            action.value!.value,
           );
         }
       }
