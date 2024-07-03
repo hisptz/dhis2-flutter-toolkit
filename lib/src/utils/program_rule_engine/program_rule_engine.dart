@@ -49,7 +49,7 @@ class D2ProgramRuleEngine {
   /// The function takes aa `Map` of form data object and an optional `String` id of the input field in current evaluations to return a `Map` result
   /// The result from this function is an object of `ProgramRuleResult`
   ///
-  ProgramRuleResult evaluateProgramRule({
+  D2ProgramRuleResult evaluateProgramRule({
     Map formDataObject = const {},
     List<String> inputFieldIds = const [],
   }) {
@@ -245,7 +245,7 @@ class D2ProgramRuleEngine {
       }
     }
 
-    return ProgramRuleResult(
+    return D2ProgramRuleResult(
       hiddenFields: hiddenFields,
       assignedFields: assignedFields,
       hiddenSections: hiddenSections,

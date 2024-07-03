@@ -8,6 +8,7 @@ import '../../../../models/metadata/program_rule.dart';
 import '../../../../repositories/data/entry.dart';
 import '../../../../repositories/metadata/entry.dart';
 import '../../../../utils/entry.dart';
+import '../../../../utils/program_rule_engine/models/custom_program_rule.dart';
 import '../form_state.dart';
 import 'program_rule_engine_state.dart';
 
@@ -20,6 +21,9 @@ class D2TrackerEnrollmentFormController extends D2FormController
   D2ObjectBox db;
   String orgUnit;
   List<D2ReservedValue> reservedValues = [];
+
+  @override
+  List<D2CustomProgramRule> customProgramRules;
   @override
   late D2ProgramRuleEngine programRuleEngine;
 
@@ -27,18 +31,20 @@ class D2TrackerEnrollmentFormController extends D2FormController
     return trackedEntity != null;
   }
 
-  D2TrackerEnrollmentFormController(
-      {required this.db,
-      required this.program,
-      required this.orgUnit,
-      this.trackedEntity,
-      this.enrollment,
-      super.mandatoryFields,
-      super.disabledFields,
-      super.hiddenFields,
-      super.hiddenSections,
-      super.formFields,
-      super.initialValues}) {
+  D2TrackerEnrollmentFormController({
+    required this.db,
+    required this.program,
+    required this.orgUnit,
+    this.trackedEntity,
+    this.enrollment,
+    this.customProgramRules = const [],
+    super.mandatoryFields,
+    super.disabledFields,
+    super.hiddenFields,
+    super.hiddenSections,
+    super.formFields,
+    super.initialValues,
+  }) {
     if (trackedEntity != null) {
       List<D2TrackedEntityAttributeValue> attributes =
           trackedEntity!.getAttributesByProgram(program);
