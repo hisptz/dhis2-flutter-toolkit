@@ -3,6 +3,7 @@ import '../../../../models/data/entry.dart';
 import '../../../../models/metadata/entry.dart';
 import '../../../../models/metadata/program_rule.dart';
 import '../../../../repositories/metadata/entry.dart';
+import '../../../../utils/program_rule_engine/models/custom_program_rule.dart';
 import '../../../../utils/program_rule_engine/program_rule_engine.dart';
 import '../form_state.dart';
 import 'program_rule_engine_state.dart';
@@ -26,6 +27,8 @@ class D2TrackerEventFormController extends D2FormController
   D2Event? event;
 
   @override
+  List<D2CustomProgramRule> customProgramRules;
+  @override
   late D2ProgramRuleEngine programRuleEngine;
 
   /// Constructs a new [D2TrackerEventFormController].
@@ -40,6 +43,7 @@ class D2TrackerEventFormController extends D2FormController
       required this.programStage,
       this.event,
       this.enrollment,
+      this.customProgramRules = const [],
       super.mandatoryFields,
       super.hiddenFields,
       super.hiddenSections,

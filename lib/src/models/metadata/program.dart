@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:objectbox/objectbox.dart';
 
 import '../../../objectbox.dart';
@@ -42,6 +44,9 @@ class D2Program extends D2MetaResource {
   /// The feature type of the program.
   String? featureType;
 
+  /// The color for the program
+  String? color;
+
   /// The type of the program.
   String programType;
 
@@ -73,24 +78,13 @@ class D2Program extends D2MetaResource {
   final programTrackedEntityAttributes =
       ToMany<D2ProgramTrackedEntityAttribute>();
 
-  /// Constructs a [D2Program].
-  ///
-  /// - [created] The creation date of the program.
-  /// - [lastUpdated] The last updated date of the program.
-  /// - [uid] The unique identifier of the program.
-  /// - [accessLevel] The access level of the program.
-  /// - [name] The name of the program.
-  /// - [shortName] The short name of the program.
-  /// - [programType] The type of the program.
-  /// - [onlyEnrollOnce] Whether the program can only be enrolled once.
-  /// - [displayName] The display name of the program.
-  /// - [featureType] The feature type of the program.
   D2Program(
       this.created,
       this.lastUpdated,
       this.uid,
       this.accessLevel,
       this.name,
+      this.color,
       this.shortName,
       this.programType,
       this.onlyEnrollOnce,
@@ -116,6 +110,10 @@ class D2Program extends D2MetaResource {
     if (json["trackedEntityType"] != null) {
       trackedEntityType.target = D2TrackedEntityTypeRepository(db)
           .getByUid(json["trackedEntityType"]["id"]);
+    }
+
+    if (json["style"] != null) {
+      color = json["style"]["color"];
     }
 
     List<D2OrgUnit?> programOrgUnits = json["organisationUnits"]

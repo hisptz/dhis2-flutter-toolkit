@@ -11,7 +11,7 @@ class ProgramRuleActionsConstants {
   static const assignField = 'ASSIGN';
   static const hideProgramStage = 'HIDEPROGRAMSTAGE';
   static const hideSection = 'HIDESECTION';
-  static const hideOption = 'HIDEOPTION';
+  static const hideOption = 'SETMANDATORYFIELD';
   static const hideOptionGroup = 'HIDEOPTIONGROUP';
   static const makeMandatory = 'MAKEMANDATORY';
   static const showError = 'SHOWERROR';

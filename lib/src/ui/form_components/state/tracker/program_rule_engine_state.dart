@@ -26,57 +26,155 @@ mixin ProgramRuleEngineState
         D2FormDataState {
   abstract D2ObjectBox db;
   abstract D2ProgramRuleEngine programRuleEngine;
+  abstract List<D2CustomProgramRule> customProgramRules;
 
   void spawnProgramRuleEngine(List<String> inputFieldIds) async {
-    ProgramRuleResult programRuleEvaluationResults =
+    D2ProgramRuleResult programRuleEvaluationResults =
         startProgramRuleEvaluation(inputFieldIds);
     updateFormStates(programRuleEvaluationResults);
   }
 
-  ProgramRuleResult startProgramRuleEvaluation(List<String> inputFieldIds) {
+  D2ProgramRuleResult startProgramRuleEvaluation(List<String> inputFieldIds) {
     return programRuleEngine.evaluateProgramRule(
       inputFieldIds: inputFieldIds,
       formDataObject: formValues,
     );
   }
 
-  void updateFormStates(ProgramRuleResult programRuleEvaluation) {
+  void _toggleFieldVisibility(
+    String fieldKey,
+    bool hiddenStatus,
+  ) {
+    if ((hiddenStatus == true && !isFieldHidden(fieldKey)) ||
+        (hiddenStatus == false && isFieldHidden(fieldKey))) {
+      toggleFieldVisibilitySilently(fieldKey);
+      setValueSilently(fieldKey, null);
+    }
+  }
+
+  void _toggleFieldDisable(
+    String fieldKey,
+    bool disabledStatus,
+  ) {
+    disabledStatus
+        ? disableFieldsSilently([fieldKey])
+        : clearDisabledField(fieldKey);
+  }
+
+  void _toggleSectionVisibility(
+    String sectionKey,
+    bool hiddenStatus,
+  ) {
+    if ((hiddenStatus == true && !isSectionHidden(sectionKey)) ||
+        (hiddenStatus == false && isSectionHidden(sectionKey))) {
+      toggleSectionVisibilitySilently(sectionKey);
+    }
+  }
+
+  void _toggleMandatoryField(
+    String fieldKey,
+    bool mandatoryStatus,
+  ) {
+    mandatoryStatus == true
+        ? addMandatoryFieldSilently(fieldKey)
+        : clearFromMandatoryFieldSilently(fieldKey);
+  }
+
+  void _assignFieldValue(
+    String fieldKey,
+    dynamic value,
+  ) {
+    _toggleFieldDisable(fieldKey, true);
+    setValueSilently(fieldKey, value);
+  }
+
+  void _setErrorMessage(
+    String fieldKey,
+    String message,
+    bool visibilityStatus,
+  ) {
+    if (visibilityStatus == true) {
+      setErrorSilently(fieldKey, message);
+    } else {
+      if (message == getError(fieldKey)) {
+        clearErrorSilently(fieldKey);
+      }
+    }
+  }
+
+  void _setWarningMessage(
+    String fieldKey,
+    String message,
+    bool visibilityStatus,
+  ) {
+    if (visibilityStatus == true) {
+      setWarningSilently(fieldKey, message);
+    } else {
+      if (message == getWarning(fieldKey)) {
+        clearWarningSilently(fieldKey);
+      }
+    }
+  }
+
+  void _hideOptions(
+    String inputFieldId,
+    List<String> optionCodes,
+    bool hiddenState,
+  ) {
+    if (hiddenState == true) {
+      setOptionsToHideSilently(inputFieldId, optionCodes);
+    } else {
+      removeOptionsToHideSilently(inputFieldId, optionCodes);
+    }
+  }
+
+  void _hideFieldOptions(
+    String inputFieldId,
+    List<Map<String, dynamic>> fieldHiddenOptions,
+  ) {
+    groupBy(fieldHiddenOptions, (fieldOption) => fieldOption['hiddenState'])
+        .forEach((hiddenState, options) {
+      var optionCodes =
+          options.map((option) => option['option'] as String).toList();
+      if (optionCodes.contains(getValue(inputFieldId)) && hiddenState == true) {
+        clearValueSilently(inputFieldId);
+      }
+      _hideOptions(inputFieldId, optionCodes, hiddenState);
+    });
+  }
+
+  void updateFormStates(D2ProgramRuleResult programRuleEvaluation) {
+    // Hide fields that are hidden by DHIS2 program rules
     if (programRuleEvaluation.hiddenFields.allFields.isNotEmpty) {
       programRuleEvaluation.hiddenFields.allFields.forEach((fieldKey, value) {
-        if ((value == true && !isFieldHidden(fieldKey)) ||
-            (value == false && isFieldHidden(fieldKey))) {
-          toggleFieldVisibilitySilently(fieldKey);
-          setValueSilently(fieldKey, null);
-        }
+        _toggleFieldVisibility(fieldKey, value);
       });
     }
 
+    // Set mandatory fields that are set mandatory by DHIS2 program rules
     if (programRuleEvaluation.mandatoryFields.allFields.isNotEmpty) {
       programRuleEvaluation.mandatoryFields.allFields
           .forEach((fieldKey, value) {
-        value == true
-            ? addMandatoryFieldSilently(fieldKey)
-            : clearFromMandatoryFieldSilently(fieldKey);
+        _toggleMandatoryField(fieldKey, value);
       });
     }
 
+    // Hide sections that are hidden by DHIS2 program rules
     if (programRuleEvaluation.hiddenSections.allSections.isNotEmpty) {
       programRuleEvaluation.hiddenSections.allSections
           .forEach((sectionKey, value) {
-        if ((value == true && !isSectionHidden(sectionKey)) ||
-            (value == false && isSectionHidden(sectionKey))) {
-          toggleSectionVisibilitySilently(sectionKey);
-        }
+        _toggleSectionVisibility(sectionKey, value);
       });
     }
 
+    // Assigned fields that are assigned by DHIS2 program rules
     if (programRuleEvaluation.assignedFields.allValues.isNotEmpty) {
       programRuleEvaluation.assignedFields.allValues.forEach((fieldKey, value) {
-        disableFields([fieldKey]);
-        setValueSilently(fieldKey, value);
+        _assignFieldValue(fieldKey, value);
       });
     }
 
+    // Hide options that are hidden by DHIS2 program rules
     if (programRuleEvaluation.hiddenOptions.allOptions.isNotEmpty) {
       programRuleEvaluation.hiddenOptions.allOptions
           .forEach((inputFieldId, options) {
@@ -92,6 +190,7 @@ mixin ProgramRuleEngineState
       });
     }
 
+    // Hide option groups that are hidden by DHIS2 program rules
     if (programRuleEvaluation.hiddenOptionGroups.allOptionGroups.isNotEmpty) {
       programRuleEvaluation.hiddenOptionGroups.allOptionGroups
           .forEach((inputFieldId, optionGroups) {
@@ -114,34 +213,92 @@ mixin ProgramRuleEngineState
       });
     }
 
+    // Set warning messages that are set by the DHIS2 program rules
     if (programRuleEvaluation.warningMessages.allMessages.isNotEmpty) {
       programRuleEvaluation.warningMessages.allMessages
           .forEach((fieldKey, warningMessages) {
         for (var warningMessage in warningMessages) {
-          if (warningMessage.visibilityStatus == true) {
-            setWarningSilently(fieldKey, warningMessage.message);
-          } else {
-            if (warningMessage.message == getWarning(fieldKey)) {
-              clearWarningSilently(fieldKey);
-            }
-          }
+          _setWarningMessage(
+            fieldKey,
+            warningMessage.message,
+            warningMessage.visibilityStatus,
+          );
         }
       });
     }
 
+    // Sett error messages that are set by the DHIS2 program rules
     if (programRuleEvaluation.errorMessages.allMessages.isNotEmpty) {
       programRuleEvaluation.errorMessages.allMessages
           .forEach((fieldKey, errorMessages) {
         for (var errorMessage in errorMessages) {
-          if (errorMessage.visibilityStatus == true) {
-            setErrorSilently(fieldKey, errorMessage.message);
-          } else {
-            if (errorMessage.message == getError(fieldKey)) {
-              clearErrorSilently(fieldKey);
-            }
-          }
+          _setErrorMessage(
+            fieldKey,
+            errorMessage.message,
+            errorMessage.visibilityStatus,
+          );
         }
       });
+    }
+
+    // Process the custom program rules
+    for (D2CustomProgramRule customProgramRule in customProgramRules) {
+      bool programRuleExpressionValue =
+          customProgramRule.expressionFunction(formValues);
+      for (D2CustomAction action in customProgramRule.actions) {
+        if (action.hiddenField != null) {
+          _toggleFieldVisibility(
+            action.hiddenField!,
+            programRuleExpressionValue,
+          );
+        }
+        if (action.hiddenSection != null) {
+          _toggleSectionVisibility(
+            action.hiddenSection!,
+            programRuleExpressionValue,
+          );
+        }
+        if (action.hiddenOption != null) {
+          _hideOptions(
+            action.hiddenOption!.fieldId,
+            [action.hiddenOption!.optionCode],
+            programRuleExpressionValue,
+          );
+        }
+        if (action.hiddenOptionGroup != null) {
+          _hideOptions(
+            action.hiddenOptionGroup!.fieldId,
+            [action.hiddenOptionGroup!.optionGroupId],
+            programRuleExpressionValue,
+          );
+        }
+        if (action.disabledField != null) {
+          _toggleFieldDisable(
+            action.disabledField!,
+            programRuleExpressionValue,
+          );
+        }
+        if (action.error != null) {
+          _setErrorMessage(
+            action.error!.fieldId ?? '',
+            action.error!.message ?? '',
+            programRuleExpressionValue,
+          );
+        }
+        if (action.warning != null) {
+          _setWarningMessage(
+            action.warning!.fieldId ?? '',
+            action.warning!.message ?? '',
+            programRuleExpressionValue,
+          );
+        }
+        if (action.value != null && programRuleExpressionValue == true) {
+          _assignFieldValue(
+            action.value!.fieldId ?? '',
+            action.value!.value,
+          );
+        }
+      }
     }
 
     notifyListeners();
@@ -155,22 +312,5 @@ mixin ProgramRuleEngineState
   void setValue(String key, value) {
     setValueSilently(key, value);
     runProgramRules();
-  }
-
-  void _hideFieldOptions(
-      String inputFieldId, List<Map<String, dynamic>> fieldHiddenOptions) {
-    groupBy(fieldHiddenOptions, (fieldOption) => fieldOption['hiddenState'])
-        .forEach((hiddenState, options) {
-      var optionCodes =
-          options.map((option) => option['option'] as String).toList();
-      if (optionCodes.contains(getValue(inputFieldId)) && hiddenState == true) {
-        clearValueSilently(inputFieldId);
-      }
-      if (hiddenState == true) {
-        setOptionsToHideSilently(inputFieldId, optionCodes);
-      } else {
-        removeOptionsToHideSilently(inputFieldId, optionCodes);
-      }
-    });
   }
 }

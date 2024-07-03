@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -150,6 +152,22 @@ class D2ClientService {
         debugPrint(e.toString());
         return null;
       }
+    } else {
+      throw response.body;
+    }
+  }
+
+//This is the function that sends a Get Request to the DHIS2 Instance
+//The function Reads entities in the DHIS2 Instance Server
+//This method accepts url String, query parameters and returns a response object
+  Future<Uint8List> httpGetFile(
+    String url, {
+    Map<String, String>? queryParameters,
+  }) async {
+    Uri apiUrl = getApiUrl(url, queryParameters: queryParameters);
+    http.Response response = await http.get(apiUrl, headers: headers);
+    if ([200, 304].contains(response.statusCode)) {
+      return response.bodyBytes;
     } else {
       throw response.body;
     }

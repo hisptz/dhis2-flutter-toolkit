@@ -140,7 +140,7 @@ class D2DataSet extends D2MetaResource {
     List<D2OrgUnit?> orgUnits = json['organisationUnits']
         .cast<Map>()
         .map<D2OrgUnit?>(
-            (Map json) => D2OrgUnitRepository(db).getByUid(json['id'])!)
+            (Map json) => D2OrgUnitRepository(db).getByUid(json['id']))
         .toList()
         .cast<D2OrgUnit?>();
     organisationUnits.addAll(orgUnits

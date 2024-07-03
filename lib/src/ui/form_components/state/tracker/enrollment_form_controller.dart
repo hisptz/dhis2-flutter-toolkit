@@ -8,6 +8,7 @@ import '../../../../models/metadata/program_rule.dart';
 import '../../../../repositories/data/entry.dart';
 import '../../../../repositories/metadata/entry.dart';
 import '../../../../utils/entry.dart';
+import '../../../../utils/program_rule_engine/models/custom_program_rule.dart';
 import '../form_state.dart';
 import 'program_rule_engine_state.dart';
 
@@ -36,6 +37,8 @@ class D2TrackerEnrollmentFormController extends D2FormController
   List<D2ReservedValue> reservedValues = [];
 
   @override
+  List<D2CustomProgramRule> customProgramRules;
+  @override
   late D2ProgramRuleEngine programRuleEngine;
 
   /// Checks if the form is in edit mode (i.e., a tracked entity is selected).
@@ -50,6 +53,7 @@ class D2TrackerEnrollmentFormController extends D2FormController
   /// - [orgUnit] The organisation unit UID for the enrollment.
   /// - [trackedEntity] The tracked entity associated with the enrollment (optional).
   /// - [enrollment] The enrollment instance being managed (optional).
+  /// - [customProgramRules] The list of program rules that are customly coded within an implementation (optional).
   D2TrackerEnrollmentFormController(
       {required this.db,
       required this.program,
@@ -61,7 +65,9 @@ class D2TrackerEnrollmentFormController extends D2FormController
       super.hiddenFields,
       super.hiddenSections,
       super.formFields,
-      super.initialValues}) {
+      this.customProgramRules = const [],
+      super.initialValues,}) {
+    
     if (trackedEntity != null) {
       List<D2TrackedEntityAttributeValue> attributes =
           trackedEntity!.getAttributesByProgram(program);
