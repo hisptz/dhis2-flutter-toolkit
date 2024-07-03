@@ -170,7 +170,7 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
                     style: const ButtonStyle().copyWith(
                       backgroundColor:
                           WidgetStateProperty.all(Colors.transparent),
-                      foregroundColor: WidgetStatePropertyAll(Colors.red[400]),
+                      foregroundColor: WidgetStatePropertyAll(Colors.grey[600]),
                       textStyle: WidgetStateProperty.all(
                         const TextStyle().copyWith(
                           fontSize: 14.0,
@@ -184,7 +184,7 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
                       alignment: Alignment.center,
                       width: 70.0,
                       child: Text(
-                        'Cancel',
+                        'Skip',
                         style: const TextStyle().copyWith(),
                       ),
                     ),
@@ -194,8 +194,7 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
                   margin: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: FilledButton(
                     style: const ButtonStyle().copyWith(
-                      backgroundColor:
-                          WidgetStateProperty.all(Colors.green[600]),
+                      backgroundColor: WidgetStateProperty.all(formColor),
                       foregroundColor:
                           const WidgetStatePropertyAll(Colors.white),
                       textStyle: WidgetStateProperty.all(
