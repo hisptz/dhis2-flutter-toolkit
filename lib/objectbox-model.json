@@ -3173,10 +3173,55 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "51:7702431831916362393",
+      "lastPropertyId": "7:2238094843613227757",
+      "name": "D2AppAutoSave",
+      "properties": [
+        {
+          "id": "1:8907584946148957521",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3503999648305965434",
+          "name": "data",
+          "type": 9
+        },
+        {
+          "id": "3:7751115834759788292",
+          "name": "programId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "123:4659434041632935461",
+          "relationTarget": "D2Program"
+        },
+        {
+          "id": "4:1487083914021380012",
+          "name": "programStageId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "124:5956572668431648531",
+          "relationTarget": "D2ProgramStage"
+        },
+        {
+          "id": "5:6799437844411985222",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "6:7891031920704038289",
+          "name": "updatedAt",
+          "type": 10
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "50:3788266274691932455",
-  "lastIndexId": "122:2991693433776428510",
+  "lastEntityId": "51:7702431831916362393",
+  "lastIndexId": "124:5956572668431648531",
   "lastRelationId": "27:722672923808169924",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
@@ -3224,7 +3269,8 @@
     3651093929227157814,
     5235438825146600120,
     7922301324287560950,
-    8205999314347292812
+    8205999314347292812,
+    2238094843613227757
   ],
   "retiredRelationUids": [
     6008783994488891808,
