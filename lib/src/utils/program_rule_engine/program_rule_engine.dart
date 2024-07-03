@@ -225,7 +225,6 @@ class D2ProgramRuleEngine {
                 evaluatedConditionResults,
               );
             } else if (evaluatedConditionResults.runtimeType == bool &&
-                evaluatedConditionResults == true &&
                 programRuleActionType ==
                     ProgramRuleActionsConstants.makeMandatory) {
               mandatoryFields.setFieldMandatory(
