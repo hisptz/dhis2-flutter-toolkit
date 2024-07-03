@@ -51,8 +51,9 @@ class D2MathematicalOperations {
     bool hasOperator = false;
 
     for (String arithmeticOperator in OperatorsConstants.arithmeticOperators) {
-      int operatorIndex = expression.indexOf(arithmeticOperator);
-      if (operatorIndex >= 0) {
+      int operatorIndex = expression.trim().indexOf(arithmeticOperator);
+      // check for greater than zero index since arithmetic operators needs two operands
+      if (operatorIndex > 0) {
         String leftOperand = expression.substring(0, operatorIndex).trim();
         String rightOperand = expression.substring(operatorIndex + 1).trim();
         if (!("'".allMatches(leftOperand).length % 2 == 1 &&
@@ -75,6 +76,8 @@ class D2MathematicalOperations {
 
     for (String logicalOperator in OperatorsConstants.logicalOperators) {
       int operatorIndex = expression.indexOf(logicalOperator);
+
+      // check for greater than or equal to zero index since logical operators needs at least one operand
       if (operatorIndex >= 0) {
         hasOperator = true;
 
