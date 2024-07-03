@@ -19,7 +19,7 @@ class D2MathematicalOperations {
   static dynamic _sanitizeStringValue(dynamic value,
       {bool resolveToDouble = false}) {
     String sanitizedValue =
-        value == DefaultValues.dataObjectValue ? '0' : value;
+        value == DefaultValues.dataObjectValue ? '0' : '$value';
     if (value.runtimeType == String) {
       value = sanitizedValue.replaceAll("'", '').trim();
       try {

@@ -79,12 +79,9 @@ class ProgramRuleHelper {
         double doubleValue = double.parse(
           formDataObject[ruleVariableDataElementAttributeId] ?? '0.0',
         );
-        value = doubleValue as String;
+        value = doubleValue.toString();
       } catch (error) {
         value = "${formDataObject[ruleVariableDataElementAttributeId]}";
-        if (formDataObject[ruleVariableDataElementAttributeId] != '') {
-          value = "${formDataObject[ruleVariableDataElementAttributeId]}";
-        }
       }
     }
     return value;
