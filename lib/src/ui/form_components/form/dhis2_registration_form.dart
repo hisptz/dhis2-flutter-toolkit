@@ -182,7 +182,7 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
                     onPressed: onDeleteAutoSavedData,
                     child: Container(
                       alignment: Alignment.center,
-                      width: 70.0,
+                      width: 30.0,
                       child: Text(
                         'Skip',
                         style: const TextStyle().copyWith(),
@@ -208,7 +208,7 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
                     onPressed: onContinue,
                     child: Container(
                       alignment: Alignment.center,
-                      width: 70.0,
+                      width: 60.0,
                       child: Text(
                         'Continue',
                         style: const TextStyle().copyWith(),
