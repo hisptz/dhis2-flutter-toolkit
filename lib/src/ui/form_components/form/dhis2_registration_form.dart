@@ -12,6 +12,7 @@ class D2TrackerRegistrationForm extends StatefulWidget {
   final Function onCheckAutoSavedValue;
   final bool disabled;
   final bool disableAutoSave;
+  final String autoSaveMessage;
 
   const D2TrackerRegistrationForm(
       {super.key,
@@ -21,6 +22,7 @@ class D2TrackerRegistrationForm extends StatefulWidget {
       this.color,
       this.disabled = false,
       required this.onCheckAutoSavedValue,
+      required this.autoSaveMessage,
       this.disableAutoSave = false});
 
   @override
@@ -47,10 +49,9 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
 
   void _startAutoSaveTimer() {
     _autoSaveTimer?.cancel();
-    _autoSaveTimer =
-        ((widget.controller.enrollment != null) || (widget.disableAutoSave))
-            ? null
-            : Timer(const Duration(seconds: 1), _performAutoSave);
+    _autoSaveTimer = (widget.disableAutoSave)
+        ? null
+        : Timer(const Duration(seconds: 1), _performAutoSave);
   }
 
   Future<void> _performAutoSave() async {
@@ -82,6 +83,7 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
           'id': '',
           'data': autoSavedValues,
           'program': widget.controller.program,
+          'enrollment': widget.controller.enrollment,
         }
       ];
 
@@ -97,26 +99,29 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
     D2AppAutoSaveRepository d2appAutoSaveRepository =
         D2AppAutoSaveRepository(widget.controller.db);
 
-    List<D2AppAutoSave>? programAutoSavedValue =
-        d2appAutoSaveRepository.getByProgram(widget.controller.program);
+    List<D2AppAutoSave>? enrollmentAutoSavedValue =
+        widget.controller.enrollment == null
+            ? d2appAutoSaveRepository.getByProgram(widget.controller.program)
+            : d2appAutoSaveRepository
+                .getByEnrollment(widget.controller.enrollment!);
 
-    return widget.controller.enrollment == null
-        ? programAutoSavedValue?.isNotEmpty ?? false
-        : false;
+    return enrollmentAutoSavedValue?.isNotEmpty ?? false;
   }
 
   void onDeleteAutoSavedData() {
     D2AppAutoSaveRepository d2appAutoSaveRepository =
         D2AppAutoSaveRepository(widget.controller.db);
 
-    List<D2AppAutoSave>? programAutoSavedValue =
-        d2appAutoSaveRepository.getByProgram(widget.controller.program);
+    List<D2AppAutoSave>? enrollmentAutoSavedValue =
+        widget.controller.enrollment == null
+            ? d2appAutoSaveRepository.getByProgram(widget.controller.program)
+            : d2appAutoSaveRepository
+                .getByEnrollment(widget.controller.enrollment!);
 
-    if (programAutoSavedValue != null) {
-      d2appAutoSaveRepository.deleteEntities(programAutoSavedValue);
-      setState(() {
-        hasAutoSavedValue = checkAutoSavedValue();
-      });
+    if (enrollmentAutoSavedValue != null) {
+      d2appAutoSaveRepository.deleteEntities(enrollmentAutoSavedValue);
+
+      hasAutoSavedValue = checkAutoSavedValue();
     }
     widget.onCheckAutoSavedValue(hasAutoSavedValue);
   }
@@ -125,11 +130,14 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
     D2AppAutoSaveRepository d2appAutoSaveRepository =
         D2AppAutoSaveRepository(widget.controller.db);
 
-    List<D2AppAutoSave>? programAutoSavedValue =
-        d2appAutoSaveRepository.getByProgram(widget.controller.program);
+    List<D2AppAutoSave>? enrollmentAutoSavedValue =
+        widget.controller.enrollment == null
+            ? d2appAutoSaveRepository.getByProgram(widget.controller.program)
+            : d2appAutoSaveRepository
+                .getByEnrollment(widget.controller.enrollment!);
 
     Map<String, dynamic> autoSavedValues =
-        json.decode(programAutoSavedValue?.firstOrNull?.data ?? "");
+        json.decode(enrollmentAutoSavedValue?.firstOrNull?.data ?? "");
 
     if (autoSavedValues["geometry"] != null) {
       D2GeometryValue d2geometryValue =
@@ -138,7 +146,8 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
     }
 
     widget.controller.setValues(autoSavedValues);
-    onDeleteAutoSavedData();
+    hasAutoSavedValue = false;
+    widget.onCheckAutoSavedValue(hasAutoSavedValue);
   }
 
   @override
@@ -154,9 +163,10 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Center(
+          Center(
               child: Text(
-            'Would you like to continue with the auto-saved data available?',
+            widget.autoSaveMessage,
+            // 'Would you like to continue with the auto-saved data available?',
             textAlign: TextAlign.center,
           )),
           Container(
