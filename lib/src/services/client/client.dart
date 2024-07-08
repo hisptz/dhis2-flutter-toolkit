@@ -6,11 +6,21 @@ import 'package:http/http.dart' as http;
 
 import '../auth_service/credentials.dart';
 
+/// This is a collection of client services for interacting with DHIS2 APIs.
 class D2ClientService {
+  /// User credentials for accessing DHIS2.
   D2UserCredential credentials;
 
+  /// Creates a new instance of [D2ClientService].
+  ///
+  /// [credentials] User credentials for accessing DHIS2.
   D2ClientService(this.credentials);
 
+  /// Initializes the [D2ClientService] with provided credentials.
+  ///
+  /// - [username] The username for authentication.
+  /// - [password] The password for authentication.
+  /// - [baseURL] The base URL of the DHIS2 instance.
   D2ClientService.initialize(
       {required String username,
       required String password,
@@ -18,18 +28,22 @@ class D2ClientService {
       : credentials = D2UserCredential(
             username: username, password: password, baseURL: baseURL);
 
+  /// Returns the username.
   get username {
     return credentials.username;
   }
 
+  /// Returns the password.
   get password {
     return credentials.password;
   }
 
+  /// Returns the base URL.
   get baseURL {
     return credentials.baseURL;
   }
 
+  /// Returns the headers for HTTP requests.
   get headers {
     return {
       "Authorization":
@@ -38,19 +52,30 @@ class D2ClientService {
     };
   }
 
+  /// Returns the URI for the DHIS2 API.
   Uri get uri {
     return Uri.parse("https://$baseURL/api");
   }
 
+  /// Returns the API URL with optional query parameters.
+  ///
+  /// - [url] The URL endpoint.
+  /// - [queryParameters] Optional query parameters.
   Uri getApiUrl(String url, {Map<String, String>? queryParameters}) {
     return uri.replace(
         pathSegments: [...uri.pathSegments, ...url.split("/")],
         queryParameters: queryParameters);
   }
 
-  //This is the function that sends a Post Request to the DHIS2 Instance
-//The function creates a new entity in the DHIS2 Instance Server
-//This method accepts url String, query parameters, body of Json data and returns a Map
+  /// Sends a POST request to the DHIS2 instance.
+  ///
+  /// This method creates a new entity in the DHIS2 instance server.
+  ///
+  /// - [url] The URL endpoint.
+  /// - [body] The JSON data body.
+  /// - [queryParameters] Optional query parameters.
+  ///
+  /// Returns a Future representing the result of the POST request.
   Future<T> httpPost<T>(
     String url,
     body, {
@@ -65,9 +90,15 @@ class D2ClientService {
     return jsonDecode(response.body) as T;
   }
 
-//This is the function that sends a Put Request to the DHIS2 Instance with a JSON body
-//The function updates an existing entity in the DHIS2 Instance Server
-//This method accepts url String, query parameters, body of Json data and returns a response object
+  /// Sends a PUT request to the DHIS2 instance.
+  ///
+  /// This method updates an existing entity in the DHIS2 instance server.
+  ///
+  /// - [url] The URL endpoint.
+  /// - [body] The JSON data body.
+  /// - [queryParameters] Optional query parameters.
+  ///
+  /// Returns a Future representing the result of the PUT request.
   Future<T> httpPut<T>(
     String url,
     body, {
@@ -83,9 +114,14 @@ class D2ClientService {
     return jsonDecode(response.body) as T;
   }
 
-//This is the function that sends a Delete Request to the DHIS2 Instance
-//The function deletes an existing entity in the DHIS2 Instance Server
-//This method accepts url String, query parameters and returns a response object
+  /// Sends a DELETE request to the DHIS2 instance.
+  ///
+  /// This method deletes an existing entity in the DHIS2 instance server.
+  ///
+  /// - [url] The URL endpoint.
+  /// - [queryParameters] Optional query parameters.
+  ///
+  /// Returns a Future representing the result of the DELETE request.
   Future<T> httpDelete<T>(
     String url, {
     Map<String, String>? queryParameters,
@@ -95,9 +131,14 @@ class D2ClientService {
     return jsonDecode(response.body) as T;
   }
 
-//This is the function that sends a Get Request to the DHIS2 Instance
-//The function Reads entities in the DHIS2 Instance Server
-//This method accepts url String, query parameters and returns a response object
+  /// Sends a GET request to the DHIS2 instance.
+  ///
+  /// This method reads entities in the DHIS2 instance server.
+  ///
+  /// - [url] The URL endpoint.
+  /// - [queryParameters] Optional query parameters.
+  ///
+  /// Returns a Future representing the result of the GET request.
   Future<T?> httpGet<T>(
     String url, {
     Map<String, String>? queryParameters,
@@ -132,9 +173,14 @@ class D2ClientService {
     }
   }
 
-//This is the function that sends a Get Request to the DHIS2 Instance
-//The function Reads entities in the DHIS2 Instance Server
-  ///This method accepts url String, query parameters and returns a response object with a page size of 1
+  /// Sends a GET request to the DHIS2 instance with pagination.
+  ///
+  /// This method reads entities in the DHIS2 instance server with pagination.
+  ///
+  /// - [url] The URL endpoint.
+  /// - [queryParameters] Optional query parameters.
+  ///
+  /// Returns a Future representing the result of the GET request with a page size of 1.
   Future<T?> httpGetPagination<T>(
     String url, {
     Map<String, String>? queryParameters,
@@ -148,7 +194,7 @@ class D2ClientService {
     return await httpGet<T>(url, queryParameters: dataQueryParameters);
   }
 
-  ///This method returns a String of server url
+  /// Returns a String of server url containing the server URL, username, and password.
   @override
   String toString() {
     return '$baseURL => $username : $password';

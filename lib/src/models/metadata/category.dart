@@ -3,6 +3,7 @@ import 'package:objectbox/objectbox.dart';
 
 import './base.dart';
 
+/// This class represents a category in DHIS2.
 @Entity()
 class D2Category extends D2MetaResource {
   @override
@@ -14,7 +15,6 @@ class D2Category extends D2MetaResource {
   @override
   @Unique()
   String uid;
-
   String name;
   String? code;
   String shortName;
@@ -23,6 +23,16 @@ class D2Category extends D2MetaResource {
   @Backlink('category')
   final categoryOptions = ToMany<D2CategoryOption>();
 
+  /// Creates a new instance of [D2Category].
+  ///
+  /// - [id] The ID of the category.
+  /// - [shortName] The short name of the category.
+  /// - [lastUpdated] The date and time when the category was last updated.
+  /// - [name] The name of the category.
+  /// - [code] The code of the category.
+  /// - [created] The date and time when the category was created.
+  /// - [dataDimensionType] The data dimension type of the category.
+  /// - [uid] The UID of the category.
   D2Category(
     this.id,
     this.shortName,
@@ -34,6 +44,10 @@ class D2Category extends D2MetaResource {
     this.uid,
   );
 
+  /// Creates a [D2Category] instance from a map.
+  ///
+  /// - [db] The ObjectBox database instance.
+  /// - [json] The map containing the category data.
   D2Category.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json['created']),
         lastUpdated = DateTime.parse(json['lastUpdated']),

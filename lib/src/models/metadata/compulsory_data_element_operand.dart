@@ -10,23 +10,44 @@ import 'data_element.dart';
 import 'data_set.dart';
 
 @Entity()
+
+/// This is class represents a compulsory data element operand in DHIS2.
+
 class D2CompulsoryDataElementOperand implements D2MetaResource {
   @override
   int id = 0;
 
+  /// The timestamp when this object was created.
   DateTime created;
+
+  /// The timestamp when this object was last updated.
   DateTime lastUpdated;
 
   @override
   String uid;
 
+  /// The associated data element.
   final dataElement = ToOne<D2DataElement>();
+
+  /// The associated data set.
   final dataSet = ToOne<D2DataSet>();
+
+  /// The associated category option combo.
   final categoryOptionCombo = ToOne<D2CategoryOptionCombo>();
 
+  /// Creates a [D2CompulsoryDataElementOperand] instance.
+  ///
+  /// - [id] The ID of the operand.
+  /// - [created] The timestamp when the operand was created.
+  /// - [lastUpdated] The timestamp when the operand was last updated.
+  /// - [uid] The UID of the operand.
   D2CompulsoryDataElementOperand(
       this.id, this.created, this.lastUpdated, this.uid);
 
+  /// Creates a [D2CompulsoryDataElementOperand] instance from a JSON map.
+  ///
+  /// - [db] The ObjectBox database instance.
+  /// - [json] The JSON map representing the operand.
   D2CompulsoryDataElementOperand.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json['created']),
         lastUpdated = DateTime.parse(json['lastUpdated']),

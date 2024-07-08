@@ -19,29 +19,71 @@ import 'program_stage_section.dart';
 import 'tracked_entity_attribute.dart';
 
 @Entity()
+
+/// This class represents an action associated with a program rule in the DHIS2 system.
+///
+/// This class provides details about a specific action that can be taken as part of
+/// a program rule, such as showing an error message, assigning a value, hiding a field, etc.
 class D2ProgramRuleAction extends D2MetaResource {
+  /// The unique identifier of the program rule action.
   @override
   int id = 0;
+
+  /// The date and time when the program rule action was created.
   DateTime created;
+
+  /// The date and time when the program rule action was last updated.
   DateTime lastUpdated;
 
+  /// The unique identifier string of the program rule action.
   @override
   @Unique()
   String uid;
 
+  /// The type of action to be taken.
   String programRuleActionType;
+
+  /// The content associated with the action, if any.
   String? content;
+
+  /// The data associated with the action, if any.
   String? data;
+
+  /// The location associated with the action, if any.
   String? location;
 
+  /// Reference to the associated program rule.
   final programRule = ToOne<D2ProgramRule>();
+
+  /// Reference to the associated data element, if any.
   final dataElement = ToOne<D2DataElement>();
+
+  /// Reference to the associated program stage section, if any.
   final programStageSection = ToOne<D2ProgramStageSection>();
+
+  /// Reference to the associated program section, if any.
   final programSection = ToOne<D2ProgramSection>();
+
+  /// Reference to the associated tracked entity attribute, if any.
   final trackedEntityAttribute = ToOne<D2TrackedEntityAttribute>();
+
+  /// Reference to the associated option, if any.
   final option = ToOne<D2Option>();
+
+  /// Reference to the associated option group, if any.
   final optionGroup = ToOne<D2OptionGroup>();
 
+  /// Constructs a [D2ProgramRuleAction] with the provided details.
+  ///
+  /// - [id] The unique identifier of the program rule action.
+  /// - [displayName] The display name of the program rule action.
+  /// - [created] The creation date of the program rule action.
+  /// - [lastUpdated] The last updated date of the program rule action.
+  /// - [uid] The unique identifier string of the program rule action.
+  /// - [programRuleActionType] The type of action to be taken.
+  /// - [content] The content associated with the action, if any.
+  /// - [data] The data associated with the action, if any.
+  /// - [location] The location associated with the action, if any.
   D2ProgramRuleAction(
       this.id,
       this.displayName,
@@ -53,6 +95,10 @@ class D2ProgramRuleAction extends D2MetaResource {
       this.data,
       this.location);
 
+  /// Constructs a [D2ProgramRuleAction] from a JSON map [json].
+  ///
+  /// - [db] The database instance.
+  /// - [json] The JSON map containing program rule action data.
   D2ProgramRuleAction.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),
@@ -92,6 +138,7 @@ class D2ProgramRuleAction extends D2MetaResource {
     }
   }
 
+  /// The display name of the program rule action.
   @override
   String? displayName;
 }

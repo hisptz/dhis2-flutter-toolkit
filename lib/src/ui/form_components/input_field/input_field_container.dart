@@ -31,16 +31,42 @@ import 'models/select_input_field.dart';
 import 'models/text_input_field.dart';
 import 'models/true_only_input_field.dart';
 
+/// This is a container widget for rendering various types of input fields with appropriate decorations.
 class D2InputFieldContainer extends StatelessWidget {
+  /// Configuration for the input field.
   final D2BaseInputFieldConfig input;
+
+  /// Callback for when the value changes.
   final OnChange<dynamic> onChange;
+
+  /// The current value of the input field.
   final dynamic value;
+
+  /// The main color used for the input field's decoration.
   final Color? color;
+
+  /// Error message to display if there is an error.
   final String? error;
+
+  /// Warning message to display if there is a warning.
   final String? warning;
+
+  /// Indicates if the input field is disabled.
   final bool disabled;
+
+  /// Decoration configuration for the input field.
   D2InputDecoration? inputDecoration;
 
+  /// Constructs an input field container with the provided parameters.
+  ///
+  /// - [input] Configuration for the input field.
+  /// - [onChange] Callback for when the value changes.
+  /// - [value] The current value of the input field.
+  /// - [color] The main color used for the input field's decoration.
+  /// - [error] Error message to display if there is an error.
+  /// - [warning] Warning message to display if there is a warning.
+  /// - [disabled] Indicates if the input field is disabled.
+  /// - [inputDecoration] Decoration configuration for the input field.
   D2InputFieldContainer(
       {super.key,
       required this.input,
@@ -137,8 +163,8 @@ class D2InputFieldContainer extends StatelessWidget {
           case D2InputFieldType.integer:
             return CustomTextInput(
                 disabled: disabled,
-                textInputType:
-                    const TextInputType.numberWithOptions(signed: true, decimal: false),
+                textInputType: const TextInputType.numberWithOptions(
+                    signed: true, decimal: false),
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'^-?\d*$'))
                 ],

@@ -10,14 +10,30 @@ import '../form/models/dhis2_form_options.dart';
 import '../form_section/models/form_section.dart';
 import '../input_field/models/base_input_field.dart';
 
+/// This is a utility class for handling enrollment form configuration and sections.
 class D2TrackerEnrollmentFormUtil {
+  /// The program associated with the form utility.
   D2Program program;
+
+  /// Options for configuring the form utility.
   D2TrackerFormOptions options;
+
+  /// Database instance used for data operations.
   D2ObjectBox db;
 
+  /// Constructs a new [D2TrackerEnrollmentFormUtil].
+  ///
+  /// - [program] The program associated with the form utility.
+  /// - [options] Options for configuring the form utility.
+  /// - [db] Database instance used for data operations.
   D2TrackerEnrollmentFormUtil(
       {required this.program, required this.options, required this.db});
 
+  /// Retrieves the list of form field configurations based on tracked entity attributes.
+  ///
+  /// - [attributes] List of tracked entity attributes.
+  ///
+  /// Returns a list of [D2BaseInputFieldConfig]
   List<D2BaseInputFieldConfig> _getFields(
       List<D2TrackedEntityAttribute> attributes) {
     return attributes.map((D2TrackedEntityAttribute attribute) {
@@ -39,6 +55,9 @@ class D2TrackerEnrollmentFormUtil {
     }).toList();
   }
 
+  /// Retrieves the list of form sections based on program sections.
+  ///
+  /// Returns a list of [D2FormSection]
   List<D2FormSection> _getFormSections() {
     return program.programSections
         .map<D2FormSection>((D2ProgramSection programSection) {
@@ -61,6 +80,7 @@ class D2TrackerEnrollmentFormUtil {
         .toList();
   }
 
+  /// Retrieves the form sections.
   get formSections {
     return _getFormSections();
   }

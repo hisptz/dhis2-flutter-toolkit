@@ -5,6 +5,8 @@ import 'base.dart';
 import 'base_deletable.dart';
 
 @Entity()
+
+/// This class represents a data value set in the DHIS2 system.
 class D2DataValueSet extends SyncDataSource implements D2BaseDeletable {
   @override
   int id = 0;
@@ -16,15 +18,13 @@ class D2DataValueSet extends SyncDataSource implements D2BaseDeletable {
   bool synced = true;
 
   ///For this to be unique, it has to include orgUnit, period, attributeOptionCombo, dataElement, and categoryOptionCombo. So it is generated with the format as listed separated by -
+
   @Unique()
   late String uid;
 
   String value;
-
   String period;
-
   String? comment;
-
   bool followup;
 
   D2DataValueSet(this.uid, this.id, this.createdAt, this.updatedAt, this.value,
@@ -35,6 +35,10 @@ class D2DataValueSet extends SyncDataSource implements D2BaseDeletable {
   final attributeOptionCombo = ToOne<D2CategoryOptionCombo>();
   final organisationUnit = ToOne<D2OrgUnit>();
 
+  /// Creates an instance of [D2DataValueSet] from a JSON map.
+  ///
+  /// - [db] The database reference.
+  /// - [json] The JSON map containing the data value set information.
   D2DataValueSet.fromMap(D2ObjectBox db, Map json)
       : updatedAt = DateTime.parse(json["lastUpdated"]),
         createdAt = DateTime.parse(json["created"]),
@@ -56,6 +60,15 @@ class D2DataValueSet extends SyncDataSource implements D2BaseDeletable {
     id = D2DataValueSetRepository(db).getIdByUid(uid) ?? 0;
   }
 
+  /// Creates an instance of [D2DataValueSet] from form values.
+  ///
+  /// - [db] The database reference.
+  /// - [orgUnit] The organization unit.
+  /// - [attributeOptionCombo] The attribute option combo.
+  /// - [period] The period.
+  /// - [value] The value.
+  /// - [dataElement] The data element.
+  /// - [categoryOptionCombo] The category option combo.
   D2DataValueSet.fromForm(
       {required D2ObjectBox db,
       required D2OrgUnit orgUnit,
@@ -77,6 +90,11 @@ class D2DataValueSet extends SyncDataSource implements D2BaseDeletable {
     synced = false;
   }
 
+  /// Converts the data value set to a JSON map.
+  ///
+  /// - [db] Optional database reference.
+  ///
+  /// Returns a [Future<Map<String, dynamic>>] containing the JSON map.
   @override
   Future<Map<String, dynamic>> toMap({D2ObjectBox? db}) async {
     return {
@@ -90,25 +108,38 @@ class D2DataValueSet extends SyncDataSource implements D2BaseDeletable {
     };
   }
 
+  /// Converts the data value set to form values.
+  ///
+  /// Returns a [Map] containing the form values.
   Map<String, dynamic> toFormValues() {
     if (categoryOptionCombo.target != null) {
       return {
         '${dataElement.target!.uid}.${categoryOptionCombo.target!.uid}': value
       };
     }
-
     return {dataElement.target!.uid: value};
   }
 
+  /// Saves the data value set to the database.
+  ///
+  /// - [db] The database reference.
   void save(D2ObjectBox db) {
     db.store.box<D2DataValueSet>().put(this);
   }
 
+  /// Deletes the data value set from the database.
+  ///
+  /// - [db] The database reference.
+  ///
+  /// Returns a [bool] indicating the success of the operation.
   @override
   bool delete(D2ObjectBox db) {
     return D2DataValueSetRepository(db).box.remove(id);
   }
 
+  /// Soft deletes the data value set.
+  ///
+  /// - [db] The database reference.
   @override
   void softDelete(db) {}
 }

@@ -3,27 +3,27 @@ import 'package:flutter/material.dart';
 import '../components/d2_app_action_sheet_modal_container.dart';
 import '../components/d2_app_confirmation_container.dart';
 
-// Utility class for showing modal in a application.
+/// Utility class for showing modals in an application.
 class D2AppModalUtil {
-  // Shows an action sheet modal with a custom container.
-  //
-  // This method uses [showModalBottomSheet] from Flutter's Material library to
-  // display the action sheet.
-  //
-  // Parameters:
-  // - title: The title of the action sheet.
-  // - titleColor: The color for the title of the action sheet.
-  // - context: The BuildContext required for the showModalBottomSheet method.
-  // - actionSheetContainer: The widget that represents the content of the action
-  //   sheet.
-  // - initialHeightRatio: The initial height ratio of the action sheet. Defaults
-  //   to 0.3.
-  // - minHeightRatio: The minimum height ratio of the action sheet. Defaults to
-  //   0.1.
-  // - maxHeightRatio: The maximum height ratio of the action sheet. Defaults to
-  //   0.85.
-  // - topBorderRadius: The top border radius of the action sheet. Defaults to
-  //   20.0.
+  /// Shows an action sheet modal with a custom container.
+  ///
+  /// This method uses [showModalBottomSheet] from Flutter's Material library to
+  /// display the action sheet.
+  ///
+  /// Parameters:
+  /// - [context] The BuildContext required for the showModalBottomSheet method.
+  /// - [actionSheetContainer] The widget that represents the content of the action
+  ///   sheet.
+  /// - [title] The title of the action sheet.
+  /// - [titleColor] The color for the title of the action sheet.
+  /// - [initialHeightRatio] The initial height ratio of the action sheet. Defaults
+  ///   to 0.3.
+  /// - [minHeightRatio] The minimum height ratio of the action sheet. Defaults to
+  ///   0.1.
+  /// - [maxHeightRatio] The maximum height ratio of the action sheet. Defaults to
+  ///   0.85.
+  /// - [topBorderRadius] The top border radius of the action sheet. Defaults to
+  ///   20.0.
   static Future showActionSheetModal(
     BuildContext context, {
     required Widget actionSheetContainer,
@@ -59,24 +59,27 @@ class D2AppModalUtil {
     );
   }
 
-  // Shows a pop-up confirmation dialog with customizable properties.
-  //
-  // This function is used to display a dialog with a title, border radius,
-  // padding, margin, theme color, confirmation button theme color,
-  // action button alignment, confirmation content, custom confirmation
-  // action buttons, and an onConfirm callback.
-  //
-  // The [title] is optional and can be an empty string.
-  // The [cancelActionLabel] is optional and defaults to Cancel.
-  // The [confirmActionLabel] is optional and defaults to Confirm.
-  // The [borderRadius] is optional and defaults to 16.0.
-  // The [confirmationContainerPadding] is optional and defaults to 5.0.
-  // The [confirmationContainerMargin] is optional and defaults to 10.0.
-  // The [themColor] is optional and defaults to Color(0xFF619E51).
-  // The [confirmationButtomThemColor] is optional and defaults to Color(0xFF619E51).
-  // The [actionButtomAlignment] is optional and defaults to MainAxisAlignment.center.
-  // The [confirmationContent] and [customConfirmationActionButtons] are optional.
-  // The [onConfirm] callback is optional.
+  /// Shows a pop-up confirmation dialog with customizable properties.
+  ///
+  /// This function is used to display a dialog with a title, border radius,
+  /// padding, margin, theme color, confirmation button theme color,
+  /// action button alignment, confirmation content, custom confirmation
+  /// action buttons, and an onConfirm callback.
+  ///
+  /// Parameters:
+  /// - [context] The BuildContext required for showDialog method.
+  /// - [title] The title of the dialog.
+  /// - [cancelActionLabel] Label for the cancel action button.
+  /// - [confirmActionLabel] Label for the confirm action button.
+  /// - [borderRadius] Border radius of the dialog. Defaults to 16.0.
+  /// - [confirmationContainerPadding] Padding of the dialog content. Defaults to 5.0.
+  /// - [confirmationContainerMargin] Margin of the dialog content. Defaults to 16.0.
+  /// - [themColor] Theme color of the dialog. Defaults to Color(0xFF619E51).
+  /// - [confirmationButtomThemColor] Theme color of the confirmation button. Defaults to Color(0xFF619E51).
+  /// - [actionButtomAlignment] Alignment of the action buttons. Defaults to MainAxisAlignment.center.
+  /// - [confirmationContent] Widget representing the content of the confirmation dialog.
+  /// - [customConfirmationActionButtons] List of custom action buttons.
+  /// - [onConfirm] Callback for the confirm action.
   static void showPopUpConfirmation(
     BuildContext context, {
     String title = '',

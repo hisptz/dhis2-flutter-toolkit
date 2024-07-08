@@ -11,18 +11,36 @@ import '../../repositories/metadata/user.dart';
 import '../../utils/sync_status.dart';
 import '../client/client.dart';
 
+/// This is a service class for managing tracker data uploads.
+///
+/// This class provides methods for setting up and executing tracker data uploads
+/// from the local database to the server.
 class D2TrackerDataUploadService {
+  /// The database instance.
   D2ObjectBox db;
+
+  /// The client service for making network requests.
   D2ClientService client;
+
+  /// The stream controller for managing upload status updates.
   StreamController<D2SyncStatus> uploadController =
       StreamController<D2SyncStatus>();
 
+  /// Constructs a new [D2TrackerDataUploadService].
+  ///
+  /// - [db] The database instance.
+  /// - [client] The client service for making network requests.
   D2TrackerDataUploadService(this.db, this.client);
 
+  /// Gets the upload status stream.
   get uploadStream {
     return uploadController.stream;
   }
 
+  /// Sets up and starts the data upload process.
+  ///
+  /// This method retrieves the user's programs and initiates the upload
+  /// for each program's tracked entities, enrollments, and events.
   Future setupDataUpload() async {
     D2User? user = D2UserRepository(db).get();
     if (user == null) {
@@ -55,6 +73,7 @@ class D2TrackerDataUploadService {
     }
   }
 
+  /// Initiates the upload process and marks it as complete upon success.
   Future<void> upload() async {
     await setupDataUpload();
     uploadController

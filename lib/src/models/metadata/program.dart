@@ -16,30 +16,47 @@ import 'program_tracked_entity_attribute.dart';
 import 'tracked_entity_type.dart';
 
 @Entity()
+
+/// This class represents a program in the DHIS2 system with various utility methods.
 class D2Program extends D2MetaResource {
   @override
   int id = 0;
+
+  /// The creation date of the program.
   DateTime created;
 
+  /// The last updated date of the program.
   DateTime lastUpdated;
 
   @override
   @Unique()
   String uid;
 
+  /// The name of the program.
   String name;
+
+  /// The short name of the program.
   String shortName;
+
+  /// The access level of the program.
   String accessLevel;
 
+  /// The feature type of the program.
   String? featureType;
 
+  /// The color for the program
   String? color;
 
+  /// The type of the program.
   String programType;
+
+  /// Whether the program can only be enrolled once.
   bool? onlyEnrollOnce;
 
+  /// Whether enrollment dates can be selected in the future.
   bool? selectEnrollmentDatesInFuture;
 
+  /// The organisation units associated with the program.
   final organisationUnits = ToMany<D2OrgUnit>();
 
   @Backlink("program")
@@ -54,16 +71,12 @@ class D2Program extends D2MetaResource {
   @Backlink("program")
   final programSections = ToMany<D2ProgramSection>();
 
+  /// The tracked entity type associated with the program.
   final trackedEntityType = ToOne<D2TrackedEntityType>();
 
   @Backlink("program")
   final programTrackedEntityAttributes =
       ToMany<D2ProgramTrackedEntityAttribute>();
-
-  Color? get dartColor {
-    if (color == null) return null;
-    return Color(int.parse(color!.substring(1, 7), radix: 16) + 0xFF000000);
-  }
 
   D2Program(
       this.created,
@@ -78,6 +91,10 @@ class D2Program extends D2MetaResource {
       this.displayName,
       this.featureType);
 
+  /// Constructs a [D2Program] from a JSON map [json].
+  ///
+  /// - [db] The database instance.
+  /// - [json] The JSON map containing program data.
   D2Program.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"]),
@@ -112,5 +129,6 @@ class D2Program extends D2MetaResource {
     organisationUnits.addAll(orgUnits);
   }
 
+  /// The display name of the program.
   String? displayName;
 }
