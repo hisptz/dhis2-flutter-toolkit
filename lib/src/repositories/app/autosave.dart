@@ -11,19 +11,49 @@ class D2AppAutoSaveRepository {
   D2AppAutoSaveRepository(this.db);
 
   List<D2AppAutoSave>? getByProgram(D2Program program) {
-    Query<D2AppAutoSave> query =
-        box.query(D2AppAutoSave_.program.equals(program.id)).build();
+    Query<D2AppAutoSave> query = box
+        .query(D2AppAutoSave_.program
+            .equals(program.id)
+            .and(D2AppAutoSave_.enrollment.equals(0)))
+        .build();
     return query.find();
   }
 
   List<D2AppAutoSave>? getByProgramStage(D2ProgramStage programStage) {
+    Query<D2AppAutoSave> query = box
+        .query(D2AppAutoSave_.programStage
+            .equals(programStage.id)
+            .and(D2AppAutoSave_.event.equals(0)))
+        .build();
+    return query.find();
+  }
+
+  List<D2AppAutoSave>? getByEnrollment(D2Enrollment enrollment) {
     Query<D2AppAutoSave> query =
-        box.query(D2AppAutoSave_.programStage.equals(programStage.id)).build();
+        box.query(D2AppAutoSave_.enrollment.equals(enrollment.id)).build();
+    return query.find();
+  }
+
+  List<D2AppAutoSave>? getByEvent(D2Event event) {
+    Query<D2AppAutoSave> query =
+        box.query(D2AppAutoSave_.event.equals(event.id)).build();
     return query.find();
   }
 
   int? getIdByProgram(D2Program program) {
     return getByProgram(program)?.firstOrNull?.id;
+  }
+
+  int? getIdByProgramStage(D2ProgramStage programStage) {
+    return getByProgramStage(programStage)?.firstOrNull?.id;
+  }
+
+  int? getIdByEnrollment(D2Enrollment enrollment) {
+    return getByEnrollment(enrollment)?.firstOrNull?.id;
+  }
+
+  int? getIdByEvent(D2Event event) {
+    return getByEvent(event)?.firstOrNull?.id;
   }
 
   D2AppAutoSave mapper(Map<String, dynamic> json) {
