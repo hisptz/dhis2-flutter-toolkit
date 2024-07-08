@@ -3211,7 +3211,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(51, 7702431831916362393),
       name: 'D2AppAutoSave',
-      lastPropertyId: const obx_int.IdUid(7, 2238094843613227757),
+      lastPropertyId: const obx_int.IdUid(9, 1462839098289536193),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -3247,7 +3247,21 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(6, 7891031920704038289),
             name: 'updatedAt',
             type: 10,
-            flags: 0)
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(8, 2341148576033638621),
+            name: 'enrollmentId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(125, 169224762123669753),
+            relationTarget: 'D2Enrollment'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(9, 1462839098289536193),
+            name: 'eventId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(126, 1231265935167275863),
+            relationTarget: 'D2Event')
       ],
       relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[])
@@ -3289,7 +3303,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
       lastEntityId: const obx_int.IdUid(51, 7702431831916362393),
-      lastIndexId: const obx_int.IdUid(124, 5956572668431648531),
+      lastIndexId: const obx_int.IdUid(126, 1231265935167275863),
       lastRelationId: const obx_int.IdUid(27, 722672923808169924),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [
@@ -6807,8 +6821,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
         }),
     D2AppAutoSave: obx_int.EntityDefinition<D2AppAutoSave>(
         model: _entities[47],
-        toOneRelations: (D2AppAutoSave object) =>
-            [object.program, object.programStage],
+        toOneRelations: (D2AppAutoSave object) => [
+              object.program,
+              object.programStage,
+              object.enrollment,
+              object.event
+            ],
         toManyRelations: (D2AppAutoSave object) => {},
         getId: (D2AppAutoSave object) => object.id,
         setId: (D2AppAutoSave object, int id) {
@@ -6816,13 +6834,15 @@ obx_int.ModelDefinition getObjectBoxModel() {
         },
         objectToFB: (D2AppAutoSave object, fb.Builder fbb) {
           final dataOffset = fbb.writeString(object.data);
-          fbb.startTable(8);
+          fbb.startTable(10);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, dataOffset);
           fbb.addInt64(2, object.program.targetId);
           fbb.addInt64(3, object.programStage.targetId);
           fbb.addInt64(4, object.createdAt.millisecondsSinceEpoch);
           fbb.addInt64(5, object.updatedAt.millisecondsSinceEpoch);
+          fbb.addInt64(7, object.enrollment.targetId);
+          fbb.addInt64(8, object.event.targetId);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -6844,6 +6864,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.programStage.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0);
           object.programStage.attach(store);
+          object.enrollment.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
+          object.enrollment.attach(store);
+          object.event.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0);
+          object.event.attach(store);
           return object;
         })
   };
@@ -9163,4 +9189,12 @@ class D2AppAutoSave_ {
   /// see [D2AppAutoSave.updatedAt]
   static final updatedAt =
       obx.QueryDateProperty<D2AppAutoSave>(_entities[47].properties[5]);
+
+  /// see [D2AppAutoSave.enrollment]
+  static final enrollment = obx.QueryRelationToOne<D2AppAutoSave, D2Enrollment>(
+      _entities[47].properties[6]);
+
+  /// see [D2AppAutoSave.event]
+  static final event = obx.QueryRelationToOne<D2AppAutoSave, D2Event>(
+      _entities[47].properties[7]);
 }
