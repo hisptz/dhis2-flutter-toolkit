@@ -3176,7 +3176,7 @@
     },
     {
       "id": "51:7702431831916362393",
-      "lastPropertyId": "7:2238094843613227757",
+      "lastPropertyId": "9:1462839098289536193",
       "name": "D2AppAutoSave",
       "properties": [
         {
@@ -3215,13 +3215,29 @@
           "id": "6:7891031920704038289",
           "name": "updatedAt",
           "type": 10
+        },
+        {
+          "id": "8:2341148576033638621",
+          "name": "enrollmentId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "125:169224762123669753",
+          "relationTarget": "D2Enrollment"
+        },
+        {
+          "id": "9:1462839098289536193",
+          "name": "eventId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "126:1231265935167275863",
+          "relationTarget": "D2Event"
         }
       ],
       "relations": []
     }
   ],
   "lastEntityId": "51:7702431831916362393",
-  "lastIndexId": "124:5956572668431648531",
+  "lastIndexId": "126:1231265935167275863",
   "lastRelationId": "27:722672923808169924",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
