@@ -62,7 +62,7 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
 
       Map<String, dynamic>? formValues = widget.controller.formValues;
 
-      formValues?.removeWhere((key, value) {
+      formValues.removeWhere((key, value) {
         if (value == null) {
           return true;
         } else if (value is String && (value.isEmpty || value == 'null')) {
