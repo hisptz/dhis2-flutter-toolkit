@@ -15,6 +15,7 @@ import 'package:objectbox/internal.dart'
 import 'package:objectbox/objectbox.dart' as obx;
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
+import 'src/models/app/autosave.dart';
 import 'src/models/app/logs.dart';
 import 'src/models/data/attribute_value.dart';
 import 'src/models/data/data_store.dart';
@@ -3206,6 +3207,63 @@ final _entities = <obx_int.ModelEntity>[
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[]),
+  obx_int.ModelEntity(
+      id: const obx_int.IdUid(51, 7702431831916362393),
+      name: 'D2AppAutoSave',
+      lastPropertyId: const obx_int.IdUid(9, 1462839098289536193),
+      flags: 0,
+      properties: <obx_int.ModelProperty>[
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(1, 8907584946148957521),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(2, 3503999648305965434),
+            name: 'data',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(3, 7751115834759788292),
+            name: 'programId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(123, 4659434041632935461),
+            relationTarget: 'D2Program'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(4, 1487083914021380012),
+            name: 'programStageId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(124, 5956572668431648531),
+            relationTarget: 'D2ProgramStage'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(5, 6799437844411985222),
+            name: 'createdAt',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(6, 7891031920704038289),
+            name: 'updatedAt',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(8, 2341148576033638621),
+            name: 'enrollmentId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(125, 169224762123669753),
+            relationTarget: 'D2Enrollment'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(9, 1462839098289536193),
+            name: 'eventId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(126, 1231265935167275863),
+            relationTarget: 'D2Event')
+      ],
+      relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[])
 ];
 
@@ -3244,8 +3302,8 @@ Future<obx.Store> openStore(
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
-      lastEntityId: const obx_int.IdUid(50, 3788266274691932455),
-      lastIndexId: const obx_int.IdUid(122, 2991693433776428510),
+      lastEntityId: const obx_int.IdUid(51, 7702431831916362393),
+      lastIndexId: const obx_int.IdUid(126, 1231265935167275863),
       lastRelationId: const obx_int.IdUid(27, 722672923808169924),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [
@@ -3289,7 +3347,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
         3651093929227157814,
         5235438825146600120,
         7922301324287560950,
-        8205999314347292812
+        8205999314347292812,
+        2238094843613227757
       ],
       retiredRelationUids: const [
         6008783994488891808,
@@ -6759,6 +6818,59 @@ obx_int.ModelDefinition getObjectBoxModel() {
               idParam, timestampParam, processParam);
 
           return object;
+        }),
+    D2AppAutoSave: obx_int.EntityDefinition<D2AppAutoSave>(
+        model: _entities[47],
+        toOneRelations: (D2AppAutoSave object) => [
+              object.program,
+              object.programStage,
+              object.enrollment,
+              object.event
+            ],
+        toManyRelations: (D2AppAutoSave object) => {},
+        getId: (D2AppAutoSave object) => object.id,
+        setId: (D2AppAutoSave object, int id) {
+          object.id = id;
+        },
+        objectToFB: (D2AppAutoSave object, fb.Builder fbb) {
+          final dataOffset = fbb.writeString(object.data);
+          fbb.startTable(10);
+          fbb.addInt64(0, object.id);
+          fbb.addOffset(1, dataOffset);
+          fbb.addInt64(2, object.program.targetId);
+          fbb.addInt64(3, object.programStage.targetId);
+          fbb.addInt64(4, object.createdAt.millisecondsSinceEpoch);
+          fbb.addInt64(5, object.updatedAt.millisecondsSinceEpoch);
+          fbb.addInt64(7, object.enrollment.targetId);
+          fbb.addInt64(8, object.event.targetId);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (obx.Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+          final idParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+          final dataParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 6, '');
+          final object = D2AppAutoSave(idParam, dataParam)
+            ..createdAt = DateTime.fromMillisecondsSinceEpoch(
+                const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0))
+            ..updatedAt = DateTime.fromMillisecondsSinceEpoch(
+                const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0));
+          object.program.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0);
+          object.program.attach(store);
+          object.programStage.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0);
+          object.programStage.attach(store);
+          object.enrollment.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
+          object.enrollment.attach(store);
+          object.event.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0);
+          object.event.attach(store);
+          return object;
         })
   };
 
@@ -9049,4 +9161,40 @@ class D2AppLog_ {
   /// see [D2AppLog.stackTrace]
   static final stackTrace =
       obx.QueryStringProperty<D2AppLog>(_entities[46].properties[5]);
+}
+
+/// [D2AppAutoSave] entity fields to define ObjectBox queries.
+class D2AppAutoSave_ {
+  /// see [D2AppAutoSave.id]
+  static final id =
+      obx.QueryIntegerProperty<D2AppAutoSave>(_entities[47].properties[0]);
+
+  /// see [D2AppAutoSave.data]
+  static final data =
+      obx.QueryStringProperty<D2AppAutoSave>(_entities[47].properties[1]);
+
+  /// see [D2AppAutoSave.program]
+  static final program = obx.QueryRelationToOne<D2AppAutoSave, D2Program>(
+      _entities[47].properties[2]);
+
+  /// see [D2AppAutoSave.programStage]
+  static final programStage =
+      obx.QueryRelationToOne<D2AppAutoSave, D2ProgramStage>(
+          _entities[47].properties[3]);
+
+  /// see [D2AppAutoSave.createdAt]
+  static final createdAt =
+      obx.QueryDateProperty<D2AppAutoSave>(_entities[47].properties[4]);
+
+  /// see [D2AppAutoSave.updatedAt]
+  static final updatedAt =
+      obx.QueryDateProperty<D2AppAutoSave>(_entities[47].properties[5]);
+
+  /// see [D2AppAutoSave.enrollment]
+  static final enrollment = obx.QueryRelationToOne<D2AppAutoSave, D2Enrollment>(
+      _entities[47].properties[6]);
+
+  /// see [D2AppAutoSave.event]
+  static final event = obx.QueryRelationToOne<D2AppAutoSave, D2Event>(
+      _entities[47].properties[7]);
 }
