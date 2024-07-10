@@ -50,9 +50,10 @@ class _D2TrackerEventFormState extends State<D2TrackerEventForm> {
 
   void _startAutoSaveTimer() {
     _autoSaveTimer?.cancel();
-    _autoSaveTimer = (widget.disableAutoSave)
-        ? null
-        : Timer(const Duration(seconds: 1), _performAutoSave);
+    _autoSaveTimer =
+        (widget.disableAutoSave || widget.onCheckAutoSavedValue == null)
+            ? null
+            : Timer(const Duration(seconds: 1), _performAutoSave);
   }
 
   Future<void> _performAutoSave() async {
