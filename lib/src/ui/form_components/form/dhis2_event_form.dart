@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +12,7 @@ class D2TrackerEventForm extends StatefulWidget {
   final bool disabled;
   final bool disableAutoSave;
   final bool triggeredDecision;
-  final String autoSaveMessage;
+  final String? autoSaveMessage;
 
   const D2TrackerEventForm(
       {super.key,
@@ -25,7 +24,7 @@ class D2TrackerEventForm extends StatefulWidget {
       this.disabled = false,
       this.disableAutoSave = false,
       this.triggeredDecision = false,
-      required this.autoSaveMessage});
+      this.autoSaveMessage});
 
   @override
   State<D2TrackerEventForm> createState() => _D2TrackerEventFormState();
@@ -178,8 +177,8 @@ class _D2TrackerEventFormState extends State<D2TrackerEventForm> {
         children: [
           Center(
               child: Text(
-            widget.autoSaveMessage,
-            // 'Would you like to continue with the auto-saved data available?',
+            widget.autoSaveMessage ??
+                'Would you like to continue with the auto-saved data available?',
             textAlign: TextAlign.center,
           )),
           Container(
