@@ -11,7 +11,7 @@ class D2TrackerEventForm extends StatefulWidget {
   final Color? color;
   final bool disabled;
   final bool disableAutoSave;
-  final bool triggeredDecision;
+
   final String? autoSaveMessage;
 
   const D2TrackerEventForm(
@@ -23,7 +23,6 @@ class D2TrackerEventForm extends StatefulWidget {
       this.color,
       this.disabled = false,
       this.disableAutoSave = false,
-      this.triggeredDecision = false,
       this.autoSaveMessage});
 
   @override
