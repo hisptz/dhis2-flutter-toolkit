@@ -12,7 +12,7 @@ class D2TrackerRegistrationForm extends StatefulWidget {
   final Function onCheckAutoSavedValue;
   final bool disabled;
   final bool disableAutoSave;
-  final String autoSaveMessage;
+  final String? autoSaveMessage;
 
   const D2TrackerRegistrationForm(
       {super.key,
@@ -22,7 +22,7 @@ class D2TrackerRegistrationForm extends StatefulWidget {
       this.color,
       this.disabled = false,
       required this.onCheckAutoSavedValue,
-      required this.autoSaveMessage,
+      this.autoSaveMessage,
       this.disableAutoSave = false});
 
   @override
@@ -165,8 +165,8 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
         children: [
           Center(
               child: Text(
-            widget.autoSaveMessage,
-            // 'Would you like to continue with the auto-saved data available?',
+            widget.autoSaveMessage ??
+                'Would you like to continue with the auto-saved data available?',
             textAlign: TextAlign.center,
           )),
           Container(
