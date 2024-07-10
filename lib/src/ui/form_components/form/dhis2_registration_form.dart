@@ -163,7 +163,9 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
         .formSections;
     Color formColor = widget.color ?? Theme.of(context).primaryColor;
 
-    if (!widget.disableAutoSave && hasAutoSavedValue) {
+    if (!widget.disableAutoSave &&
+        hasAutoSavedValue &&
+        widget.onCheckAutoSavedValue != null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
