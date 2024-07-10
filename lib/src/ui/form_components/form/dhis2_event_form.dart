@@ -7,7 +7,7 @@ class D2TrackerEventForm extends StatefulWidget {
   final D2TrackerEventFormController controller;
   final D2ProgramStage programStage;
   final D2TrackerFormOptions options;
-  final Function onCheckAutoSavedValue;
+  final Function? onCheckAutoSavedValue;
   final Color? color;
   final bool disabled;
   final bool disableAutoSave;
@@ -19,7 +19,7 @@ class D2TrackerEventForm extends StatefulWidget {
       required this.controller,
       required this.programStage,
       required this.options,
-      required this.onCheckAutoSavedValue,
+      this.onCheckAutoSavedValue,
       this.color,
       this.disabled = false,
       this.disableAutoSave = false,
@@ -122,7 +122,9 @@ class _D2TrackerEventFormState extends State<D2TrackerEventForm> {
 
       hasAutoSavedValue = checkAutoSavedValue();
     }
-    widget.onCheckAutoSavedValue(hasAutoSavedValue);
+    widget.onCheckAutoSavedValue != null
+        ? widget.onCheckAutoSavedValue!(hasAutoSavedValue)
+        : null;
   }
 
   void onContinue() {
@@ -155,7 +157,9 @@ class _D2TrackerEventFormState extends State<D2TrackerEventForm> {
 
     hasAutoSavedValue = false;
 
-    widget.onCheckAutoSavedValue(hasAutoSavedValue);
+    widget.onCheckAutoSavedValue != null
+        ? widget.onCheckAutoSavedValue!(hasAutoSavedValue)
+        : null;
   }
 
   @override
