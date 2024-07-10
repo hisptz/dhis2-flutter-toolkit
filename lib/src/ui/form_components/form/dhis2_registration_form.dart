@@ -9,7 +9,7 @@ class D2TrackerRegistrationForm extends StatefulWidget {
   final D2Program program;
   final D2TrackerFormOptions options;
   final Color? color;
-  final Function onCheckAutoSavedValue;
+  final Function? onCheckAutoSavedValue;
   final bool disabled;
   final bool disableAutoSave;
   final String? autoSaveMessage;
@@ -21,7 +21,7 @@ class D2TrackerRegistrationForm extends StatefulWidget {
       required this.options,
       this.color,
       this.disabled = false,
-      required this.onCheckAutoSavedValue,
+      this.onCheckAutoSavedValue,
       this.autoSaveMessage,
       this.disableAutoSave = false});
 
@@ -123,7 +123,9 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
 
       hasAutoSavedValue = checkAutoSavedValue();
     }
-    widget.onCheckAutoSavedValue(hasAutoSavedValue);
+    widget.onCheckAutoSavedValue != null
+        ? widget.onCheckAutoSavedValue!(hasAutoSavedValue)
+        : null;
   }
 
   void onContinue() {
@@ -147,7 +149,9 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
 
     widget.controller.setValues(autoSavedValues);
     hasAutoSavedValue = false;
-    widget.onCheckAutoSavedValue(hasAutoSavedValue);
+    widget.onCheckAutoSavedValue != null
+        ? widget.onCheckAutoSavedValue!(hasAutoSavedValue)
+        : null;
   }
 
   @override
