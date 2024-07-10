@@ -175,7 +175,9 @@ class _D2TrackerEventFormState extends State<D2TrackerEventForm> {
 
     Color formColor = widget.color ?? Theme.of(context).primaryColor;
 
-    if (!widget.disableAutoSave && hasAutoSavedValue) {
+    if (!widget.disableAutoSave &&
+        hasAutoSavedValue &&
+        widget.onCheckAutoSavedValue != null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
