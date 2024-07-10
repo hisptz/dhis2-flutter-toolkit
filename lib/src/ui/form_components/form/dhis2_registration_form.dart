@@ -49,9 +49,10 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
 
   void _startAutoSaveTimer() {
     _autoSaveTimer?.cancel();
-    _autoSaveTimer = (widget.disableAutoSave)
-        ? null
-        : Timer(const Duration(seconds: 1), _performAutoSave);
+    _autoSaveTimer =
+        (widget.disableAutoSave || widget.onCheckAutoSavedValue == null)
+            ? null
+            : Timer(const Duration(seconds: 1), _performAutoSave);
   }
 
   Future<void> _performAutoSave() async {
