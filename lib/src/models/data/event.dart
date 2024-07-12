@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_deletable.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
 import 'package:dhis2_flutter_toolkit/src/utils/uid.dart';
@@ -220,6 +221,19 @@ class D2Event extends SyncDataSource
     occurredAt = DateTime.tryParse(values["occurredAt"]) ?? occurredAt;
     for (D2DataValue dataValue in dataValues) {
       dataValue.updateFromFormValues(values, db: db);
+    }
+    // update data values with none-existing formValues
+    for (var formValue in values.keys) {
+      if (dataValues.firstWhereOrNull(
+              (element) => element.dataElement.target?.uid == formValue) ==
+          null) {
+        D2DataElement? dataElement =
+            D2DataElementRepository(db).getByUid(formValue);
+        if (dataElement != null) {
+          dataValues.add(D2DataValue.fromFormValues(values[formValue],
+              event: this, dataElement: dataElement));
+        }
+      }
     }
     if (values["geometry"] != null) {
       var geometryValue = values["geometry"];
