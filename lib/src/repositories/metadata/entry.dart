@@ -25,6 +25,7 @@ export "program_stage_section.dart" show D2ProgramStageSectionRepository;
 export "program_tracked_entity_attribute.dart"
     show D2ProgramTrackedEntityAttributeRepository;
 export "relationship_type.dart" show D2RelationshipTypeRepository;
+export "sharing.dart" show D2SharingRepository;
 export "system_info.dart" show D2SystemInfoRepository;
 export "tracked_entity_attribute.dart" show D2TrackedEntityAttributeRepository;
 export "tracked_entity_type.dart" show D2TrackedEntityTypeRepository;

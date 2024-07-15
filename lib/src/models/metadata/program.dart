@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:dhis2_flutter_toolkit/src/models/metadata/sharing.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../../objectbox.dart';
@@ -39,6 +40,8 @@ class D2Program extends D2MetaResource {
   bool? onlyEnrollOnce;
 
   bool? selectEnrollmentDatesInFuture;
+
+  final sharing = ToOne<D2Sharing>();
 
   final organisationUnits = ToMany<D2OrgUnit>();
 

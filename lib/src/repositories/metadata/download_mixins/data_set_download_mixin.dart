@@ -1,4 +1,5 @@
 import '../../../models/metadata/data_set.dart';
+import '../../../models/metadata/sharing.dart';
 import '../../../services/entry.dart';
 import '../../../utils/entry.dart';
 import '../category.dart';
@@ -11,6 +12,7 @@ import '../legend.dart';
 import '../legend_set.dart';
 import '../option.dart';
 import '../option_set.dart';
+import '../sharing.dart';
 import 'base_meta_download_mixin.dart';
 
 mixin D2DataSetDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2DataSet> {
@@ -66,6 +68,12 @@ mixin D2DataSetDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2DataSet> {
     }
   }
 
+  Future<List<D2Sharing>> saveSharingSettings(
+    List<Map<String, dynamic>> objects,
+  ) {
+    return D2SharingRepository(db).saveOffline(objects);
+  }
+
   Future<void> syncDataSet(String dataSetId) async {
     Map<String, dynamic>? dataSetMetadata =
         await client!.httpGet("$resource/$dataSetId/metadata");
@@ -89,6 +97,10 @@ mixin D2DataSetDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2DataSet> {
       List<Map<String, dynamic>> value =
           element.value.cast<Map<String, dynamic>>();
       await syncMeta(element.key, value);
+
+      if (["dataSets"].contains(element.key)) {
+        await saveSharingSettings(value);
+      }
     });
   }
 
