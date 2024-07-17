@@ -785,7 +785,7 @@
     },
     {
       "id": "13:842731617041164856",
-      "lastPropertyId": "14:9086845839283233654",
+      "lastPropertyId": "15:5561249140034450894",
       "name": "D2Program",
       "properties": [
         {
@@ -863,6 +863,14 @@
           "id": "14:9086845839283233654",
           "name": "color",
           "type": 9
+        },
+        {
+          "id": "15:5561249140034450894",
+          "name": "sharingId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "127:2133040154421627187",
+          "relationTarget": "D2Sharing"
         }
       ],
       "relations": [
@@ -3234,10 +3242,144 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "52:5110433598851863914",
+      "lastPropertyId": "8:889319897066997205",
+      "name": "D2Sharing",
+      "properties": [
+        {
+          "id": "1:8386834464525307547",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:86497132542782737",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "133:8716472974870458034"
+        },
+        {
+          "id": "3:5036550836550183143",
+          "name": "owner",
+          "type": 9
+        },
+        {
+          "id": "4:6596369829997828525",
+          "name": "external",
+          "type": 1
+        },
+        {
+          "id": "5:504360125861408526",
+          "name": "public",
+          "type": 9
+        },
+        {
+          "id": "6:7892073021305207795",
+          "name": "programId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "128:1630261984002993172",
+          "relationTarget": "D2Program"
+        },
+        {
+          "id": "7:669715365649582654",
+          "name": "programStageId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "129:8259448726626854686",
+          "relationTarget": "D2ProgramStage"
+        },
+        {
+          "id": "8:889319897066997205",
+          "name": "dataSetId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "132:4766871569166237777",
+          "relationTarget": "D2DataSet"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "53:4727383786984860167",
+      "lastPropertyId": "5:2067711576775018336",
+      "name": "D2UserGroupSharing",
+      "properties": [
+        {
+          "id": "1:3311743209333384670",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7088044819944682197",
+          "name": "displayName",
+          "type": 9
+        },
+        {
+          "id": "3:7719271271000824275",
+          "name": "access",
+          "type": 9
+        },
+        {
+          "id": "4:8806015624068659538",
+          "name": "userGroupId",
+          "type": 9
+        },
+        {
+          "id": "5:2067711576775018336",
+          "name": "sharingId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "130:6361695183103328082",
+          "relationTarget": "D2Sharing"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "54:1183349282019494001",
+      "lastPropertyId": "5:3903149080217315669",
+      "name": "D2UserSharing",
+      "properties": [
+        {
+          "id": "1:6010671725720966445",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2434851925915109472",
+          "name": "sharingId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "131:6278696128238798942",
+          "relationTarget": "D2Sharing"
+        },
+        {
+          "id": "3:5418526709810587339",
+          "name": "displayName",
+          "type": 9
+        },
+        {
+          "id": "4:2926156892507560282",
+          "name": "access",
+          "type": 9
+        },
+        {
+          "id": "5:3903149080217315669",
+          "name": "userId",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "51:7702431831916362393",
-  "lastIndexId": "126:1231265935167275863",
+  "lastEntityId": "54:1183349282019494001",
+  "lastIndexId": "133:8716472974870458034",
   "lastRelationId": "27:722672923808169924",
   "lastSequenceId": "0:0",
   "modelVersion": 5,

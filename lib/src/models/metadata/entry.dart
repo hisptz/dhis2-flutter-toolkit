@@ -24,6 +24,7 @@ export "program_stage_section.dart" show D2ProgramStageSection;
 export "program_tracked_entity_attribute.dart"
     show D2ProgramTrackedEntityAttribute;
 export "relationship_type.dart" show D2RelationshipType;
+export "sharing.dart" show D2Sharing;
 export "system_info.dart" show D2SystemInfo;
 export "tracked_entity_attribute.dart" show D2TrackedEntityAttribute;
 export "tracked_entity_type.dart" show D2TrackedEntityType;

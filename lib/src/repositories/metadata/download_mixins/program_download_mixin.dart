@@ -1,4 +1,6 @@
+import 'package:dhis2_flutter_toolkit/src/models/metadata/sharing.dart';
 import 'package:dhis2_flutter_toolkit/src/repositories/metadata/option_group.dart';
+import 'package:dhis2_flutter_toolkit/src/repositories/metadata/sharing.dart';
 
 import '../../../models/metadata/program.dart';
 import '../../../services/client/client.dart';
@@ -97,6 +99,12 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
     "programRuleActions",
   ];
 
+  Future<List<D2Sharing>> saveSharingSettings(
+    List<Map<String, dynamic>> objects,
+  ) {
+    return D2SharingRepository(db).saveOffline(objects);
+  }
+
   Future<void> syncProgram(String programId) async {
     Map<String, dynamic>? programMetadata = await client!
         .httpGet<Map<String, dynamic>>("programs/$programId/metadata");
@@ -121,8 +129,11 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
           element.value.cast<Map<String, dynamic>>();
 
       await getLegendSets(value);
-
       await syncMeta(element.key, value);
+
+      if (["programs", "programStages"].contains(element.key)) {
+        await saveSharingSettings(value);
+      }
     });
   }
 
