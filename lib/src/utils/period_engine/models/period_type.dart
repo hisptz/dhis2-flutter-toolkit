@@ -7,8 +7,8 @@ import 'package:collection/collection.dart';
 import 'package:dart_date/dart_date.dart';
 import 'package:dhis2_flutter_toolkit/src/utils/period_engine/constants/relative_period_types.dart';
 
-import '../constants/period_categories.dart';
 import '../constants/fixed_period_types.dart';
+import '../constants/period_categories.dart';
 import '../helpers/date.dart';
 import 'period.dart';
 

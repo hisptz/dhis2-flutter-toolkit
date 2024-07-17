@@ -5,6 +5,9 @@ library;
 
 import 'package:dart_date/dart_date.dart';
 
+import '../helpers/period.dart';
+import '../models/period_type.dart';
+
 ///This is a period data model.
 ///It is a collection of properties and different methods necessary for period manipulation
 
@@ -26,6 +29,12 @@ class D2Period {
 
   ///This is the category of the current period. It is a `String` representation of the period category
   late String category;
+
+  /// This is the previous period of the current period
+  D2Period get previous => D2PeriodType.getPeriodById(getPreviousPeriodId(id));
+
+  /// This is the next period of the current period
+  D2Period get next => D2PeriodType.getPeriodById(getNextPeriodId(id));
 
   ///`D2Period.fromObject` is a constructor method that creates a D2Period from a `Map` object.
   ///The constructor accepts a `Map<String, dynamic>` object, `String` period type and  `String` period category as required parameters
