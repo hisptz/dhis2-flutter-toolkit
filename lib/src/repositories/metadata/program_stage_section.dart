@@ -27,13 +27,24 @@ class D2ProgramStageSectionRepository
         D2ProgramStageRepository(db).getByUid(programStageUid);
 
     if (programStage != null) {
-      List<int> sectionIds = box
+      List<D2ProgramStageSection> programStageSections = box
           .query(D2ProgramStageSection_.programStage.equals(programStage.id))
           .build()
-          .findIds();
+          .find();
 
-      if (sectionIds.isNotEmpty) {
-        box.removeMany(sectionIds);
+      List<int> sectionIds =
+          programStageSections.map((section) => section.id).toList();
+
+      if (programStageSections.isNotEmpty) {
+        List<int> programStageSectionDataElements = [];
+
+        for (D2ProgramStageSection section in programStageSections) {
+          programStageSectionDataElements.addAll(section
+              .programStageSectionDataElements
+              .map((element) => element.id));
+        }
+
+        box.removeMany([...sectionIds, ...programStageSectionDataElements]);
       }
     }
 
