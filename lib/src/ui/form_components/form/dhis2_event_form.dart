@@ -146,11 +146,11 @@ class _D2TrackerEventFormState extends State<D2TrackerEventForm> {
       autoSavedValues["geometry"] = d2geometryValue;
     }
 
+    // TODO find ways to soft code this
     if (autoSavedValues["householdMembers"] != null) {
       List<dynamic> tempList = autoSavedValues["householdMembers"];
       List<String>? householdMembers =
           tempList.map((member) => member.toString()).toList();
-
       autoSavedValues["householdMembers"] = householdMembers;
     }
 
@@ -161,6 +161,8 @@ class _D2TrackerEventFormState extends State<D2TrackerEventForm> {
     widget.onCheckAutoSavedValue != null
         ? widget.onCheckAutoSavedValue!(hasAutoSavedValue)
         : null;
+
+    widget.controller.runProgramRules();
   }
 
   @override

@@ -146,6 +146,7 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
       D2GeometryValue d2geometryValue =
           D2GeometryValue.fromGeoJson(autoSavedValues["geometry"]);
       autoSavedValues["geometry"] = d2geometryValue;
+      widget.controller.runProgramRules();
     }
 
     widget.controller.setValues(autoSavedValues);
