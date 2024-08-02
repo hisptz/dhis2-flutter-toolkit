@@ -77,7 +77,7 @@ class D2DataValue extends D2DataResource
 
   @override
   Map<String, dynamic> toFormValues() {
-    return dataElement.target != null ? {dataElement.target!.uid: value} : {};
+    return {dataElement.target!.uid: value};
   }
 
   @override

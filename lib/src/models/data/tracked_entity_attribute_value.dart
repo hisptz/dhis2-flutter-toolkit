@@ -77,18 +77,13 @@ class D2TrackedEntityAttributeValue extends D2DataResource
   }
 
   String? getDisplayValue() {
-    if(trackedEntityAttribute.target != null) {
-      if (trackedEntityAttribute.target!.optionSet.target == null) {
-        return value;
-      }
-      D2OptionSet optionSet = trackedEntityAttribute.target!.optionSet.target!;
-      D2Option? valueOption =
-      optionSet.options.firstWhereOrNull((element) => element.code == value);
-      return valueOption?.displayName ?? valueOption?.name ?? value;
-    } else {
-      return null;
+    if (trackedEntityAttribute.target!.optionSet.target == null) {
+      return value;
     }
-
+    D2OptionSet optionSet = trackedEntityAttribute.target!.optionSet.target!;
+    D2Option? valueOption =
+        optionSet.options.firstWhereOrNull((element) => element.code == value);
+    return valueOption?.displayName ?? valueOption?.name ?? value;
   }
 
   @override
