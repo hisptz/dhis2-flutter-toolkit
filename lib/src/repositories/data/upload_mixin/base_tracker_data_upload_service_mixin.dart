@@ -118,9 +118,18 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
       List<String> entitiesIdsWithErrors =
           importSummary.map<String>((summary) => summary.uid).toList();
 
+      List<String> errorMessages = errorReports
+          .map<String>((errorReport) => errorReport["message"] as String)
+          .toList();
+
       List<T> entitiesWithoutErrors = entities
           .whereNot((T entity) => entitiesIdsWithErrors.contains(entity.uid))
           .toList();
+
+      if (entitiesIdsWithErrors.isNotEmpty) {
+        throw 'Error: $errorMessages';
+      }
+
       for (T entity in entitiesWithoutErrors) {
         entity.synced = true;
       }
@@ -205,10 +214,28 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     Map<String, dynamic> payload = {
       uploadDataKey: [entityPayload]
     };
+
     Map response = await client!
         .httpPost(uploadURL, payload, queryParameters: uploadQueryParams);
-    entity.synced = true;
-    box.put(entity);
+
+    List errorReports = response["validationReport"]["errorReports"];
+    if (errorReports.isNotEmpty) {
+      List<D2ImportSummaryError> importSummary =
+          getItemsWithErrorsEntityUidFromImportSummary(
+              response as Map<String, dynamic>);
+      List<String> errorMessages = errorReports
+          .map<String>((errorReport) => errorReport["message"] as String)
+          .toList();
+      entity.synced = false;
+      if (importSummary.isNotEmpty) {
+        await D2ImportSummaryErrorRepository(db).saveEntities(importSummary);
+      }
+      throw 'Error: $errorMessages';
+    } else {
+      entity.synced = true;
+      box.put(entity);
+    }
+
     return response;
   }
 }
