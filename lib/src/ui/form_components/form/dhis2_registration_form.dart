@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
 
 class D2TrackerRegistrationForm extends StatefulWidget {
   final D2TrackerEnrollmentFormController controller;
@@ -146,6 +146,7 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
       D2GeometryValue d2geometryValue =
           D2GeometryValue.fromGeoJson(autoSavedValues["geometry"]);
       autoSavedValues["geometry"] = d2geometryValue;
+      widget.controller.runProgramRules();
     }
 
     widget.controller.setValues(autoSavedValues);
@@ -199,7 +200,7 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
                     onPressed: onDeleteAutoSavedData,
                     child: Container(
                       alignment: Alignment.center,
-                      width: 30.0,
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: Text(
                         'Skip',
                         style: const TextStyle().copyWith(),
@@ -225,7 +226,7 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
                     onPressed: onContinue,
                     child: Container(
                       alignment: Alignment.center,
-                      width: 60.0,
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: Text(
                         'Continue',
                         style: const TextStyle().copyWith(),

@@ -25,13 +25,24 @@ class D2ProgramSectionRepository extends BaseMetaRepository<D2ProgramSection> {
     D2Program? program = D2ProgramRepository(db).getByUid(programUid);
 
     if (program != null) {
-      List<int> sectionIds = box
+      List<D2ProgramSection> programSections = box
           .query(D2ProgramSection_.program.equals(program.id))
           .build()
-          .findIds();
+          .find();
 
-      if (sectionIds.isNotEmpty) {
-        box.removeMany(sectionIds);
+      List<int> sectionIds =
+          programSections.map((section) => section.id).toList();
+
+      if (programSections.isNotEmpty) {
+        List<int> programStageDataElements = [];
+
+        for (D2ProgramSection section in programSections) {
+          programStageDataElements.addAll(section
+              .programSectionTrackedEntityAttributes
+              .map((element) => element.id));
+        }
+
+        box.removeMany([...sectionIds, ...programStageDataElements]);
       }
     }
 

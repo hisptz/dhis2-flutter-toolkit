@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:flutter/material.dart';
 
@@ -145,11 +146,11 @@ class _D2TrackerEventFormState extends State<D2TrackerEventForm> {
       autoSavedValues["geometry"] = d2geometryValue;
     }
 
+    // TODO find ways to soft code this
     if (autoSavedValues["householdMembers"] != null) {
       List<dynamic> tempList = autoSavedValues["householdMembers"];
       List<String>? householdMembers =
           tempList.map((member) => member.toString()).toList();
-
       autoSavedValues["householdMembers"] = householdMembers;
     }
 
@@ -160,6 +161,8 @@ class _D2TrackerEventFormState extends State<D2TrackerEventForm> {
     widget.onCheckAutoSavedValue != null
         ? widget.onCheckAutoSavedValue!(hasAutoSavedValue)
         : null;
+
+    widget.controller.runProgramRules();
   }
 
   @override
@@ -188,12 +191,12 @@ class _D2TrackerEventFormState extends State<D2TrackerEventForm> {
             textAlign: TextAlign.center,
           )),
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 10.0),
+            margin: const EdgeInsets.symmetric(vertical: 20.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                  margin: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: FilledButton(
                     style: const ButtonStyle().copyWith(
                       backgroundColor:
@@ -210,7 +213,8 @@ class _D2TrackerEventFormState extends State<D2TrackerEventForm> {
                     onPressed: onDeleteAutoSavedData,
                     child: Container(
                       alignment: Alignment.center,
-                      width: 30.0,
+                      // width: 30.0,
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: Text(
                         'Skip',
                         style: const TextStyle().copyWith(),
@@ -236,7 +240,7 @@ class _D2TrackerEventFormState extends State<D2TrackerEventForm> {
                     onPressed: onContinue,
                     child: Container(
                       alignment: Alignment.center,
-                      width: 60.0,
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: Text(
                         'Continue',
                         style: const TextStyle().copyWith(),
