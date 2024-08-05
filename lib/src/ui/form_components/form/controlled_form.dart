@@ -59,6 +59,7 @@ class D2ControlledForm extends StatelessWidget {
                   builder: (context, child) {
                     SectionState state =
                         controller.getSectionState(section.id, []);
+
                     return Visibility(
                         visible: !(state.hidden ?? false),
                         child: child ?? Container());
