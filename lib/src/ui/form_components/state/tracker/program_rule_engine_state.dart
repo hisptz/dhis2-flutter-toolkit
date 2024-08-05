@@ -80,12 +80,10 @@ mixin ProgramRuleEngineState
         : clearFromMandatoryFieldSilently(fieldKey);
   }
 
-  void _assignFieldValue(
-    String fieldKey,
-    dynamic value,
-  ) {
-    _toggleFieldDisable(fieldKey, true);
+  void _assignFieldValue(String fieldKey, dynamic value,
+      {bool? disabledStatus}) {
     setValueSilently(fieldKey, value);
+    _toggleFieldDisable(fieldKey, disabledStatus == true);
   }
 
   void _setErrorMessage(
@@ -242,7 +240,13 @@ mixin ProgramRuleEngineState
     }
 
     // Process the custom program rules
-    for (D2CustomProgramRule customProgramRule in customProgramRules) {
+    _executeCustomRules(customProgramRules);
+
+    notifyListeners();
+  }
+
+  void _executeCustomRules(List<D2CustomProgramRule> d2CustomProgramRules) {
+    for (D2CustomProgramRule customProgramRule in d2CustomProgramRules) {
       bool programRuleExpressionValue =
           customProgramRule.expressionFunction(formValues);
       for (D2CustomAction action in customProgramRule.actions) {
@@ -296,16 +300,21 @@ mixin ProgramRuleEngineState
           _assignFieldValue(
             action.value!.fieldId ?? '',
             action.value!.value,
+            disabledStatus: action.value!.disable,
           );
         }
       }
     }
-
-    notifyListeners();
   }
 
   void runProgramRules() {
     spawnProgramRuleEngine(formFields.map((field) => field.name).toList());
+  }
+
+  void runCustomProgramRulesOnly(
+      List<D2CustomProgramRule> d2CustomProgramRules) {
+    _executeCustomRules(d2CustomProgramRules);
+    notifyListeners();
   }
 
   @override

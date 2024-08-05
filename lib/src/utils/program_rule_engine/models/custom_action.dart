@@ -2,7 +2,7 @@ class D2CustomAction {
   String? hiddenField;
   String? hiddenSection;
   String? disabledField;
-  String?  mandatoryField;
+  String? mandatoryField;
   ErrorMessage? error;
   WarningMessage? warning;
   FieldValue? value;
@@ -63,10 +63,12 @@ class HiddenOptionGroup {
 
 class FieldValue {
   String? fieldId;
-  String? value;
+  dynamic value;
+  bool disable;
 
   FieldValue({
     this.fieldId,
     this.value,
+    this.disable = true,
   });
 }
