@@ -15,6 +15,7 @@ export 'src/services/entry.dart';
 export 'src/ui/app_modals/entry.dart';
 //UI components
 export 'src/ui/form_components/entry.dart';
+export 'src/ui/button/entry.dart';
 export "src/ui/period/period_filter.dart" show D2PeriodSelector;
 //Period Engine
 export 'src/utils/entry.dart';
