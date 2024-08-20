@@ -11,6 +11,7 @@ class CustomButton extends StatefulWidget {
     this.borderRadius = 10.0,
     this.isTrailingIcon = false,
     this.isFullWidth = false,
+    this.isDisabled = false,
     this.buttonType = CustomButtonType.textButton,
     this.iconColor,
     this.labelColor,
@@ -34,6 +35,7 @@ class CustomButton extends StatefulWidget {
   final CustomButtonType buttonType;
   final bool isTrailingIcon;
   final bool isFullWidth;
+  final bool isDisabled;
   final Color? iconColor;
   final Color? buttonPrimaryColor;
   final EdgeInsetsGeometry buttonPaading;
@@ -52,14 +54,17 @@ class _CustomButtonState extends State<CustomButton> {
 
   EdgeInsetsGeometry get buttonPaading => widget.buttonPaading;
 
-  Color get labelColor =>
-      widget.labelColor ?? Theme.of(context).colorScheme.inversePrimary;
+  Color get labelColor => widget.isDisabled
+      ? Colors.black38
+      : widget.labelColor ?? Theme.of(context).colorScheme.inversePrimary;
 
-  Color get iconColor =>
-      widget.iconColor ?? Theme.of(context).colorScheme.inversePrimary;
+  Color get iconColor => widget.isDisabled
+      ? Colors.black38
+      : widget.iconColor ?? Theme.of(context).colorScheme.inversePrimary;
 
-  Color get buttonPrimaryColor =>
-      widget.buttonPrimaryColor ?? Theme.of(context).colorScheme.primary;
+  Color get buttonPrimaryColor => widget.isDisabled
+      ? Colors.grey.withOpacity(0.1)
+      : widget.buttonPrimaryColor ?? Theme.of(context).colorScheme.primary;
 
   BoxDecoration get decoration => BoxDecoration(
         color: widget.buttonType == CustomButtonType.primaryButton
@@ -73,7 +78,9 @@ class _CustomButtonState extends State<CustomButton> {
               : buttonPrimaryColor.withOpacity(
                   widget.buttonType == CustomButtonType.outlineButton
                       ? 0.4
-                      : 1.0,
+                      : widget.isDisabled
+                          ? 0.3
+                          : 1.0,
                 ),
         ),
       );
@@ -121,7 +128,7 @@ class _CustomButtonState extends State<CustomButton> {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: borderRadius,
-      onTap: widget.onTap,
+      onTap: widget.isDisabled ? null : widget.onTap,
       child: Container(
         margin: buttonMargin,
         padding: buttonPaading,
