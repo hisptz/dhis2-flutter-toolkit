@@ -1804,29 +1804,13 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(7, 1429551893171658461),
             name: 'systemId',
             type: 9,
-            flags: 2080,
-            indexId: const obx_int.IdUid(54, 6896595641911410496)),
+            flags: 0),
         obx_int.ModelProperty(
             id: const obx_int.IdUid(8, 3198060534423758316),
             name: 'systemName',
             type: 9,
             flags: 2048,
             indexId: const obx_int.IdUid(55, 7877853528126679245)),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(9, 4135668808872359626),
-            name: 'created',
-            type: 10,
-            flags: 0),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(10, 6284145052005234508),
-            name: 'displayName',
-            type: 9,
-            flags: 0),
-        obx_int.ModelProperty(
-            id: const obx_int.IdUid(11, 8175247112811475616),
-            name: 'lastUpdated',
-            type: 10,
-            flags: 0),
         obx_int.ModelProperty(
             id: const obx_int.IdUid(12, 4405154523199013265),
             name: 'uid',
@@ -3448,7 +3432,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         3304769199229587498,
         3198847875200918398
       ],
-      retiredIndexUids: const [1380213729038111912],
+      retiredIndexUids: const [1380213729038111912, 6896595641911410496],
       retiredPropertyUids: const [
         6415074213713321569,
         4641716601052601232,
@@ -3485,7 +3469,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
         5235438825146600120,
         7922301324287560950,
         8205999314347292812,
-        2238094843613227757
+        2238094843613227757,
+        4135668808872359626,
+        6284145052005234508,
+        8175247112811475616
       ],
       retiredRelationUids: const [
         6008783994488891808,
@@ -5384,11 +5371,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final calendarOffset = fbb.writeString(object.calendar);
           final dateFormatOffset = fbb.writeString(object.dateFormat);
           final contextPathOffset = fbb.writeString(object.contextPath);
-          final systemIdOffset = fbb.writeString(object.systemId);
-          final systemNameOffset = fbb.writeString(object.systemName);
-          final displayNameOffset = object.displayName == null
+          final systemIdOffset = object.systemId == null
               ? null
-              : fbb.writeString(object.displayName!);
+              : fbb.writeString(object.systemId!);
+          final systemNameOffset = fbb.writeString(object.systemName);
           final uidOffset = fbb.writeString(object.uid);
           fbb.startTable(13);
           fbb.addInt64(0, object.id);
@@ -5399,9 +5385,6 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addOffset(5, contextPathOffset);
           fbb.addOffset(6, systemIdOffset);
           fbb.addOffset(7, systemNameOffset);
-          fbb.addInt64(8, object.created.millisecondsSinceEpoch);
-          fbb.addOffset(9, displayNameOffset);
-          fbb.addInt64(10, object.lastUpdated.millisecondsSinceEpoch);
           fbb.addOffset(11, uidOffset);
           fbb.finish(fbb.endTable());
           return object.id;
@@ -5423,7 +5406,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 14, '');
           final systemIdParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 16, '');
+              .vTableGetNullable(buffer, rootOffset, 16);
           final systemNameParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 18, '');
           final object = D2SystemInfo(
@@ -5435,12 +5418,6 @@ obx_int.ModelDefinition getObjectBoxModel() {
               contextPathParam,
               systemIdParam,
               systemNameParam)
-            ..created = DateTime.fromMillisecondsSinceEpoch(
-                const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0))
-            ..displayName = const fb.StringReader(asciiOptimization: true)
-                .vTableGetNullable(buffer, rootOffset, 22)
-            ..lastUpdated = DateTime.fromMillisecondsSinceEpoch(
-                const fb.Int64Reader().vTableGet(buffer, rootOffset, 24, 0))
             ..uid = const fb.StringReader(asciiOptimization: true)
                 .vTableGet(buffer, rootOffset, 26, '');
 
@@ -8427,21 +8404,9 @@ class D2SystemInfo_ {
   static final systemName =
       obx.QueryStringProperty<D2SystemInfo>(_entities[22].properties[7]);
 
-  /// See [D2SystemInfo.created].
-  static final created =
-      obx.QueryDateProperty<D2SystemInfo>(_entities[22].properties[8]);
-
-  /// See [D2SystemInfo.displayName].
-  static final displayName =
-      obx.QueryStringProperty<D2SystemInfo>(_entities[22].properties[9]);
-
-  /// See [D2SystemInfo.lastUpdated].
-  static final lastUpdated =
-      obx.QueryDateProperty<D2SystemInfo>(_entities[22].properties[10]);
-
   /// See [D2SystemInfo.uid].
   static final uid =
-      obx.QueryStringProperty<D2SystemInfo>(_entities[22].properties[11]);
+      obx.QueryStringProperty<D2SystemInfo>(_entities[22].properties[8]);
 }
 
 /// [D2TrackedEntity] entity fields to define ObjectBox queries.

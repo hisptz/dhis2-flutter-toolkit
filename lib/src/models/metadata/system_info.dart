@@ -14,8 +14,8 @@ class D2SystemInfo extends D2MetaResource {
   String calendar;
   String dateFormat;
   String contextPath;
-  @Unique()
-  String systemId;
+
+  String? systemId;
   @Index()
   String systemName;
 
@@ -32,15 +32,6 @@ class D2SystemInfo extends D2MetaResource {
         systemId = json["systemId"] {
     id = D2SystemInfoRepository(db).getIdByUid(json["systemId"]) ?? 0;
   }
-
-  @override
-  DateTime created = DateTime.now();
-
-  @override
-  String? displayName = "";
-
-  @override
-  DateTime lastUpdated = DateTime.now();
 
   @override
   String uid = "";

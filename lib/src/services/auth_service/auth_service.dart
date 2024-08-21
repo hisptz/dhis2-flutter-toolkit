@@ -155,7 +155,7 @@ class D2AuthService {
 
     final connectivityResult = await (Connectivity().checkConnectivity());
 
-    if (connectivityResult == ConnectivityResult.none) {
+    if (connectivityResult.firstOrNull == ConnectivityResult.none) {
       //Try logging in offline
       return _verifyOffline(credentials);
     }
