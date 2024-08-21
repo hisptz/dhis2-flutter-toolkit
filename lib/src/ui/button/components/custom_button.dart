@@ -41,7 +41,7 @@ class CustomButton extends StatefulWidget {
   final EdgeInsetsGeometry buttonPaading;
   final EdgeInsetsGeometry buttonMargin;
 
-  final VoidCallback? onTap;
+  final OnPressed? onTap;
 
   @override
   State<CustomButton> createState() => _CustomButtonState();
@@ -128,7 +128,9 @@ class _CustomButtonState extends State<CustomButton> {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: borderRadius,
-      onTap: widget.isDisabled ? null : widget.onTap,
+      onTap: widget.isDisabled || widget.onTap == null
+          ? null
+          : () => widget.onTap!(context),
       child: Container(
         margin: buttonMargin,
         padding: buttonPaading,
