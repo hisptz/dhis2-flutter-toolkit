@@ -1,9 +1,8 @@
+import '../../../objectbox.g.dart';
 import '../../models/metadata/system_info.dart';
 import 'base.dart';
 import 'download_mixins/base_single_meta_download_mixin.dart';
 import 'download_mixins/system_info_download_mixin.dart';
-import '../../../objectbox.g.dart';
-
 
 class D2SystemInfoRepository extends BaseMetaRepository<D2SystemInfo>
     with
@@ -12,7 +11,10 @@ class D2SystemInfoRepository extends BaseMetaRepository<D2SystemInfo>
   D2SystemInfoRepository(super.db);
 
   @override
-  int? getIdByUid(String uid) {
+  int? getIdByUid(String? uid) {
+    if (uid == null) {
+      return null;
+    }
     return getByUid(uid)?.id;
   }
 

@@ -14,7 +14,7 @@ class D2SystemInfo extends D2MetaResource {
   String calendar;
   String dateFormat;
   String contextPath;
-
+  @Index()
   String? systemId;
   @Index()
   String systemName;
