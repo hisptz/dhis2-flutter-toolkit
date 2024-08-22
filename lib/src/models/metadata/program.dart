@@ -21,6 +21,7 @@ class D2Program extends D2MetaResource {
   @override
   int id = 0;
   DateTime created;
+  String code;
 
   DateTime lastUpdated;
 
@@ -79,6 +80,7 @@ class D2Program extends D2MetaResource {
       this.programType,
       this.onlyEnrollOnce,
       this.displayName,
+      this.code,
       this.featureType);
 
   D2Program.fromMap(D2ObjectBox db, Map json)
@@ -89,6 +91,7 @@ class D2Program extends D2MetaResource {
         accessLevel = json["accessLevel"],
         name = json["name"],
         shortName = json["shortName"],
+        code = json["code"] ?? "",
         programType = json["programType"],
         featureType = json["featureType"] {
     id = D2ProgramRepository(db).getIdByUid(json["id"]) ?? 0;

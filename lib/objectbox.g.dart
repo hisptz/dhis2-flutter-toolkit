@@ -845,7 +845,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(13, 842731617041164856),
       name: 'D2Program',
-      lastPropertyId: const obx_int.IdUid(15, 5561249140034450894),
+      lastPropertyId: const obx_int.IdUid(16, 3894243653883032566),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -927,7 +927,12 @@ final _entities = <obx_int.ModelEntity>[
             type: 11,
             flags: 520,
             indexId: const obx_int.IdUid(127, 2133040154421627187),
-            relationTarget: 'D2Sharing')
+            relationTarget: 'D2Sharing'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(16, 3894243653883032566),
+            name: 'code',
+            type: 9,
+            flags: 0)
       ],
       relations: <obx_int.ModelRelation>[
         obx_int.ModelRelation(
@@ -1804,7 +1809,8 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(7, 1429551893171658461),
             name: 'systemId',
             type: 9,
-            flags: 0),
+            flags: 2048,
+            indexId: const obx_int.IdUid(134, 2349664088670327656)),
         obx_int.ModelProperty(
             id: const obx_int.IdUid(8, 3198060534423758316),
             name: 'systemName',
@@ -3424,7 +3430,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
       lastEntityId: const obx_int.IdUid(54, 1183349282019494001),
-      lastIndexId: const obx_int.IdUid(133, 8716472974870458034),
+      lastIndexId: const obx_int.IdUid(134, 2349664088670327656),
       lastRelationId: const obx_int.IdUid(27, 722672923808169924),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [
@@ -4374,7 +4380,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
               : fbb.writeString(object.featureType!);
           final colorOffset =
               object.color == null ? null : fbb.writeString(object.color!);
-          fbb.startTable(16);
+          final codeOffset = fbb.writeString(object.code);
+          fbb.startTable(17);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.created.millisecondsSinceEpoch);
           fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
@@ -4390,6 +4397,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addOffset(12, featureTypeOffset);
           fbb.addOffset(13, colorOffset);
           fbb.addInt64(14, object.sharing.targetId);
+          fbb.addOffset(15, codeOffset);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -4419,6 +4427,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final displayNameParam =
               const fb.StringReader(asciiOptimization: true)
                   .vTableGetNullable(buffer, rootOffset, 26);
+          final codeParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 34, '');
           final featureTypeParam =
               const fb.StringReader(asciiOptimization: true)
                   .vTableGetNullable(buffer, rootOffset, 28);
@@ -4433,6 +4443,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
               programTypeParam,
               onlyEnrollOnceParam,
               displayNameParam,
+              codeParam,
               featureTypeParam)
             ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0)
             ..selectEnrollmentDatesInFuture =
@@ -7746,6 +7757,10 @@ class D2Program_ {
   /// See [D2Program.sharing].
   static final sharing = obx.QueryRelationToOne<D2Program, D2Sharing>(
       _entities[11].properties[14]);
+
+  /// See [D2Program.code].
+  static final code =
+      obx.QueryStringProperty<D2Program>(_entities[11].properties[15]);
 
   /// see [D2Program.organisationUnits]
   static final organisationUnits =
