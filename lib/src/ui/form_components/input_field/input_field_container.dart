@@ -79,6 +79,7 @@ class D2InputFieldContainer extends StatelessWidget {
         return MultiTextInput(
             input: input as D2MultiTextInputFieldConfig,
             onChange: onChange,
+            value: value,
             color: colorOverride,
             decoration: inputDecoration!);
       }
