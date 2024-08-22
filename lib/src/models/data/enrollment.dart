@@ -1,19 +1,12 @@
 import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_deletable.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../../objectbox.dart';
-import '../../repositories/data/entry.dart';
-import '../../repositories/metadata/entry.dart';
-import '../../ui/form_components/entry.dart';
-import '../../utils/entry.dart';
-import '../metadata/entry.dart';
+import '../../../dhis2_flutter_toolkit.dart';
 import 'base.dart';
 import 'base_editable.dart';
-import 'event.dart';
-import 'relationship.dart';
-import 'tracked_entity.dart';
 import 'upload_base.dart';
 
 @Entity()
@@ -216,5 +209,26 @@ class D2Enrollment extends SyncDataSource
       relationship.softDelete(db);
     }
     save(db);
+  }
+
+  D2TrackedEntityAttributeValue? getAttributeValue(
+      String trackedEntityAttributeId) {
+    return attributes.firstWhereOrNull(
+        (D2TrackedEntityAttributeValue attribute) =>
+            attribute.trackedEntityAttribute.target!.uid ==
+            trackedEntityAttributeId);
+  }
+
+  List<D2TrackedEntityAttributeValue> get attributes {
+    List<int> trackedEntityAttributes = program
+        .target!.programTrackedEntityAttributes
+        .map((pTrackedEntityAttribute) =>
+            pTrackedEntityAttribute.trackedEntityAttribute.targetId)
+        .toList();
+
+    return trackedEntity.target!.attributes
+        .where((attribute) => trackedEntityAttributes
+            .contains(attribute.trackedEntityAttribute.targetId))
+        .toList();
   }
 }
