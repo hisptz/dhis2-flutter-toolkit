@@ -1,12 +1,12 @@
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/base_input.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/multi_select_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/multi_text_input_field.dart';
 import 'package:flutter/material.dart';
 
 import '../models/input_field_option.dart';
 
-class MultiSelectInput
-    extends BaseStatelessInput<D2MultiSelectInputFieldConfig, List<String>> {
-  const MultiSelectInput(
+class MultiTextInput
+    extends BaseStatelessInput<D2MultiTextInputFieldConfig, String> {
+  const MultiTextInput(
       {super.key,
       super.value,
       super.disabled,
@@ -48,16 +48,21 @@ class MultiSelectInput
                             : (checked) {
                                 if (isOptionSelected(option)) {
                                   List<String> updatedValue = value
-                                          ?.where((val) => val != option.code)
+                                          ?.split(",")
+                                          .where((val) => val != option.code)
                                           .toList() ??
                                       [];
                                   if (updatedValue.isEmpty) {
                                     onChange(null);
                                   } else {
-                                    onChange(updatedValue);
+                                    onChange(updatedValue.join(","));
                                   }
                                 } else {
-                                  onChange([...(value ?? []), option.code]);
+                                  List<String> newValue = [
+                                    ...(value?.split(",") ?? []),
+                                    option.code
+                                  ];
+                                  onChange(newValue.join(","));
                                 }
                               }),
                     Flexible(child: Text(option.name))
@@ -69,8 +74,6 @@ class MultiSelectInput
 
   @override
   Widget build(BuildContext context) {
-    print("Value outside");
-    print(value);
     return Wrap(
       alignment: WrapAlignment.start,
       verticalDirection: VerticalDirection.down,

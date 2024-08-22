@@ -1,8 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/multi_select_input.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/multi_text_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/input_decoration_container.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/input_field_legend.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/multi_select_input_field.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/multi_text_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -73,6 +75,13 @@ class D2InputFieldContainer extends StatelessWidget {
         inputDecoration!.inputContainerDecoration;
 
     Widget getInput() {
+      if (input is D2MultiTextInputFieldConfig) {
+        return MultiTextInput(
+            input: input as D2MultiTextInputFieldConfig,
+            onChange: onChange,
+            color: colorOverride,
+            decoration: inputDecoration!);
+      }
       if (input is D2MultiSelectInputFieldConfig) {
         return MultiSelectInput(
           disabled: disabled,
@@ -137,8 +146,8 @@ class D2InputFieldContainer extends StatelessWidget {
           case D2InputFieldType.integer:
             return CustomTextInput(
                 disabled: disabled,
-                textInputType:
-                    const TextInputType.numberWithOptions(signed: true, decimal: false),
+                textInputType: const TextInputType.numberWithOptions(
+                    signed: true, decimal: false),
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'^-?\d*$'))
                 ],

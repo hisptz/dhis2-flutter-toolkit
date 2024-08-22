@@ -29,7 +29,6 @@ class D2ControlledForm extends StatelessWidget {
           []),
       ...(form.fields ?? [])
     ];
-
     controller.setFormFields(formFields);
 
     return Column(

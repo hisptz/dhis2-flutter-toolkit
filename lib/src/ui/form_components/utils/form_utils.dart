@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/multi_text_input_field.dart';
 
 class D2FormUtils {
   static D2BaseInputFieldConfig getFieldConfigFromDataItem(dataItem,
@@ -33,6 +34,18 @@ class D2FormUtils {
           .sorted((D2InputFieldOption a, D2InputFieldOption b) =>
               a.sortOrder.compareTo(b.sortOrder))
           .toList();
+
+      if (type == D2InputFieldType.multiText) {
+        return D2MultiTextInputFieldConfig(
+          options: options,
+          label: label,
+          type: type,
+          name: dataItem.uid,
+          clearable: clearable ?? false,
+          mandatory: mandatory,
+        );
+      }
+
       return D2SelectInputFieldConfig(
           options: options,
           label: label,

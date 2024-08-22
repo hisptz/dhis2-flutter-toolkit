@@ -27,6 +27,7 @@ enum D2InputFieldType {
   url,
   file,
   image,
+  multiText,
   geoJson;
 
   static D2InputFieldType? fromName(String? name) {

@@ -1,4 +1,5 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../state/field_state.dart';
@@ -24,10 +25,15 @@ class D2FormControlledInputField extends StatelessWidget {
         listenable: controller,
         builder: (BuildContext context, Widget? child) {
           FieldState fieldState = controller.getFieldState(input.name);
-
           if (input is D2SelectInputFieldConfig) {
             (input as D2SelectInputFieldConfig).optionsToHide =
                 fieldState.optionsToHide;
+          }
+
+          if (kDebugMode) {
+            if (input.type == D2InputFieldType.multiText) {
+              print(fieldState.value);
+            }
           }
 
           return Visibility(
