@@ -69,6 +69,30 @@ mixin ProgramRuleEngineState
         (hiddenStatus == false && isSectionHidden(sectionKey))) {
       toggleSectionVisibilitySilently(sectionKey);
     }
+
+    D2ProgramSection? programSection =
+        D2ProgramSectionRepository(db).getByUid(sectionKey);
+
+    D2ProgramStageSection? programStageSection =
+        D2ProgramStageSectionRepository(db).getByUid(sectionKey);
+
+    if (programSection != null) {
+      for (var programSectionTrackedEntityAttribute
+          in programSection.programSectionTrackedEntityAttributes) {
+        _toggleFieldVisibility(
+            programSectionTrackedEntityAttribute
+                    .trackedEntityAttribute.target?.uid ??
+                '',
+            hiddenStatus);
+      }
+    } else if (programStageSection != null) {
+      for (var programStageDataElement
+          in programStageSection.programStageSectionDataElements) {
+        _toggleFieldVisibility(
+            programStageDataElement.dataElement.target?.uid ?? '',
+            hiddenStatus);
+      }
+    }
   }
 
   void _toggleMandatoryField(
