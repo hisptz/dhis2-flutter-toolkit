@@ -1,3 +1,6 @@
+typedef ValueSetterFunction = FieldValue Function(
+    Map<String, dynamic> formValues);
+
 class D2CustomAction {
   String? hiddenField;
   String? hiddenSection;
@@ -8,17 +11,18 @@ class D2CustomAction {
   FieldValue? value;
   HiddenOption? hiddenOption;
   HiddenOptionGroup? hiddenOptionGroup;
+  ValueSetterFunction? setValue;
 
-  D2CustomAction({
-    this.hiddenField,
-    this.hiddenSection,
-    this.hiddenOption,
-    this.hiddenOptionGroup,
-    this.disabledField,
-    this.error,
-    this.warning,
-    this.value,
-  });
+  D2CustomAction(
+      {this.hiddenField,
+      this.hiddenSection,
+      this.hiddenOption,
+      this.hiddenOptionGroup,
+      this.disabledField,
+      this.error,
+      this.warning,
+      this.value,
+      this.setValue});
 }
 
 class ErrorMessage {

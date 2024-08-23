@@ -264,12 +264,13 @@ mixin ProgramRuleEngineState
     }
 
     // Process the custom program rules
-    _executeCustomRules(customProgramRules);
+    _executeCustomRules(customProgramRules, formValues);
 
     notifyListeners();
   }
 
-  void _executeCustomRules(List<D2CustomProgramRule> d2CustomProgramRules) {
+  void _executeCustomRules(List<D2CustomProgramRule> d2CustomProgramRules,
+      Map<String, dynamic> formValues) {
     for (D2CustomProgramRule customProgramRule in d2CustomProgramRules) {
       bool programRuleExpressionValue =
           customProgramRule.expressionFunction(formValues);
@@ -327,6 +328,14 @@ mixin ProgramRuleEngineState
             disabledStatus: action.value!.disable,
           );
         }
+        if (action.setValue != null && programRuleExpressionValue == true) {
+          FieldValue fieldValue = action.setValue!(formValues);
+          _assignFieldValue(
+            fieldValue.fieldId ?? '',
+            fieldValue.value,
+            disabledStatus: fieldValue.disable,
+          );
+        }
       }
     }
   }
@@ -337,7 +346,7 @@ mixin ProgramRuleEngineState
 
   void runCustomProgramRulesOnly(
       List<D2CustomProgramRule> d2CustomProgramRules) {
-    _executeCustomRules(d2CustomProgramRules);
+    _executeCustomRules(d2CustomProgramRules, formValues);
     notifyListeners();
   }
 
