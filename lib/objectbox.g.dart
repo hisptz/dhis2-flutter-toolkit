@@ -1275,7 +1275,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(18, 121682375555937529),
       name: 'D2ProgramStage',
-      lastPropertyId: const obx_int.IdUid(12, 4533741753760510500),
+      lastPropertyId: const obx_int.IdUid(13, 9156188780697372498),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -1340,6 +1340,11 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(12, 4533741753760510500),
             name: 'displayName',
             type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(13, 9156188780697372498),
+            name: 'repeatable',
+            type: 1,
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
@@ -4870,7 +4875,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final displayNameOffset = object.displayName == null
               ? null
               : fbb.writeString(object.displayName!);
-          fbb.startTable(13);
+          fbb.startTable(14);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.created.millisecondsSinceEpoch);
           fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
@@ -4883,6 +4888,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addOffset(9, reportDateToUseOffset);
           fbb.addInt64(10, object.program.targetId);
           fbb.addOffset(11, displayNameOffset);
+          fbb.addBool(12, object.repeatable);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -4916,6 +4922,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final descriptionParam =
               const fb.StringReader(asciiOptimization: true)
                   .vTableGetNullable(buffer, rootOffset, 14);
+          final repeatableParam =
+              const fb.BoolReader().vTableGet(buffer, rootOffset, 28, false);
           final object = D2ProgramStage(
               createdParam,
               displayNameParam,
@@ -4927,7 +4935,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
               validationStrategyParam,
               reportDateToUseParam,
               featureTypeParam,
-              descriptionParam);
+              descriptionParam,
+              repeatableParam);
           object.program.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 24, 0);
           object.program.attach(store);
@@ -8062,6 +8071,10 @@ class D2ProgramStage_ {
   /// See [D2ProgramStage.displayName].
   static final displayName =
       obx.QueryStringProperty<D2ProgramStage>(_entities[16].properties[11]);
+
+  /// See [D2ProgramStage.repeatable].
+  static final repeatable =
+      obx.QueryBooleanProperty<D2ProgramStage>(_entities[16].properties[12]);
 
   /// see [D2ProgramStage.programStageDataElements]
   static final programStageDataElements =

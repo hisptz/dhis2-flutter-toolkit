@@ -1204,7 +1204,7 @@
     },
     {
       "id": "18:121682375555937529",
-      "lastPropertyId": "12:4533741753760510500",
+      "lastPropertyId": "13:9156188780697372498",
       "name": "D2ProgramStage",
       "properties": [
         {
@@ -1272,6 +1272,11 @@
           "id": "12:4533741753760510500",
           "name": "displayName",
           "type": 9
+        },
+        {
+          "id": "13:9156188780697372498",
+          "name": "repeatable",
+          "type": 1
         }
       ],
       "relations": []
