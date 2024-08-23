@@ -152,6 +152,11 @@ class D2Event extends SyncDataSource
   @override
   bool synced;
 
+  D2DataValue? getDataValue(String dataElementId) {
+    return dataValues.firstWhereOrNull(
+        (dataValue) => dataValue.dataElement.target?.uid == dataElementId);
+  }
+
   @override
   Future<Map<String, dynamic>> toMap({D2ObjectBox? db}) async {
     if (db == null) {
