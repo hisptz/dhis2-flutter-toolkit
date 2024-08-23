@@ -28,8 +28,8 @@ class D2OrgUnitGroup implements D2MetaResource {
       : name = json["name"],
         uid = json["id"],
         displayName = json["displayName"],
-        created = DateTime.parse(json["created"]),
-        lastUpdated = DateTime.parse(json["lastUpdated"]) {
+        created = DateTime.parse(json["created"] ?? json["createdAt"]),
+        lastUpdated = DateTime.parse(json["lastUpdated"] ?? json["updatedAt"]) {
     id = D2OrgUnitGroupRepository(db).getIdByUid(json["id"]) ?? 0;
 
     List<D2OrgUnit?> orgUnits = json["organisationUnits"]

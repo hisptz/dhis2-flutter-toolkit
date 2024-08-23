@@ -89,8 +89,8 @@ class D2RelationshipType extends D2MetaResource {
   D2RelationshipType.fromMap(D2ObjectBox db, Map json)
       : name = json["name"],
         uid = json["id"],
-        created = DateTime.parse(json["created"]),
-        lastUpdated = DateTime.parse(json["lastUpdated"]),
+        created = DateTime.parse(json["created"] ?? json["createdAt"]),
+        lastUpdated = DateTime.parse(json["lastUpdated"] ?? json["updatedAt"]),
         displayName = json["displayName"],
         displayFromToName = json["displayFromToName"],
         displayToFromName = json["displayToFromName"],

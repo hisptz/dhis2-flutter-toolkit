@@ -24,7 +24,7 @@ class D2ReservedValue {
 
   D2ReservedValue.fromMap(D2ObjectBox db, Map json, {D2OrgUnit? orgUnit})
       : value = json["value"],
-        createdOn = DateTime.parse(json["created"]),
+        createdOn = DateTime.parse(json["created"] ?? json["createdAt"]),
         expiresOn = DateTime.parse(json["expiryDate"]),
         assigned = false,
         owner = json["ownerObject"] {

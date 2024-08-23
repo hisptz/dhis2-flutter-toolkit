@@ -1,4 +1,3 @@
-
 import 'package:dhis2_flutter_toolkit/objectbox.dart';
 import 'package:objectbox/objectbox.dart';
 
@@ -31,8 +30,8 @@ class D2OptionSet extends D2MetaResource {
       this.uid, this.name, this.code, this.valueType);
 
   D2OptionSet.fromMap(D2ObjectBox db, Map json)
-      : created = DateTime.parse(json["created"]),
-        lastUpdated = DateTime.parse(json["lastUpdated"]),
+      : created = DateTime.parse(json["created"] ?? json["createdAt"]),
+        lastUpdated = DateTime.parse(json["lastUpdated"] ?? json["updatedAt"]),
         uid = json["id"],
         name = json["name"],
         code = json["code"],

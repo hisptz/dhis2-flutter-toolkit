@@ -1,4 +1,3 @@
-
 import '../../../objectbox.g.dart';
 
 import '../../models/metadata/user_group.dart';

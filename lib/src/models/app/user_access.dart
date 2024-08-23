@@ -8,19 +8,19 @@ import '../metadata/user_group_sharing.dart';
 class D2UserAccess {
   /// Sharing settings for the object.
   D2Sharing sharing;
-  
+
   /// User for whom the access is being determined.
   D2User user;
 
   /// Whether the user can edit metadata.
   late bool canEditMetadata;
-  
+
   /// Whether the user can view metadata.
   late bool canViewMetadata;
 
   /// Whether the user can capture data.
   late bool canCaptureData;
-  
+
   /// Whether the user can view data.
   late bool canViewData;
 
@@ -43,16 +43,16 @@ class D2UserAccess {
     required D2ObjectBox db,
   }) {
     D2SharingRepository repository = D2SharingRepository(db);
-    
+
     // Fetch user sharing settings
     List<D2UserSharing> users = repository.getUsers(sharing);
     D2UserSharing? userSharingSetting = users.firstWhereOrNull(
         (sharingSetting) => sharingSetting.userId == user.uid);
 
     // Fetch user group sharing settings
-    List<String> userGroupsFromUser = 
+    List<String> userGroupsFromUser =
         user.userGroups.map((group) => group.uid).toList();
-    List<D2UserGroupSharing> userGroupsSharingSetting = 
+    List<D2UserGroupSharing> userGroupsSharingSetting =
         repository.getUserGroups(sharing);
 
     List<D2UserGroupSharing> groupsUserIsAPartOf = userGroupsSharingSetting

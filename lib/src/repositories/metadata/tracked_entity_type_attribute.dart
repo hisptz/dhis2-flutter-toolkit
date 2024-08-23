@@ -1,4 +1,3 @@
-
 import '../../../objectbox.g.dart';
 
 import '../../models/metadata/tracked_entity_type_attribute.dart';

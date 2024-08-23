@@ -30,5 +30,4 @@ mixin D2BaseAggregateQueryMixin<T extends D2DataResource>
   Future<List<T>?> findAsync() async {
     return await query.findAsync();
   }
-
 }
