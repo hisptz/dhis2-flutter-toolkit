@@ -27,6 +27,9 @@ class D2ProgramStage extends D2MetaResource {
   String? featureType;
   String? reportDateToUse;
   bool repeatable;
+  String? executionDateLabel;
+  String? eventLabel;
+  String? programStageLabel;
 
   final program = ToOne<D2Program>();
 
@@ -39,7 +42,8 @@ class D2ProgramStage extends D2MetaResource {
   @Backlink()
   final events = ToMany<D2Event>();
 
-  D2ProgramStage(this.created,
+  D2ProgramStage(
+      this.created,
       this.displayName,
       this.id,
       this.lastUpdated,
@@ -62,6 +66,9 @@ class D2ProgramStage extends D2MetaResource {
         validationStrategy = json["validationStrategy"],
         reportDateToUse = json["reportDateToUse"],
         featureType = json["featureType"],
+        eventLabel = json["eventLabel"],
+        executionDateLabel = json["executionDateLabel"],
+        programStageLabel = json["programStageLabel"],
         repeatable = json["repeatable"] ?? false,
         description = json["description"] {
     id = D2ProgramStageRepository(db).getIdByUid(json["id"]) ?? 0;

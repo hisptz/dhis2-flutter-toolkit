@@ -1275,7 +1275,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(18, 121682375555937529),
       name: 'D2ProgramStage',
-      lastPropertyId: const obx_int.IdUid(13, 9156188780697372498),
+      lastPropertyId: const obx_int.IdUid(16, 4734157704810001274),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -1345,6 +1345,21 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(13, 9156188780697372498),
             name: 'repeatable',
             type: 1,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(14, 820057215971276204),
+            name: 'executionDateLabel',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(15, 7219213958243712734),
+            name: 'eventLabel',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(16, 4734157704810001274),
+            name: 'programStageLabel',
+            type: 9,
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
@@ -4875,7 +4890,16 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final displayNameOffset = object.displayName == null
               ? null
               : fbb.writeString(object.displayName!);
-          fbb.startTable(14);
+          final executionDateLabelOffset = object.executionDateLabel == null
+              ? null
+              : fbb.writeString(object.executionDateLabel!);
+          final eventLabelOffset = object.eventLabel == null
+              ? null
+              : fbb.writeString(object.eventLabel!);
+          final programStageLabelOffset = object.programStageLabel == null
+              ? null
+              : fbb.writeString(object.programStageLabel!);
+          fbb.startTable(17);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.created.millisecondsSinceEpoch);
           fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
@@ -4889,6 +4913,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addInt64(10, object.program.targetId);
           fbb.addOffset(11, displayNameOffset);
           fbb.addBool(12, object.repeatable);
+          fbb.addOffset(13, executionDateLabelOffset);
+          fbb.addOffset(14, eventLabelOffset);
+          fbb.addOffset(15, programStageLabelOffset);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -4936,7 +4963,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
               reportDateToUseParam,
               featureTypeParam,
               descriptionParam,
-              repeatableParam);
+              repeatableParam)
+            ..executionDateLabel =
+                const fb.StringReader(asciiOptimization: true)
+                    .vTableGetNullable(buffer, rootOffset, 30)
+            ..eventLabel = const fb.StringReader(asciiOptimization: true)
+                .vTableGetNullable(buffer, rootOffset, 32)
+            ..programStageLabel = const fb.StringReader(asciiOptimization: true)
+                .vTableGetNullable(buffer, rootOffset, 34);
           object.program.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 24, 0);
           object.program.attach(store);
@@ -8075,6 +8109,18 @@ class D2ProgramStage_ {
   /// See [D2ProgramStage.repeatable].
   static final repeatable =
       obx.QueryBooleanProperty<D2ProgramStage>(_entities[16].properties[12]);
+
+  /// See [D2ProgramStage.executionDateLabel].
+  static final executionDateLabel =
+      obx.QueryStringProperty<D2ProgramStage>(_entities[16].properties[13]);
+
+  /// See [D2ProgramStage.eventLabel].
+  static final eventLabel =
+      obx.QueryStringProperty<D2ProgramStage>(_entities[16].properties[14]);
+
+  /// See [D2ProgramStage.programStageLabel].
+  static final programStageLabel =
+      obx.QueryStringProperty<D2ProgramStage>(_entities[16].properties[15]);
 
   /// see [D2ProgramStage.programStageDataElements]
   static final programStageDataElements =

@@ -1204,7 +1204,7 @@
     },
     {
       "id": "18:121682375555937529",
-      "lastPropertyId": "13:9156188780697372498",
+      "lastPropertyId": "16:4734157704810001274",
       "name": "D2ProgramStage",
       "properties": [
         {
@@ -1277,6 +1277,21 @@
           "id": "13:9156188780697372498",
           "name": "repeatable",
           "type": 1
+        },
+        {
+          "id": "14:820057215971276204",
+          "name": "executionDateLabel",
+          "type": 9
+        },
+        {
+          "id": "15:7219213958243712734",
+          "name": "eventLabel",
+          "type": 9
+        },
+        {
+          "id": "16:4734157704810001274",
+          "name": "programStageLabel",
+          "type": 9
         }
       ],
       "relations": []
