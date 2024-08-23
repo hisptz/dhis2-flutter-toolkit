@@ -38,7 +38,7 @@ class D2OrgUnit implements D2MetaResource {
         name = json["name"],
         shortName = json["shortName"],
         path = json["path"],
-        created = DateTime.parse(json["created"]),
+        created = DateTime.parse(json["created"] ?? json["createdAt"]),
         openingDate = DateTime.parse(json["openingDate"]),
         displayName = json["displayName"],
         code = json["code"],

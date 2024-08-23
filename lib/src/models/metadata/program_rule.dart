@@ -1,5 +1,4 @@
 import 'package:dhis2_flutter_toolkit/objectbox.dart';
-
 import 'package:objectbox/objectbox.dart';
 
 import '../../repositories/metadata/program.dart';
@@ -44,8 +43,8 @@ class D2ProgramRule extends D2MetaResource {
   );
 
   D2ProgramRule.fromMap(D2ObjectBox db, Map json)
-      : created = DateTime.parse(json["created"]),
-        lastUpdated = DateTime.parse(json["lastUpdated"]),
+      : created = DateTime.parse(json["created"] ?? json["createdAt"]),
+        lastUpdated = DateTime.parse(json["lastUpdated"] ?? json["updatedAt"]),
         uid = json["id"],
         name = json["name"],
         description = json["description"],

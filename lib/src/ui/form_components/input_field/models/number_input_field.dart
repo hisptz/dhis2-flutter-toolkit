@@ -10,6 +10,4 @@ class D2NumberInputFieldConfig extends D2BaseInputFieldConfig {
       super.icon,
       super.legends,
       super.svgIconAsset});
-
-
 }

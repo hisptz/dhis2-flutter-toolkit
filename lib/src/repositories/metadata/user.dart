@@ -5,7 +5,6 @@ import 'download_mixins/user_download_mixin.dart';
 
 import '../../../objectbox.g.dart';
 
-
 class D2UserRepository extends BaseMetaRepository<D2User>
     with
         BaseSingleMetaDownloadServiceMixin<D2User>,

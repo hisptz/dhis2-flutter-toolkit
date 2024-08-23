@@ -8,7 +8,7 @@ import 'form_value_state.dart';
 import 'form_warning_state.dart';
 
 mixin D2FormDataState
-on
+    on
         ChangeNotifier,
         D2FormHiddenState,
         D2FormWarningState,
@@ -46,7 +46,8 @@ on
     });
     if (unFilledMandatoryFields.isNotEmpty) {
       for (String key in unFilledMandatoryFields) {
-        setError(key, mandatoryErrorMessage); //TODO: should be passed as a variable
+        setError(
+            key, mandatoryErrorMessage); //TODO: should be passed as a variable
       }
     }
   }

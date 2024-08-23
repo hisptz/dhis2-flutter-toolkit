@@ -28,8 +28,8 @@ class D2CompulsoryDataElementOperand implements D2MetaResource {
       this.id, this.created, this.lastUpdated, this.uid);
 
   D2CompulsoryDataElementOperand.fromMap(D2ObjectBox db, Map json)
-      : created = DateTime.parse(json['created']),
-        lastUpdated = DateTime.parse(json['lastUpdated']),
+      : created = DateTime.parse(json['created'] ?? json['createdAt']),
+        lastUpdated = DateTime.parse(json['lastUpdated'] ?? json['updatedAt']),
         uid = json['id'] {
     id = D2CompulsoryDataElementOperandRepository(db).getIdByUid(uid) ?? 0;
 

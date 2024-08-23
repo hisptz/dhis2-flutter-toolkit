@@ -1,10 +1,10 @@
-
 import '../../../objectbox.g.dart';
 
 import '../../models/metadata/tracked_entity_type.dart';
 import 'base.dart';
 import 'download_mixins/base_meta_download_mixin.dart';
 import 'download_mixins/tracked_entity_type_download_mixin.dart';
+
 class D2TrackedEntityTypeRepository
     extends BaseMetaRepository<D2TrackedEntityType>
     with

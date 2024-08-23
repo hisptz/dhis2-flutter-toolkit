@@ -28,8 +28,8 @@ class D2UserRole extends D2MetaResource {
         name = json["name"],
         displayName = json["displayName"],
         authorities = json["authorities"].cast<String>(),
-        created = DateTime.parse(json["created"]),
-        lastUpdated = DateTime.parse(json["lastUpdated"]) {
+        created = DateTime.parse(json["created"] ?? json["createdAt"]),
+        lastUpdated = DateTime.parse(json["lastUpdated"] ?? json["updatedAt"]) {
     id = D2UserRoleRepository(db).getIdByUid(json["id"]) ?? 0;
   }
 

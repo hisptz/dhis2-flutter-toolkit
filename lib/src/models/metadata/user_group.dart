@@ -27,8 +27,9 @@ class D2UserGroup extends D2MetaResource {
       : uid = json["id"],
         name = json["name"],
         displayName = json["displayName"],
-        created = DateTime.parse(json["created"]),
-        lastUpdated = DateTime.parse(json["lastUpdated"]) {
+        created = DateTime.parse(json["created"] ?? json["createdAt"]),
+        lastUpdated =
+            DateTime.parse(json["lastUpdated"] ?? json[" updatedAt"]) {
     id = D2UserGroupRepository(db).getIdByUid(json["id"]) ?? 0;
   }
 

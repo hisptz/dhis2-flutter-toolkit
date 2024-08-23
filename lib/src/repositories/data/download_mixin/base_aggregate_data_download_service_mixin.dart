@@ -58,7 +58,8 @@ mixin BaseAggregateDataDownloadServiceMixin
 
   Future<void> download() async {
     try {
-      D2SyncStatus status = D2SyncStatus(status: D2SyncStatusEnum.initialized, label: label);
+      D2SyncStatus status =
+          D2SyncStatus(status: D2SyncStatusEnum.initialized, label: label);
       downloadController.add(status);
       status.setTotal(dataSetIds.length);
       status.updateStatus(D2SyncStatusEnum.syncing);

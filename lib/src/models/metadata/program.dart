@@ -84,8 +84,8 @@ class D2Program extends D2MetaResource {
       this.featureType);
 
   D2Program.fromMap(D2ObjectBox db, Map json)
-      : created = DateTime.parse(json["created"]),
-        lastUpdated = DateTime.parse(json["lastUpdated"]),
+      : created = DateTime.parse(json["created"] ?? json["createdAt"]),
+        lastUpdated = DateTime.parse(json["lastUpdated"] ?? json["updatedAt"]),
         uid = json["id"],
         displayName = json["displayName"],
         accessLevel = json["accessLevel"],

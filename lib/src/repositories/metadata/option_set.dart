@@ -1,4 +1,3 @@
-
 import '../../../objectbox.g.dart';
 
 import '../../models/metadata/option_set.dart';

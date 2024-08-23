@@ -27,14 +27,15 @@ class D2ProgramStageSection extends D2MetaResource {
   final programStage = ToOne<D2ProgramStage>();
 
   @Backlink("programStageSection")
-  final programStageSectionDataElements = ToMany<D2ProgramStageSectionDataElement>();
+  final programStageSectionDataElements =
+      ToMany<D2ProgramStageSectionDataElement>();
 
   D2ProgramStageSection(
       this.created, this.lastUpdated, this.uid, this.name, this.sortOrder);
 
   D2ProgramStageSection.fromMap(D2ObjectBox db, Map json)
-      : created = DateTime.parse(json["created"]),
-        lastUpdated = DateTime.parse(json["lastUpdated"]),
+      : created = DateTime.parse(json["created"] ?? json["createdAt"]),
+        lastUpdated = DateTime.parse(json["lastUpdated"] ?? json["updatedAt"]),
         uid = json["id"],
         name = json["name"],
         sortOrder = json["sortOrder"] {

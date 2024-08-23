@@ -1,4 +1,3 @@
-
 import '../../../objectbox.g.dart';
 import '../../models/metadata/data_element.dart';
 import 'base.dart';

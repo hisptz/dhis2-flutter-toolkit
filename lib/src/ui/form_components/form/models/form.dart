@@ -8,11 +8,10 @@ class D2Form {
   String? subtitle;
   List<D2BaseInputFieldConfig>? fields;
   List<D2FormSection>? sections;
-  D2Form(
-      {this.title,
-      this.subtitle,
-      this.fields,
-      this.sections,
-      })
-      : assert(fields != null || sections != null);
+  D2Form({
+    this.title,
+    this.subtitle,
+    this.fields,
+    this.sections,
+  }) : assert(fields != null || sections != null);
 }

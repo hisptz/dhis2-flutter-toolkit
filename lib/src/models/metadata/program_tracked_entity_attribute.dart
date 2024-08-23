@@ -44,8 +44,8 @@ class D2ProgramTrackedEntityAttribute extends D2MetaResource {
       this.optionSetValue);
 
   D2ProgramTrackedEntityAttribute.fromMap(D2ObjectBox db, Map json)
-      : created = DateTime.parse(json["created"]),
-        lastUpdated = DateTime.parse(json["lastUpdated"]),
+      : created = DateTime.parse(json["created"] ?? json["createdAt"]),
+        lastUpdated = DateTime.parse(json["lastUpdated"] ?? json["updatedAt"]),
         uid = json["id"],
         sortOrder = json["sortOrder"],
         displayInList = json["displayInList"],
