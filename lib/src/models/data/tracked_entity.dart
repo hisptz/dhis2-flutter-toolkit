@@ -165,7 +165,6 @@ class D2TrackedEntity extends SyncDataSource
       "attributes":
           attributes.map((attribute) => attribute.toFormValues()).toList()
     };
-
     if (geometry != null) {
       Map<String, dynamic> geometryObject = jsonDecode(geometry!);
       data.addAll({"geometry": D2GeometryValue.fromGeoJson(geometryObject)});

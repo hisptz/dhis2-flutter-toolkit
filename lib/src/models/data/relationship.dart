@@ -195,6 +195,14 @@ class D2Relationship extends SyncDataSource
     D2RelationshipRepository(db).saveEntity(this);
   }
 
+  void save(D2ObjectBox db) {
+    if (id == 0) {
+      id = D2RelationshipRepository(db).saveEntity(this);
+    } else {
+      D2RelationshipRepository(db).saveEntity(this);
+    }
+  }
+
   @override
   bool delete(D2ObjectBox db) {
     return D2RelationshipRepository(db).deleteEntity(this);

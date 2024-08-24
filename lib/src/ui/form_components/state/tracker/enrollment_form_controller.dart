@@ -60,12 +60,14 @@ class D2TrackerEnrollmentFormController extends D2FormController
                 element.status == "ACTIVE");
 
         enrollment = derivedEnrollment;
+        formValues.addAll({'orgUnit': trackedEntity!.orgUnit.target?.uid});
         if (kDebugMode) {
           print(
               "The selected tracked entity does not have an active enrollment in this program. A new enrollment will be created instead");
         }
       } else {
         Map<String, dynamic> enrollmentFormValues = enrollment!.toFormValues();
+        formValues.addAll({'orgUnit': enrollment!.orgUnit.target?.uid});
         formValues.addAll(enrollmentFormValues);
       }
       setValues(formValues);
