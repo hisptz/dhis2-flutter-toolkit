@@ -1,17 +1,15 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../repositories/metadata/option_group.dart';
 import 'base.dart';
 
 @Entity()
 class D2OptionGroup extends D2MetaResource {
   @override
   int id = 0;
-  @override
+
   DateTime created;
 
-  @override
   DateTime lastUpdated;
 
   @Unique()

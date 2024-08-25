@@ -543,7 +543,7 @@
     },
     {
       "id": "8:3440278051107611466",
-      "lastPropertyId": "9:1991964298813992300",
+      "lastPropertyId": "11:6992553481695534274",
       "name": "D2Option",
       "properties": [
         {
@@ -593,6 +593,16 @@
         {
           "id": "9:1991964298813992300",
           "name": "displayName",
+          "type": 9
+        },
+        {
+          "id": "10:4450472721120587729",
+          "name": "color",
+          "type": 9
+        },
+        {
+          "id": "11:6992553481695534274",
+          "name": "icon",
           "type": 9
         }
       ],
@@ -3386,11 +3396,66 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "55:111260684203835254",
+      "lastPropertyId": "7:1151172713202117796",
+      "name": "D2OptionGroupSet",
+      "properties": [
+        {
+          "id": "1:4785539687965575612",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "135:2312261469486635630"
+        },
+        {
+          "id": "2:2464479783473086119",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "3:5447725371487736237",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "4:923428498023122549",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "5:5469574454607642174",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:5154647413259686362",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "7:1151172713202117796",
+          "name": "optionSetId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "136:6299465337609188232",
+          "relationTarget": "D2OptionSet"
+        }
+      ],
+      "relations": [
+        {
+          "id": "28:7925193540912720932",
+          "name": "optionGroups",
+          "targetId": "46:4097201871524384707"
+        }
+      ]
     }
   ],
-  "lastEntityId": "54:1183349282019494001",
-  "lastIndexId": "134:2349664088670327656",
-  "lastRelationId": "27:722672923808169924",
+  "lastEntityId": "55:111260684203835254",
+  "lastIndexId": "136:6299465337609188232",
+  "lastRelationId": "28:7925193540912720932",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,

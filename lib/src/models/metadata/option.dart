@@ -11,10 +11,8 @@ import 'option_set.dart';
 class D2Option extends D2MetaResource {
   @override
   int id = 0;
-  @override
   DateTime created;
 
-  @override
   DateTime lastUpdated;
 
   @override
@@ -22,13 +20,15 @@ class D2Option extends D2MetaResource {
 
   String name;
   String code;
+  String? color;
+  String? icon;
   int sortOrder;
 
   final optionSet = ToOne<D2OptionSet>();
   final optionGroups = ToMany<D2OptionGroup>();
 
   D2Option(this.id, this.created, this.lastUpdated, this.uid, this.name,
-      this.code, this.sortOrder, this.displayName);
+      this.code, this.sortOrder, this.displayName, this.color, this.icon);
 
   D2Option.fromMap(D2ObjectBox db, Map json)
       : created = DateTime.parse(json["created"] ?? json["createdAt"]),
@@ -36,6 +36,8 @@ class D2Option extends D2MetaResource {
         uid = json["id"],
         name = json["name"],
         code = json["code"],
+        color = json["style"]?["color"],
+        icon = json["style"]?["icon"],
         sortOrder = json["sortOrder"],
         displayName = json["displayName"] {
     id = D2OptionRepository(db).getIdByUid(json["id"]) ?? 0;
@@ -43,6 +45,5 @@ class D2Option extends D2MetaResource {
         D2OptionSetRepository(db).getByUid(json["optionSet"]["id"]);
   }
 
-  @override
   String? displayName;
 }

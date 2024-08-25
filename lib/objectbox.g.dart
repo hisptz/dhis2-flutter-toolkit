@@ -39,6 +39,7 @@ import 'src/models/metadata/legend.dart';
 import 'src/models/metadata/legend_set.dart';
 import 'src/models/metadata/option.dart';
 import 'src/models/metadata/option_group.dart';
+import 'src/models/metadata/option_group_set.dart';
 import 'src/models/metadata/option_set.dart';
 import 'src/models/metadata/org_unit.dart';
 import 'src/models/metadata/org_unit_group.dart';
@@ -605,7 +606,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(8, 3440278051107611466),
       name: 'D2Option',
-      lastPropertyId: const obx_int.IdUid(9, 1991964298813992300),
+      lastPropertyId: const obx_int.IdUid(11, 6992553481695534274),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -653,6 +654,16 @@ final _entities = <obx_int.ModelEntity>[
         obx_int.ModelProperty(
             id: const obx_int.IdUid(9, 1991964298813992300),
             name: 'displayName',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(10, 4450472721120587729),
+            name: 'color',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(11, 6992553481695534274),
+            name: 'icon',
             type: 9,
             flags: 0)
       ],
@@ -3411,6 +3422,58 @@ final _entities = <obx_int.ModelEntity>[
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[]),
+  obx_int.ModelEntity(
+      id: const obx_int.IdUid(55, 111260684203835254),
+      name: 'D2OptionGroupSet',
+      lastPropertyId: const obx_int.IdUid(7, 1151172713202117796),
+      flags: 0,
+      properties: <obx_int.ModelProperty>[
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(1, 4785539687965575612),
+            name: 'uid',
+            type: 9,
+            flags: 2080,
+            indexId: const obx_int.IdUid(135, 2312261469486635630)),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(2, 2464479783473086119),
+            name: 'created',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(3, 5447725371487736237),
+            name: 'lastUpdated',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(4, 923428498023122549),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(5, 5469574454607642174),
+            name: 'name',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(6, 5154647413259686362),
+            name: 'code',
+            type: 9,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(7, 1151172713202117796),
+            name: 'optionSetId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(136, 6299465337609188232),
+            relationTarget: 'D2OptionSet')
+      ],
+      relations: <obx_int.ModelRelation>[
+        obx_int.ModelRelation(
+            id: const obx_int.IdUid(28, 7925193540912720932),
+            name: 'optionGroups',
+            targetId: const obx_int.IdUid(46, 4097201871524384707))
+      ],
       backlinks: <obx_int.ModelBacklink>[])
 ];
 
@@ -3449,9 +3512,9 @@ Future<obx.Store> openStore(
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
-      lastEntityId: const obx_int.IdUid(54, 1183349282019494001),
-      lastIndexId: const obx_int.IdUid(134, 2349664088670327656),
-      lastRelationId: const obx_int.IdUid(27, 722672923808169924),
+      lastEntityId: const obx_int.IdUid(55, 111260684203835254),
+      lastIndexId: const obx_int.IdUid(136, 6299465337609188232),
+      lastRelationId: const obx_int.IdUid(28, 7925193540912720932),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [
         4845029629663650184,
@@ -4111,7 +4174,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final displayNameOffset = object.displayName == null
               ? null
               : fbb.writeString(object.displayName!);
-          fbb.startTable(10);
+          final colorOffset =
+              object.color == null ? null : fbb.writeString(object.color!);
+          final iconOffset =
+              object.icon == null ? null : fbb.writeString(object.icon!);
+          fbb.startTable(12);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.created.millisecondsSinceEpoch);
           fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
@@ -4121,6 +4188,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addInt64(6, object.sortOrder);
           fbb.addInt64(7, object.optionSet.targetId);
           fbb.addOffset(8, displayNameOffset);
+          fbb.addOffset(9, colorOffset);
+          fbb.addOffset(10, iconOffset);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -4144,8 +4213,21 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final displayNameParam =
               const fb.StringReader(asciiOptimization: true)
                   .vTableGetNullable(buffer, rootOffset, 20);
-          final object = D2Option(idParam, createdParam, lastUpdatedParam,
-              uidParam, nameParam, codeParam, sortOrderParam, displayNameParam);
+          final colorParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGetNullable(buffer, rootOffset, 22);
+          final iconParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGetNullable(buffer, rootOffset, 24);
+          final object = D2Option(
+              idParam,
+              createdParam,
+              lastUpdatedParam,
+              uidParam,
+              nameParam,
+              codeParam,
+              sortOrderParam,
+              displayNameParam,
+              colorParam,
+              iconParam);
           object.optionSet.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
           object.optionSet.attach(store);
@@ -7176,6 +7258,59 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0);
           object.sharing.attach(store);
           return object;
+        }),
+    D2OptionGroupSet: obx_int.EntityDefinition<D2OptionGroupSet>(
+        model: _entities[51],
+        toOneRelations: (D2OptionGroupSet object) => [object.optionSet],
+        toManyRelations: (D2OptionGroupSet object) => {
+              obx_int.RelInfo<D2OptionGroupSet>.toMany(28, object.id):
+                  object.optionGroups
+            },
+        getId: (D2OptionGroupSet object) => object.id,
+        setId: (D2OptionGroupSet object, int id) {
+          object.id = id;
+        },
+        objectToFB: (D2OptionGroupSet object, fb.Builder fbb) {
+          final uidOffset = fbb.writeString(object.uid);
+          final nameOffset = fbb.writeString(object.name);
+          final codeOffset =
+              object.code == null ? null : fbb.writeString(object.code!);
+          fbb.startTable(8);
+          fbb.addOffset(0, uidOffset);
+          fbb.addInt64(1, object.created.millisecondsSinceEpoch);
+          fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
+          fbb.addInt64(3, object.id);
+          fbb.addOffset(4, nameOffset);
+          fbb.addOffset(5, codeOffset);
+          fbb.addInt64(6, object.optionSet.targetId);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (obx.Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+          final uidParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 4, '');
+          final idParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0);
+          final createdParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0));
+          final lastUpdatedParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0));
+          final nameParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 12, '');
+          final codeParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGetNullable(buffer, rootOffset, 14);
+          final object = D2OptionGroupSet(uidParam, idParam, createdParam,
+              lastUpdatedParam, nameParam, codeParam);
+          object.optionSet.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0);
+          object.optionSet.attach(store);
+          obx_int.InternalToManyAccess.setRelInfo<D2OptionGroupSet>(
+              object.optionGroups,
+              store,
+              obx_int.RelInfo<D2OptionGroupSet>.toMany(28, object.id));
+          return object;
         })
   };
 
@@ -7602,6 +7737,14 @@ class D2Option_ {
   /// See [D2Option.displayName].
   static final displayName =
       obx.QueryStringProperty<D2Option>(_entities[7].properties[8]);
+
+  /// See [D2Option.color].
+  static final color =
+      obx.QueryStringProperty<D2Option>(_entities[7].properties[9]);
+
+  /// See [D2Option.icon].
+  static final icon =
+      obx.QueryStringProperty<D2Option>(_entities[7].properties[10]);
 
   /// see [D2Option.optionGroups]
   static final optionGroups = obx.QueryRelationToMany<D2Option, D2OptionGroup>(
@@ -9595,4 +9738,41 @@ class D2UserSharing_ {
   /// See [D2UserSharing.userId].
   static final userId =
       obx.QueryStringProperty<D2UserSharing>(_entities[50].properties[4]);
+}
+
+/// [D2OptionGroupSet] entity fields to define ObjectBox queries.
+class D2OptionGroupSet_ {
+  /// See [D2OptionGroupSet.uid].
+  static final uid =
+      obx.QueryStringProperty<D2OptionGroupSet>(_entities[51].properties[0]);
+
+  /// See [D2OptionGroupSet.created].
+  static final created =
+      obx.QueryDateProperty<D2OptionGroupSet>(_entities[51].properties[1]);
+
+  /// See [D2OptionGroupSet.lastUpdated].
+  static final lastUpdated =
+      obx.QueryDateProperty<D2OptionGroupSet>(_entities[51].properties[2]);
+
+  /// See [D2OptionGroupSet.id].
+  static final id =
+      obx.QueryIntegerProperty<D2OptionGroupSet>(_entities[51].properties[3]);
+
+  /// See [D2OptionGroupSet.name].
+  static final name =
+      obx.QueryStringProperty<D2OptionGroupSet>(_entities[51].properties[4]);
+
+  /// See [D2OptionGroupSet.code].
+  static final code =
+      obx.QueryStringProperty<D2OptionGroupSet>(_entities[51].properties[5]);
+
+  /// See [D2OptionGroupSet.optionSet].
+  static final optionSet =
+      obx.QueryRelationToOne<D2OptionGroupSet, D2OptionSet>(
+          _entities[51].properties[6]);
+
+  /// see [D2OptionGroupSet.optionGroups]
+  static final optionGroups =
+      obx.QueryRelationToMany<D2OptionGroupSet, D2OptionGroup>(
+          _entities[51].relations[0]);
 }

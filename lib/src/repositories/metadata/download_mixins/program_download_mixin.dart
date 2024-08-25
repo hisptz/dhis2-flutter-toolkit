@@ -1,5 +1,6 @@
 import 'package:dhis2_flutter_toolkit/src/models/metadata/sharing.dart';
 import 'package:dhis2_flutter_toolkit/src/repositories/metadata/option_group.dart';
+import 'package:dhis2_flutter_toolkit/src/repositories/metadata/option_group_set.dart';
 import 'package:dhis2_flutter_toolkit/src/repositories/metadata/sharing.dart';
 
 import '../../../models/metadata/program.dart';
@@ -135,6 +136,10 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
         await saveSharingSettings(value);
       }
     });
+    await getOptionGroup(
+        programMetadata['optionSets'].cast<Map<String, dynamic>>());
+    await getOptionGroupSets(
+        programMetadata['optionSets'].cast<Map<String, dynamic>>());
   }
 
   @override
@@ -175,6 +180,39 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
       if (legendSets != null) {
         await D2LegendSetRepository(db)
             .saveOffline(legendSets['legendSets'].cast<Map<String, dynamic>>());
+      }
+    }
+  }
+
+  getOptionGroupSets(List<Map<String, dynamic>> optionSets) async {
+    List<String> optionSetIds =
+        optionSets.map<String>((optionSet) => optionSet['id']).toList();
+    if (optionSetIds.isNotEmpty) {
+      Map<String, dynamic>? optionGroupSets = await client!
+          .httpGet<Map<String, dynamic>>("optionGroupSets", queryParameters: {
+        'filter': 'optionSet.id:in:[${optionSetIds.join(",")}]',
+        'fields': '*',
+      });
+
+      if (optionGroupSets != null) {
+        await D2OptionGroupSetRepository(db).saveOffline(
+            optionGroupSets['optionGroupSets'].cast<Map<String, dynamic>>());
+      }
+    }
+  }
+
+  getOptionGroup(List<Map<String, dynamic>> optionSets) async {
+    List<String> optionSetIds =
+        optionSets.map<String>((optionSet) => optionSet['id']).toList();
+    if (optionSetIds.isNotEmpty) {
+      Map<String, dynamic>? optionGroups = await client!
+          .httpGet<Map<String, dynamic>>("optionGroups", queryParameters: {
+        'filter': 'optionSet.id:in:[${optionSetIds.join(",")}]',
+        'fields': '*',
+      });
+      if (optionGroups != null) {
+        await D2OptionGroupRepository(db).saveOffline(
+            optionGroups['optionGroups'].cast<Map<String, dynamic>>());
       }
     }
   }
