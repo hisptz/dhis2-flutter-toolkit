@@ -10,6 +10,8 @@ export 'data_set_element.dart' show D2DataSetElement;
 export "legend.dart" show D2Legend;
 export "legend_set.dart" show D2LegendSet;
 export "option.dart" show D2Option;
+export "option_group.dart" show D2OptionGroup;
+export "option_group_set.dart" show D2OptionGroupSet;
 export "option_set.dart" show D2OptionSet;
 export "org_unit.dart" show D2OrgUnit;
 export "org_unit_group.dart" show D2OrgUnitGroup;
