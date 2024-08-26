@@ -2,7 +2,6 @@ import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../../repositories/metadata/option_group.dart';
 import '../../../../utils/program_rule_engine/models/program_rule_results.dart';
 import '../form_data_state.dart';
 import '../form_disabled_state.dart';
@@ -295,11 +294,17 @@ mixin ProgramRuleEngineState
           );
         }
         if (action.hiddenOptionGroup != null) {
-          _hideOptions(
-            action.hiddenOptionGroup!.fieldId,
-            [action.hiddenOptionGroup!.optionGroupId],
-            programRuleExpressionValue,
-          );
+          D2OptionGroup? optionGroup = D2OptionGroupRepository(db)
+              .getByUid(action.hiddenOptionGroup!.optionGroupId);
+          if (optionGroup != null) {
+            List<String> optionsToHide =
+                optionGroup.options.map((option) => option.code).toList();
+            _hideOptions(
+              action.hiddenOptionGroup!.fieldId,
+              optionsToHide,
+              programRuleExpressionValue,
+            );
+          }
         }
         if (action.disabledField != null) {
           _toggleFieldDisable(
