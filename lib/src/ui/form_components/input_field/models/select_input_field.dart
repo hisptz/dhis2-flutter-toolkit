@@ -13,10 +13,10 @@ class D2SelectInputFieldConfig extends D2BaseInputFieldConfig {
     if (optionsToHide!.isEmpty) {
       return options ?? [];
     }
-
     return options
             ?.where((option) => !optionsToHide!.contains(option.code))
             .toList() ??
+        options ??
         [];
   }
 

@@ -69,8 +69,6 @@ class MultiSelectInput
 
   @override
   Widget build(BuildContext context) {
-    print("Value outside");
-    print(value);
     return Wrap(
       alignment: WrapAlignment.start,
       verticalDirection: VerticalDirection.down,
