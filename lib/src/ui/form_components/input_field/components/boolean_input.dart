@@ -32,8 +32,8 @@ class BooleanInput
                 Radio(
                   toggleable: !disabled,
                   overlayColor:
-                      MaterialStatePropertyAll(decoration.colorScheme.text),
-                  fillColor: MaterialStatePropertyAll(
+                      WidgetStatePropertyAll(decoration.colorScheme.text),
+                  fillColor: WidgetStatePropertyAll(
                     "$value" == option.code
                         ? disabled
                             ? decoration.colorScheme.disabled

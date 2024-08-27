@@ -27,49 +27,48 @@ class MultiTextInput
 
   List<Widget> getInputs() {
     return input.filteredOptions
-            .map<Widget>((option) => Row(
-                  mainAxisSize:
-                      input.horizontal ? MainAxisSize.min : MainAxisSize.max,
-                  children: [
-                    Checkbox(
-                        activeColor: color,
-                        overlayColor:
-                            WidgetStatePropertyAll(decoration.colorScheme.text),
-                        fillColor: WidgetStatePropertyAll(
-                          isOptionSelected(option)
-                              ? disabled
-                                  ? decoration.colorScheme.disabled
-                                  : decoration.colorScheme.active
-                              : Colors.transparent,
-                        ),
-                        value: isOptionSelected(option),
-                        onChanged: disabled
-                            ? null
-                            : (checked) {
-                                if (isOptionSelected(option)) {
-                                  List<String> updatedValue = value
-                                          ?.split(",")
-                                          .where((val) => val != option.code)
-                                          .toList() ??
-                                      [];
-                                  if (updatedValue.isEmpty) {
-                                    onChange(null);
-                                  } else {
-                                    onChange(updatedValue.join(","));
-                                  }
-                                } else {
-                                  List<String> newValue = [
-                                    ...(value?.split(",") ?? []),
-                                    option.code
-                                  ];
-                                  onChange(newValue.join(","));
-                                }
-                              }),
-                    Flexible(child: Text(option.name))
-                  ],
-                ))
-            .toList() ??
-        [];
+        .map<Widget>((option) => Row(
+              mainAxisSize:
+                  input.horizontal ? MainAxisSize.min : MainAxisSize.max,
+              children: [
+                Checkbox(
+                    activeColor: color,
+                    overlayColor:
+                        WidgetStatePropertyAll(decoration.colorScheme.text),
+                    fillColor: WidgetStatePropertyAll(
+                      isOptionSelected(option)
+                          ? disabled
+                              ? decoration.colorScheme.disabled
+                              : decoration.colorScheme.active
+                          : Colors.transparent,
+                    ),
+                    value: isOptionSelected(option),
+                    onChanged: disabled
+                        ? null
+                        : (checked) {
+                            if (isOptionSelected(option)) {
+                              List<String> updatedValue = value
+                                      ?.split(",")
+                                      .where((val) => val != option.code)
+                                      .toList() ??
+                                  [];
+                              if (updatedValue.isEmpty) {
+                                onChange(null);
+                              } else {
+                                onChange(updatedValue.join(","));
+                              }
+                            } else {
+                              List<String> newValue = [
+                                ...(value?.split(",") ?? []),
+                                option.code
+                              ];
+                              onChange(newValue.join(","));
+                            }
+                          }),
+                Flexible(child: Text(option.name))
+              ],
+            ))
+        .toList();
   }
 
   @override

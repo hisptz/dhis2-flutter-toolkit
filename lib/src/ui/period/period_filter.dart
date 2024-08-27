@@ -286,7 +286,7 @@ class _PeriodSelectorState extends State<D2PeriodSelector>
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: ElevatedButton(
                 style: ButtonStyle(
-                    backgroundColor: MaterialStateColor.resolveWith(
+                    backgroundColor: WidgetStateColor.resolveWith(
                         (states) => widget.color)),
                 child: const Text(
                   'Update',
