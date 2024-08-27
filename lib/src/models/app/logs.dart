@@ -17,5 +17,5 @@ class D2AppLog {
       required this.message,
       required this.process,
       this.stackTrace})
-      : timestamp = DateTime.now() {}
+      : timestamp = DateTime.now();
 }

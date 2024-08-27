@@ -1,5 +1,4 @@
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
-import 'package:flutter/material.dart';
 
 import '../../form_section/models/form_section.dart';
 

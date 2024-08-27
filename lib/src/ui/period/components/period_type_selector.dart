@@ -16,8 +16,7 @@ class SelectorInput extends StatelessWidget {
   final Color inputColor;
 
   const SelectorInput(this.selected, this.onChange,
-      {Key? key, required this.rawOptions, required this.inputColor})
-      : super(key: key);
+      {super.key, required this.rawOptions, required this.inputColor});
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +48,7 @@ class YearInput extends StatelessWidget {
   final int currentYear = DateTime.now().year;
   final Color inputColor;
 
-  YearInput(this.value, this.onChange, this.inputColor, {Key? key})
-      : super(key: key);
+  YearInput(this.value, this.onChange, this.inputColor, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -89,14 +87,14 @@ class D2PeriodTypeSelector extends StatelessWidget {
   const D2PeriodTypeSelector(
     this.category,
     this.selectedType, {
-    Key? key,
+    super.key,
     required this.onChange,
     required this.year,
     required this.onYearChange,
     required this.inputColor,
     this.allowedPeriodTypes,
     this.excludedPeriodTypes,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

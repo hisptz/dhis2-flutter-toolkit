@@ -12,13 +12,13 @@ class D2DateRangeSelector extends StatelessWidget {
   final DateTime? endDate;
   final Color color;
 
-  D2DateRangeSelector(
-      {Key? key,
-      required this.onUpdate,
-      required this.color,
-      this.startDate,
-      this.endDate})
-      : super(key: key);
+  D2DateRangeSelector({
+    super.key,
+    required this.onUpdate,
+    required this.color,
+    this.startDate,
+    this.endDate,
+  });
   final DateRangePickerController controller = DateRangePickerController();
 
   @override
