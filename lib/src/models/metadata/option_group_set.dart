@@ -1,9 +1,7 @@
 import 'package:dhis2_flutter_toolkit/src/models/metadata/base.dart';
-import 'package:dhis2_flutter_toolkit/src/repositories/metadata/option_group_set.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../../dhis2_flutter_toolkit.dart';
-import 'option_group.dart';
 
 @Entity()
 class D2OptionGroupSet extends D2MetaResource {

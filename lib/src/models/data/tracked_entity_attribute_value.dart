@@ -3,9 +3,6 @@ import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../repositories/data/entry.dart';
-import '../../repositories/metadata/entry.dart';
-import '../metadata/entry.dart';
 import 'upload_base.dart';
 
 @Entity()

@@ -1,5 +1,4 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:dhis2_flutter_toolkit/objectbox.dart';
 import 'package:dhis2_flutter_toolkit/objectbox.g.dart';
 import 'package:flutter_test/flutter_test.dart';
 
