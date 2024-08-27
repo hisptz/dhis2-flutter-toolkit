@@ -17,12 +17,11 @@ class CustomButton extends StatefulWidget {
     this.labelColor,
     this.buttonPrimaryColor,
     this.buttonMargin = const EdgeInsets.symmetric(
-      vertical: 7.0,
-      horizontal: 7.0,
+      horizontal: 10.0,
     ),
     this.buttonPaading = const EdgeInsets.symmetric(
-      vertical: 7.0,
       horizontal: 15.0,
+      vertical: 5.0,
     ),
     this.onTap,
   });
