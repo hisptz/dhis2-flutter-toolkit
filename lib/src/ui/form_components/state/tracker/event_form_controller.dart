@@ -35,8 +35,7 @@ class D2TrackerEventFormController extends D2FormController
       super.formFields,
       this.orgUnit}) {
     if (event != null) {
-      Map<String, dynamic> formValues = event!.toFormValues();
-      setValues(formValues);
+      setEvent(event!);
     }
 
     if (programStage.program.target!.programType == "WITH_REGISTRATION" &&
@@ -50,6 +49,12 @@ class D2TrackerEventFormController extends D2FormController
         .toList();
     this.mandatoryFields.addAll(mandatoryFields);
     initializeProgramRuleEngine(programStage.program.target!);
+  }
+
+  void setEvent(D2Event event) {
+    Map<String, dynamic> formValues = event.toFormValues();
+    setValues(formValues);
+    this.event = event;
   }
 
   void initializeProgramRuleEngine(D2Program program) {
@@ -68,8 +73,11 @@ class D2TrackerEventFormController extends D2FormController
 
   Future<D2Event> create() async {
     Map<String, dynamic> validatedFormValues = submit();
-    D2OrgUnit? orgUnit = D2OrgUnitRepository(db)
-        .getByUid(this.orgUnit ?? validatedFormValues["orgUnit"]);
+    D2OrgUnit? orgUnit = enrollment?.orgUnit.target;
+    if (this.orgUnit != null || validatedFormValues["orgUnit"] != null) {
+      orgUnit = D2OrgUnitRepository(db)
+          .getByUid(this.orgUnit ?? validatedFormValues["orgUnit"]);
+    }
     if (orgUnit == null) {
       throw "Could not get entity's organisation unit. You either have to pass it as a parameter when initializing the controller or have a required field with key 'orgUnit'";
     }
