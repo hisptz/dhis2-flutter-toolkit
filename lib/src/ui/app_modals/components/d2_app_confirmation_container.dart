@@ -43,13 +43,13 @@ class D2AppConfirmationContainer extends StatelessWidget {
                   ),
                   child: OutlinedButton(
                     style: const ButtonStyle().copyWith(
-                      foregroundColor: MaterialStatePropertyAll(themColor),
-                      side: MaterialStatePropertyAll(
+                      foregroundColor: WidgetStatePropertyAll(themColor),
+                      side: WidgetStatePropertyAll(
                         const BorderSide().copyWith(
                           color: themColor,
                         ),
                       ),
-                      textStyle: MaterialStateProperty.all(
+                      textStyle: WidgetStateProperty.all(
                         const TextStyle().copyWith(
                           color: themColor,
                           fontSize: 14.0,
@@ -67,11 +67,11 @@ class D2AppConfirmationContainer extends StatelessWidget {
                   ),
                   child: FilledButton(
                     style: const ButtonStyle().copyWith(
-                      backgroundColor: MaterialStateProperty.all(
+                      backgroundColor: WidgetStateProperty.all(
                           confirmationButtomThemColor),
                       foregroundColor:
-                          const MaterialStatePropertyAll(Colors.white),
-                      textStyle: MaterialStateProperty.all(
+                          const WidgetStatePropertyAll(Colors.white),
+                      textStyle: WidgetStateProperty.all(
                         const TextStyle().copyWith(
                           fontSize: 14.0,
                           fontWeight: FontWeight.w500,

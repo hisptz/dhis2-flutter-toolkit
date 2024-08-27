@@ -29,19 +29,19 @@ class TrueOnlyInput
         activeTrackColor: input.colorScheme?.activeTrackColor ?? color,
         inactiveTrackColor:
             input.colorScheme?.inactiveTrackColor ?? Colors.white,
-        trackOutlineColor: MaterialStatePropertyAll(
+        trackOutlineColor: WidgetStatePropertyAll(
           isSelected()
               ? input.colorScheme?.activeTrackOutlineColor ?? color
               : input.colorScheme?.inactiveTrackOutlineColor ??
                   const Color(0xFF94A0B1),
         ),
-        thumbColor: MaterialStatePropertyAll(
+        thumbColor: WidgetStatePropertyAll(
           isSelected()
               ? input.colorScheme?.activeThumbColor ?? Colors.white
               : input.colorScheme?.inactiveThumbColor ??
                   const Color(0xFF94A0B1),
         ),
-        thumbIcon: MaterialStateProperty.all(
+        thumbIcon: WidgetStateProperty.all(
           Icon(
             isSelected() ? Icons.check : Icons.close,
             color: isSelected()
