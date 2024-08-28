@@ -68,7 +68,7 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
       case "programs":
         return D2ProgramRepository(db).saveOffline(value);
       case "programRules":
-        return D2ProgramRuleRepository(db).saveOffline(value);
+        return await D2ProgramRuleRepository(db).saveOffline(value);
       case "legends":
         return D2LegendRepository(db).saveOffline(value);
       case "legendSets":
