@@ -21,16 +21,16 @@ class D2ProgramStageSectionRepository
 
   @override
   Future<List<D2ProgramStageSection>> saveOffline(
-      List<Map<String, dynamic>> json) {
+      List<Map<String, dynamic>> json) async {
     String programStageUid = json.first["programStage"]["id"] as String;
     D2ProgramStage? programStage =
         D2ProgramStageRepository(db).getByUid(programStageUid);
 
     if (programStage != null) {
-      List<D2ProgramStageSection> programStageSections = box
+      List<D2ProgramStageSection> programStageSections = await box
           .query(D2ProgramStageSection_.programStage.equals(programStage.id))
           .build()
-          .find();
+          .findAsync();
 
       List<int> sectionIds =
           programStageSections.map((section) => section.id).toList();
@@ -44,10 +44,13 @@ class D2ProgramStageSectionRepository
               .map((element) => element.id));
         }
 
-        box.removeMany([...sectionIds, ...programStageSectionDataElements]);
+        await D2ProgramStageSectionRepository(db)
+            .box
+            .removeManyAsync(programStageSectionDataElements);
+        await box.removeManyAsync(sectionIds);
       }
     }
 
-    return super.saveOffline(json);
+    return await super.saveOffline(json);
   }
 }

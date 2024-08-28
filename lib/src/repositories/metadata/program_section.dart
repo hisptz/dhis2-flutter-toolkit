@@ -1,5 +1,6 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/objectbox.g.dart';
+import 'package:dhis2_flutter_toolkit/src/repositories/metadata/program_section_tracked_entity_attribute.dart';
 
 import 'base.dart';
 
@@ -19,30 +20,33 @@ class D2ProgramSectionRepository extends BaseMetaRepository<D2ProgramSection> {
   }
 
   @override
-  Future<List<D2ProgramSection>> saveOffline(List<Map<String, dynamic>> json) {
+  Future<List<D2ProgramSection>> saveOffline(
+    List<Map<String, dynamic>> json,
+  ) async {
     //We need to delete existing sections for the program in order to record them again
     String programUid = json.first["program"]["id"] as String;
     D2Program? program = D2ProgramRepository(db).getByUid(programUid);
 
     if (program != null) {
-      List<D2ProgramSection> programSections = box
+      List<D2ProgramSection> programSections = await box
           .query(D2ProgramSection_.program.equals(program.id))
           .build()
-          .find();
+          .findAsync();
 
       List<int> sectionIds =
           programSections.map((section) => section.id).toList();
 
       if (programSections.isNotEmpty) {
-        List<int> programStageDataElements = [];
-
+        List<int> programSectionAttributes = [];
         for (D2ProgramSection section in programSections) {
-          programStageDataElements.addAll(section
+          programSectionAttributes.addAll(section
               .programSectionTrackedEntityAttributes
               .map((element) => element.id));
         }
-
-        box.removeMany([...sectionIds, ...programStageDataElements]);
+        await D2ProgramSectionTrackedEntityAttributeRepository(db)
+            .box
+            .removeManyAsync(programSectionAttributes);
+        await box.removeManyAsync(sectionIds);
       }
     }
 
