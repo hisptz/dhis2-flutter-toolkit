@@ -1,6 +1,6 @@
 import '../input_field/components/base_input.dart';
 
-class FieldState {
+class D2FieldState {
   bool? hidden;
   bool? disabled;
   bool? mandatory;
@@ -10,7 +10,7 @@ class FieldState {
   List<String> optionsToHide = [];
   OnChange<dynamic> onChange;
 
-  FieldState(
+  D2FieldState(
       {required this.onChange,
       this.hidden,
       this.optionsToHide = const [],

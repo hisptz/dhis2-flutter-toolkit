@@ -5,7 +5,7 @@ class SectionState {
   bool? hidden;
   bool? error;
   bool? warning;
-  List<FieldState> fieldsStates;
+  List<D2FieldState> fieldsStates;
 
   SectionState(
       {required this.id,

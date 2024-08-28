@@ -81,6 +81,7 @@ class D2InputFieldContainer extends StatelessWidget {
             onChange: onChange,
             value: value,
             color: colorOverride,
+            disabled: disabled,
             decoration: inputDecoration!);
       }
       if (input is D2MultiSelectInputFieldConfig) {

@@ -37,7 +37,7 @@ class D2FormController extends ChangeNotifier
     this.formFields = formFields ?? [];
   }
 
-  FieldState getFieldState(String key) {
+  D2FieldState getFieldState(String key) {
     bool hidden = isFieldHidden(key);
     bool disabled = isFieldDisabled(key);
     bool mandatory = isFieldMandatory(key);
@@ -50,7 +50,7 @@ class D2FormController extends ChangeNotifier
       setValue(key, value);
     }
 
-    return FieldState(
+    return D2FieldState(
         onChange: onChange,
         optionsToHide: optionsToHide,
         hidden: hidden,

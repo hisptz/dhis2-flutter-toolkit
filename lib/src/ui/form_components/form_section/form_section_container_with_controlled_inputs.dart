@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../entry.dart';
-import '../state/field_state.dart';
 
 class FormSectionContainerWithControlledInputs extends StatelessWidget {
   final D2FormSection section;
@@ -42,7 +41,8 @@ class FormSectionContainerWithControlledInputs extends StatelessWidget {
             return ListenableBuilder(
                 listenable: controller,
                 builder: (BuildContext context, Widget? child) {
-                  FieldState fieldState = controller.getFieldState(input.name);
+                  D2FieldState fieldState =
+                      controller.getFieldState(input.name);
 
                   if (input is D2SelectInputFieldConfig) {
                     input.optionsToHide = controller.optionsToHide[input.name];
