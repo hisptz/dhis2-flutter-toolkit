@@ -1,5 +1,4 @@
 import '../../../objectbox.g.dart';
-
 import '../../models/metadata/program_rule_action.dart';
 import 'base.dart';
 

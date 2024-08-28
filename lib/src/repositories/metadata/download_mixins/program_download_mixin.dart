@@ -41,7 +41,7 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
     return this;
   }
 
-  syncMeta(key, value) {
+  syncMeta(key, value) async {
     switch (key) {
       case "dataElements":
         return D2DataElementRepository(db).saveOffline(value);
@@ -74,9 +74,9 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
       case "legendSets":
         return D2LegendSetRepository(db).saveOffline(value);
       case "programSections":
-        return D2ProgramSectionRepository(db).saveOffline(value);
+        return await D2ProgramSectionRepository(db).saveOffline(value);
       case "programStageSections":
-        return D2ProgramStageSectionRepository(db).saveOffline(value);
+        return await D2ProgramStageSectionRepository(db).saveOffline(value);
     }
   }
 
