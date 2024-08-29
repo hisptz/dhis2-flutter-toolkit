@@ -35,7 +35,8 @@ class D2TrackedEntity extends SyncDataSource
 
   @Backlink("fromTrackedEntity")
   final relationships = ToMany<D2Relationship>();
-  final relationshipsForQuery = ToMany<D2Relationship>();
+
+  // final relationshipsForQuery = ToMany<D2Relationship>();
 
   final orgUnit = ToOne<D2OrgUnit>();
 

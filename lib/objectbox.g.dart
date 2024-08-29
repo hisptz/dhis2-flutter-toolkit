@@ -359,7 +359,12 @@ final _entities = <obx_int.ModelEntity>[
             type: 9,
             flags: 0)
       ],
-      relations: <obx_int.ModelRelation>[],
+      relations: <obx_int.ModelRelation>[
+        obx_int.ModelRelation(
+            id: const obx_int.IdUid(29, 630747367266934578),
+            name: 'relationshipsForQuery',
+            targetId: const obx_int.IdUid(22, 4637318393876658704))
+      ],
       backlinks: <obx_int.ModelBacklink>[
         obx_int.ModelBacklink(
             name: 'events', srcEntity: 'D2Event', srcField: 'enrollment'),
@@ -393,7 +398,8 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(4, 3826385106803832800),
             name: 'uid',
             type: 9,
-            flags: 0),
+            flags: 2080,
+            indexId: const obx_int.IdUid(137, 1772854526514860220)),
         obx_int.ModelProperty(
             id: const obx_int.IdUid(5, 8453330915151234656),
             name: 'scheduledAt',
@@ -1931,11 +1937,7 @@ final _entities = <obx_int.ModelEntity>[
         obx_int.ModelRelation(
             id: const obx_int.IdUid(24, 2410478793112935215),
             name: 'attributesForQuery',
-            targetId: const obx_int.IdUid(27, 8981732063320211832)),
-        obx_int.ModelRelation(
-            id: const obx_int.IdUid(25, 4632210820673878274),
-            name: 'relationshipsForQuery',
-            targetId: const obx_int.IdUid(22, 4637318393876658704))
+            targetId: const obx_int.IdUid(27, 8981732063320211832))
       ],
       backlinks: <obx_int.ModelBacklink>[
         obx_int.ModelBacklink(
@@ -3513,8 +3515,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
       lastEntityId: const obx_int.IdUid(55, 111260684203835254),
-      lastIndexId: const obx_int.IdUid(136, 6299465337609188232),
-      lastRelationId: const obx_int.IdUid(28, 7925193540912720932),
+      lastIndexId: const obx_int.IdUid(137, 1772854526514860220),
+      lastRelationId: const obx_int.IdUid(30, 8498881252173320427),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [
         4845029629663650184,
@@ -3572,7 +3574,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
         5168595253644505712,
         1797209289193652554,
         3617172205280793536,
-        3611068746354162453
+        3611068746354162453,
+        8498881252173320427,
+        4632210820673878274
       ],
       modelVersion: 5,
       modelVersionParserMinimum: 5,
@@ -3795,6 +3799,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
         toOneRelations: (D2Enrollment object) =>
             [object.trackedEntity, object.orgUnit, object.program],
         toManyRelations: (D2Enrollment object) => {
+              obx_int.RelInfo<D2Enrollment>.toMany(29, object.id):
+                  object.relationshipsForQuery,
               obx_int.RelInfo<D2Event>.toOneBacklink(13, object.id,
                   (D2Event srcObject) => srcObject.enrollment): object.events,
               obx_int.RelInfo<D2Relationship>.toOneBacklink(14, object.id,
@@ -3879,6 +3885,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.program.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 28, 0);
           object.program.attach(store);
+          obx_int.InternalToManyAccess.setRelInfo<D2Enrollment>(
+              object.relationshipsForQuery,
+              store,
+              obx_int.RelInfo<D2Enrollment>.toMany(29, object.id));
           obx_int.InternalToManyAccess.setRelInfo<D2Enrollment>(
               object.events,
               store,
@@ -5568,8 +5578,6 @@ obx_int.ModelDefinition getObjectBoxModel() {
                   object.enrollmentsForQuery,
               obx_int.RelInfo<D2TrackedEntity>.toMany(24, object.id):
                   object.attributesForQuery,
-              obx_int.RelInfo<D2TrackedEntity>.toMany(25, object.id):
-                  object.relationshipsForQuery,
               obx_int.RelInfo<D2Enrollment>.toOneBacklink(11, object.id,
                       (D2Enrollment srcObject) => srcObject.trackedEntity):
                   object.enrollments,
@@ -5653,10 +5661,6 @@ obx_int.ModelDefinition getObjectBoxModel() {
               object.attributesForQuery,
               store,
               obx_int.RelInfo<D2TrackedEntity>.toMany(24, object.id));
-          obx_int.InternalToManyAccess.setRelInfo<D2TrackedEntity>(
-              object.relationshipsForQuery,
-              store,
-              obx_int.RelInfo<D2TrackedEntity>.toMany(25, object.id));
           obx_int.InternalToManyAccess.setRelInfo<D2TrackedEntity>(
               object.enrollments,
               store,
@@ -7521,6 +7525,11 @@ class D2Enrollment_ {
   static final geometry =
       obx.QueryStringProperty<D2Enrollment>(_entities[3].properties[14]);
 
+  /// see [D2Enrollment.relationshipsForQuery]
+  static final relationshipsForQuery =
+      obx.QueryRelationToMany<D2Enrollment, D2Relationship>(
+          _entities[3].relations[0]);
+
   /// see [D2Enrollment.events]
   static final events =
       obx.QueryBacklinkToMany<D2Event, D2Enrollment>(D2Event_.enrollment);
@@ -8682,11 +8691,6 @@ class D2TrackedEntity_ {
   static final attributesForQuery =
       obx.QueryRelationToMany<D2TrackedEntity, D2TrackedEntityAttributeValue>(
           _entities[23].relations[1]);
-
-  /// see [D2TrackedEntity.relationshipsForQuery]
-  static final relationshipsForQuery =
-      obx.QueryRelationToMany<D2TrackedEntity, D2Relationship>(
-          _entities[23].relations[2]);
 
   /// see [D2TrackedEntity.enrollments]
   static final enrollments =
