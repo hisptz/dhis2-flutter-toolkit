@@ -11,10 +11,8 @@ import 'program_rule_action.dart';
 class D2ProgramRule extends D2MetaResource {
   @override
   int id = 0;
-  @override
   DateTime created;
 
-  @override
   DateTime lastUpdated;
 
   @override
@@ -50,12 +48,11 @@ class D2ProgramRule extends D2MetaResource {
         description = json["description"],
         displayName = json["displayName"],
         priority = json["priority"],
-        condition = json["condition"] {
+        condition = json["condition"] ?? "" {
     id = D2ProgramRuleRepository(db).getIdByUid(json["id"]) ?? 0;
 
     program.target = D2ProgramRepository(db).getByUid(json["program"]["id"]);
   }
 
-  @override
   String? displayName;
 }
