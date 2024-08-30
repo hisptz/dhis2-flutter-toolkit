@@ -43,6 +43,7 @@ class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
     showDialog(
         context: context,
         builder: (_) => OrgUnitSelector(
+              limitSelectionTo: widget.input.limitSelectionTo,
               key: UniqueKey(),
               color: widget.color,
               config: widget.input,

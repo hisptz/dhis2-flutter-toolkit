@@ -11,9 +11,11 @@ class OrgUnitTreeTile extends StatelessWidget {
   final List<String> selected;
   final Color color;
   final ToggleSelection toggleSelection;
+  final bool disabledSelection;
 
   const OrgUnitTreeTile(
       {super.key,
+      this.disabledSelection = false,
       required this.multiple,
       required this.node,
       required this.selected,
@@ -34,23 +36,34 @@ class OrgUnitTreeTile extends StatelessWidget {
       child: multiple
           ? Row(
               children: [
-                Checkbox(
-                    visualDensity: VisualDensity.compact,
-                    value: selected.contains(node.data!.id),
-                    onChanged: (value) {
-                      toggleSelection(node.data!);
-                    }),
-                Text(
-                  node.data!.displayName,
-                  style: getTextStyle(),
+                disabledSelection
+                    ? const Icon(
+                        Icons.block,
+                        size: 24,
+                      )
+                    : Checkbox(
+                        visualDensity: VisualDensity.compact,
+                        value: selected.contains(node.data!.id),
+                        onChanged: (value) {
+                          toggleSelection(node.data!);
+                        }),
+                Opacity(
+                  opacity: disabledSelection ? 0.4 : 1,
+                  child: Text(
+                    node.data!.displayName,
+                    style: getTextStyle(),
+                  ),
                 )
               ],
             )
           : Padding(
               padding: const EdgeInsets.only(left: 32.0, top: 4, bottom: 4),
-              child: Text(
-                node.data!.displayName,
-                style: getTextStyle(),
+              child: Opacity(
+                opacity: disabledSelection ? 0.6 : 1,
+                child: Text(
+                  node.data!.displayName,
+                  style: getTextStyle(),
+                ),
               ),
             ),
     );

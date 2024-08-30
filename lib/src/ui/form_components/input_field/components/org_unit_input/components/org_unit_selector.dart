@@ -15,10 +15,12 @@ class OrgUnitSelector extends StatefulWidget {
   final OnChange<List<String>> onSelect;
   final bool? multiple;
   final Color color;
+  final List<String> limitSelectionTo;
 
   const OrgUnitSelector({
     super.key,
     this.selectedOrgUnits = const [],
+    this.limitSelectionTo = const [],
     this.multiple = false,
     required this.onSelect,
     required this.config,
@@ -46,6 +48,11 @@ class OrgUnitSelectorState extends State<OrgUnitSelector> {
   }
 
   toggleOrgUnitSelection(OrgUnitData orgUnitData) {
+    bool disableSelection = getDisabledSelectionStatus(orgUnitData.id);
+    if (disableSelection) {
+      return;
+    }
+
     if (selectedOrgUnits.contains(orgUnitData.id)) {
       setState(() {
         selectedOrgUnits = selectedOrgUnits
@@ -63,6 +70,13 @@ class OrgUnitSelectorState extends State<OrgUnitSelector> {
         });
       }
     }
+  }
+
+  bool getDisabledSelectionStatus(String id) {
+    if (widget.limitSelectionTo.isEmpty) {
+      return false;
+    }
+    return !widget.limitSelectionTo.contains(id);
   }
 
   @override
@@ -114,6 +128,8 @@ class OrgUnitSelectorState extends State<OrgUnitSelector> {
                             toggleOrgUnitSelection(node.data!);
                           },
                           child: OrgUnitTreeTile(
+                              disabledSelection:
+                                  getDisabledSelectionStatus(node.data!.id),
                               toggleSelection: toggleOrgUnitSelection,
                               node: node,
                               color: widget.color,
