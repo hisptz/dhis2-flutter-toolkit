@@ -42,6 +42,10 @@ abstract class D2BaseOrgUnitSelectorService<T> {
 
   Future<List<OrgUnitData>> getOrgUnitDataFromId(List<String> values);
 
+  List<OrgUnitData> getOrgUnitDataFromIdSync(List<String> values);
+
+  Future<List<OrgUnitData>> searchOrgUnitDataFromKeyword(String keyword);
+
   void expandInitiallySelected({List<String>? initiallySelected}) {
     //TODO: Implement how to expand the selected nodes;
   }

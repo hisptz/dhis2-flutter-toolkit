@@ -3,135 +3,135 @@ import 'package:flutter/material.dart';
 import '../../models/org_unit_input_field.dart';
 import '../base_input.dart';
 import '../input_field_icon.dart';
+import 'components/org_unit_search.dart';
 import 'components/org_unit_selector.dart';
 import 'models/org_unit_data.dart';
 
 class OrgUnitInput
-    extends BaseStatefulInput<D2OrgUnitInputFieldConfig, String> {
-  final int? maxLines;
-
+    extends BaseStatelessInput<D2OrgUnitInputFieldConfig, String> {
   const OrgUnitInput({
     super.key,
-    super.value,
-    super.disabled,
     required super.input,
-    required super.color,
     required super.onChange,
-    this.maxLines = 1,
+    super.disabled,
+    super.value,
+    required super.color,
     required super.decoration,
   });
 
-  @override
-  State<StatefulWidget> createState() {
-    return OrgUnitInputState();
-  }
-}
-
-class OrgUnitInputState extends BaseStatefulInputState<OrgUnitInput> {
-  List<OrgUnitData> selectedOrgUnitData = [];
-  late TextEditingController controller;
-
-  @override
-  final BoxConstraints iconConstraints = const BoxConstraints(
-      maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
+  final int maxLines = 2;
 
   void onSelect(List<String> selected) {
-    widget.onChange(selected.first);
+    onChange(selected.first);
   }
 
   onOpenSelector(BuildContext context) {
     showDialog(
         context: context,
         builder: (_) => OrgUnitSelector(
-              limitSelectionTo: widget.input.limitSelectionTo,
+              limitSelectionTo: input.limitSelectionTo,
               key: UniqueKey(),
-              color: widget.color,
-              config: widget.input,
+              color: color,
+              config: input,
               onSelect: onSelect,
-              selectedOrgUnits: widget.value != null ? [widget.value!] : [],
+              selectedOrgUnits: value != null ? [value!] : [],
             ));
   }
 
-  Future loadSelectedNames(List<String>? selected) async {
-    controller.text = "...";
-    List<OrgUnitData> orgUnits =
-        await widget.input.service.getOrgUnitDataFromId(selected ?? []);
-    if (mounted) {
-      setState(() {
-        selectedOrgUnitData = orgUnits;
-        controller.text = selectedOrgUnitData
-            .map((OrgUnitData orgUnit) => orgUnit.displayName)
-            .join(", ");
-      });
-    }
+  onOpenSearch(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (_) => OrgUnitSearch(
+              limitSelectionTo: input.limitSelectionTo,
+              key: UniqueKey(),
+              color: color,
+              config: input,
+              onSelect: onSelect,
+              selectedOrgUnits: value != null ? [value!] : [],
+            ));
   }
 
-  @override
-  void initState() {
-    controller = TextEditingController();
-    if (widget.value != null) {
-      loadSelectedNames([widget.value!]);
-    }
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void didUpdateWidget(oldWidget) {
-    if (widget.value == null) {
-      controller = TextEditingController();
+  List<OrgUnitData> getOrgUnits(String? value) {
+    if (value == null) {
+      return [];
     } else {
-      if (widget.value != oldWidget.value) {
-        loadSelectedNames([widget.value!]);
-      }
+      return input.service.getOrgUnitDataFromIdSync([value]);
     }
-    super.didUpdateWidget(oldWidget);
+  }
+
+  String? getNames() {
+    List<OrgUnitData> selectedOrgUnitData = getOrgUnits(value);
+    return selectedOrgUnitData.isEmpty
+        ? null
+        : selectedOrgUnitData.map((orgUnit) => orgUnit.displayName).join(", ");
   }
 
   @override
   Widget build(BuildContext context) {
-    Color color = widget.color;
-    int? maxLines = widget.maxLines;
-
-    return TextFormField(
-      cursorColor: color,
-      enabled: !widget.disabled,
-      showCursor: false,
-      autofocus: false,
-      controller: controller,
-      onTap: widget.disabled
-          ? null
-          : () {
-              onOpenSelector(context);
-            },
-      maxLines: maxLines,
-      keyboardType: TextInputType.none,
-      style: const TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-      ),
-      textInputAction: TextInputAction.done,
-      decoration: InputDecoration(
-          border: InputBorder.none,
-          suffixIcon: IconButton(
-            color: color,
-            padding: EdgeInsets.zero,
-            constraints: iconConstraints,
-            onPressed: widget.disabled
-                ? null
-                : () {
-                    onOpenSelector(context);
-                  },
-            icon: InputFieldIcon(
-                backgroundColor: color,
-                iconColor: color,
-                iconData: Icons.account_tree),
-          )),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+            child: TextFormField(
+          textAlignVertical: TextAlignVertical.center,
+          controller: TextEditingController(text: getNames()),
+          cursorColor: color,
+          enabled: !disabled,
+          showCursor: false,
+          autofocus: false,
+          onTap: disabled
+              ? null
+              : () {
+                  onOpenSelector(context);
+                },
+          maxLines: maxLines,
+          keyboardType: TextInputType.none,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+          textInputAction: TextInputAction.done,
+          decoration: const InputDecoration(
+            border: InputBorder.none,
+          ),
+        )),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Visibility(
+              visible: input.searchable,
+              child: IconButton(
+                color: color,
+                padding: EdgeInsets.zero,
+                constraints: iconConstraints,
+                onPressed: disabled
+                    ? null
+                    : () {
+                        onOpenSearch(context);
+                      },
+                icon: InputFieldIcon(
+                    backgroundColor: color,
+                    iconColor: color,
+                    iconData: Icons.search),
+              ),
+            ),
+            IconButton(
+              color: color,
+              padding: EdgeInsets.zero,
+              constraints: iconConstraints,
+              onPressed: disabled
+                  ? null
+                  : () {
+                      onOpenSelector(context);
+                    },
+              icon: InputFieldIcon(
+                  backgroundColor: color,
+                  iconColor: color,
+                  iconData: Icons.account_tree),
+            )
+          ],
+        )
+      ],
     );
   }
 }

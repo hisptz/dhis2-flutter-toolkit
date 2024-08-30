@@ -37,9 +37,17 @@ class OrgUnitTreeTile extends StatelessWidget {
           ? Row(
               children: [
                 disabledSelection
-                    ? const Icon(
-                        Icons.block,
-                        size: 24,
+                    ? Padding(
+                        padding: const EdgeInsets.only(
+                            top: 4, bottom: 4, left: 8, right: 4),
+                        child: Opacity(
+                          opacity: disabledSelection ? 0.6 : 1,
+                          child: const Icon(
+                            applyTextScaling: true,
+                            Icons.block,
+                            size: 24,
+                          ),
+                        ),
                       )
                     : Checkbox(
                         visualDensity: VisualDensity.compact,
@@ -48,7 +56,7 @@ class OrgUnitTreeTile extends StatelessWidget {
                           toggleSelection(node.data!);
                         }),
                 Opacity(
-                  opacity: disabledSelection ? 0.4 : 1,
+                  opacity: disabledSelection ? 0.6 : 1,
                   child: Text(
                     node.data!.displayName,
                     style: getTextStyle(),
