@@ -13,13 +13,13 @@ class OrgUnitSelector extends StatefulWidget {
   final D2OrgUnitInputFieldConfig config;
   final List<String>? selectedOrgUnits;
   final OnChange<List<String>> onSelect;
-  final bool? multiple;
   final Color color;
+  final List<String> limitSelectionTo;
 
   const OrgUnitSelector({
     super.key,
     this.selectedOrgUnits = const [],
-    this.multiple = false,
+    this.limitSelectionTo = const [],
     required this.onSelect,
     required this.config,
     required this.color,
@@ -46,6 +46,11 @@ class OrgUnitSelectorState extends State<OrgUnitSelector> {
   }
 
   toggleOrgUnitSelection(OrgUnitData orgUnitData) {
+    bool disableSelection = getDisabledSelectionStatus(orgUnitData.id);
+    if (disableSelection) {
+      return;
+    }
+
     if (selectedOrgUnits.contains(orgUnitData.id)) {
       setState(() {
         selectedOrgUnits = selectedOrgUnits
@@ -65,11 +70,18 @@ class OrgUnitSelectorState extends State<OrgUnitSelector> {
     }
   }
 
+  bool getDisabledSelectionStatus(String id) {
+    if (widget.limitSelectionTo.isEmpty) {
+      return false;
+    }
+    return !widget.limitSelectionTo.contains(id);
+  }
+
   @override
   void initState() {
     setState(() {
       service = widget.config.service;
-      multiple = widget.multiple ?? false;
+      multiple = widget.config.multiple;
       selectedOrgUnits = widget.selectedOrgUnits ?? [];
     });
     initializeService();
@@ -114,6 +126,8 @@ class OrgUnitSelectorState extends State<OrgUnitSelector> {
                             toggleOrgUnitSelection(node.data!);
                           },
                           child: OrgUnitTreeTile(
+                              disabledSelection:
+                                  getDisabledSelectionStatus(node.data!.id),
                               toggleSelection: toggleOrgUnitSelection,
                               node: node,
                               color: widget.color,

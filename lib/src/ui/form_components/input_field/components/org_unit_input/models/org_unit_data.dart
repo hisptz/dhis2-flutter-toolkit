@@ -3,6 +3,7 @@ class OrgUnitData {
   int level;
   bool hasChildren;
   String id;
+  String path;
 
   List<OrgUnitData>? children;
 
@@ -11,5 +12,6 @@ class OrgUnitData {
       required this.level,
       required this.hasChildren,
       this.children,
-      required this.id});
+      required this.id,
+      required this.path});
 }
