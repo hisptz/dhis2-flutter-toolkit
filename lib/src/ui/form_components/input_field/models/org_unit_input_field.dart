@@ -17,7 +17,7 @@ class D2OrgUnitInputFieldConfig extends D2BaseInputFieldConfig {
       super.legends,
       super.svgIconAsset,
       required this.service,
-      this.searchable = false,
+      this.searchable = true,
       this.multiple = false,
       this.limitSelectionTo = const []});
 }
