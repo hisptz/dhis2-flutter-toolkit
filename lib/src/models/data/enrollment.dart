@@ -39,6 +39,9 @@ class D2Enrollment extends SyncDataSource
 
   final relationshipsForQuery = ToMany<D2Relationship>();
 
+  @Backlink("toEnrollment")
+  final toRelationships = ToMany<D2Relationship>();
+
   final trackedEntity = ToOne<D2TrackedEntity>();
 
   final orgUnit = ToOne<D2OrgUnit>();

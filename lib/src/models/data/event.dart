@@ -43,6 +43,9 @@ class D2Event extends SyncDataSource
   @Backlink("fromEvent")
   final relationships = ToMany<D2Relationship>();
 
+  @Backlink("toEvent")
+  final toRelationships = ToMany<D2Relationship>();
+
   @Backlink("event")
   final dataValues = ToMany<D2DataValue>();
 
