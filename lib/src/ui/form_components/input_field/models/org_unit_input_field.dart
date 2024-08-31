@@ -3,6 +3,9 @@ import 'base_input_field.dart';
 
 class D2OrgUnitInputFieldConfig extends D2BaseInputFieldConfig {
   D2BaseOrgUnitSelectorService service;
+  final List<String> limitSelectionTo;
+  final bool searchable;
+  final bool multiple;
 
   D2OrgUnitInputFieldConfig(
       {required super.label,
@@ -13,5 +16,8 @@ class D2OrgUnitInputFieldConfig extends D2BaseInputFieldConfig {
       super.icon,
       super.legends,
       super.svgIconAsset,
-      required this.service});
+      required this.service,
+      this.searchable = true,
+      this.multiple = false,
+      this.limitSelectionTo = const []});
 }

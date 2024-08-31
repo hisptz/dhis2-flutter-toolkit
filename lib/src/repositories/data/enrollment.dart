@@ -43,6 +43,13 @@ class D2EnrollmentRepository extends D2BaseTrackerDataRepository<D2Enrollment>
 
   @override
   Query<D2Enrollment> getUnSyncedQuery() {
+    if (program != null) {
+      return box
+          .query(D2Enrollment_.program
+              .equals(program!.id)
+              .and(D2Enrollment_.synced.equals(false)))
+          .build();
+    }
     return box.query(D2Enrollment_.synced.equals(false)).build();
   }
 

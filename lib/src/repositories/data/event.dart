@@ -52,6 +52,13 @@ class D2EventRepository extends D2BaseTrackerDataRepository<D2Event>
 
   @override
   Query<D2Event> getUnSyncedQuery() {
+    if (program != null) {
+      return box
+          .query(D2Event_.program
+              .equals(program!.id)
+              .and(D2Event_.synced.equals(false)))
+          .build();
+    }
     return box.query(D2Event_.synced.equals(false)).build();
   }
 

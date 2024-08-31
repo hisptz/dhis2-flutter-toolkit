@@ -118,22 +118,15 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
       List<String> entitiesIdsWithErrors =
           importSummary.map<String>((summary) => summary.uid).toList();
 
-      List<String> errorMessages = errorReports
-          .map<String>((errorReport) => errorReport["message"] as String)
-          .toList();
-
       List<T> entitiesWithoutErrors = entities
           .whereNot((T entity) => entitiesIdsWithErrors.contains(entity.uid))
           .toList();
-
-      if (entitiesIdsWithErrors.isNotEmpty) {
-        throw 'Error: $errorMessages';
-      }
 
       for (T entity in entitiesWithoutErrors) {
         entity.synced = true;
       }
       await box.putManyAsync(entitiesWithoutErrors);
+
       if (importSummary.isNotEmpty) {
         await D2ImportSummaryErrorRepository(db).saveEntities(importSummary);
       }
@@ -167,7 +160,6 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     }
     try {
       await deleteSoftDeletedEntities();
-      await D2ImportSummaryErrorRepository(db).clearErrors();
       Query<T> query = getUnSyncedQuery();
       int count = query.count();
       if (count == 0) {

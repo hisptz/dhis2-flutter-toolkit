@@ -33,7 +33,8 @@ class D2LocalOrgUnitSelectorService
         level: orgUnit.level.target!.level,
         hasChildren: orgUnit.children.isNotEmpty,
         children: orgUnit.children.map(getOrgUnitDataFromOrgUnit).toList(),
-        id: orgUnit.uid);
+        id: orgUnit.uid,
+        path: orgUnit.path);
   }
 
   @override
@@ -72,5 +73,26 @@ class D2LocalOrgUnitSelectorService
         .findAsync();
 
     return orgUnits.map(getOrgUnitDataFromOrgUnit).toList();
+  }
+
+  @override
+  List<OrgUnitData> getOrgUnitDataFromIdSync(List<String> values) {
+    List<D2OrgUnit> orgUnits = D2OrgUnitRepository(db)
+        .box
+        .query(D2OrgUnit_.uid.oneOf(values))
+        .build()
+        .find();
+
+    return orgUnits.map(getOrgUnitDataFromOrgUnit).toList();
+  }
+
+  @override
+  Future<List<OrgUnitData>> searchOrgUnitDataFromKeyword(String keyword) async {
+    QueryBuilder<D2OrgUnit> queryBuilder = D2OrgUnitRepository(db).box.query(
+        D2OrgUnit_.name.contains(keyword, caseSensitive: false).or(D2OrgUnit_
+            .code
+            .contains(keyword, caseSensitive: false)
+            .or(D2OrgUnit_.uid.contains(keyword, caseSensitive: false))));
+    return queryBuilder.build().find().map(getOrgUnitDataFromOrgUnit).toList();
   }
 }
