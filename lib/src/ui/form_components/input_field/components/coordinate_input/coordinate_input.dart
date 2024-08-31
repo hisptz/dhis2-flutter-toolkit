@@ -72,6 +72,7 @@ class CoordinateInputState extends BaseStatefulInputState<CoordinateInput> {
               onChange: onChange,
               color: widget.color,
               value: widget.value,
+              isMarkerDraggable: widget.input.isMarkerDraggable,
             )));
   }
 

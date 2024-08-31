@@ -12,10 +12,15 @@ import '../../../utils/location.dart';
 class CoordinateInputMapView extends StatefulWidget {
   final Color color;
   final D2GeometryValue? value;
+  final bool isMarkerDraggable;
   final OnChange<D2GeometryValue> onChange;
 
   const CoordinateInputMapView(
-      {super.key, required this.color, this.value, required this.onChange});
+      {super.key,
+      required this.color,
+      required this.isMarkerDraggable,
+      this.value,
+      required this.onChange});
 
   @override
   State<CoordinateInputMapView> createState() => _CoordinateInputMapViewState();
@@ -78,9 +83,11 @@ class _CoordinateInputMapViewState extends State<CoordinateInputMapView> {
               options: MapOptions(
                   initialRotation: 0,
                   onTap: (TapPosition pos, LatLng position) {
-                    setState(() {
-                      selectedLocation = position;
-                    });
+                    if (widget.isMarkerDraggable) {
+                      setState(() {
+                        selectedLocation = position;
+                      });
+                    }
                   },
                   // initialCameraFit: currentLocation != null
                   //     ? CameraFit.coordinates(coordinates: [currentLocation!])
@@ -108,9 +115,9 @@ class _CoordinateInputMapViewState extends State<CoordinateInputMapView> {
                       ]),
               ],
             ),
-      floatingActionButton: selectedLocation == null
-          ? null
-          : FloatingActionButton(
+      floatingActionButton: (selectedLocation != null &&
+              widget.isMarkerDraggable)
+          ? FloatingActionButton(
               focusColor: widget.color,
               backgroundColor: Colors.white,
               onPressed: () {
@@ -122,7 +129,8 @@ class _CoordinateInputMapViewState extends State<CoordinateInputMapView> {
                 }
               },
               child: Icon(Icons.check, color: widget.color),
-            ),
+            )
+          : null,
     );
   }
 }

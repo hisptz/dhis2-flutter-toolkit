@@ -27,7 +27,7 @@ class D2GeometryValue {
 class D2GeometryInputConfig extends D2BaseInputFieldConfig {
   bool disableMap;
   bool enableAutoLocation;
-
+  bool isMarkerDraggable;
   D2GeometryInputConfig(
       {required super.label,
       required super.type,
@@ -35,6 +35,7 @@ class D2GeometryInputConfig extends D2BaseInputFieldConfig {
       required super.mandatory,
       super.clearable,
       this.enableAutoLocation = true,
+      this.isMarkerDraggable = true,
       this.disableMap = false,
       super.icon,
       super.legends,
