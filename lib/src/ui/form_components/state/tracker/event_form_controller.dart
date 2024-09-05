@@ -38,11 +38,6 @@ class D2TrackerEventFormController extends D2FormController
       setEvent(event!);
     }
 
-    if (programStage.program.target!.programType == "WITH_REGISTRATION" &&
-        enrollment == null) {
-      throw "Enrollment is required for tracker programs";
-    }
-
     List<String> mandatoryFields = programStage.programStageDataElements
         .where((pDataElement) => pDataElement.compulsory)
         .map((pDataElement) => pDataElement.dataElement.target!.uid)
