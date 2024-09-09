@@ -31,11 +31,14 @@ class D2TrackerEnrollmentFormUtil {
         throw "Missing program attribute attribute for attribute ${attribute.uid}";
       }
 
-      return D2FormUtils.getFieldConfigFromDataItem(attribute,
-          mandatory: programAttribute.mandatory,
-          allowFutureDates: programAttribute.allowFutureDate,
-          renderOptionsAsRadio: programAttribute.renderOptionsAsRadio,
-          clearable: options.clearable);
+      return D2FormUtils.getFieldConfigFromDataItem(
+        attribute,
+        mandatory: programAttribute.mandatory,
+        allowFutureDates: programAttribute.allowFutureDate,
+        renderOptionsAsRadio: programAttribute.renderOptionsAsRadio,
+        clearable: options.clearable,
+        db: db,
+      );
     }).toList();
   }
 
