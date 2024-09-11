@@ -1,8 +1,11 @@
+import 'dart:convert';
+
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/repositories/data/base.dart';
 import 'package:dhis2_flutter_toolkit/src/repositories/data/download_mixin/data_store_data_download_service_mixin.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../../objectbox.g.dart';
-import '../../models/data/data_store.dart';
 
 class D2DataStoreRepository extends BaseDataRepository
     with D2DataStoreDataDownloadServiceMixin {
@@ -39,5 +42,35 @@ class D2DataStoreRepository extends BaseDataRepository
 
   int? getIdByUid(String uid) {
     return box.query(D2DataStore_.uid.equals(uid)).build().findFirst()?.id;
+  }
+
+  uploadLogsToDataStore(String namespace, D2ClientService client) async {
+    // Fetch logs as map
+    List<Map> logs = D2AppLogRepository(db).getAllLogsAsMap();
+
+    // Prepare the payload to send
+    String key = client.credentials.username;
+    String payload = jsonEncode(logs);
+    D2DataStore logDataStore =
+        D2DataStore.fromMap(db, namespace: namespace, key: key, value: logs);
+    box.put(logDataStore);
+    try {
+      Map response =
+          await client.httpPost("dataStore/$namespace/$key", payload);
+        if (response.containsKey("httpStatus")) {
+          if (response["httpStatus"] == "OK") {
+            if (kDebugMode) {
+              print("Logs uploaded successfully");
+            }
+          } else {
+            response =
+                await client.httpPut("dataStore/$namespace/$key", payload);
+          }
+        }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Failed to upload logs: $e");
+      }
+    }
   }
 }
