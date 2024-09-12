@@ -83,6 +83,21 @@ class D2ClientService {
     return jsonDecode(response.body) as T;
   }
 
+  Future<T> httpPatch<T>(
+    String url,
+    body, {
+    Map<String, String>? queryParameters,
+  }) async {
+    Uri apiUrl = getApiUrl(url, queryParameters: queryParameters);
+    http.Response response = await http.patch(
+      apiUrl,
+      headers: {...headers, "Content-Type": "application/json-patch+json"},
+      body: jsonEncode(body),
+    );
+
+    return jsonDecode(response.body) as T;
+  }
+
 //This is the function that sends a Delete Request to the DHIS2 Instance
 //The function deletes an existing entity in the DHIS2 Instance Server
 //This method accepts url String, query parameters and returns a response object
