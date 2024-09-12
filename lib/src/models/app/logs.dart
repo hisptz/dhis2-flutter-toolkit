@@ -18,4 +18,15 @@ class D2AppLog {
       required this.process,
       this.stackTrace})
       : timestamp = DateTime.now();
+
+    Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'timestamp': timestamp.toIso8601String(),
+      'code': code,
+      'message': message,
+      'process': process,
+      'stackTrace': stackTrace,
+    };
+  }
 }
