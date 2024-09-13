@@ -4,10 +4,19 @@ import '../../../objectbox.g.dart';
 
 class D2AppLogRepository {
   D2ObjectBox db;
+
   D2AppLogRepository(this.db);
 
   Box<D2AppLog> get box {
     return db.store.box<D2AppLog>();
+  }
+
+  save(D2AppLog log) {
+    box.put(log);
+  }
+
+  D2AppLog? getByUid(String uid) {
+    return box.query(D2AppLog_.uid.equals(uid)).build().findFirst();
   }
 
   List<D2AppLog> getLogsByProcess(String process) {

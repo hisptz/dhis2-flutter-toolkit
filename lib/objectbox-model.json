@@ -3168,7 +3168,7 @@
     },
     {
       "id": "50:3788266274691932455",
-      "lastPropertyId": "6:5902005856441101283",
+      "lastPropertyId": "7:1264574818477603403",
       "name": "D2AppLog",
       "properties": [
         {
@@ -3201,6 +3201,13 @@
           "id": "6:5902005856441101283",
           "name": "stackTrace",
           "type": 9
+        },
+        {
+          "id": "7:1264574818477603403",
+          "name": "uid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "138:3712145712334607534"
         }
       ],
       "relations": []
@@ -3457,7 +3464,7 @@
     }
   ],
   "lastEntityId": "55:111260684203835254",
-  "lastIndexId": "137:1772854526514860220",
+  "lastIndexId": "138:3712145712334607534",
   "lastRelationId": "30:8498881252173320427",
   "lastSequenceId": "0:0",
   "modelVersion": 5,

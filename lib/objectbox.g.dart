@@ -3216,7 +3216,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(50, 3788266274691932455),
       name: 'D2AppLog',
-      lastPropertyId: const obx_int.IdUid(6, 5902005856441101283),
+      lastPropertyId: const obx_int.IdUid(7, 1264574818477603403),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -3248,7 +3248,13 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(6, 5902005856441101283),
             name: 'stackTrace',
             type: 9,
-            flags: 0)
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(7, 1264574818477603403),
+            name: 'uid',
+            type: 9,
+            flags: 2080,
+            indexId: const obx_int.IdUid(138, 3712145712334607534))
       ],
       relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[]),
@@ -3527,7 +3533,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
       lastEntityId: const obx_int.IdUid(55, 111260684203835254),
-      lastIndexId: const obx_int.IdUid(137, 1772854526514860220),
+      lastIndexId: const obx_int.IdUid(138, 3712145712334607534),
       lastRelationId: const obx_int.IdUid(30, 8498881252173320427),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [
@@ -7084,13 +7090,15 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final stackTraceOffset = object.stackTrace == null
               ? null
               : fbb.writeString(object.stackTrace!);
-          fbb.startTable(7);
+          final uidOffset = fbb.writeString(object.uid);
+          fbb.startTable(8);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.timestamp.millisecondsSinceEpoch);
           fbb.addInt64(2, object.code);
           fbb.addOffset(3, messageOffset);
           fbb.addOffset(4, processOffset);
           fbb.addOffset(5, stackTraceOffset);
+          fbb.addOffset(6, uidOffset);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -7109,8 +7117,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0));
           final processParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 12, '');
+          final uidParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 16, '');
           final object = D2AppLog(codeParam, messageParam, stackTraceParam,
-              idParam, timestampParam, processParam);
+              idParam, timestampParam, processParam, uidParam);
 
           return object;
         }),
@@ -9675,6 +9685,10 @@ class D2AppLog_ {
   /// See [D2AppLog.stackTrace].
   static final stackTrace =
       obx.QueryStringProperty<D2AppLog>(_entities[46].properties[5]);
+
+  /// See [D2AppLog.uid].
+  static final uid =
+      obx.QueryStringProperty<D2AppLog>(_entities[46].properties[6]);
 }
 
 /// [D2AppAutoSave] entity fields to define ObjectBox queries.
