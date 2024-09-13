@@ -114,6 +114,12 @@ class _OrgUnitSearchState extends State<OrgUnitSearch> {
   }
 
   @override
+  void dispose() {
+    keywordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
         scrollable: true,
