@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../utils/debounce.dart';
 import '../../base_input.dart';
 
-final debounce = D2Debouncer(milliseconds: 1000);
+final debounce = D2Debouncer(milliseconds: 600);
 
 class OrgUnitSearch extends StatefulWidget {
   final D2OrgUnitInputFieldConfig config;
