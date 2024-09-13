@@ -73,21 +73,23 @@ class _OrgUnitSearchState extends State<OrgUnitSearch> {
   }
 
   onSearch() async {
-    if (keyword == null) {
-      return;
+    if (mounted) {
+      if (keyword == null) {
+        return;
+      }
+      setState(() {
+        loading = true;
+      });
+      List<OrgUnitData> results =
+          (await service.searchOrgUnitDataFromKeyword(keyword!))
+              .cast<OrgUnitData>();
+      setState(() {
+        searchResults = results
+            .where((orgUnit) => !getDisabledSelectionStatus(orgUnit.id))
+            .toList();
+        loading = false;
+      });
     }
-    setState(() {
-      loading = true;
-    });
-    List<OrgUnitData> results =
-        (await service.searchOrgUnitDataFromKeyword(keyword!))
-            .cast<OrgUnitData>();
-    setState(() {
-      searchResults = results
-          .where((orgUnit) => !getDisabledSelectionStatus(orgUnit.id))
-          .toList();
-      loading = false;
-    });
   }
 
   keywordListener() {
