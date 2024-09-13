@@ -90,15 +90,9 @@ class _OrgUnitSearchState extends State<OrgUnitSearch> {
     });
   }
 
-  @override
-  void initState() {
-    setState(() {
-      service = widget.config.service;
-      multiple = widget.config.multiple;
-      selectedOrgUnits = widget.selectedOrgUnits ?? [];
-    });
-    keywordController.addListener(() {
-      debounce.run(() {
+  keywordListener() {
+    debounce.run(() {
+      if (mounted) {
         setState(() {
           if (keywordController.text.isEmpty) {
             keyword = null;
@@ -107,14 +101,25 @@ class _OrgUnitSearchState extends State<OrgUnitSearch> {
             keyword = keywordController.text;
           }
         });
-        onSearch();
-      });
+      }
+      onSearch();
     });
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      service = widget.config.service;
+      multiple = widget.config.multiple;
+      selectedOrgUnits = widget.selectedOrgUnits ?? [];
+    });
+    keywordController.addListener(keywordListener);
     super.initState();
   }
 
   @override
   void dispose() {
+    keywordController.removeListener(keywordListener);
     keywordController.dispose();
     super.dispose();
   }
