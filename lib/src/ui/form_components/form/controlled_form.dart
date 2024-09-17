@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/form_section/form_section_container_with_controlled_inputs.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/form_controlled_field_container.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
@@ -59,9 +60,16 @@ class D2ControlledForm extends StatelessWidget {
                     SectionState state =
                         controller.getSectionState(section.id, []);
 
+                    List<D2FieldState> formFieldsState = section.fields
+                        .map((field) => controller.getFieldState(field.name))
+                        .toList();
+
+                    // checks for hidden state of the section and the fields
+                    bool hidden = (state.hidden ?? false) ||
+                        formFieldsState
+                            .every((fieldState) => fieldState.hidden ?? false);
                     return Visibility(
-                        visible: !(state.hidden ?? false),
-                        child: child ?? Container());
+                        visible: !hidden, child: child ?? Container());
                   },
                   child: FormSectionContainerWithControlledInputs(
                     disabled: disabled,
