@@ -24,9 +24,12 @@ class D2ObjectBox {
   static Future<D2ObjectBox> create(D2UserCredential credentials) async {
     String storeId = credentials.id;
     final docsDir = await getApplicationDocumentsDirectory();
-    final store = await openStore(
-      directory: p.join(docsDir.path, storeId),
-    );
+    final String directoryPath = p.join(docsDir.path, storeId);
+    final store = Store.isOpen(directoryPath)
+        ? Store.attach(getObjectBoxModel(), directoryPath)
+        : await openStore(
+            directory: directoryPath,
+          );
     return D2ObjectBox._create(store, storeId);
   }
 }
