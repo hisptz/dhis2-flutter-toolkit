@@ -69,6 +69,13 @@ class D2TrackedEntity extends SyncDataSource
     orgUnit.target = D2OrgUnitRepository(db).getByUid(json["orgUnit"]);
     trackedEntityType.target =
         D2TrackedEntityTypeRepository(db).getByUid(json["trackedEntityType"]);
+    //Get the trackedEntityAttributeValues
+    List<D2TrackedEntityAttributeValue> attributeValues = json["attributes"]
+        ?.map<D2TrackedEntityAttributeValue>((attributeValue) =>
+            D2TrackedEntityAttributeValue.fromMap(
+                db, attributeValue, json["trackedEntity"]))
+        .toList();
+    attributes.addAll(attributeValues);
   }
 
   //TODO: This needs to be modified to separate registration using trackedEntityType or enrollment with a program.

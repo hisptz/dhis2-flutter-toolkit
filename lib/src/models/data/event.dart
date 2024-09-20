@@ -102,6 +102,13 @@ class D2Event extends SyncDataSource
     programStage.target =
         D2ProgramStageRepository(db).getByUid(json["programStage"]);
     orgUnit.target = D2OrgUnitRepository(db).getByUid(json["orgUnit"]);
+
+    List<D2DataValue> values = json["dataValues"]
+        ?.map<D2DataValue>(
+            (dataValue) => D2DataValue.fromMap(db, dataValue, uid))
+        .toList();
+
+    dataValues.addAll(values);
   }
 
   D2Event.fromFormValues(Map<String, dynamic> formValues,

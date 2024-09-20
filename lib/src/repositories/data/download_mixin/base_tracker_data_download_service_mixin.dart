@@ -50,6 +50,22 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
     return downloadController.stream;
   }
 
+  Future downloadByUid(String uid) async {
+    if (this.client == null) {
+      throw "You must call setupDownload first";
+    }
+    try {
+      Map<String, dynamic> data = await this
+          .client!
+          .httpGet('$downloadURL/$uid', queryParameters: downloadQueryParams);
+      final entity = mapper(data);
+      box.put(entity);
+      await downloadRelationships([data]);
+    } catch (e) {
+      throw "Error getting instance with id $uid: $e";
+    }
+  }
+
   //Currently just checks if there is any data on the specific data model
   bool isSynced() {
     T? entity = box.query().build().findFirst();
