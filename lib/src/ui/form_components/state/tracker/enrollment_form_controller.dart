@@ -66,6 +66,9 @@ class D2TrackerEnrollmentFormController extends D2FormController
               "The selected tracked entity does not have an active enrollment in this program. A new enrollment will be created instead");
         }
       } else {
+        if (program.id != enrollment!.program.targetId) {
+          throw "Invalid program ${program.name} passed for an enrollment from the program ${enrollment!.program.target?.name}";
+        }
         Map<String, dynamic> enrollmentFormValues = enrollment!.toFormValues();
         formValues.addAll({'orgUnit': enrollment!.orgUnit.target?.uid});
         formValues.addAll(enrollmentFormValues);

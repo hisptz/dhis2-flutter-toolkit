@@ -35,6 +35,9 @@ class D2TrackerEventFormController extends D2FormController
       super.formFields,
       this.orgUnit}) {
     if (event != null) {
+      if (event!.programStage.targetId != programStage.id) {
+        throw "Invalid program stage ${programStage.name} passed for an event from the program stage ${event!.programStage.target?.name}";
+      }
       setEvent(event!);
     }
 
