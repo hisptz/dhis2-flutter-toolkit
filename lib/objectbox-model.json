@@ -1230,7 +1230,7 @@
     },
     {
       "id": "18:121682375555937529",
-      "lastPropertyId": "16:4734157704810001274",
+      "lastPropertyId": "17:5965610862790574382",
       "name": "D2ProgramStage",
       "properties": [
         {
@@ -1318,6 +1318,14 @@
           "id": "16:4734157704810001274",
           "name": "programStageLabel",
           "type": 9
+        },
+        {
+          "id": "17:5965610862790574382",
+          "name": "sharingId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "140:9173362820409307694",
+          "relationTarget": "D2Sharing"
         }
       ],
       "relations": []
@@ -3472,7 +3480,7 @@
     }
   ],
   "lastEntityId": "55:111260684203835254",
-  "lastIndexId": "139:8964796790491520241",
+  "lastIndexId": "140:9173362820409307694",
   "lastRelationId": "30:8498881252173320427",
   "lastSequenceId": "0:0",
   "modelVersion": 5,

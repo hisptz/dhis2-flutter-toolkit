@@ -1307,7 +1307,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(18, 121682375555937529),
       name: 'D2ProgramStage',
-      lastPropertyId: const obx_int.IdUid(16, 4734157704810001274),
+      lastPropertyId: const obx_int.IdUid(17, 5965610862790574382),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -1392,7 +1392,14 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(16, 4734157704810001274),
             name: 'programStageLabel',
             type: 9,
-            flags: 0)
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(17, 5965610862790574382),
+            name: 'sharingId',
+            type: 11,
+            flags: 520,
+            indexId: const obx_int.IdUid(140, 9173362820409307694),
+            relationTarget: 'D2Sharing')
       ],
       relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[
@@ -3540,7 +3547,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
       lastEntityId: const obx_int.IdUid(55, 111260684203835254),
-      lastIndexId: const obx_int.IdUid(139, 8964796790491520241),
+      lastIndexId: const obx_int.IdUid(140, 9173362820409307694),
       lastRelationId: const obx_int.IdUid(30, 8498881252173320427),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [
@@ -4991,7 +4998,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
         }),
     D2ProgramStage: obx_int.EntityDefinition<D2ProgramStage>(
         model: _entities[16],
-        toOneRelations: (D2ProgramStage object) => [object.program],
+        toOneRelations: (D2ProgramStage object) =>
+            [object.program, object.sharing],
         toManyRelations: (D2ProgramStage object) => {
               obx_int.RelInfo<D2ProgramStageDataElement>.toOneBacklink(
                   7,
@@ -5037,7 +5045,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final programStageLabelOffset = object.programStageLabel == null
               ? null
               : fbb.writeString(object.programStageLabel!);
-          fbb.startTable(17);
+          fbb.startTable(18);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.created.millisecondsSinceEpoch);
           fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
@@ -5054,6 +5062,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addOffset(13, executionDateLabelOffset);
           fbb.addOffset(14, eventLabelOffset);
           fbb.addOffset(15, programStageLabelOffset);
+          fbb.addInt64(16, object.sharing.targetId);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -5112,6 +5121,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.program.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 24, 0);
           object.program.attach(store);
+          object.sharing.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 36, 0);
+          object.sharing.attach(store);
           obx_int.InternalToManyAccess.setRelInfo<D2ProgramStage>(
               object.programStageDataElements,
               store,
@@ -8345,6 +8357,10 @@ class D2ProgramStage_ {
   /// See [D2ProgramStage.programStageLabel].
   static final programStageLabel =
       obx.QueryStringProperty<D2ProgramStage>(_entities[16].properties[15]);
+
+  /// See [D2ProgramStage.sharing].
+  static final sharing = obx.QueryRelationToOne<D2ProgramStage, D2Sharing>(
+      _entities[16].properties[16]);
 
   /// see [D2ProgramStage.programStageDataElements]
   static final programStageDataElements =

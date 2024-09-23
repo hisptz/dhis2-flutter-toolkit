@@ -5,9 +5,7 @@ import '../../repositories/metadata/program.dart';
 import '../../repositories/metadata/program_stage.dart';
 import '../data/event.dart';
 import 'base.dart';
-import 'program.dart';
-import 'program_stage_data_element.dart';
-import 'program_stage_section.dart';
+import 'entry.dart';
 
 @Entity()
 class D2ProgramStage extends D2MetaResource {
@@ -32,6 +30,8 @@ class D2ProgramStage extends D2MetaResource {
   String? programStageLabel;
 
   final program = ToOne<D2Program>();
+
+  final sharing = ToOne<D2Sharing>();
 
   @Backlink("programStage")
   final programStageDataElements = ToMany<D2ProgramStageDataElement>();
