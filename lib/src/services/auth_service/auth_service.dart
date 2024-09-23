@@ -87,7 +87,7 @@ class D2AuthService {
     return await storageService.setObject("users", usersPayload);
   }
 
-  Future<D2UserCredential?> _getLoggedInUser() async {
+  Future<D2UserCredential?> _getLoggedInUser({String? serverURL}) async {
     String? loggedInUserId = await storageService.get("loggedInUser");
     if (loggedInUserId == null) {
       return null;
@@ -98,8 +98,14 @@ class D2AuthService {
     }
 
     List<D2UserCredential> users = await _getUsers();
-    D2UserCredential? user =
-        users.firstWhereOrNull((element) => element.id == loggedInUserId);
+    D2UserCredential? user = users.firstWhereOrNull((element) {
+      if (serverURL != null) {
+        return element.id == loggedInUserId && element.baseURL == serverURL;
+      } else {
+        return element.id == loggedInUserId;
+      }
+    });
+
     return user;
   }
 
@@ -166,8 +172,8 @@ class D2AuthService {
 
   /// Gets the current logged in user. Returns null if there is no current logged in user
   ///
-  Future<D2UserCredential?> currentUser() async {
-    return _getLoggedInUser();
+  Future<D2UserCredential?> currentUser({String? serverURL}) async {
+    return _getLoggedInUser(serverURL: serverURL);
   }
 
   /// Logs in the user with the specified credentials.

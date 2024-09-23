@@ -1,11 +1,8 @@
-import 'package:dhis2_flutter_toolkit/objectbox.dart';
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../repositories/metadata/program.dart';
 import '../../repositories/metadata/program_rule.dart';
 import 'base.dart';
-import 'program.dart';
-import 'program_rule_action.dart';
 
 @Entity()
 class D2ProgramRule extends D2MetaResource {
@@ -23,7 +20,8 @@ class D2ProgramRule extends D2MetaResource {
   String condition;
   int? priority;
 
-  var program = ToOne<D2Program>();
+  final program = ToOne<D2Program>();
+  final programStage = ToOne<D2ProgramStage>();
 
   @Backlink("programRule")
   final programRuleActions = ToMany<D2ProgramRuleAction>();
@@ -52,6 +50,10 @@ class D2ProgramRule extends D2MetaResource {
     id = D2ProgramRuleRepository(db).getIdByUid(json["id"]) ?? 0;
 
     program.target = D2ProgramRepository(db).getByUid(json["program"]["id"]);
+    if (json["programStage"] != null) {
+      programStage.target =
+          D2ProgramStageRepository(db).getByUid(json["programStage"]["id"]);
+    }
   }
 
   String? displayName;

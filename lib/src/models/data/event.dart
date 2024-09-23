@@ -222,29 +222,28 @@ class D2Event extends SyncDataSource
     return data;
   }
 
-  @override
   void updateFromFormValues(Map<String, dynamic> values,
-      {required D2ObjectBox db, D2Program? program, D2OrgUnit? orgUnit}) {
+      {required D2ObjectBox db, D2OrgUnit? orgUnit}) {
     if (orgUnit != null) {
       this.orgUnit.target = orgUnit;
     }
     occurredAt = DateTime.tryParse(values["occurredAt"]) ?? occurredAt;
-    for (D2DataValue dataValue in dataValues) {
-      dataValue.updateFromFormValues(values, db: db);
-    }
-    // update data values with none-existing formValues
-    for (var formValue in values.keys) {
-      if (dataValues.firstWhereOrNull(
-              (element) => element.dataElement.target?.uid == formValue) ==
-          null) {
-        D2DataElement? dataElement =
-            D2DataElementRepository(db).getByUid(formValue);
-        if (dataElement != null) {
-          dataValues.add(D2DataValue.fromFormValues(values[formValue],
-              event: this, dataElement: dataElement));
-        }
+    for (D2ProgramStageDataElement d2programStageDataElement
+        in programStage.target!.programStageDataElements) {
+      D2DataElement d2dataElement =
+          d2programStageDataElement.dataElement.target!;
+      D2DataValue? existingDataValue = dataValues.firstWhereOrNull(
+          (dataValue) => dataValue.dataElement.targetId == d2dataElement.id);
+
+      if (existingDataValue != null) {
+        existingDataValue.updateFromFormValues(values, db: db);
+      } else {
+        String? value = values[d2dataElement.uid];
+        dataValues.add(D2DataValue.fromFormValues(value,
+            event: this, dataElement: d2dataElement));
       }
     }
+
     if (values["geometry"] != null) {
       var geometryValue = values["geometry"];
 

@@ -906,7 +906,7 @@
     },
     {
       "id": "14:4258101311778128002",
-      "lastPropertyId": "10:4550334781923146221",
+      "lastPropertyId": "11:3806964469233789277",
       "name": "D2ProgramRule",
       "properties": [
         {
@@ -962,6 +962,14 @@
           "id": "10:4550334781923146221",
           "name": "priority",
           "type": 6
+        },
+        {
+          "id": "11:3806964469233789277",
+          "name": "programStageId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "139:8964796790491520241",
+          "relationTarget": "D2ProgramStage"
         }
       ],
       "relations": []
@@ -3464,7 +3472,7 @@
     }
   ],
   "lastEntityId": "55:111260684203835254",
-  "lastIndexId": "138:3712145712334607534",
+  "lastIndexId": "139:8964796790491520241",
   "lastRelationId": "30:8498881252173320427",
   "lastSequenceId": "0:0",
   "modelVersion": 5,

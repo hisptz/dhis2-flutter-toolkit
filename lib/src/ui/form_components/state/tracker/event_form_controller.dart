@@ -56,7 +56,9 @@ class D2TrackerEventFormController extends D2FormController
   }
 
   void initializeProgramRuleEngine(D2Program program) {
-    List<D2ProgramRule> programRules = program.programRules;
+    List<D2ProgramRule> programRules = program.programRules
+        .where((rule) => rule.programStage.targetId == programStage.id)
+        .toList();
     List<D2ProgramRuleVariable> programRuleVariables =
         program.programRuleVariables;
     programRuleEngine = D2ProgramRuleEngine(
