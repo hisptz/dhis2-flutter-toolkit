@@ -275,4 +275,9 @@ class D2TrackedEntity extends SyncDataSource
 
     return D2TrackedEntityRepository(db).deleteEntity(this);
   }
+
+  Future<void> upload(
+      {required D2ClientService client, required D2ObjectBox db}) async {
+    return D2TrackedEntityRepository(db).setupUpload(client).uploadOne(this);
+  }
 }

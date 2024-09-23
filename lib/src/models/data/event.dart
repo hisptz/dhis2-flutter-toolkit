@@ -3,16 +3,10 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_deletable.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_editable.dart';
-import 'package:dhis2_flutter_toolkit/src/utils/uid.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../../objectbox.dart';
-import '../../repositories/data/entry.dart';
-import '../../repositories/metadata/entry.dart';
-import '../../ui/form_components/entry.dart';
-import '../metadata/entry.dart';
+import '../../../dhis2_flutter_toolkit.dart';
 import 'base.dart';
-import 'entry.dart';
 import 'upload_base.dart';
 
 @Entity()
@@ -290,5 +284,10 @@ class D2Event extends SyncDataSource
   void softDelete(db) {
     deleted = true;
     save(db);
+  }
+
+  Future<void> upload(
+      {required D2ClientService client, required D2ObjectBox db}) async {
+    return D2EventRepository(db).setupUpload(client).uploadOne(this);
   }
 }

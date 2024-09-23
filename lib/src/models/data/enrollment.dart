@@ -236,4 +236,9 @@ class D2Enrollment extends SyncDataSource
             .contains(attribute.trackedEntityAttribute.targetId))
         .toList();
   }
+
+  Future<void> upload(
+      {required D2ClientService client, required D2ObjectBox db}) async {
+    return D2EnrollmentRepository(db).setupUpload(client).uploadOne(this);
+  }
 }

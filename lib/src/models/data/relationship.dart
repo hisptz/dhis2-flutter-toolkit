@@ -1,18 +1,8 @@
-import 'package:dhis2_flutter_toolkit/objectbox.dart';
 import 'package:dhis2_flutter_toolkit/src/models/data/base_deletable.dart';
-import 'package:dhis2_flutter_toolkit/src/utils/uid.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../repositories/data/enrollment.dart';
-import '../../repositories/data/event.dart';
-import '../../repositories/data/relationship.dart';
-import '../../repositories/data/tracked_entity.dart';
-import '../../repositories/metadata/relationship_type.dart';
-import '../metadata/relationship_type.dart';
+import '../../../dhis2_flutter_toolkit.dart';
 import 'base.dart';
-import 'enrollment.dart';
-import 'event.dart';
-import 'tracked_entity.dart';
 import 'upload_base.dart';
 
 @Entity()
@@ -206,5 +196,10 @@ class D2Relationship extends SyncDataSource
   @override
   bool delete(D2ObjectBox db) {
     return D2RelationshipRepository(db).deleteEntity(this);
+  }
+
+  Future<void> upload(
+      {required D2ClientService client, required D2ObjectBox db}) async {
+    return D2RelationshipRepository(db).setupUpload(client).uploadOne(this);
   }
 }
