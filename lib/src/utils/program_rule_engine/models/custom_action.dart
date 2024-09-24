@@ -13,16 +13,18 @@ class D2CustomAction {
   HiddenOptionGroup? hiddenOptionGroup;
   ValueSetterFunction? setValue;
 
-  D2CustomAction(
-      {this.hiddenField,
-      this.hiddenSection,
-      this.hiddenOption,
-      this.hiddenOptionGroup,
-      this.disabledField,
-      this.error,
-      this.warning,
-      this.value,
-      this.setValue});
+  D2CustomAction({
+    this.hiddenField,
+    this.hiddenSection,
+    this.hiddenOption,
+    this.hiddenOptionGroup,
+    this.disabledField,
+    this.error,
+    this.warning,
+    this.value,
+    this.setValue,
+    this.mandatoryField,
+  });
 }
 
 class ErrorMessage {
