@@ -341,6 +341,12 @@ mixin ProgramRuleEngineState
             disabledStatus: fieldValue.disable,
           );
         }
+        if (action.mandatoryField != null) {
+          _toggleMandatoryField(
+            action.mandatoryField ?? '',
+            programRuleExpressionValue,
+          );
+        }
       }
     }
   }

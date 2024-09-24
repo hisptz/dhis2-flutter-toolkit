@@ -40,19 +40,22 @@ class D2InputFieldContainer extends StatelessWidget {
   final Color? color;
   final String? error;
   final String? warning;
+  final bool? mandatory;
   final bool disabled;
   D2InputDecoration? inputDecoration;
 
-  D2InputFieldContainer(
-      {super.key,
-      required this.input,
-      this.inputDecoration,
-      this.value,
-      required this.onChange,
-      required this.color,
-      this.error,
-      this.disabled = false,
-      this.warning}) {
+  D2InputFieldContainer({
+    super.key,
+    required this.input,
+    this.inputDecoration,
+    this.value,
+    required this.onChange,
+    required this.color,
+    this.error,
+    this.mandatory = false,
+    this.disabled = false,
+    this.warning,
+  }) {
     inputDecoration ??= D2InputDecoration.fromInput(input,
         color: color ?? Colors.blue,
         disabled: disabled,
@@ -363,7 +366,9 @@ class D2InputFieldContainer extends StatelessWidget {
                                     color: colorOverride),
                               ),
                               TextSpan(
-                                text: input.mandatory ? ' *' : '',
+                                text: input.mandatory || mandatory == true
+                                    ? ' *'
+                                    : '',
                                 style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
