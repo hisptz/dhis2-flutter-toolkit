@@ -349,6 +349,12 @@ class D2ProgramRuleEngine {
         String sanitizedVariableValue = '';
         if (sanitizedVariable == 'currentDate') {
           sanitizedVariableValue = DateTime.now().toString();
+        } else if (sanitizedVariable == 'eventDate') {
+          sanitizedVariableValue = formDataObject[sanitizedVariableValue] ??
+              formDataObject['occurredAt'];
+        } else if (sanitizedVariableValue == "enrollmentDate") {
+          sanitizedVariableValue = formDataObject[sanitizedVariableValue] ??
+              formDataObject['enrolledAt'];
         }
 
         expression = formDataObject.keys.contains(sanitizedVariable)
