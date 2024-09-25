@@ -91,6 +91,17 @@ class D2Operations {
             startIndex, endIndex + 1, "$expressionValue");
       }
 
+      /// for `d2:validatePatterns` operator
+      else if (d2Expression.contains('d2:validatePatterns(')) {
+        String regEx = expressionSections.last ?? '';
+        bool expressionValue = expressionSections.length == 2
+            ? RegExp(regEx)
+                .hasMatch(expressionSections.first.replaceAll("'", ''))
+            : false;
+        expression = expression.replaceRange(
+            startIndex, endIndex + 1, "$expressionValue");
+      }
+
       ///for `d2:floor` operator
       else if (d2Expression.contains('d2:floor(')) {
         double expressionValue =
