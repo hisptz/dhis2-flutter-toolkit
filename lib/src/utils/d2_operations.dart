@@ -18,6 +18,22 @@ class D2Operations {
     return value.isEmpty || value == dataObjectValue;
   }
 
+  static List<String> _getPatternValidationParts(String input) {
+    List<String> parts = [];
+    RegExp regExp = RegExp(r"\((.*?)\)");
+    Match? match = regExp.firstMatch(input);
+    if (match != null) {
+      String insideParentheses = match.group(1)!;
+      RegExp splitRegex = RegExp(r",(?=(?:[^']*'[^']*')*[^']*$)");
+      int index = insideParentheses.indexOf(splitRegex);
+      List<String> splitParts = insideParentheses.split(splitRegex);
+      parts = [splitParts.first, insideParentheses.substring(index + 1)];
+    } else {
+      return [input];
+    }
+    return parts;
+  }
+
   //
   ///`D2Operations.evaluatedD2BuiltInFunctions` function evaluates the D2 functions present in a expression.
   /// It takes a `String` expression as a parameter and returns the results as a `String`
@@ -92,11 +108,11 @@ class D2Operations {
       }
 
       /// for `d2:validatePatterns` operator
-      else if (d2Expression.contains('d2:validatePatterns(')) {
-        String regEx = expressionSections.last ?? '';
+      else if (d2Expression.contains('d2:validatePattern(')) {
+        expressionSections = _getPatternValidationParts(expression);
+        String regEx = expressionSections.last.trim();
         bool expressionValue = expressionSections.length == 2
-            ? RegExp(regEx)
-                .hasMatch(expressionSections.first.replaceAll("'", ''))
+            ? RegExp(regEx).hasMatch(expressionSections.first)
             : false;
         expression = expression.replaceRange(
             startIndex, endIndex + 1, "$expressionValue");
