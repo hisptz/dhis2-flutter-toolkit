@@ -215,14 +215,10 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
       List<D2ImportSummaryError> importSummary =
           getItemsWithErrorsEntityUidFromImportSummary(
               response as Map<String, dynamic>);
-      List<String> errorMessages = errorReports
-          .map<String>((errorReport) => errorReport["message"] as String)
-          .toList();
       entity.synced = false;
       if (importSummary.isNotEmpty) {
         await D2ImportSummaryErrorRepository(db).saveEntities(importSummary);
       }
-      throw 'Error: $errorMessages';
     } else {
       entity.synced = true;
       box.put(entity);

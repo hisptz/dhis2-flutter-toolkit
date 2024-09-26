@@ -174,6 +174,19 @@ class D2InputFieldContainer extends StatelessWidget {
                 onChange: onChange,
                 decoration: inputDecoration!,
                 color: colorOverride);
+          case D2InputFieldType.integerPositive:
+            return CustomTextInput(
+                disabled: disabled,
+                textInputType: const TextInputType.numberWithOptions(
+                    decimal: false, signed: false),
+                input: input,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^[0-9]*$'))
+                ],
+                value: value,
+                onChange: onChange,
+                decoration: inputDecoration!,
+                color: colorOverride);
           case D2InputFieldType.negativeInteger:
             return CustomTextInput(
                 disabled: disabled,

@@ -15,6 +15,7 @@ enum D2InputFieldType {
   password,
   number, //TODO:
   positiveInteger,
+  integerPositive,
   unitInterval,
   percentage,
   integer,
@@ -55,6 +56,7 @@ enum D2InputFieldType {
     return [
       D2InputFieldType.number,
       D2InputFieldType.positiveInteger,
+      D2InputFieldType.integerPositive,
       D2InputFieldType.negativeInteger,
       D2InputFieldType.integer,
       D2InputFieldType.integerZeroOrPositive,
