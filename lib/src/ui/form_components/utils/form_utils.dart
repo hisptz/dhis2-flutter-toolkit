@@ -1,19 +1,23 @@
 import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/multi_text_input_field.dart';
+import 'package:flutter/material.dart';
 
 class D2FormUtils {
-  static D2BaseInputFieldConfig getFieldConfigFromDataItem(dataItem,
-      {bool mandatory = false,
-      bool? allowFutureDates,
-      bool? renderOptionsAsRadio,
-      D2ObjectBox? db,
-      bool? clearable}) {
-    // if (dataItem is D2TrackedEntityAttribute) {
+  static D2BaseInputFieldConfig getFieldConfigFromDataItem(
+    dataItem, {
+    bool mandatory = false,
+    bool? allowFutureDates,
+    bool? renderOptionsAsRadio,
+    D2ObjectBox? db,
+    bool? clearable,
+  }) {
     D2InputFieldType? type =
         D2InputFieldType.fromDHIS2ValueType(dataItem.valueType);
     if (type == null) {
-      throw "Invalid field. ${dataItem.valueType} is either not correct or not currently supported";
+      debugPrint(
+          "WARN: Invalid field. ${dataItem.valueType} is either not correct or not currently supported");
+      type = D2InputFieldType.fromDHIS2ValueType("TEXT")!;
     }
 
     String label = dataItem.displayFormName ??
