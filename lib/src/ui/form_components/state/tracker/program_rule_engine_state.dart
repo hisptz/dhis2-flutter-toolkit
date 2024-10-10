@@ -106,7 +106,9 @@ mixin ProgramRuleEngineState
   void _assignFieldValue(String fieldKey, dynamic value,
       {bool? disabledStatus}) {
     setValueSilently(fieldKey, value);
-    _toggleFieldDisable(fieldKey, disabledStatus == true);
+    if (disabledStatus != null) {
+      _toggleFieldDisable(fieldKey, disabledStatus == true);
+    }
   }
 
   void _setErrorMessage(
@@ -191,7 +193,7 @@ mixin ProgramRuleEngineState
     // Assigned fields that are assigned by DHIS2 program rules
     if (programRuleEvaluation.assignedFields.allValues.isNotEmpty) {
       programRuleEvaluation.assignedFields.allValues.forEach((fieldKey, value) {
-        _assignFieldValue(fieldKey, value);
+        _assignFieldValue(fieldKey, value, disabledStatus: true);
       });
     }
 
