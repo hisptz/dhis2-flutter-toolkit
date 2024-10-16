@@ -8,6 +8,7 @@ class CustomButton extends StatefulWidget {
     this.label = '',
     this.iconData,
     this.svgIconSrc = '',
+    this.borderWidth = 1.3,
     this.borderRadius = 10.0,
     this.isTrailingIcon = false,
     this.isFullWidth = false,
@@ -19,7 +20,7 @@ class CustomButton extends StatefulWidget {
     this.buttonMargin = const EdgeInsets.symmetric(
       horizontal: 10.0,
     ),
-    this.buttonPaading = const EdgeInsets.symmetric(
+    this.buttonPadding = const EdgeInsets.symmetric(
       horizontal: 15.0,
       vertical: 5.0,
     ),
@@ -31,13 +32,14 @@ class CustomButton extends StatefulWidget {
   final String svgIconSrc;
   final IconData? iconData;
   final double borderRadius;
+  final double borderWidth;
   final CustomButtonType buttonType;
   final bool isTrailingIcon;
   final bool isFullWidth;
   final bool isDisabled;
   final Color? iconColor;
   final Color? buttonPrimaryColor;
-  final EdgeInsetsGeometry buttonPaading;
+  final EdgeInsetsGeometry buttonPadding;
   final EdgeInsetsGeometry buttonMargin;
 
   final OnPressed? onTap;
@@ -51,7 +53,7 @@ class _CustomButtonState extends State<CustomButton> {
 
   EdgeInsetsGeometry get buttonMargin => widget.buttonMargin;
 
-  EdgeInsetsGeometry get buttonPaading => widget.buttonPaading;
+  EdgeInsetsGeometry get buttonPadding => widget.buttonPadding;
 
   Color get labelColor => widget.isDisabled
       ? Colors.black38
@@ -71,7 +73,7 @@ class _CustomButtonState extends State<CustomButton> {
             : Colors.transparent,
         borderRadius: borderRadius,
         border: Border.all(
-          width: 1.3,
+          width: widget.borderWidth,
           color: widget.buttonType == CustomButtonType.textButton
               ? Colors.transparent
               : buttonPrimaryColor.withOpacity(
@@ -132,7 +134,7 @@ class _CustomButtonState extends State<CustomButton> {
           : () => widget.onTap!(context),
       child: Container(
         margin: buttonMargin,
-        padding: buttonPaading,
+        padding: buttonPadding,
         decoration: decoration,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
