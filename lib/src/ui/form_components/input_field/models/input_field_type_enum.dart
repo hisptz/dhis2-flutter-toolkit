@@ -55,6 +55,7 @@ enum D2InputFieldType {
   static bool isNumber(D2InputFieldType type) {
     return [
       D2InputFieldType.number,
+      D2InputFieldType.phoneNumber,
       D2InputFieldType.positiveInteger,
       D2InputFieldType.integerPositive,
       D2InputFieldType.negativeInteger,
