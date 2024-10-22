@@ -7,7 +7,6 @@ import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/multi_text_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'components/age_input/age_input.dart';
 import 'components/base_input.dart';
 import 'components/boolean_input.dart';
@@ -164,15 +163,15 @@ class D2InputFieldContainer extends StatelessWidget {
           case D2InputFieldType.phoneNumber:
             return CustomTextInput(
               disabled: disabled,
-              textInputType:
-                  TextInputType.phone, // Changes for  phone input type
+              textInputType: TextInputType
+                  .phone, // Use phone input type for mobile numbers
               input: input,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp(
                     r'^[0-9\s()+-]*$')), // changes to Allow numbers, spaces, parentheses, and hyphens
               ],
               value: value,
-              onChange: onChange,
+              onChange: onChange, // Ensure that the value passed is a string
               decoration: inputDecoration!,
               color: colorOverride,
             );
