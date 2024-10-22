@@ -40,6 +40,8 @@ mixin D2FormValueState on ChangeNotifier {
       if (value is String) {
         if (type == D2InputFieldType.number) {
           return value;
+        } else if (type == D2InputFieldType.phoneNumber) {
+          return value;
         } else {
           int? sanitizedValue = double.tryParse(value)?.toInt();
           if (sanitizedValue != null) {
