@@ -1,10 +1,10 @@
 name: dhis2_flutter_toolkit
 description: A collection of tools and utilities for interacting with DHIS2 authentication, Metadata, and Tracker data
-version: 0.0.55
+version: 0.0.58
 homepage: null
 environment:
-  sdk: '>=3.3.0 <4.0.0'
-  flutter: '>=1.17.0'
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=1.17.0"
 dependencies:
   collection: ^1.18.0
   connectivity_plus: ^6.0.1
@@ -15,7 +15,7 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   flutter_svg: ^2.0.10+1
   http: ^1.2.1
-  objectbox: ^4.0.2
+  objectbox: ^4.0.3
   objectbox_flutter_libs: ^4.0.2
   path_provider: ^2.1.2
   provider: ^6.1.2
@@ -29,6 +29,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-  objectbox_generator: ^4.0.1
+  objectbox_generator: ^4.0.3
   build_runner: ^2.4.8
 flutter: null
