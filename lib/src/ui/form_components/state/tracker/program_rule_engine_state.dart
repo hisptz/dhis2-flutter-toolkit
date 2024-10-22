@@ -33,6 +33,10 @@ mixin ProgramRuleEngineState
     updateFormStates(programRuleEvaluationResults);
   }
 
+  //  TODO handle the following cases:
+  // - hiddenSection not clearing values
+  // -
+
   D2ProgramRuleResult startProgramRuleEvaluation(List<String> inputFieldIds) {
     return programRuleEngine.evaluateProgramRule(
       inputFieldIds: inputFieldIds,
@@ -47,7 +51,6 @@ mixin ProgramRuleEngineState
     if ((hiddenStatus == true && !isFieldHidden(fieldKey)) ||
         (hiddenStatus == false && isFieldHidden(fieldKey))) {
       toggleFieldVisibilitySilently(fieldKey);
-      setValueSilently(fieldKey, null);
     }
   }
 
@@ -75,21 +78,21 @@ mixin ProgramRuleEngineState
     D2ProgramStageSection? programStageSection =
         D2ProgramStageSectionRepository(db).getByUid(sectionKey);
 
-    if (programSection != null) {
+    //  clear the values of the fields in the section
+    if (programSection != null && hiddenStatus == true) {
       for (var programSectionTrackedEntityAttribute
           in programSection.programSectionTrackedEntityAttributes) {
-        _toggleFieldVisibility(
+        setValueSilently(
             programSectionTrackedEntityAttribute
                     .trackedEntityAttribute.target?.uid ??
                 '',
-            hiddenStatus);
+            null);
       }
-    } else if (programStageSection != null) {
+    } else if (programStageSection != null && hiddenStatus == true) {
       for (var programStageDataElement
           in programStageSection.programStageSectionDataElements) {
-        _toggleFieldVisibility(
-            programStageDataElement.dataElement.target?.uid ?? '',
-            hiddenStatus);
+        setValueSilently(
+            programStageDataElement.dataElement.target?.uid ?? '', null);
       }
     }
   }
@@ -106,7 +109,9 @@ mixin ProgramRuleEngineState
   void _assignFieldValue(String fieldKey, dynamic value,
       {bool? disabledStatus}) {
     setValueSilently(fieldKey, value);
-    _toggleFieldDisable(fieldKey, disabledStatus == true);
+    if (disabledStatus != null) {
+      _toggleFieldDisable(fieldKey, disabledStatus == true);
+    }
   }
 
   void _setErrorMessage(
@@ -191,7 +196,7 @@ mixin ProgramRuleEngineState
     // Assigned fields that are assigned by DHIS2 program rules
     if (programRuleEvaluation.assignedFields.allValues.isNotEmpty) {
       programRuleEvaluation.assignedFields.allValues.forEach((fieldKey, value) {
-        _assignFieldValue(fieldKey, value);
+        _assignFieldValue(fieldKey, value, disabledStatus: true);
       });
     }
 
