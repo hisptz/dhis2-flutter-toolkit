@@ -33,10 +33,6 @@ mixin ProgramRuleEngineState
     updateFormStates(programRuleEvaluationResults);
   }
 
-  //  TODO handle the following cases:
-  // - hiddenSection not clearing values
-  // -
-
   D2ProgramRuleResult startProgramRuleEvaluation(List<String> inputFieldIds) {
     return programRuleEngine.evaluateProgramRule(
       inputFieldIds: inputFieldIds,
