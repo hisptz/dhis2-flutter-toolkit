@@ -64,9 +64,7 @@ class D2ProgramRuleEngine {
     ProgramRuleMandatoryFields mandatoryFields = ProgramRuleMandatoryFields();
 
     List<D2ProgramRule> sortedProgramRules = _sortProgramRulesByPriority(
-      inputFieldIds.isEmpty
-          ? programRules
-          : _filterProgramRulesByFieldId(inputFieldIds),
+      programRules,
     );
 
     if (sortedProgramRules.isNotEmpty) {
@@ -256,38 +254,6 @@ class D2ProgramRuleEngine {
     );
   }
 
-  /// `D2ProgramRuleEngine._filterProgramRulesByFieldId` is a private helper function that filters the program rules by the input field id
-  /// The function accepts a `String` input field id
-  /// The function returns a filtered `List` of `D2ProgramRule`
-  List<D2ProgramRule> _filterProgramRulesByFieldId(List<String> inputFieldIds) {
-    List<String> inputFieldProgramRuleVariables = programRuleVariables
-        .where((programVariable) =>
-            inputFieldIds.contains(programVariable.dataElement.target?.uid) ||
-            inputFieldIds
-                .contains(programVariable.trackedEntityAttribute.target?.uid))
-        .map((programVariable) => programVariable.name)
-        .toList();
-
-    return programRules
-        .where(
-          (programRule) =>
-              inputFieldProgramRuleVariables.any(
-                (String variable) =>
-                    programRule.condition.contains(variable) ||
-                    programRule.programRuleActions.any(
-                        (D2ProgramRuleAction programRuleAction) =>
-                            (programRuleAction.data ?? '').contains(variable)),
-              ) ||
-              programRule.programRuleActions.any((D2ProgramRuleAction
-                      programRuleAction) =>
-                  inputFieldIds
-                      .contains(programRuleAction.dataElement.target?.uid) ||
-                  inputFieldIds.contains(
-                      programRuleAction.trackedEntityAttribute.target?.uid)),
-        )
-        .toList();
-  }
-
   //
   /// `D2ProgramRuleEngine._decodeExpressionWithProgramRuleVariables` is a helper function that decodes and expression by replacing data object values with the program rule variables
   /// The function accepts `String` expression, `Map` data object and a `List` of `D2ProgramRuleVariable` .
@@ -298,7 +264,6 @@ class D2ProgramRuleEngine {
       Map formDataObject = const {}}) {
     String sanitizedExpression = expression;
 
-    // TODO Find better means for handling the standard variables as properties of tracked entities or events
     // Sanitizing the expression by removing DHIS2 standard variables
     sanitizedExpression = _escapeStandardDhis2Variables(
       formDataObject: formDataObject,
