@@ -75,21 +75,25 @@ mixin ProgramRuleEngineState
         D2ProgramStageSectionRepository(db).getByUid(sectionKey);
 
     //  clear the values of the fields in the section
-    if (programSection != null && hiddenStatus == true) {
+    if (programSection != null) {
       for (var programSectionTrackedEntityAttribute
           in programSection.programSectionTrackedEntityAttributes) {
         String key = programSectionTrackedEntityAttribute
                 .trackedEntityAttribute.target?.uid ??
             '';
-        setValueSilently(key, null);
         _toggleFieldVisibility(key, hiddenStatus);
+        if (hiddenStatus == true) {
+          setValueSilently(key, null);
+        }
       }
-    } else if (programStageSection != null && hiddenStatus == true) {
+    } else if (programStageSection != null) {
       for (var programStageDataElement
           in programStageSection.programStageSectionDataElements) {
         String key = programStageDataElement.dataElement.target?.uid ?? '';
-        setValueSilently(key, null);
         _toggleFieldVisibility(key, hiddenStatus);
+        if (hiddenStatus == true) {
+          setValueSilently(key, null);
+        }
       }
     }
   }
