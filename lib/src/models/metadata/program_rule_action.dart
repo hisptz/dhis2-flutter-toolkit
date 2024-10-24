@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../../objectbox.dart';
@@ -64,8 +65,13 @@ class D2ProgramRuleAction extends D2MetaResource {
         location = json["location"] {
     id = D2ProgramRuleActionRepository(db).getIdByUid(json["id"]) ?? 0;
 
-    programRule.target =
-        D2ProgramRuleRepository(db).getByUid(json["programRule"]["id"]);
+    if (json["programRule"] != null) {
+      programRule.target =
+          D2ProgramRuleRepository(db).getByUid(json["programRule"]["id"]);
+    } else {
+      debugPrint(
+          "ERROR: Program rule action ${json["displayName"]} has no linked program rule");
+    }
 
     if (json["dataElement"] != null) {
       dataElement.target =
