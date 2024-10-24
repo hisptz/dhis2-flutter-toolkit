@@ -98,7 +98,10 @@ class D2TrackerEnrollmentFormController extends D2FormController
     D2Program program,
     D2TrackedEntity? trackedEntity,
   ) {
-    List<D2ProgramRule> programRules = program.programRules;
+    List<D2ProgramRule> programRules = program.programRules
+        .where((rule) => rule.programStage.targetId == 0)
+        .toList();
+
     List<D2ProgramRuleVariable> programRuleVariables =
         program.programRuleVariables;
     programRuleEngine = D2ProgramRuleEngine(
