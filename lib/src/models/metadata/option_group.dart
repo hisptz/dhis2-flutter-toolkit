@@ -51,6 +51,7 @@ class D2OptionGroup extends D2MetaResource {
           .cast<Map>()
           .map((Map optionMap) =>
               D2OptionRepository(db).getByUid(optionMap['id']))
+          .where((option) => option != null)
           .toList()
           .cast<D2Option>();
       options.addAll(d2Options);
