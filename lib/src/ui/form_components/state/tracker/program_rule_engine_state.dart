@@ -78,17 +78,18 @@ mixin ProgramRuleEngineState
     if (programSection != null && hiddenStatus == true) {
       for (var programSectionTrackedEntityAttribute
           in programSection.programSectionTrackedEntityAttributes) {
-        setValueSilently(
-            programSectionTrackedEntityAttribute
-                    .trackedEntityAttribute.target?.uid ??
-                '',
-            null);
+        String key = programSectionTrackedEntityAttribute
+                .trackedEntityAttribute.target?.uid ??
+            '';
+        setValueSilently(key, null);
+        _toggleFieldVisibility(key, hiddenStatus);
       }
     } else if (programStageSection != null && hiddenStatus == true) {
       for (var programStageDataElement
           in programStageSection.programStageSectionDataElements) {
-        setValueSilently(
-            programStageDataElement.dataElement.target?.uid ?? '', null);
+        String key = programStageDataElement.dataElement.target?.uid ?? '';
+        setValueSilently(key, null);
+        _toggleFieldVisibility(key, hiddenStatus);
       }
     }
   }
