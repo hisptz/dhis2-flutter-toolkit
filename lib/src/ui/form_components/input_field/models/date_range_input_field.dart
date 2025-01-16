@@ -1,4 +1,4 @@
-import 'base_input_field.dart';
+import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
 
 class D2DateRangeInputFieldValue {
   DateTime start;
@@ -7,15 +7,15 @@ class D2DateRangeInputFieldValue {
   D2DateRangeInputFieldValue({required this.start, required this.end});
 }
 
-class D2DateRangeInputFieldConfig extends D2BaseInputFieldConfig {
-  bool allowFutureDates;
-
+class D2DateRangeInputFieldConfig extends D2DateInputFieldConfig {
   D2DateRangeInputFieldConfig(
       {required super.label,
       required super.type,
       required super.name,
       required super.mandatory,
-      this.allowFutureDates = false,
+      super.firstDate,
+      super.lastDate,
+      super.allowFutureDates = false,
       super.clearable,
       super.icon,
       super.legends,
