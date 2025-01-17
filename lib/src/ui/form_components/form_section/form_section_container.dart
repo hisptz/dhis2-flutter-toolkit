@@ -49,37 +49,11 @@ class _FormSectionContainerState extends State<FormSectionContainer>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              children: [
-                widget.section.title != null
-                    ? Text(
-                        widget.section.title!,
-                        style: TextStyle(
-                          color: widget.color,
-                          fontSize: 24,
-                        ),
-                      )
-                    : Container(),
-                const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
-                widget.section.subtitle != null
-                    ? Text(
-                        widget.section.subtitle!,
-                        style: const TextStyle(
-                            color: Colors.blueGrey, fontSize: 16),
-                      )
-                    : Container(),
-              ],
-            ),
-            Visibility(
-              visible: !widget.hasError && widget.isCollapsable,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: InkWell(
-                  onTap: () {
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4.0),
+          child: InkWell(
+            onTap: widget.isCollapsable
+                ? () {
                     setState(() {
                       collapsed = !collapsed;
                       if (!collapsed) {
@@ -88,28 +62,64 @@ class _FormSectionContainerState extends State<FormSectionContainer>
                         _iconController!.reverse();
                       }
                     });
-                  },
-                  child: RotationTransition(
-                    turns: Tween<double>(
-                      begin: 0.0,
-                      end: 0.5,
-                    ).animate(_iconController!),
-                    child: Icon(
-                      Icons.keyboard_arrow_down,
-                      color: Colors.grey[900],
-                      size: 30,
+                  }
+                : null,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      widget.section.title != null
+                          ? Text(
+                              widget.section.title!,
+                              style: TextStyle(
+                                color:
+                                    widget.hasError ? Colors.red : widget.color,
+                                fontSize: 24,
+                              ),
+                            )
+                          : Container(),
+                      const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 2.0)),
+                      widget.section.subtitle != null
+                          ? Text(
+                              widget.section.subtitle!,
+                              style: const TextStyle(
+                                  color: Colors.blueGrey, fontSize: 16),
+                            )
+                          : Container(),
+                    ],
+                  ),
+                ),
+                Visibility(
+                  visible: widget.isCollapsable,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: RotationTransition(
+                      turns: Tween<double>(
+                        begin: 0.0,
+                        end: 0.5,
+                      ).animate(_iconController!),
+                      child: Icon(
+                        Icons.keyboard_arrow_down,
+                        color: widget.hasError ? Colors.red : Colors.grey[900],
+                        size: 30,
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
         const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
         AnimatedSize(
           duration: const Duration(milliseconds: 450),
           curve: Curves.fastEaseInToSlowEaseOut,
-          child: collapsed && !widget.hasError && widget.isCollapsable
+          child: collapsed && widget.isCollapsable
               ? Container()
               : Column(
                   children:
