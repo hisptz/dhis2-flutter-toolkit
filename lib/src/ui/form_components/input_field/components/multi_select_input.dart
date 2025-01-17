@@ -26,8 +26,8 @@ class MultiSelectInput
   }
 
   List<Widget> getInputs() {
-    return input.options
-            ?.map<Widget>((option) => Row(
+    return input.filteredOptions
+            .map<Widget>((option) => Row(
                   mainAxisSize:
                       input.horizontal ? MainAxisSize.min : MainAxisSize.max,
                   children: [

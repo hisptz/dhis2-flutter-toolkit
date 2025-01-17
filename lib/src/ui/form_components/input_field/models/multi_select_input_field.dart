@@ -6,6 +6,11 @@ class D2MultiSelectInputFieldConfig extends D2SelectInputFieldConfig {
 
   D2MultiSelectInputFieldConfig(
       {required super.options,
+      super.optionsToHide,
+      super.optionsToShow,
+      super.renderOptionsAsRadio = false,
+      super.clearable,
+      super.icon,
       this.maxSelections,
       this.horizontal = false,
       required super.label,

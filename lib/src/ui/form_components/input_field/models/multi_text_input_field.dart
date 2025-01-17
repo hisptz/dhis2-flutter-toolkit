@@ -6,6 +6,9 @@ class D2MultiTextInputFieldConfig extends D2SelectInputFieldConfig {
 
   D2MultiTextInputFieldConfig(
       {required super.options,
+      super.renderOptionsAsDropdown,
+      super.optionsToHide,
+      super.optionsToShow,
       this.maxSelections,
       this.horizontal = false,
       super.clearable,

@@ -6,6 +6,7 @@ class D2SelectInputFieldConfig extends D2BaseInputFieldConfig {
   List<String>? optionsToHide;
   List<String>? optionsToShow;
   bool renderOptionsAsRadio;
+  bool renderOptionsAsDropdown;
 
   List<D2InputFieldOption> get filteredOptions {
     if (optionsToShow != null && optionsToShow!.isNotEmpty) {
@@ -41,5 +42,6 @@ class D2SelectInputFieldConfig extends D2BaseInputFieldConfig {
       super.icon,
       super.legends,
       super.svgIconAsset,
-      this.renderOptionsAsRadio = false});
+      this.renderOptionsAsRadio = false,
+      this.renderOptionsAsDropdown = false});
 }

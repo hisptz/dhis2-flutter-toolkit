@@ -131,6 +131,7 @@ class _FormSectionContainerWithControlledInputsState
                             if (input is D2SelectInputFieldConfig) {
                               input.optionsToHide =
                                   widget.controller.optionsToHide[input.name];
+                              input.optionsToShow = fieldState.optionsToShow;
                             }
                             return Visibility(
                               visible: !(fieldState.hidden ?? false),

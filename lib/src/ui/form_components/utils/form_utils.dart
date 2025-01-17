@@ -42,13 +42,13 @@ class D2FormUtils {
 
       if (type == D2InputFieldType.multiText) {
         return D2MultiTextInputFieldConfig(
-          options: options,
-          label: label,
-          type: type,
-          name: dataItem.uid,
-          clearable: clearable ?? false,
-          mandatory: mandatory,
-        );
+            options: options,
+            label: label,
+            type: type,
+            name: dataItem.uid,
+            clearable: clearable ?? false,
+            mandatory: mandatory,
+            renderOptionsAsDropdown: renderType == 'DROPDOWN');
       }
 
       return D2SelectInputFieldConfig(

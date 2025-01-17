@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/base_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/multi_text_input_field.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 
 import '../models/input_field_option.dart';
@@ -71,8 +74,78 @@ class MultiTextInput
         .toList();
   }
 
+  Widget renderDropdown(BuildContext context) {
+    List<D2InputFieldOption> optionNames = input.filteredOptions;
+    List<D2InputFieldOption>? valueOptions = input.filteredOptions
+        .where((D2InputFieldOption option) =>
+            value?.split(',').contains(option.code) ?? false)
+        .toList();
+    final bool shouldShowSearch = optionNames.length >= 10;
+    return DropdownSearch<D2InputFieldOption>.multiSelection(
+      suffixProps: DropdownSuffixProps(
+          dropdownButtonProps: DropdownButtonProps(
+        iconClosed: Transform.rotate(
+          angle: -(pi / 2),
+          child: const Icon(
+            Icons.chevron_left,
+            size: 32,
+          ),
+        ),
+        iconOpened: Transform.rotate(
+          angle: (pi / 2),
+          child: const Icon(
+            Icons.chevron_left,
+            size: 32,
+          ),
+        ),
+      )),
+      popupProps: PopupPropsMultiSelection.menu(
+        showSearchBox: shouldShowSearch,
+        searchFieldProps: const TextFieldProps(
+          autofocus: false,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Search here',
+          ),
+        ),
+        onDismissed: () {
+          FocusScope.of(context).unfocus();
+        },
+        fit: FlexFit.tight,
+        constraints: BoxConstraints(
+          maxHeight: min(MediaQuery.of(context).size.height * 0.5,
+              ((optionNames.length * 60.0) + 60.0)),
+        ),
+      ),
+      decoratorProps: const DropDownDecoratorProps(
+          decoration: InputDecoration(
+        border: InputBorder.none,
+      )),
+      enabled: !disabled,
+      itemAsString: (D2InputFieldOption option) => option.name,
+      items: (filter, loadProps) {
+        return optionNames;
+      },
+      compareFn: (D2InputFieldOption? item, D2InputFieldOption? selectedItem) {
+        return item?.name == selectedItem?.name;
+      },
+      onChanged: disabled
+          ? null
+          : (List<D2InputFieldOption>? selectedOptions) {
+              List<String>? selected =
+                  selectedOptions?.map((option) => option.code).toList();
+              onChange(selected?.join(","));
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
+      selectedItems: valueOptions,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (input.renderOptionsAsDropdown) {
+      return renderDropdown(context);
+    }
     return Wrap(
       alignment: WrapAlignment.start,
       verticalDirection: VerticalDirection.down,
