@@ -4,9 +4,18 @@ import 'input_field_option.dart';
 class D2SelectInputFieldConfig extends D2BaseInputFieldConfig {
   List<D2InputFieldOption>? options;
   List<String>? optionsToHide;
+  List<String>? optionsToShow;
   bool renderOptionsAsRadio;
 
   List<D2InputFieldOption> get filteredOptions {
+    if (optionsToShow != null && optionsToShow!.isNotEmpty) {
+      return options
+              ?.where((option) => optionsToShow!.contains(option.code))
+              .toList() ??
+          options ??
+          [];
+    }
+
     if (optionsToHide == null) {
       return options ?? [];
     }
@@ -27,6 +36,7 @@ class D2SelectInputFieldConfig extends D2BaseInputFieldConfig {
       required super.name,
       required super.mandatory,
       this.optionsToHide,
+      this.optionsToShow,
       super.clearable,
       super.icon,
       super.legends,

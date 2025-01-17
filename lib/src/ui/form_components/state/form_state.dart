@@ -45,6 +45,7 @@ class D2FormController extends ChangeNotifier
     String? error = getError(key);
     String? warning = getWarning(key);
     List<String> optionsToHide = getFieldOptionsToHide(key);
+    List<String> optionsToShow = getFieldOptionsToShow(key);
 
     void onChange(value) {
       setValue(key, value);
@@ -53,6 +54,7 @@ class D2FormController extends ChangeNotifier
     return D2FieldState(
         onChange: onChange,
         optionsToHide: optionsToHide,
+        optionsToShow: optionsToShow,
         hidden: hidden,
         value: value,
         disabled: disabled,

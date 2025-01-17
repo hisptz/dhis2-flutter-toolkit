@@ -25,6 +25,8 @@ class D2FormControlledInputField extends StatelessWidget {
           if (input is D2SelectInputFieldConfig) {
             (input as D2SelectInputFieldConfig).optionsToHide =
                 fieldState.optionsToHide;
+            (input as D2SelectInputFieldConfig).optionsToShow =
+                fieldState.optionsToShow;
           }
 
           return Visibility(

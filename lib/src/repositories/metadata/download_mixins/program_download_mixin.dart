@@ -116,7 +116,8 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
   ];
 
   Future<List<D2Sharing>> saveSharingSettings(
-    List<Map<String, dynamic>> objects,) async {
+    List<Map<String, dynamic>> objects,
+  ) async {
     try {
       return D2SharingRepository(db).saveOffline(objects);
     } catch (e, stackTrace) {
@@ -245,6 +246,7 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
             .httpGet<Map<String, dynamic>>("optionGroupSets", queryParameters: {
           'filter': 'optionSet.id:in:[${optionSetIds.join(",")}]',
           'fields': '*',
+          'paging': 'false'
         });
 
         if (optionGroupSets != null) {
@@ -276,6 +278,7 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
             .httpGet<Map<String, dynamic>>("optionGroups", queryParameters: {
           'filter': 'optionSet.id:in:[${optionSetIds.join(",")}]',
           'fields': '*',
+          'paging': 'false'
         });
         if (optionGroups != null) {
           await D2OptionGroupRepository(db).saveOffline(
