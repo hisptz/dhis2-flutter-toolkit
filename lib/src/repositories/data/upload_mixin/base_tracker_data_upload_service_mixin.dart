@@ -226,4 +226,42 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
 
     return response;
   }
+
+  Future uploadMany(List<T> entities) async {
+    List<Map<String, dynamic>> entitiesPayload = [];
+    for (T entity in entities) {
+      entitiesPayload.add(await entity.toMap(db: db));
+    }
+    Map<String, dynamic> payload = {uploadDataKey: entitiesPayload};
+
+    Map<String, dynamic> response = await client!
+        .httpPost(uploadURL, payload, queryParameters: uploadQueryParams);
+
+    List errorReports = response["validationReport"]["errorReports"];
+    if (errorReports.isNotEmpty) {
+      List<D2ImportSummaryError> importSummary =
+          getItemsWithErrorsEntityUidFromImportSummary(response);
+      List<String> entitiesIdsWithErrors =
+          importSummary.map<String>((summary) => summary.uid).toList();
+
+      List<T> entitiesWithoutErrors = entities
+          .whereNot((T entity) => entitiesIdsWithErrors.contains(entity.uid))
+          .toList();
+
+      for (T entity in entitiesWithoutErrors) {
+        entity.synced = true;
+      }
+      await box.putManyAsync(entitiesWithoutErrors);
+      if (importSummary.isNotEmpty) {
+        await D2ImportSummaryErrorRepository(db).saveEntities(importSummary);
+      }
+    } else {
+      for (T entity in entities) {
+        entity.synced = true;
+      }
+      await box.putManyAsync(entities);
+    }
+
+    return response;
+  }
 }
