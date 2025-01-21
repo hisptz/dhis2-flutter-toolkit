@@ -14,11 +14,11 @@ import 'field_state.dart';
 
 class D2FormController extends ChangeNotifier
     with
-        D2FormHiddenState,
         D2FormDisabledState,
         D2FormWarningState,
         D2FormMandatoryState,
         D2FormValueState,
+        D2FormHiddenState,
         D2FormErrorState,
         D2FormDataState,
         D2FormOptionState {
