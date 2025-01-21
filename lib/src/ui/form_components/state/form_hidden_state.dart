@@ -1,7 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
-mixin D2FormHiddenState on ChangeNotifier {
+import 'form_value_state.dart';
+
+mixin D2FormHiddenState on D2FormValueState, ChangeNotifier {
   List<String> hiddenFields = [];
   List<String> hiddenSections = [];
 
@@ -12,6 +14,7 @@ mixin D2FormHiddenState on ChangeNotifier {
           .toList();
     } else {
       hiddenFields.add(key);
+      setValueSilently(key, null);
     }
   }
 
