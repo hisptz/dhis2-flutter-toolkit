@@ -121,16 +121,17 @@ class D2Event extends SyncDataSource
         synced = false,
         createdBy = D2UserRepository(db).get()?.username ?? '',
         uid = D2UID.generate() {
+          
+    DateTime? eventScheduledAt =
+        DateTime.tryParse(formValues["scheduledAt"] ?? "");
+    DateTime? eventOccurredAt =
+        DateTime.tryParse(formValues["occurredAt"] ?? "");
+
+    scheduledAt = eventScheduledAt;
+    occurredAt =
+        eventOccurredAt ?? (eventScheduledAt != null ? null : DateTime.now());
+
     if (enrollment != null) {
-      DateTime? eventScheduledAt =
-          DateTime.tryParse(formValues["scheduledAt"] ?? "");
-      DateTime? eventOccurredAt =
-          DateTime.tryParse(formValues["occurredAt"] ?? "");
-
-      scheduledAt = eventScheduledAt;
-      occurredAt =
-          eventOccurredAt ?? (eventScheduledAt != null ? null : DateTime.now());
-
       this.enrollment.target = enrollment;
       trackedEntity.target = enrollment.trackedEntity.target;
       if (enrollment.program.targetId != programStage.program.targetId) {
