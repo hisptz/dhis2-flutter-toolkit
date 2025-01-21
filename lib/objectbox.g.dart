@@ -73,7 +73,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(1, 8194103628207524606),
       name: 'D2AttributeValue',
-      lastPropertyId: const obx_int.IdUid(3, 7124008240466461217),
+      lastPropertyId: const obx_int.IdUid(4, 8707214355105896300),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -94,7 +94,12 @@ final _entities = <obx_int.ModelEntity>[
             type: 11,
             flags: 520,
             indexId: const obx_int.IdUid(2, 582472308750711563),
-            relationTarget: 'D2TrackedEntityAttribute')
+            relationTarget: 'D2TrackedEntityAttribute'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(4, 8707214355105896300),
+            name: 'value',
+            type: 9,
+            flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[]),
@@ -657,7 +662,8 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(4, 7570433971775790505),
             name: 'uid',
             type: 9,
-            flags: 0),
+            flags: 2080,
+            indexId: const obx_int.IdUid(141, 3955544670093915375)),
         obx_int.ModelProperty(
             id: const obx_int.IdUid(5, 7370910987499696494),
             name: 'name',
@@ -728,7 +734,8 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(4, 3592700303337531551),
             name: 'uid',
             type: 9,
-            flags: 0),
+            flags: 2080,
+            indexId: const obx_int.IdUid(142, 8796278776984298366)),
         obx_int.ModelProperty(
             id: const obx_int.IdUid(5, 1337581440173823332),
             name: 'name',
@@ -3424,7 +3431,14 @@ final _entities = <obx_int.ModelEntity>[
             relationTarget: 'D2DataSet')
       ],
       relations: <obx_int.ModelRelation>[],
-      backlinks: <obx_int.ModelBacklink>[]),
+      backlinks: <obx_int.ModelBacklink>[
+        obx_int.ModelBacklink(
+            name: 'users', srcEntity: 'D2UserSharing', srcField: 'sharing'),
+        obx_int.ModelBacklink(
+            name: 'userGroups',
+            srcEntity: 'D2UserGroupSharing',
+            srcField: 'sharing')
+      ]),
   obx_int.ModelEntity(
       id: const obx_int.IdUid(53, 4727383786984860167),
       name: 'D2UserGroupSharing',
@@ -3587,7 +3601,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
       entities: _entities,
       lastEntityId: const obx_int.IdUid(55, 111260684203835254),
-      lastIndexId: const obx_int.IdUid(140, 9173362820409307694),
+      lastIndexId: const obx_int.IdUid(142, 8796278776984298366),
       lastRelationId: const obx_int.IdUid(30, 8498881252173320427),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [
@@ -3665,18 +3679,22 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.id = id;
         },
         objectToFB: (D2AttributeValue object, fb.Builder fbb) {
-          fbb.startTable(4);
+          final valueOffset =
+              object.value == null ? null : fbb.writeString(object.value!);
+          fbb.startTable(5);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.dataElement.targetId);
           fbb.addInt64(2, object.trackedEntityAttribute.targetId);
+          fbb.addOffset(3, valueOffset);
           fbb.finish(fbb.endTable());
           return object.id;
         },
         objectFromFB: (obx.Store store, ByteData fbData) {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
-
-          final object = D2AttributeValue()
+          final valueParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGetNullable(buffer, rootOffset, 10);
+          final object = D2AttributeValue(value: valueParam)
             ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
           object.dataElement.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0);
@@ -7302,7 +7320,13 @@ obx_int.ModelDefinition getObjectBoxModel() {
         model: _entities[48],
         toOneRelations: (D2Sharing object) =>
             [object.program, object.programStage, object.dataSet],
-        toManyRelations: (D2Sharing object) => {},
+        toManyRelations: (D2Sharing object) => {
+              obx_int.RelInfo<D2UserSharing>.toOneBacklink(2, object.id,
+                  (D2UserSharing srcObject) => srcObject.sharing): object.users,
+              obx_int.RelInfo<D2UserGroupSharing>.toOneBacklink(5, object.id,
+                      (D2UserGroupSharing srcObject) => srcObject.sharing):
+                  object.userGroups
+            },
         getId: (D2Sharing object) => object.id,
         setId: (D2Sharing object, int id) {
           object.id = id;
@@ -7347,6 +7371,16 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.dataSet.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
           object.dataSet.attach(store);
+          obx_int.InternalToManyAccess.setRelInfo<D2Sharing>(
+              object.users,
+              store,
+              obx_int.RelInfo<D2UserSharing>.toOneBacklink(2, object.id,
+                  (D2UserSharing srcObject) => srcObject.sharing));
+          obx_int.InternalToManyAccess.setRelInfo<D2Sharing>(
+              object.userGroups,
+              store,
+              obx_int.RelInfo<D2UserGroupSharing>.toOneBacklink(5, object.id,
+                  (D2UserGroupSharing srcObject) => srcObject.sharing));
           return object;
         }),
     D2UserGroupSharing: obx_int.EntityDefinition<D2UserGroupSharing>(
@@ -7503,6 +7537,10 @@ class D2AttributeValue_ {
   static final trackedEntityAttribute =
       obx.QueryRelationToOne<D2AttributeValue, D2TrackedEntityAttribute>(
           _entities[0].properties[2]);
+
+  /// See [D2AttributeValue.value].
+  static final value =
+      obx.QueryStringProperty<D2AttributeValue>(_entities[0].properties[3]);
 }
 
 /// [D2DataElement] entity fields to define ObjectBox queries.
@@ -9923,6 +9961,15 @@ class D2Sharing_ {
   /// See [D2Sharing.dataSet].
   static final dataSet =
       obx.QueryRelationToOne<D2Sharing, D2DataSet>(_entities[48].properties[7]);
+
+  /// see [D2Sharing.users]
+  static final users =
+      obx.QueryBacklinkToMany<D2UserSharing, D2Sharing>(D2UserSharing_.sharing);
+
+  /// see [D2Sharing.userGroups]
+  static final userGroups =
+      obx.QueryBacklinkToMany<D2UserGroupSharing, D2Sharing>(
+          D2UserGroupSharing_.sharing);
 }
 
 /// [D2UserGroupSharing] entity fields to define ObjectBox queries.

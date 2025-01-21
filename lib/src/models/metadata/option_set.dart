@@ -9,13 +9,12 @@ import 'option.dart';
 class D2OptionSet extends D2MetaResource {
   @override
   int id = 0;
-  @override
   DateTime created;
 
-  @override
   DateTime lastUpdated;
 
   @override
+  @Unique()
   String uid;
 
   String name;
@@ -40,6 +39,5 @@ class D2OptionSet extends D2MetaResource {
     id = D2OptionSetRepository(db).getIdByUid(json["id"]) ?? 0;
   }
 
-  @override
   String? displayName;
 }

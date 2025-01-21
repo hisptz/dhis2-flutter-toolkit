@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:8194103628207524606",
-      "lastPropertyId": "3:7124008240466461217",
+      "lastPropertyId": "4:8707214355105896300",
       "name": "D2AttributeValue",
       "properties": [
         {
@@ -29,6 +29,11 @@
           "flags": 520,
           "indexId": "2:582472308750711563",
           "relationTarget": "D2TrackedEntityAttribute"
+        },
+        {
+          "id": "4:8707214355105896300",
+          "name": "value",
+          "type": 9
         }
       ],
       "relations": []
@@ -588,7 +593,9 @@
         {
           "id": "4:7570433971775790505",
           "name": "uid",
-          "type": 9
+          "type": 9,
+          "flags": 2080,
+          "indexId": "141:3955544670093915375"
         },
         {
           "id": "5:7370910987499696494",
@@ -661,7 +668,9 @@
         {
           "id": "4:3592700303337531551",
           "name": "uid",
-          "type": 9
+          "type": 9,
+          "flags": 2080,
+          "indexId": "142:8796278776984298366"
         },
         {
           "id": "5:1337581440173823332",
@@ -3520,7 +3529,7 @@
     }
   ],
   "lastEntityId": "55:111260684203835254",
-  "lastIndexId": "140:9173362820409307694",
+  "lastIndexId": "142:8796278776984298366",
   "lastRelationId": "30:8498881252173320427",
   "lastSequenceId": "0:0",
   "modelVersion": 5,

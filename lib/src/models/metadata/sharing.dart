@@ -8,7 +8,7 @@ class D2Sharing {
   int id = 0;
 
   @Unique()
-  late String uid;
+  String uid;
 
   String owner;
   bool external;
@@ -19,10 +19,10 @@ class D2Sharing {
   final dataSet = ToOne<D2DataSet>();
 
   @Backlink('sharing')
-  List<D2UserSharing> users = ToMany<D2UserSharing>();
+  final users = ToMany<D2UserSharing>();
 
   @Backlink('sharing')
-  List<D2UserGroupSharing> userGroups = ToMany<D2UserGroupSharing>();
+  final userGroups = ToMany<D2UserGroupSharing>();
 
   D2Sharing(this.id, this.uid, this.owner, this.external, this.public);
 

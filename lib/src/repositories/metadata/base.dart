@@ -1,7 +1,10 @@
+import 'package:dhis2_flutter_toolkit/src/utils/chunk.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../../objectbox.dart';
 import '../../models/metadata/base.dart';
+
+int PAGINATION = 1000;
 
 abstract class BaseMetaRepository<T extends D2MetaResource> {
   D2ObjectBox db;
@@ -47,8 +50,23 @@ abstract class BaseMetaRepository<T extends D2MetaResource> {
   T? getByUid(String uid);
 
   Future<List<T>> saveOffline(List<Map<String, dynamic>> json) async {
-    List<T> entities = json.map(mapper).toList();
-    return box.putAndGetManyAsync(entities);
+    if (json.length > PAGINATION) {
+      //We need to chunk this into groups of 2000
+      List<List<Map<String, dynamic>>> chunks =
+          ChunkUtil.chunkItems<Map<String, dynamic>>(
+              items: json, size: PAGINATION);
+      List<int> ids = [];
+      for (List<Map<String, dynamic>> chunk in chunks) {
+        ids.addAll(await box.putManyAsync(chunk.map(mapper).toList()));
+      }
+      return box.getManyAsync(ids).then((value) =>
+          value.where((entity) => entity != null).cast<T>().toList());
+    } else {
+      List<T> entities = json.map(mapper).toList();
+      List<int> ids = await box.putManyAsync(entities);
+      return box.getManyAsync(ids).then((value) =>
+          value.where((entity) => entity != null).cast<T>().toList());
+    }
   }
 
   BaseMetaRepository<T> clearQuery() {

@@ -9,7 +9,7 @@ class D2AttributeValue {
 
   final dataElement = ToOne<D2DataElement>();
   final trackedEntityAttribute = ToOne<D2TrackedEntityAttribute>();
-  dynamic value;
+  String? value;
 
   D2AttributeValue({this.value});
 

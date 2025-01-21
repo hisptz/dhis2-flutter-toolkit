@@ -16,6 +16,7 @@ class D2Option extends D2MetaResource {
   DateTime lastUpdated;
 
   @override
+  @Unique()
   String uid;
 
   String name;
