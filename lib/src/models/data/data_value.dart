@@ -72,7 +72,13 @@ class D2DataValue extends D2DataResource
 
   @override
   Future<Map<String, dynamic>> toMap({D2ObjectBox? db}) async {
-    return {"dataElement": dataElement.target?.uid, "value": value};
+    return {
+      "dataElement": dataElement.target?.uid,
+      "value": value,
+      "createdAt": createdAt.toIso8601String(),
+      "updatedAt": updatedAt.toIso8601String(),
+      "providedElsewhere": providedElsewhere
+    };
   }
 
   @override

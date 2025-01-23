@@ -60,7 +60,12 @@ class D2TrackedEntityAttributeValue extends D2DataResource
 
   @override
   Future<Map<String, dynamic>> toMap({D2ObjectBox? db}) async {
-    return {"attribute": trackedEntityAttribute.target?.uid, "value": value};
+    return {
+      "attribute": trackedEntityAttribute.target?.uid,
+      "value": value,
+      "updatedAt": updatedAt.toIso8601String(),
+      "createdAt": createdAt.toIso8601String()
+    };
   }
 
   @override
@@ -83,7 +88,6 @@ class D2TrackedEntityAttributeValue extends D2DataResource
     return valueOption?.displayName ?? valueOption?.name ?? value;
   }
 
-  @override
   void updateFromFormValues(Map<String, dynamic> values,
       {required D2ObjectBox db, D2Program? program, D2OrgUnit? orgUnit}) {
     String key = trackedEntityAttribute.target!.uid;

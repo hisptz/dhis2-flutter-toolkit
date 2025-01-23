@@ -3954,7 +3954,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final enrolledAtParam = DateTime.fromMillisecondsSinceEpoch(
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0));
           final followupParam =
-              const fb.BoolReader().vTableGet(buffer, rootOffset, 16, false);
+              const fb.BoolReader().vTableGetNullable(buffer, rootOffset, 16);
           final deletedParam =
               const fb.BoolReader().vTableGet(buffer, rootOffset, 14, false);
           final occurredAtParam = DateTime.fromMillisecondsSinceEpoch(

@@ -25,7 +25,7 @@ class D2Enrollment extends SyncDataSource
   String uid;
   DateTime enrolledAt;
   bool deleted;
-  bool followup;
+  bool? followup;
   DateTime occurredAt;
   String status;
   String? notes;
@@ -73,7 +73,7 @@ class D2Enrollment extends SyncDataSource
         createdAt = DateTime.parse(json["createdAt"]),
         enrolledAt = DateTime.parse(json["enrolledAt"]),
         followup = json["followUp"],
-        deleted = json["deleted"],
+        deleted = json["deleted"] ?? false,
         createdBy = json["createdBy"]?["username"],
         occurredAt = DateTime.parse(json["occurredAt"]),
         status = json["status"],
@@ -135,6 +135,8 @@ class D2Enrollment extends SyncDataSource
     Map<String, dynamic> payload = {
       "orgUnit": orgUnit.target?.uid,
       "program": program.target?.uid,
+      "updatedAt": updatedAt.toIso8601String(),
+      "createdAt": createdAt.toIso8601String(),
       "trackedEntity": trackedEntity.target?.uid,
       "enrollment": uid,
       "enrolledAt": enrolledAt.toIso8601String(),

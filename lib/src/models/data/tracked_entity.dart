@@ -68,13 +68,13 @@ class D2TrackedEntity extends SyncDataSource
       : uid = json["trackedEntity"],
         createdAt = DateTime.parse(json["createdAt"]),
         updatedAt = DateTime.parse(json["updatedAt"]),
-        deleted = json["deleted"],
+        deleted = json["deleted"] ?? false,
         synced = true,
         createdBy = json["createdBy"]?["username"],
-        potentialDuplicate = json["potentialDuplicate"],
+        potentialDuplicate = json["potentialDuplicate"] ?? false,
         geometry =
             json["geometry"] != null ? jsonEncode(json["geometry"]) : null,
-        inactive = json["inactive"] {
+        inactive = json["inactive"] ?? false {
     id = D2TrackedEntityRepository(db).getIdByUid(json["trackedEntity"]) ?? 0;
     orgUnit.target = D2OrgUnitRepository(db).getByUid(json["orgUnit"]);
     trackedEntityType.target =
@@ -155,7 +155,12 @@ class D2TrackedEntity extends SyncDataSource
 
     Map<String, dynamic> payload = {
       "orgUnit": orgUnit.target!.uid,
+      "updatedAt": updatedAt.toIso8601String(),
+      "createdAt": createdAt.toIso8601String(),
       "trackedEntity": uid,
+      "deleted": deleted,
+      "inactive": inactive,
+      "potentialDuplicate": potentialDuplicate,
       "trackedEntityType": trackedEntityType.target!.uid,
       "attributes": attributesPayload,
     };

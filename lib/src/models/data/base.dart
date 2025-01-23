@@ -12,4 +12,15 @@ abstract class D2DataResource {
 
 abstract class SyncDataSource extends D2DataResource implements SyncableData {
   abstract String uid;
+
+  @override
+  int get hashCode => uid.hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        other is SyncDataSource &&
+            runtimeType == other.runtimeType &&
+            uid == other.uid;
+  }
 }

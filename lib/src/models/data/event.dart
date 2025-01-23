@@ -72,8 +72,8 @@ class D2Event extends SyncDataSource
         attributeOptionCombo = json["attributeOptionCombo"],
         updatedAt = DateTime.parse(json["updatedAt"]),
         createdAt = DateTime.parse(json["createdAt"]),
-        followup = json["followup"],
-        deleted = json["deleted"],
+        followup = json["followup"] ?? false,
+        deleted = json["deleted"] ?? false,
         status = json["status"],
         createdBy = json["createdBy"]?["username"],
         synced = true,
@@ -121,7 +121,6 @@ class D2Event extends SyncDataSource
         synced = false,
         createdBy = D2UserRepository(db).get()?.username ?? '',
         uid = D2UID.generate() {
-          
     DateTime? eventScheduledAt =
         DateTime.tryParse(formValues["scheduledAt"] ?? "");
     DateTime? eventOccurredAt =
@@ -186,11 +185,14 @@ class D2Event extends SyncDataSource
 
     Map<String, dynamic> payload = {
       "scheduledAt": scheduledAt?.toIso8601String(),
+      "updatedAt": updatedAt.toIso8601String(),
+      "createdAt": createdAt.toIso8601String(),
       "program": program.target?.uid,
       "event": uid,
       "programStage": programStage.target?.uid,
       "orgUnit": orgUnit.target?.uid,
       "enrollmentStatus": status,
+      "followup": followup,
       "status": status,
       "occurredAt": occurredAt?.toIso8601String(),
       "attributeCategoryOptions": attributeCategoryOptions,
