@@ -1,8 +1,8 @@
-import 'package:dhis2_flutter_toolkit/src/models/metadata/program.dart';
 import 'package:dhis2_flutter_toolkit/src/repositories/data/query_mixin/base_tracker_query_mixin.dart';
 
 import '../../../objectbox.g.dart';
-import '../../models/data/relationship.dart';
+import '../../models/data/entry.dart';
+import '../../models/metadata/entry.dart';
 import 'base_tracker.dart';
 import 'upload_mixin/base_tracker_data_upload_service_mixin.dart';
 
@@ -45,6 +45,36 @@ class D2RelationshipRepository
   @override
   void addProgramToQuery() {
     // TODO: implement addProgramToQuery
+  }
+
+  D2Relationship? getByConstraints(
+      {required D2DataResource from,
+      required D2DataResource to,
+      required D2RelationshipType type}) {
+    Condition<D2Relationship> condition =
+        D2Relationship_.relationshipType.equals(type.id);
+    if (from is D2TrackedEntity) {
+      condition.and(D2Relationship_.fromTrackedEntity.equals(from.id));
+    }
+    if (from is D2Enrollment) {
+      condition.and(D2Relationship_.fromEnrollment.equals(from.id));
+    }
+    if (from is D2Event) {
+      condition.and(D2Relationship_.fromEvent.equals(from.id));
+    }
+
+    if (to is D2TrackedEntity) {
+      condition.and(D2Relationship_.toTrackedEntity.equals(to.id));
+    }
+
+    if (to is D2Enrollment) {
+      condition.and(D2Relationship_.toEnrollment.equals(to.id));
+    }
+
+    if (to is D2Event) {
+      condition.and(D2Relationship_.toEvent.equals(to.id));
+    }
+    return box.query(condition).build().findFirst();
   }
 
   @override
