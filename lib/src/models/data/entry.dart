@@ -5,6 +5,7 @@ export 'data_value_set.dart' show D2DataValueSet;
 export "enrollment.dart" show D2Enrollment;
 export "event.dart" show D2Event;
 export 'import_summary_error.dart' show D2ImportSummaryError;
+export 'program_owner.dart' show D2ProgramOwner;
 export "relationship.dart" show D2Relationship;
 export 'reserved_value.dart' show D2ReservedValue;
 export "tracked_entity.dart" show D2TrackedEntity;
