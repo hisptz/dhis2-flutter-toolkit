@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 enum D2SyncStatusEnum { initialized, syncing, complete }
 
 class D2SyncStatus {
@@ -17,6 +19,14 @@ class D2SyncStatus {
       synced = synced! + 1;
     }
     return this;
+  }
+
+  double get progress {
+    if (total != null && total == 0) {
+      return 0;
+    }
+    double progress = ((synced ?? 0) / total!);
+    return clampDouble(progress, 0, 1);
   }
 
   D2SyncStatus setTotal(int total) {
