@@ -35,6 +35,23 @@ class D2SyncStatus {
     return this;
   }
 
+  D2SyncStatus.fromMap(Map<String, dynamic> json)
+      : label = json["label"],
+        synced = json["synced"],
+        total = json["total"],
+        status = D2SyncStatusEnum.values[json["status"]],
+        subProcess = D2SyncStatus.fromMap(json["subProcess"]);
+
+  Map<String, dynamic> toMap() {
+    return {
+      "label": label,
+      "synced": synced,
+      "total": total,
+      "status": status.index,
+      "subProcess": subProcess?.toMap()
+    };
+  }
+
   D2SyncStatus complete() {
     status = D2SyncStatusEnum.complete;
     return this;
