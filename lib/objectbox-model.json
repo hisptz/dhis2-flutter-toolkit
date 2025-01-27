@@ -1942,6 +1942,11 @@
           "id": "24:2410478793112935215",
           "name": "attributesForQuery",
           "targetId": "27:8981732063320211832"
+        },
+        {
+          "id": "31:7622425236856509721",
+          "name": "relationshipsForQuery",
+          "targetId": "22:4637318393876658704"
         }
       ]
     },
@@ -3526,11 +3531,64 @@
           "targetId": "46:4097201871524384707"
         }
       ]
+    },
+    {
+      "id": "56:4049942013744007910",
+      "lastPropertyId": "7:6954560742304034192",
+      "name": "D2ProgramOwner",
+      "properties": [
+        {
+          "id": "1:5883403791264768813",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3121635475600389960",
+          "name": "trackedEntityId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "143:3205376848409378385",
+          "relationTarget": "D2TrackedEntity"
+        },
+        {
+          "id": "3:3220254384412392905",
+          "name": "programId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "144:7599136116441433153",
+          "relationTarget": "D2Program"
+        },
+        {
+          "id": "4:1669167846502189124",
+          "name": "orgUnitId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "145:7044602451247654144",
+          "relationTarget": "D2OrgUnit"
+        },
+        {
+          "id": "5:1247544304940122564",
+          "name": "uid",
+          "type": 9
+        },
+        {
+          "id": "6:4896957647408487890",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "7:6954560742304034192",
+          "name": "updatedAt",
+          "type": 10
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "55:111260684203835254",
-  "lastIndexId": "142:8796278776984298366",
-  "lastRelationId": "30:8498881252173320427",
+  "lastEntityId": "56:4049942013744007910",
+  "lastIndexId": "145:7044602451247654144",
+  "lastRelationId": "31:7622425236856509721",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,

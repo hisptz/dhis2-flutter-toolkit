@@ -34,10 +34,12 @@ class D2TrackedEntity extends SyncDataSource
   final enrollments = ToMany<D2Enrollment>();
   final enrollmentsForQuery = ToMany<D2Enrollment>();
 
+  @Backlink("trackedEntity")
+  final programOwners = ToMany<D2ProgramOwner>();
+
   @Backlink("fromTrackedEntity")
   final relationships = ToMany<D2Relationship>();
-
-  // final relationshipsForQuery = ToMany<D2Relationship>();
+  final relationshipsForQuery = ToMany<D2Relationship>();
 
   @Backlink("toTrackedEntity")
   final toRelationships = ToMany<D2Relationship>();
@@ -86,6 +88,14 @@ class D2TrackedEntity extends SyncDataSource
                 db, attributeValue, json["trackedEntity"]))
         .toList();
     attributes.addAll(attributeValues);
+
+    //this is a new implementation to support Tracker ownership. It requires the instance from data to be correctly mapped. So we do have to remove program owners that no longer apply
+    List<D2ProgramOwner> programOwnerValues = json["programOwners"]
+        ?.map<D2ProgramOwner>(
+            (programOwner) => D2ProgramOwner.fromMap(db, programOwner))
+        .toList();
+
+    programOwners.addAll(programOwnerValues.toSet().toList());
   }
 
   //TODO: This needs to be modified to separate registration using trackedEntityType or enrollment with a program.
@@ -163,6 +173,7 @@ class D2TrackedEntity extends SyncDataSource
       "potentialDuplicate": potentialDuplicate,
       "trackedEntityType": trackedEntityType.target!.uid,
       "attributes": attributesPayload,
+      "programOwners": programOwners.map((e) => e.toMap(db: db)).toList(),
     };
     if (geometry != null) {
       payload.addAll({"geometry": jsonDecode(geometry!)});
