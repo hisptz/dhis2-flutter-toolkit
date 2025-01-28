@@ -40,7 +40,9 @@ class D2SyncStatus {
         synced = json["synced"],
         total = json["total"],
         status = D2SyncStatusEnum.values[json["status"]],
-        subProcess = D2SyncStatus.fromMap(json["subProcess"]);
+        subProcess = json["subProcess"] == null
+            ? null
+            : D2SyncStatus.fromMap(json["subProcess"]);
 
   Map<String, dynamic> toMap() {
     return {
