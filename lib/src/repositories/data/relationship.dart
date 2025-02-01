@@ -54,26 +54,29 @@ class D2RelationshipRepository
     Condition<D2Relationship> condition =
         D2Relationship_.relationshipType.equals(type.id);
     if (from is D2TrackedEntity) {
-      condition.and(D2Relationship_.fromTrackedEntity.equals(from.id));
+      condition =
+          condition.and(D2Relationship_.fromTrackedEntity.equals(from.id));
     }
     if (from is D2Enrollment) {
-      condition.and(D2Relationship_.fromEnrollment.equals(from.id));
+      condition = condition.and(D2Relationship_.fromEnrollment.equals(from.id));
     }
     if (from is D2Event) {
-      condition.and(D2Relationship_.fromEvent.equals(from.id));
+      condition = condition.and(D2Relationship_.fromEvent.equals(from.id));
     }
 
     if (to is D2TrackedEntity) {
-      condition.and(D2Relationship_.toTrackedEntity.equals(to.id));
+      condition = condition.and(D2Relationship_.toTrackedEntity.equals(to.id));
     }
 
     if (to is D2Enrollment) {
-      condition.and(D2Relationship_.toEnrollment.equals(to.id));
+      condition = condition.and(D2Relationship_.toEnrollment.equals(to.id));
     }
 
     if (to is D2Event) {
-      condition.and(D2Relationship_.toEvent.equals(to.id));
+      condition = condition.and(D2Relationship_.toEvent.equals(to.id));
     }
+
+    print(box.query(condition).build().describeParameters());
     return box.query(condition).build().findFirst();
   }
 
