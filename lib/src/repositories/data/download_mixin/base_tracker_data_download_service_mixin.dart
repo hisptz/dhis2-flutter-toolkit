@@ -179,7 +179,7 @@ mixin BaseTrackerDataDownloadServiceMixin<T extends D2DataResource>
         downloadController.add(status.increment());
       }
       downloadController.add(status.complete());
-      await downloadController.close();
+      downloadController.close();
     } catch (e) {
       downloadController.addError(e);
       downloadController.close();
