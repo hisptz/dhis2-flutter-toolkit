@@ -25,7 +25,7 @@ class D2SyncStatus {
     if (total != null && total == 0) {
       return 0;
     }
-    double progress = ((synced ?? 0) / total!);
+    double progress = ((synced ?? 0) / (total ?? 1));
     return clampDouble(progress, 0, 1);
   }
 
