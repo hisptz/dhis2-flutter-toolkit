@@ -1,7 +1,7 @@
 import '../../../objectbox.g.dart';
-
-import '../../models/metadata/program_tracked_entity_attribute.dart';
+import '../../models/metadata/entry.dart';
 import 'base.dart';
+import 'entry.dart';
 
 class D2ProgramTrackedEntityAttributeRepository
     extends BaseMetaRepository<D2ProgramTrackedEntityAttribute> {
@@ -18,6 +18,14 @@ class D2ProgramTrackedEntityAttributeRepository
     queryConditions =
         D2ProgramTrackedEntityAttribute_.program.equals(programId);
     return this;
+  }
+
+  Future<void> deleteByProgram(String programId) async {
+    D2Program? program = D2ProgramRepository(db).getByUid(programId);
+    await box
+        .query(D2ProgramTrackedEntityAttribute_.program.equals(program!.id))
+        .build()
+        .removeAsync();
   }
 
   @override

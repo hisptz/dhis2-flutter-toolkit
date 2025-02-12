@@ -44,7 +44,7 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
     return this;
   }
 
-  syncMeta(key, value) async {
+  syncMeta(key, value, {required String programId}) async {
     try {
       switch (key) {
         case "dataElements":
@@ -58,6 +58,8 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
         case "programRuleVariables":
           return D2ProgramRuleVariableRepository(db).saveOffline(value);
         case "programTrackedEntityAttributes":
+          await D2ProgramTrackedEntityAttributeRepository(db)
+              .deleteByProgram(programId);
           return D2ProgramTrackedEntityAttributeRepository(db)
               .saveOffline(value);
         case "programStageDataElements":
@@ -163,7 +165,7 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
           element.value.cast<Map<String, dynamic>>();
 
       await getLegendSets(value);
-      await syncMeta(element.key, value);
+      await syncMeta(element.key, value, programId: programId);
 
       if (["programs", "programStages"].contains(element.key)) {
         await saveSharingSettings(value);

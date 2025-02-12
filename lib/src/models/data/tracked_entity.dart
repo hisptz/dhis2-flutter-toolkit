@@ -117,14 +117,20 @@ class D2TrackedEntity extends SyncDataSource
     List<D2TrackedEntityAttribute> trackedEntityAttributes = program
         .programTrackedEntityAttributes
         .map((pAttribute) => pAttribute.trackedEntityAttribute.target!)
+        .toSet()
         .toList();
 
     List<D2TrackedEntityAttributeValue?> attributeValues =
-        trackedEntityAttributes.map((teiAttribute) {
-      String? value = values[teiAttribute.uid];
-      return D2TrackedEntityAttributeValue.fromFormValues(value,
-          db: db, trackedEntity: this, trackedEntityAttribute: teiAttribute);
-    }).toList();
+        trackedEntityAttributes
+            .map((teiAttribute) {
+              String? value = values[teiAttribute.uid];
+              return D2TrackedEntityAttributeValue.fromFormValues(value,
+                  db: db,
+                  trackedEntity: this,
+                  trackedEntityAttribute: teiAttribute);
+            })
+            .toSet()
+            .toList();
 
     List<D2TrackedEntityAttributeValue> attributeWithValues = attributeValues
         .where((element) => element != null)
