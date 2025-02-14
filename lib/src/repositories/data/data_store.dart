@@ -41,6 +41,14 @@ class D2DataStoreRepository extends BaseDataRepository
         .findFirst();
   }
 
+  List<D2DataStore> getAll() {
+    return box.query(conditions).build().find();
+  }
+
+  List<String> getKeys() {
+    return box.query(conditions).build().property(D2DataStore_.key).find();
+  }
+
   int? getIdByUid(String uid) {
     return box.query(D2DataStore_.uid.equals(uid)).build().findFirst()?.id;
   }
@@ -65,7 +73,8 @@ class D2DataStoreRepository extends BaseDataRepository
             print("Logs uploaded successfully");
           }
         } else {
-          response = await client.httpPut("dataStore/$namespace/$key", jsonPayload);
+          response =
+              await client.httpPut("dataStore/$namespace/$key", jsonPayload);
         }
       }
     } catch (e) {
