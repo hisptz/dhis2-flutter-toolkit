@@ -83,12 +83,14 @@ class _OrgUnitSearchState extends State<OrgUnitSearch> {
       List<OrgUnitData> results =
           (await service.searchOrgUnitDataFromKeyword(keyword!))
               .cast<OrgUnitData>();
-      setState(() {
-        searchResults = results
-            .where((orgUnit) => !getDisabledSelectionStatus(orgUnit.id))
-            .toList();
-        loading = false;
-      });
+      if (mounted) {
+        setState(() {
+          searchResults = results
+              .where((orgUnit) => !getDisabledSelectionStatus(orgUnit.id))
+              .toList();
+          loading = false;
+        });
+      }
     }
   }
 
