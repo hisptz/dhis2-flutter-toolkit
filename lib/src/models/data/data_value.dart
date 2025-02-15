@@ -64,6 +64,15 @@ class D2DataValue extends D2DataResource
     if (dataElement.target!.optionSet.target == null) {
       return value;
     }
+    if (dataElement.target?.valueType == "MULTI_TEXT") {
+      D2OptionSet optionSet = dataElement.target!.optionSet.target!;
+      String? value = this.value?.split(",").map((value) {
+        D2Option? option =
+            optionSet.options.firstWhere((element) => element.code == value);
+        return option.displayName ?? option.name ?? value;
+      }).join(", ");
+      return value;
+    }
     D2OptionSet optionSet = dataElement.target!.optionSet.target!;
     D2Option? valueOption =
         optionSet.options.firstWhereOrNull((element) => element.code == value);
