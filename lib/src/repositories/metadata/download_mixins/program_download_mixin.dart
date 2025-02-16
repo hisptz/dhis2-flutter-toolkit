@@ -171,12 +171,13 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
         await saveSharingSettings(value);
       }
     });
+    if (programMetadata["optionSets"] != null) {
+      await getOptionGroup(
+          programMetadata['optionSets'].cast<Map<String, dynamic>>());
 
-    await getOptionGroup(
-        programMetadata['optionSets'].cast<Map<String, dynamic>>());
-
-    await getOptionGroupSets(
-        programMetadata['optionSets'].cast<Map<String, dynamic>>());
+      await getOptionGroupSets(
+          programMetadata['optionSets'].cast<Map<String, dynamic>>());
+    }
   }
 
   @override
