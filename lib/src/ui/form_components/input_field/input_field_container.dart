@@ -43,8 +43,9 @@ class D2InputFieldContainer extends StatelessWidget {
   final Color? color;
   final String? error;
   final String? warning;
+  final void Function(String)? onScan;
   final bool? mandatory;
-
+  final bool isTapToScanEnabled;
   final bool disabled;
   D2InputDecoration? inputDecoration;
 
@@ -53,6 +54,8 @@ class D2InputFieldContainer extends StatelessWidget {
     required this.input,
     this.inputDecoration,
     this.value,
+    this.onScan,
+    this.isTapToScanEnabled = false,
     required this.onChange,
     required this.color,
     this.error,
@@ -267,7 +270,9 @@ class D2InputFieldContainer extends StatelessWidget {
             return (input as D2TextInputFieldConfig).renderType == "BAR_CODE"
                 ? BarCodeScannerInput(
                     disabled: disabled,
+                    isTapToScanEnabled: isTapToScanEnabled,
                     onChange: onChange,
+                    onScan: onScan,
                     value: value,
                     input: input,
                     color: colorOverride,
