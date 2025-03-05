@@ -30,7 +30,6 @@ mixin ProgramRuleEngineState
   // TODO find a better way for clearing state
   void clearHiddenStatesSilently() {
     clearHiddenFieldsSilently();
-    clearAllMandatoryFieldsSilently();
   }
 
   void spawnProgramRuleEngine(List<String> inputFieldIds) async {
