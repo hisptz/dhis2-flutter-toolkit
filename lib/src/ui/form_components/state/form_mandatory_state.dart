@@ -30,6 +30,15 @@ mixin D2FormMandatoryState on ChangeNotifier {
     }
   }
 
+  void clearAllMandatoryFieldsSilently() {
+    mandatoryFields = [];
+  }
+
+  void clearAllMandatoryFields() {
+    clearAllMandatoryFieldsSilently();
+    notifyListeners();
+  }
+
   bool isFieldMandatory(String key) {
     return mandatoryFields.contains(key);
   }
