@@ -129,10 +129,19 @@ class D2AuthService {
       return false;
     } catch (e) {
       String errorString = e.toString();
-      if (errorString.contains("401")) {
-        throw "Invalid username or password";
+      Map<String, dynamic> errorMap = {};
+      try {
+        errorMap = jsonDecode(errorString);
+      } catch (e) {
+        throw "Could not login. Please check your internet connection and try again.";
       }
-      rethrow;
+
+      if (errorMap["httpStatusCode"] == 401) {
+        if (errorMap["message"] == "Unauthorized") {
+          throw "Invalid username or password";
+        }
+      }
+      throw errorMap["message"];
     }
   }
 
