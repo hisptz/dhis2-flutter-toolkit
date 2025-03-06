@@ -8,8 +8,9 @@ import '../auth_service/credentials.dart';
 
 class D2ClientService {
   D2UserCredential credentials;
+  Duration? timeout;
 
-  D2ClientService(this.credentials);
+  D2ClientService(this.credentials, {this.timeout});
 
   D2ClientService.initialize(
       {required String username,
@@ -48,6 +49,13 @@ class D2ClientService {
         queryParameters: queryParameters);
   }
 
+  Future<T> addTimeout<T>(Future<T> future) {
+    if (timeout != null) {
+      return future.timeout(timeout!);
+    }
+    return future;
+  }
+
   //This is the function that sends a Post Request to the DHIS2 Instance
 //The function creates a new entity in the DHIS2 Instance Server
 //This method accepts url String, query parameters, body of Json data and returns a Map
@@ -65,6 +73,20 @@ class D2ClientService {
     return jsonDecode(response.body) as T;
   }
 
+  Future<http.Response> rawPost(
+    String url,
+    body, {
+    Map<String, String>? queryParameters,
+  }) async {
+    Uri apiUrl = getApiUrl(url, queryParameters: queryParameters);
+    http.Response response = await http.post(
+      apiUrl,
+      headers: headers,
+      body: jsonEncode(body),
+    );
+    return response;
+  }
+
 //This is the function that sends a Put Request to the DHIS2 Instance with a JSON body
 //The function updates an existing entity in the DHIS2 Instance Server
 //This method accepts url String, query parameters, body of Json data and returns a response object
@@ -74,13 +96,27 @@ class D2ClientService {
     Map<String, String>? queryParameters,
   }) async {
     Uri apiUrl = getApiUrl(url, queryParameters: queryParameters);
-    http.Response response = await http.put(
+    http.Response response = await addTimeout(http.put(
       apiUrl,
       headers: headers,
       body: jsonEncode(body),
-    );
+    ));
 
     return jsonDecode(response.body) as T;
+  }
+
+  Future<http.Response> rawPut(
+    String url,
+    body, {
+    Map<String, String>? queryParameters,
+  }) async {
+    Uri apiUrl = getApiUrl(url, queryParameters: queryParameters);
+    http.Response response = await addTimeout(http.put(
+      apiUrl,
+      headers: headers,
+      body: jsonEncode(body),
+    ));
+    return response;
   }
 
   Future<T> httpPatch<T>(
@@ -89,13 +125,28 @@ class D2ClientService {
     Map<String, String>? queryParameters,
   }) async {
     Uri apiUrl = getApiUrl(url, queryParameters: queryParameters);
-    http.Response response = await http.patch(
+    http.Response response = await addTimeout(http.patch(
       apiUrl,
       headers: {...headers, "Content-Type": "application/json-patch+json"},
       body: jsonEncode(body),
-    );
+    ));
 
     return jsonDecode(response.body) as T;
+  }
+
+  Future<http.Response> rawPatch(
+    String url,
+    body, {
+    Map<String, String>? queryParameters,
+  }) async {
+    Uri apiUrl = getApiUrl(url, queryParameters: queryParameters);
+    http.Response response = await addTimeout(http.patch(
+      apiUrl,
+      headers: {...headers, "Content-Type": "application/json-patch+json"},
+      body: jsonEncode(body),
+    ));
+
+    return response;
   }
 
 //This is the function that sends a Delete Request to the DHIS2 Instance
@@ -106,8 +157,19 @@ class D2ClientService {
     Map<String, String>? queryParameters,
   }) async {
     Uri apiUrl = getApiUrl(url, queryParameters: queryParameters);
-    http.Response response = await http.delete(apiUrl, headers: headers);
+    http.Response response =
+        await addTimeout(http.delete(apiUrl, headers: headers));
     return jsonDecode(response.body) as T;
+  }
+
+  Future<http.Response> rawDelete(
+    String url, {
+    Map<String, String>? queryParameters,
+  }) async {
+    Uri apiUrl = getApiUrl(url, queryParameters: queryParameters);
+    http.Response response =
+        await addTimeout(http.delete(apiUrl, headers: headers));
+    return response;
   }
 
 //This is the function that sends a Get Request to the DHIS2 Instance
@@ -118,7 +180,8 @@ class D2ClientService {
     Map<String, String>? queryParameters,
   }) async {
     Uri apiUrl = getApiUrl(url, queryParameters: queryParameters);
-    http.Response response = await http.get(apiUrl, headers: headers);
+    http.Response response =
+        await addTimeout(http.get(apiUrl, headers: headers));
     if ([200, 304].contains(response.statusCode)) {
       try {
         return jsonDecode(response.body) as T;
@@ -139,7 +202,8 @@ class D2ClientService {
     Map<String, String>? queryParameters,
   }) async {
     Uri apiUrl = getApiUrl(url, queryParameters: queryParameters);
-    http.Response response = await http.get(apiUrl, headers: headers);
+    http.Response response =
+        await addTimeout(http.get(apiUrl, headers: headers));
     if ([200, 304].contains(response.statusCode)) {
       return response.bodyBytes;
     } else {
