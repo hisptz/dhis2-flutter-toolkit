@@ -1,3 +1,4 @@
+import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/input_field_icon.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -41,6 +42,7 @@ class CustomTextInput
 
 class TextInputState extends BaseStatefulInputState<CustomTextInput> {
   late TextEditingController controller;
+  bool showPassword = false;
   List<TextInputFormatter> inputFormatters = [];
 
   @override
@@ -66,6 +68,52 @@ class TextInputState extends BaseStatefulInputState<CustomTextInput> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.input.type == D2InputFieldType.password) {
+      return Row(
+        children: [
+          Expanded(
+            child: TextFormField(
+              inputFormatters: inputFormatters,
+              controller: controller,
+              obscureText: !showPassword,
+              cursorColor: widget.decoration.colorScheme.active,
+              enabled: !widget.disabled,
+              onChanged: (String? value) {
+                widget.onChange(value);
+              },
+              maxLines: widget.maxLines,
+              keyboardType: widget.textInputType,
+              style: TextStyle(
+                fontSize: 14,
+                color: widget.decoration.colorScheme.text,
+                fontWeight: FontWeight.w500,
+              ),
+              textInputAction: TextInputAction.done,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+          IconButton(
+            constraints: iconConstraints,
+            padding: EdgeInsets.zero,
+            onPressed: () {
+              setState(() {
+                showPassword = !showPassword;
+              });
+            },
+            icon: InputFieldIcon(
+              iconData: showPassword
+                  ? Icons.visibility_off_sharp
+                  : Icons.visibility_sharp,
+              backgroundColor: widget.color,
+              iconColor: widget.color,
+            ),
+          ),
+        ],
+      );
+    }
+
     return TextFormField(
       inputFormatters: inputFormatters,
       controller: controller,
