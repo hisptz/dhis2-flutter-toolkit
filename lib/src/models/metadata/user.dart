@@ -59,9 +59,10 @@ class D2User extends D2MetaResource {
         programs = json["programs"].cast<String>(),
         created = DateTime.parse(json["created"]),
         lastUpdated = DateTime.parse(json["lastUpdated"] ?? ''),
-        lastLogin = DateTime.tryParse(json["lastLogin"] ?? ''),
-        passwordLastUpdated =
-            DateTime.tryParse(json["userCredentials"]?["passwordLastUpdated"]),
+        lastLogin =
+            DateTime.tryParse(json["userCredentials"]?["lastLogin"] ?? ''),
+        passwordLastUpdated = DateTime.tryParse(
+            json["userCredentials"]?["passwordLastUpdated"] ?? ''),
         organisationUnits = json["organisationUnits"]
             .map((orgUnit) => orgUnit["id"])
             .toList()
