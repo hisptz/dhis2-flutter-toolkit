@@ -99,7 +99,7 @@ class OrgUnitInput
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Visibility(
-              visible: input.searchable,
+              visible: input.searchable && !disabled,
               child: IconButton(
                 color: color,
                 padding: EdgeInsets.zero,
