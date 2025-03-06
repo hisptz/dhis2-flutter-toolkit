@@ -117,7 +117,10 @@ class D2AuthService {
         throw "Error logging in.";
       }
       if (data["httpStatusCode"] == 401) {
-        throw "Invalid username or password";
+        if (data["message"] == "Unauthorized") {
+          throw "Invalid username or password";
+        }
+        throw data["message"];
       }
       if (data["username"] == credentials.username) {
         saveUser(credentials);
