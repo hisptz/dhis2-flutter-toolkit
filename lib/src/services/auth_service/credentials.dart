@@ -16,6 +16,10 @@ class D2UserCredential {
     required this.baseURL,
   });
 
+  void updatePassword(String newPassword) {
+    password = newPassword;
+  }
+
   Map<String, String> toMap() {
     return {"username": username, "password": password, "baseURL": baseURL};
   }

@@ -18,6 +18,10 @@ class D2User extends D2MetaResource {
   List<String> programs;
   List<String> organisationUnits;
   List<String> dataSets;
+  DateTime created;
+  DateTime lastUpdated;
+  DateTime? lastLogin;
+  DateTime? passwordLastUpdated;
 
   final userRoles = ToMany<D2UserRole>();
   final userGroups = ToMany<D2UserGroup>();
@@ -30,16 +34,19 @@ class D2User extends D2MetaResource {
   @Unique()
   String uid;
 
-  D2User(
-      {required this.username,
-      required this.firstName,
-      required this.surname,
+  D2User(this.username,
+      this.firstName,
+      this.surname,
       this.email,
-      required this.authorities,
-      required this.uid,
-      required this.programs,
-      required this.organisationUnits,
-      required this.dataSets});
+      this.authorities,
+      this.uid,
+      this.programs,
+      this.organisationUnits,
+      this.created,
+      this.lastUpdated,
+      this.lastLogin,
+      this.passwordLastUpdated,
+      this.dataSets);
 
   D2User.fromMap(D2ObjectBox db, Map<String, dynamic> json)
       : uid = json["id"],
@@ -50,6 +57,11 @@ class D2User extends D2MetaResource {
         authorities = json["authorities"].cast<String>(),
         dataSets = json["dataSets"].cast<String>(),
         programs = json["programs"].cast<String>(),
+        created = DateTime.parse(json["created"]),
+        lastUpdated = DateTime.parse(json["lastUpdated"] ?? ''),
+        lastLogin = DateTime.tryParse(json["lastLogin"] ?? ''),
+        passwordLastUpdated =
+            DateTime.tryParse(json["userCredentials"]?["passwordLastUpdated"]),
         organisationUnits = json["organisationUnits"]
             .map((orgUnit) => orgUnit["id"])
             .toList()

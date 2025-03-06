@@ -2241,7 +2241,7 @@
     },
     {
       "id": "30:8739732033039739531",
-      "lastPropertyId": "13:3972224461220576135",
+      "lastPropertyId": "17:1145054203675388013",
       "name": "D2User",
       "properties": [
         {
@@ -2296,6 +2296,26 @@
           "id": "13:3972224461220576135",
           "name": "dataSets",
           "type": 30
+        },
+        {
+          "id": "14:191395064181750667",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "15:8474078658111700598",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "16:5357818417957670217",
+          "name": "lastLogin",
+          "type": 10
+        },
+        {
+          "id": "17:1145054203675388013",
+          "name": "passwordLastUpdated",
+          "type": 10
         }
       ],
       "relations": [

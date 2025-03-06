@@ -2314,7 +2314,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(30, 8739732033039739531),
       name: 'D2User',
-      lastPropertyId: const obx_int.IdUid(13, 3972224461220576135),
+      lastPropertyId: const obx_int.IdUid(17, 1145054203675388013),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -2367,6 +2367,26 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(13, 3972224461220576135),
             name: 'dataSets',
             type: 30,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(14, 191395064181750667),
+            name: 'created',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(15, 8474078658111700598),
+            name: 'lastUpdated',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(16, 5357818417957670217),
+            name: 'lastLogin',
+            type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(17, 1145054203675388013),
+            name: 'passwordLastUpdated',
+            type: 10,
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[
@@ -6272,7 +6292,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final uidOffset = fbb.writeString(object.uid);
           final dataSetsOffset = fbb.writeList(
               object.dataSets.map(fbb.writeString).toList(growable: false));
-          fbb.startTable(14);
+          fbb.startTable(18);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, usernameOffset);
           fbb.addOffset(2, firstNameOffset);
@@ -6283,12 +6303,20 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addOffset(7, organisationUnitsOffset);
           fbb.addOffset(8, uidOffset);
           fbb.addOffset(12, dataSetsOffset);
+          fbb.addInt64(13, object.created.millisecondsSinceEpoch);
+          fbb.addInt64(14, object.lastUpdated.millisecondsSinceEpoch);
+          fbb.addInt64(15, object.lastLogin?.millisecondsSinceEpoch);
+          fbb.addInt64(16, object.passwordLastUpdated?.millisecondsSinceEpoch);
           fbb.finish(fbb.endTable());
           return object.id;
         },
         objectFromFB: (obx.Store store, ByteData fbData) {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
+          final lastLoginValue =
+              const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 34);
+          final passwordLastUpdatedValue =
+              const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 36);
           final usernameParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 6, '');
           final firstNameParam = const fb.StringReader(asciiOptimization: true)
@@ -6311,20 +6339,34 @@ obx_int.ModelDefinition getObjectBoxModel() {
                   fb.StringReader(asciiOptimization: true),
                   lazy: false)
               .vTableGet(buffer, rootOffset, 18, []);
+          final createdParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 30, 0));
+          final lastUpdatedParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 32, 0));
+          final lastLoginParam = lastLoginValue == null
+              ? null
+              : DateTime.fromMillisecondsSinceEpoch(lastLoginValue);
+          final passwordLastUpdatedParam = passwordLastUpdatedValue == null
+              ? null
+              : DateTime.fromMillisecondsSinceEpoch(passwordLastUpdatedValue);
           final dataSetsParam = const fb.ListReader<String>(
                   fb.StringReader(asciiOptimization: true),
                   lazy: false)
               .vTableGet(buffer, rootOffset, 28, []);
           final object = D2User(
-              username: usernameParam,
-              firstName: firstNameParam,
-              surname: surnameParam,
-              email: emailParam,
-              authorities: authoritiesParam,
-              uid: uidParam,
-              programs: programsParam,
-              organisationUnits: organisationUnitsParam,
-              dataSets: dataSetsParam)
+              usernameParam,
+              firstNameParam,
+              surnameParam,
+              emailParam,
+              authoritiesParam,
+              uidParam,
+              programsParam,
+              organisationUnitsParam,
+              createdParam,
+              lastUpdatedParam,
+              lastLoginParam,
+              passwordLastUpdatedParam,
+              dataSetsParam)
             ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
           obx_int.InternalToManyAccess.setRelInfo<D2User>(object.userRoles,
               store, obx_int.RelInfo<D2User>.toMany(9, object.id));
@@ -9351,6 +9393,22 @@ class D2User_ {
   /// See [D2User.dataSets].
   static final dataSets =
       obx.QueryStringVectorProperty<D2User>(_entities[28].properties[9]);
+
+  /// See [D2User.created].
+  static final created =
+      obx.QueryDateProperty<D2User>(_entities[28].properties[10]);
+
+  /// See [D2User.lastUpdated].
+  static final lastUpdated =
+      obx.QueryDateProperty<D2User>(_entities[28].properties[11]);
+
+  /// See [D2User.lastLogin].
+  static final lastLogin =
+      obx.QueryDateProperty<D2User>(_entities[28].properties[12]);
+
+  /// See [D2User.passwordLastUpdated].
+  static final passwordLastUpdated =
+      obx.QueryDateProperty<D2User>(_entities[28].properties[13]);
 
   /// see [D2User.userRoles]
   static final userRoles =
