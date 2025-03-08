@@ -28,6 +28,7 @@ class D2TrackerEventFormController extends D2FormController
       this.enrollment,
       this.customProgramRules = const [],
       super.mandatoryFields,
+      super.autoAssignOptionFields = false,
       super.hiddenFields,
       super.hiddenSections,
       super.disabledFields,
@@ -48,6 +49,9 @@ class D2TrackerEventFormController extends D2FormController
     this.mandatoryFields.addAll(mandatoryFields);
     initializeProgramRuleEngine(programStage.program.target!,
         specifiedProgramStage: programStage);
+    if (autoAssignOptionFields) {
+      autoSetOptionValues();
+    }
   }
 
   void setEvent(D2Event event) {

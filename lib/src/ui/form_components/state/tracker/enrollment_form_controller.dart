@@ -38,6 +38,7 @@ class D2TrackerEnrollmentFormController extends D2FormController
     this.enrollment,
     this.customProgramRules = const [],
     super.mandatoryFields,
+    super.autoAssignOptionFields,
     super.disabledFields,
     super.hiddenFields,
     super.hiddenSections,
@@ -91,6 +92,9 @@ class D2TrackerEnrollmentFormController extends D2FormController
           }
         });
       }
+    }
+    if (autoAssignOptionFields) {
+      autoSetOptionValues();
     }
   }
 

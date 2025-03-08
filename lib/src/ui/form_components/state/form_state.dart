@@ -1,4 +1,3 @@
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/base_input_field.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/form_data_state.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/form_disabled_state.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/form_error_state.dart';
@@ -10,7 +9,7 @@ import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/form_warning_
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/state/section_state.dart';
 import 'package:flutter/material.dart';
 
-import 'field_state.dart';
+import '../entry.dart';
 
 class D2FormController extends ChangeNotifier
     with
@@ -24,6 +23,7 @@ class D2FormController extends ChangeNotifier
         D2FormOptionState {
   D2FormController(
       {Map<String, dynamic>? initialValues,
+      this.autoAssignOptionFields = false,
       List<D2BaseInputFieldConfig>? formFields,
       List<String>? hiddenFields,
       List<String>? hiddenSections,
@@ -35,6 +35,29 @@ class D2FormController extends ChangeNotifier
     this.mandatoryFields = mandatoryFields ?? [];
     this.disabledFields = disabledFields ?? [];
     this.formFields = formFields ?? [];
+    if (autoAssignOptionFields) {
+      autoSetOptionValues();
+    }
+  }
+
+  bool autoAssignOptionFields = false;
+
+  void autoSetOptionValues() {
+    //We need to check if a field has options
+    List<D2BaseInputFieldConfig> fields =
+        formFields.whereType<D2SelectInputFieldConfig>().toList();
+    for (D2BaseInputFieldConfig field in fields) {
+      if (field is D2SelectInputFieldConfig) {
+        if (field.filteredOptions
+                .where((option) =>
+                    !(optionsToHide[field.name]?.contains(option.code) ??
+                        false))
+                .length ==
+            1) {
+          setValueSilently(field.name, field.filteredOptions.first.code);
+        }
+      }
+    }
   }
 
   D2FieldState getFieldState(String key) {

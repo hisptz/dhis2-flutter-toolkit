@@ -66,7 +66,14 @@ class D2TrackerEventFormUtil {
         .toList();
   }
 
-  get formSections {
+  List<D2BaseInputFieldConfig> getFields() {
+    return formSections
+        .map((D2FormSection e) => e.fields)
+        .expand((element) => element)
+        .toList();
+  }
+
+  List<D2FormSection> get formSections {
     return _getFormSections();
   }
 }
