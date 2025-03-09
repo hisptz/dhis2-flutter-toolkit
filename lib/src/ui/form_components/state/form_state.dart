@@ -48,13 +48,12 @@ class D2FormController extends ChangeNotifier
         formFields.whereType<D2SelectInputFieldConfig>().toList();
     for (D2BaseInputFieldConfig field in fields) {
       if (field is D2SelectInputFieldConfig) {
-        if (field.filteredOptions
-                .where((option) =>
-                    !(optionsToHide[field.name]?.contains(option.code) ??
-                        false))
-                .length ==
-            1) {
-          setValueSilently(field.name, field.filteredOptions.first.code);
+        List<D2InputFieldOption> applicableOption = field.filteredOptions
+            .where((option) =>
+                !(optionsToHide[field.name]?.contains(option.code) ?? false))
+            .toList();
+        if (applicableOption.length == 1) {
+          setValueSilently(field.name, applicableOption.first.code);
         }
       }
     }
