@@ -426,8 +426,8 @@ class D2InputFieldContainer extends StatelessWidget {
     double calculateFieldSize() {
       double screenWidth = MediaQuery.of(context).size.width;
       double wrapWidth = (screenWidth * 0.5) - 32;
-      double minWidth = 200.0;
-      if (screenWidth * 0.4 < minWidth) {
+      double minWidth = 250.0;
+      if (wrapWidth < minWidth) {
         return screenWidth;
       }
       return max(wrapWidth, minWidth);
