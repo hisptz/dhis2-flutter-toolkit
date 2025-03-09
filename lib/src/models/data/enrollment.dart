@@ -237,10 +237,11 @@ class D2Enrollment extends SyncDataSource
             pTrackedEntityAttribute.trackedEntityAttribute.targetId)
         .toList();
 
-    return trackedEntity.target!.attributes
-        .where((attribute) => trackedEntityAttributes
-            .contains(attribute.trackedEntityAttribute.targetId))
-        .toList();
+    return trackedEntity.target?.attributes
+            .where((attribute) => trackedEntityAttributes
+                .contains(attribute.trackedEntityAttribute.targetId))
+            .toList() ??
+        [];
   }
 
   Future<void> upload(
