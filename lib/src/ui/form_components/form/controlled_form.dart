@@ -78,6 +78,8 @@ class D2ControlledForm extends StatelessWidget {
                         visible: !hidden,
                         child: FormSectionContainerWithControlledInputs(
                           disabled: disabled,
+                          wrapFields: form.wrapFields,
+                          denseFields: form.denseFields,
                           section: section,
                           controller: controller,
                           collapsed: collapsed,
@@ -93,6 +95,7 @@ class D2ControlledForm extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: D2FormControlledInputField(
+                    dense: form.denseFields,
                     disabled: disabled,
                     color: color,
                     input: input,

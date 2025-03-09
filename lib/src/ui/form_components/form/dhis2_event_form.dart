@@ -260,6 +260,7 @@ class _D2TrackerEventFormState extends State<D2TrackerEventForm> {
         disabled: widget.disabled,
         collapsableSections: widget.options.collapsableSections,
         form: D2Form(
+            wrapFields: widget.options.wrapFields,
             title: widget.options.showTitle
                 ? widget.programStage.displayName ?? widget.programStage.name
                 : null,

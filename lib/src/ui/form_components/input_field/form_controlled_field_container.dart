@@ -7,12 +7,14 @@ class D2FormControlledInputField extends StatelessWidget {
   final D2FormController controller;
   final bool? disabled;
   final D2InputDecoration? inputDecoration;
+  final bool dense;
 
   const D2FormControlledInputField(
       {super.key,
       required this.input,
       this.disabled,
       this.inputDecoration,
+      this.dense = false,
       required this.controller,
       required this.color});
 
@@ -32,6 +34,7 @@ class D2FormControlledInputField extends StatelessWidget {
           return Visibility(
             visible: !(fieldState.hidden ?? false),
             child: D2InputFieldContainer(
+              dense: dense,
               inputDecoration: inputDecoration,
               input: input,
               onChange: fieldState.onChange,

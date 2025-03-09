@@ -6,6 +6,8 @@ import '../entry.dart';
 class FormSectionContainerWithControlledInputs extends StatefulWidget {
   final D2FormSection section;
   final D2FormController controller;
+  final bool wrapFields;
+  final bool denseFields;
   final Color? color;
   final bool disabled;
   bool collapsed;
@@ -19,6 +21,8 @@ class FormSectionContainerWithControlledInputs extends StatefulWidget {
       this.color,
       this.isCollapsable = false,
       this.collapsed = false,
+      this.wrapFields = false,
+      this.denseFields = false,
       this.hasError = false,
       this.disabled = false});
 
@@ -119,41 +123,89 @@ class _FormSectionContainerWithControlledInputsState
             curve: Curves.fastEaseInToSlowEaseOut,
             child: collapsed && widget.isCollapsable
                 ? Container()
-                : Column(
-                    children: widget.section.fields
-                        .map((D2BaseInputFieldConfig input) {
-                      return ListenableBuilder(
-                          listenable: widget.controller,
-                          builder: (BuildContext context, Widget? child) {
-                            D2FieldState fieldState =
-                                widget.controller.getFieldState(input.name);
+                : widget.wrapFields
+                    ? Wrap(
+                        alignment: WrapAlignment.center,
+                        runSpacing: 8,
+                        spacing: 8,
+                        direction: Axis.horizontal,
+                        crossAxisAlignment: WrapCrossAlignment.start,
+                        children: widget.section.fields
+                            .map((D2BaseInputFieldConfig input) {
+                          return ListenableBuilder(
+                              listenable: widget.controller,
+                              builder: (BuildContext context, Widget? child) {
+                                D2FieldState fieldState =
+                                    widget.controller.getFieldState(input.name);
 
-                            if (input is D2SelectInputFieldConfig) {
-                              input.optionsToHide =
-                                  widget.controller.optionsToHide[input.name];
-                              input.optionsToShow = fieldState.optionsToShow;
-                            }
-                            return Visibility(
-                              visible: !(fieldState.hidden ?? false),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: D2InputFieldContainer(
-                                  input: input,
-                                  onChange: fieldState.onChange,
-                                  color: widget.color,
-                                  error: fieldState.error,
-                                  warning: fieldState.warning,
-                                  value: fieldState.value,
-                                  mandatory: fieldState.mandatory,
-                                  disabled: (fieldState.disabled ?? false) ||
-                                      widget.disabled,
-                                ),
-                              ),
-                            );
-                          });
-                    }).toList(),
-                  ))
+                                if (input is D2SelectInputFieldConfig) {
+                                  input.optionsToHide = widget
+                                      .controller.optionsToHide[input.name];
+                                  input.optionsToShow =
+                                      fieldState.optionsToShow;
+                                }
+                                return Visibility(
+                                  visible: !(fieldState.hidden ?? false),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: D2InputFieldContainer(
+                                      wrapped: widget.wrapFields,
+                                      dense: widget.denseFields,
+                                      input: input,
+                                      onChange: fieldState.onChange,
+                                      color: widget.color,
+                                      error: fieldState.error,
+                                      warning: fieldState.warning,
+                                      value: fieldState.value,
+                                      mandatory: fieldState.mandatory,
+                                      disabled:
+                                          (fieldState.disabled ?? false) ||
+                                              widget.disabled,
+                                    ),
+                                  ),
+                                );
+                              });
+                        }).toList(),
+                      )
+                    : Column(
+                        children: widget.section.fields
+                            .map((D2BaseInputFieldConfig input) {
+                          return ListenableBuilder(
+                              listenable: widget.controller,
+                              builder: (BuildContext context, Widget? child) {
+                                D2FieldState fieldState =
+                                    widget.controller.getFieldState(input.name);
+
+                                if (input is D2SelectInputFieldConfig) {
+                        input.optionsToHide = widget
+                            .controller.optionsToHide[input.name];
+                        input.optionsToShow =
+                            fieldState.optionsToShow;
+                      }
+                      return Visibility(
+                        visible: !(fieldState.hidden ?? false),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0),
+                          child: D2InputFieldContainer(
+                            dense: widget.denseFields,
+                            input: input,
+                            onChange: fieldState.onChange,
+                            color: widget.color,
+                            error: fieldState.error,
+                            warning: fieldState.warning,
+                            value: fieldState.value,
+                            mandatory: fieldState.mandatory,
+                            disabled:
+                            (fieldState.disabled ?? false) ||
+                                widget.disabled,
+                          ),
+                        ),
+                      );
+                    });
+              }).toList(),
+            ))
       ],
     );
   }

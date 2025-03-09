@@ -246,6 +246,8 @@ class _D2TrackerRegistrationFormState extends State<D2TrackerRegistrationForm> {
         color: formColor,
         collapsableSections: widget.options.collapsableSections,
         form: D2Form(
+            wrapFields: widget.options.wrapFields,
+            denseFields: widget.options.denseFields,
             title: widget.options.showTitle
                 ? widget.program.displayName ?? widget.program.shortName
                 : null,

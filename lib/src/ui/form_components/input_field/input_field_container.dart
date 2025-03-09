@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/bar_code_scanner_input.dart';
 import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/components/multi_select_input.dart';
@@ -47,6 +49,8 @@ class D2InputFieldContainer extends StatelessWidget {
   final bool? mandatory;
   final bool isTapToScanEnabled;
   final bool disabled;
+  final bool dense;
+  final bool wrapped;
   D2InputDecoration? inputDecoration;
 
   D2InputFieldContainer({
@@ -61,6 +65,8 @@ class D2InputFieldContainer extends StatelessWidget {
     this.error,
     this.mandatory = false,
     this.disabled = false,
+    this.dense = false,
+    this.wrapped = false,
     this.warning,
   }) {
     inputDecoration ??= D2InputDecoration.fromInput(input,
@@ -417,14 +423,27 @@ class D2InputFieldContainer extends StatelessWidget {
       ];
     }
 
+    double calculateFieldSize() {
+      double screenWidth = MediaQuery.of(context).size.width;
+      double wrapWidth = (screenWidth * 0.5) - 32;
+      double minWidth = 200.0;
+      if (screenWidth * 0.4 < minWidth) {
+        return screenWidth;
+      }
+      return max(wrapWidth, minWidth);
+    }
+
     return Container(
+      width: wrapped ? calculateFieldSize() : null,
       decoration: containerDecoration,
-      constraints: const BoxConstraints(minHeight: 96),
+      constraints: BoxConstraints(minHeight: dense ? 72 : 96),
       child: Row(
         children: [
           Expanded(
             child: Container(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 16.0),
+              padding: dense
+                  ? const EdgeInsets.only(top: 4.0, bottom: 4.0, left: 16.0)
+                  : const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -438,7 +457,7 @@ class D2InputFieldContainer extends StatelessWidget {
                               TextSpan(
                                 text: input.label,
                                 style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: dense ? 12 : 14,
                                     fontWeight: FontWeight.w500,
                                     color: colorOverride),
                               ),
@@ -446,8 +465,8 @@ class D2InputFieldContainer extends StatelessWidget {
                                 text: input.mandatory || mandatory == true
                                     ? ' *'
                                     : '',
-                                style: const TextStyle(
-                                  fontSize: 14,
+                                style: TextStyle(
+                                  fontSize: dense ? 12 : 14,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.redAccent,
                                 ),
@@ -489,7 +508,7 @@ class D2InputFieldContainer extends StatelessWidget {
           ),
           Container(
             width: 16,
-            constraints: const BoxConstraints(minHeight: 96),
+            constraints: BoxConstraints(minHeight: dense ? 72 : 96),
             decoration: BoxDecoration(color: getActiveLegendColor()),
           )
         ],
