@@ -20,22 +20,23 @@ class D2PeriodSelector extends StatefulWidget {
   final bool showRange;
   final bool showFixed;
   final Color color;
+  final bool allowMultipleSelection;
 
   final D2PeriodSelection? initialSelection;
   final List<String>? excludePeriodTypes;
   final List<String>? onlyAllowPeriodTypes;
 
-  const D2PeriodSelector({
-    super.key,
-    required this.onUpdate,
-    this.excludePeriodTypes,
-    this.onlyAllowPeriodTypes,
-    this.initialSelection,
-    required this.color,
-    this.showRelative = false,
-    this.showRange = false,
-    this.showFixed = true,
-  });
+  const D2PeriodSelector(
+      {super.key,
+      required this.onUpdate,
+      this.excludePeriodTypes,
+      this.onlyAllowPeriodTypes,
+      this.initialSelection,
+      required this.color,
+      this.showRelative = false,
+      this.showRange = false,
+      this.showFixed = true,
+      this.allowMultipleSelection = false});
 
   @override
   State<D2PeriodSelector> createState() => _PeriodSelectorState();
