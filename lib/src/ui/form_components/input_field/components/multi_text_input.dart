@@ -121,7 +121,7 @@ class MultiTextInput
           decoration: InputDecoration(
         border: InputBorder.none,
       )),
-      enabled: !disabled,
+      enabled: optionNames.isNotEmpty && !disabled,
       itemAsString: (D2InputFieldOption option) => option.name,
       items: (filter, loadProps) {
         return optionNames;
