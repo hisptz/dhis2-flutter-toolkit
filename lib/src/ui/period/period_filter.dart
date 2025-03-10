@@ -205,10 +205,7 @@ class _PeriodSelectorState extends State<D2PeriodSelector>
           child: Column(
             children: [
               Visibility(
-                visible: (widget.showRelative ||
-                        (widget.showFixed && widget.showRange)) &&
-                    (widget.showFixed ||
-                        (widget.showRelative && widget.showRange)),
+                visible: getVisiblePeriodCategories().length > 1,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 4.0),
                   child: TabBar(
@@ -286,8 +283,8 @@ class _PeriodSelectorState extends State<D2PeriodSelector>
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: ElevatedButton(
                 style: ButtonStyle(
-                    backgroundColor: WidgetStateColor.resolveWith(
-                        (states) => widget.color)),
+                    backgroundColor:
+                        WidgetStateColor.resolveWith((states) => widget.color)),
                 child: const Text(
                   'Update',
                   style: TextStyle(color: Colors.white),

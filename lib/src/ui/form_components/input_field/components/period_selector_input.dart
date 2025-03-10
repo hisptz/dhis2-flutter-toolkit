@@ -1,3 +1,4 @@
+import 'package:dhis2_flutter_toolkit/src/utils/period_engine/helpers/date.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/period_engine/models/period_filter_selection.dart';
@@ -28,19 +29,36 @@ class PeriodSelectorInput
         initialHeightRatio: 0.7,
         titleColor: color,
         actionSheetContainer: D2PeriodSelector(
+          showFixed: input.showFixed,
+          showRange: input.showRange,
+          showRelative: input.showRelative,
+          excludePeriodTypes: input.excludePeriodTypes,
+          onlyAllowPeriodTypes: input.onlyAllowPeriodTypes,
+          initialSelection: input.initialSelection,
           onUpdate: (D2PeriodSelection selection) {
-            onChange(selection.selected ?? []);
+            onChange(
+                selection.selected != null && selection.selected!.isNotEmpty
+                    ? selection.selected
+                    : ["${selection.start}--${selection.end}"]);
             Navigator.of(context).pop();
           },
           color: color,
-          onlyAllowPeriodTypes: input.onlyAllowPeriodTypes,
-          excludePeriodTypes: input.excludePeriodTypes,
         ));
   }
 
   late final TextEditingController controller;
 
   String? getNames() {
+    if ((value ?? []).any((dates) => dates.contains("--"))) {
+      List<String> range = (value ?? []).first.split("--");
+      final DateTime? startDate = DateTime.tryParse(range.first);
+      final DateTime? endDate = DateTime.tryParse(range.last);
+
+      return (startDate != null && endDate != null)
+          ? "${formatDate(startDate)} - ${formatDate(endDate)}"
+          : "";
+    }
+
     return (value ?? []).map((String periodId) {
       return D2PeriodType.getPeriodById(periodId).name;
     }).join(', ');
