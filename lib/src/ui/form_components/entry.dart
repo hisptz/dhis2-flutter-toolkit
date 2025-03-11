@@ -51,3 +51,5 @@ export "utils/form_utils.dart" show D2FormUtils;
 export "utils/tracker_enrollment_form_util.dart"
     show D2TrackerEnrollmentFormUtil;
 export "utils/tracker_event_form_util.dart" show D2TrackerEventFormUtil;
+export "input_field/models/multi_text_input_field.dart"
+    show D2MultiTextInputFieldConfig;
