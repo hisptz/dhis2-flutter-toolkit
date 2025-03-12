@@ -86,15 +86,21 @@ class MultiTextInput
           dropdownButtonProps: DropdownButtonProps(
         iconClosed: Transform.rotate(
           angle: -(pi / 2),
-          child: const Icon(
+          child: Icon(
             Icons.chevron_left,
+            color: disabled
+                ? decoration.colorScheme.disabled
+                : decoration.colorScheme.active,
             size: 32,
           ),
         ),
         iconOpened: Transform.rotate(
           angle: (pi / 2),
-          child: const Icon(
+          child: Icon(
             Icons.chevron_left,
+            color: disabled
+                ? decoration.colorScheme.disabled
+                : decoration.colorScheme.active,
             size: 32,
           ),
         ),
