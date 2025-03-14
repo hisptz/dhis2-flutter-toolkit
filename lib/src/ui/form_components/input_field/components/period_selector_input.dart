@@ -33,6 +33,7 @@ class PeriodSelectorInput
           showRange: input.showRange,
           showRelative: input.showRelative,
           excludePeriodTypes: input.excludePeriodTypes,
+          allowFutureDates: input.allowFutureDates,
           onlyAllowPeriodTypes: input.onlyAllowPeriodTypes,
           initialSelection: input.initialSelection,
           onUpdate: (D2PeriodSelection selection) {

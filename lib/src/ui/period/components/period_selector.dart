@@ -14,6 +14,7 @@ class D2PeriodValueSelector extends StatelessWidget {
   final Color color;
   final int year;
   final Function onChange;
+  final bool allowFutureDates;
   final ScrollController? controller = ScrollController();
 
   D2PeriodValueSelector(
@@ -21,6 +22,7 @@ class D2PeriodValueSelector extends StatelessWidget {
       required this.category,
       required this.periodType,
       required this.year,
+      this.allowFutureDates = true,
       required this.onChange,
       required this.color,
       required this.selectedPeriods});
@@ -38,25 +40,50 @@ class D2PeriodValueSelector extends StatelessWidget {
           String? latestPeriod = selectedPeriodsList.last;
           selectedPeriodsList.removeWhere((element) => element != latestPeriod);
         }
-        periodChips.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2.0),
-            child: InputChip(
-                label: Text(period.name),
-                labelStyle:
-                    TextStyle(color: selected ? Colors.white : Colors.black),
-                onSelected: (bool selected) {
-                  onChange(period.id);
-                },
-                avatar: selected
-                    ? const Icon(
-                        Icons.check,
-                        color: Colors.white,
-                      )
-                    : null,
-                backgroundColor: selected ? Colors.blue : null),
-          ),
-        );
+
+        if (allowFutureDates) {
+          periodChips.add(
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 2.0),
+              child: InputChip(
+                  label: Text(period.name),
+                  labelStyle:
+                      TextStyle(color: selected ? Colors.white : Colors.black),
+                  onSelected: (bool selected) {
+                    onChange(period.id);
+                  },
+                  avatar: selected
+                      ? const Icon(
+                          Icons.check,
+                          color: Colors.white,
+                        )
+                      : null,
+                  backgroundColor: selected ? Colors.blue : null),
+            ),
+          );
+        } else {
+          if (period.start?.isBefore(DateTime.now()) ?? true) {
+            periodChips.add(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                child: InputChip(
+                    label: Text(period.name),
+                    labelStyle: TextStyle(
+                        color: selected ? Colors.white : Colors.black),
+                    onSelected: (bool selected) {
+                      onChange(period.id);
+                    },
+                    avatar: selected
+                        ? const Icon(
+                            Icons.check,
+                            color: Colors.white,
+                          )
+                        : null,
+                    backgroundColor: selected ? Colors.blue : null),
+              ),
+            );
+          }
+        }
       }
     }
     return periodChips;

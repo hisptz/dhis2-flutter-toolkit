@@ -21,7 +21,7 @@ class D2PeriodSelector extends StatefulWidget {
   final bool showFixed;
   final Color color;
   final bool allowMultipleSelection;
-
+  final bool allowFutureDates;
   final D2PeriodSelection? initialSelection;
   final List<String>? excludePeriodTypes;
   final List<String>? onlyAllowPeriodTypes;
@@ -34,6 +34,7 @@ class D2PeriodSelector extends StatefulWidget {
       this.initialSelection,
       required this.color,
       this.showRelative = false,
+      this.allowFutureDates = false,
       this.showRange = false,
       this.showFixed = true,
       this.allowMultipleSelection = false});
@@ -257,6 +258,7 @@ class _PeriodSelectorState extends State<D2PeriodSelector>
                             ? D2DateRangeSelector(
                                 onUpdate: onDateRangeChange,
                                 color: widget.color,
+                                allowFutureDates: widget.allowFutureDates,
                                 startDate: _start,
                                 endDate: _end)
                             : Padding(
@@ -266,6 +268,7 @@ class _PeriodSelectorState extends State<D2PeriodSelector>
                                     category: _selectedCategory,
                                     periodType: _selectedPeriodType,
                                     selectedPeriods: _selectedPeriods,
+                                    allowFutureDates: widget.allowFutureDates,
                                     color: widget.color,
                                     onChange: onPeriodToggle,
                                     year: year),

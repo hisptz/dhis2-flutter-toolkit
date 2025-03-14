@@ -11,6 +11,8 @@ class D2DateRangeSelector extends StatelessWidget {
   final DateTime? startDate;
   final DateTime? endDate;
   final Color color;
+  final bool allowFutureDates;
+
 
   D2DateRangeSelector({
     super.key,
@@ -18,6 +20,7 @@ class D2DateRangeSelector extends StatelessWidget {
     required this.color,
     this.startDate,
     this.endDate,
+    this.allowFutureDates = true,
   });
   final DateRangePickerController controller = DateRangePickerController();
 
@@ -29,6 +32,7 @@ class D2DateRangeSelector extends StatelessWidget {
       selectionMode: DateRangePickerSelectionMode.range,
       rangeSelectionColor: color.withOpacity(.3),
       selectionColor: color,
+maxDate: allowFutureDates ? null : DateTime.now(),
       startRangeSelectionColor: color,
       endRangeSelectionColor: color,
       onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
