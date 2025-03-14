@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 mixin D2FormErrorState on ChangeNotifier {
   final Map<String, String> _errorState = {};
 
+  bool get hasError {
+    return _errorState.isNotEmpty;
+  }
+
   Map<String, String> get errorState {
     return Map.from(_errorState);
   }
