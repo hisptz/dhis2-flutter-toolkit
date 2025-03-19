@@ -65,7 +65,9 @@ class D2DataSet extends D2MetaResource {
         code = json['code'],
         periodType = json['periodType'],
         expiryDays = json['expiryDays'],
-        timelyDays = json['timelyDays'],
+        timelyDays = (json['timelyDays'] is double)
+            ? json['timelyDays'].toInt()
+            : json['timelyDays'],
         openFuturePeriods = json['openFuturePeriods'],
         openPeriodsAfterCoEndDate = json['openPeriodsAfterCoEndDate'],
         shortName = json['shortName'] {
