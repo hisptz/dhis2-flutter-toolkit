@@ -98,6 +98,7 @@ class D2DataValue extends D2DataResource
   @override
   void updateFromFormValues(Map<String, dynamic> values,
       {required D2ObjectBox db, D2Program? program, D2OrgUnit? orgUnit}) {
+    updatedAt = DateTime.now();
     String key = dataElement.target!.uid;
     if (values.containsKey(key)) {
       value = values[key];
