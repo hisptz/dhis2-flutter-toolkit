@@ -243,6 +243,7 @@ class D2TrackedEntity extends SyncDataSource
   @override
   void updateFromFormValues(Map<String, dynamic> values,
       {required D2ObjectBox db, D2Program? program, D2OrgUnit? orgUnit}) {
+    updatedAt = DateTime.now();
     if (program == null) {
       throw "Program is required to edit a tracked entity";
     }
@@ -259,7 +260,6 @@ class D2TrackedEntity extends SyncDataSource
         this.geometry = geometryString;
       }
     }
-
     synced = false;
   }
 

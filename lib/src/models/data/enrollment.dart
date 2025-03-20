@@ -174,6 +174,7 @@ class D2Enrollment extends SyncDataSource
       {required D2ObjectBox db, D2Program? program, D2OrgUnit? orgUnit}) {
     occurredAt = DateTime.tryParse(values["occurredAt"] ?? '') ?? occurredAt;
     enrolledAt = DateTime.tryParse(values["enrolledAt"] ?? '') ?? enrolledAt;
+    updatedAt = DateTime.now();
     if (orgUnit != null) {
       this.orgUnit.target = orgUnit;
     }

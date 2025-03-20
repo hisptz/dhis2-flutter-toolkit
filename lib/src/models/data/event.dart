@@ -243,6 +243,7 @@ class D2Event extends SyncDataSource
     }
     occurredAt = DateTime.tryParse(values["occurredAt"] ?? '') ?? occurredAt;
     scheduledAt = DateTime.tryParse(values["scheduledAt"] ?? '') ?? scheduledAt;
+    updatedAt = DateTime.now();
     List<D2DataValue> newDataValues = [];
     for (D2ProgramStageDataElement d2programStageDataElement
         in programStage.target!.programStageDataElements) {
