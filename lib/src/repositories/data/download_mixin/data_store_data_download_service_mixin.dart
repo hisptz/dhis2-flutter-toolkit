@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
+import '../../../../objectbox.g.dart';
 import '../../../models/data/data_store.dart';
 import '../../../services/client/client.dart';
 import '../../../utils/sync_status.dart';
@@ -56,6 +57,15 @@ mixin D2DataStoreDataDownloadServiceMixin on BaseDataRepository {
       status.subProcess?.increment();
       downloadController.add(status);
     }
+
+    // delete existing keys
+    List<int> existingStores = db.store
+        .box<D2DataStore>()
+        .query(D2DataStore_.namespace.equals(namespace))
+        .build()
+        .findIds();
+    await db.store.box<D2DataStore>().removeManyAsync(existingStores);
+
     await db.store.box<D2DataStore>().putManyAsync(stores);
   }
 
