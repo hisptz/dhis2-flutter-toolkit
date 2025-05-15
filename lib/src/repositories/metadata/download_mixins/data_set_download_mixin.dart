@@ -121,7 +121,7 @@ mixin D2DataSetDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2DataSet> {
         downloadController.add(status.increment());
       }
       downloadController.add(status.complete());
-      downloadController.close();
+      await downloadController.close();
     } catch (e) {
       downloadController.addError(e);
       rethrow;

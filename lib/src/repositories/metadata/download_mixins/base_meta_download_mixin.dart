@@ -114,7 +114,7 @@ mixin BaseMetaDownloadServiceMixin<T extends D2MetaResource>
         downloadController.add(status.increment());
       }
       downloadController.add(status.complete());
-      downloadController.close();
+     await downloadController.close();
     } catch (e) {
       downloadController.addError(e);
       rethrow;
