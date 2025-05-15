@@ -212,7 +212,7 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
         }
       }
       downloadController.add(status.complete());
-      downloadController.close();
+      await downloadController.close();
     } catch (e) {
       downloadController.addError(e);
       rethrow;
