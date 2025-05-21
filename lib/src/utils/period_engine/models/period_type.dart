@@ -140,12 +140,17 @@ class D2PeriodType {
   }
 
   ///  This is a private method for getting relative periods
-  _getRelativePeriods(Map<String, dynamic> object) {
-    List<Map<String, dynamic>> periodObject = object['getPeriods']() ?? [];
-    return periodObject
-        .map((periodObject) =>
-            D2Period.fromObject(periodObject, type: id, category: category))
-        .toList();
+  _getRelativePeriods(Map<String, dynamic> object)  {
+    final periodObjects = object['getPeriods']() ?? [];
+    return periodObjects.map<D2Period>((period) {
+      final interval = getIntervalForRelativePeriod(period['id']);
+      return D2Period.fromObject(
+        period,
+        interval,
+        type: object['id'],
+        category: object['category'],
+      );
+    }).toList();
   }
 
   /// This is a static method for getting a period from the period types by using the period id
