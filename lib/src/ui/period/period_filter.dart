@@ -179,7 +179,8 @@ class _PeriodSelectorState extends State<D2PeriodSelector>
         case D2PeriodTypeCategory.relative:
           _selectedPeriodType = !shouldPresetInitial
               ? _selectedPeriodType
-              : validRelativePeriodTypes.first['id'];
+              : widget.onlyAllowPeriodTypes?.first ??
+                  validRelativePeriodTypes.first['id'];
           _start = null;
           _end = null;
           break;
