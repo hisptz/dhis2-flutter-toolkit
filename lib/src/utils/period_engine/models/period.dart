@@ -38,12 +38,15 @@ class D2Period {
 
   ///`D2Period.fromObject` is a constructor method that creates a D2Period from a `Map` object.
   ///The constructor accepts a `Map<String, dynamic>` object, `String` period type and  `String` period category as required parameters
-  D2Period.fromObject(Map<String, dynamic> object,
-      {required this.type, required this.category}) {
+  D2Period.fromObject(
+      Map<String, dynamic> object, Interval? interval, {
+        required this.type,
+        required this.category,
+      }) {
+    start = interval?.start;
+    end = interval?.end;
     id = object['id'];
     name = object['name'];
-    start = null;
-    end = null;
   }
 
   ///`D2Period.fromInterval` is a constructor function that generates period based on the passed `interval`, `idGenerator` function, `nameGenerator` function, `String` period type and  `String` period category as required parameters
