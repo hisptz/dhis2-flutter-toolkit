@@ -63,6 +63,8 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
           return D2ProgramTrackedEntityAttributeRepository(db)
               .saveOffline(value);
         case "programStageDataElements":
+          await D2ProgramStageDataElementRepository(db)
+              .deleteProgramStageDataElementsByProgram(programId);
           return D2ProgramStageDataElementRepository(db).saveOffline(value);
         case "programStages":
           return D2ProgramStageRepository(db).saveOffline(value);
@@ -81,8 +83,12 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
         case "legendSets":
           return D2LegendSetRepository(db).saveOffline(value);
         case "programSections":
+          await D2ProgramSectionRepository(db)
+              .deleteProgramSectionsByProgram(programId);
           return await D2ProgramSectionRepository(db).saveOffline(value);
         case "programStageSections":
+          await D2ProgramStageSectionRepository(db)
+              .deleteProgramStageSectionsByProgram(programId);
           return await D2ProgramStageSectionRepository(db).saveOffline(value);
       }
     } catch (e, stackTrace) {

@@ -1,4 +1,5 @@
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
+
 import '../../../objectbox.g.dart';
 import 'base.dart';
 
@@ -43,5 +44,20 @@ class D2ProgramStageDataElementRepository
   @override
   D2ProgramStageDataElement mapper(Map<String, dynamic> json) {
     return D2ProgramStageDataElement.fromMap(db, json);
+  }
+
+  Future<void> deleteProgramStageDataElementsByProgram(String programId) async {
+    D2Program? program = D2ProgramRepository(db).getByUid(programId);
+    if (program != null) {
+      List<int> programStages =
+          program.programStages.map((stage) => stage.id).toList();
+      for (int programStageId in programStages) {
+        await box
+            .query(
+                D2ProgramStageDataElement_.programStage.equals(programStageId))
+            .build()
+            .removeAsync();
+      }
+    }
   }
 }

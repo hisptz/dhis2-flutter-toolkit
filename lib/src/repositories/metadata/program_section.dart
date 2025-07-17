@@ -52,4 +52,13 @@ class D2ProgramSectionRepository extends BaseMetaRepository<D2ProgramSection> {
 
     return super.saveOffline(json);
   }
+
+  Future<void> deleteProgramSectionsByProgram(String programUid) async {
+    D2Program? program = D2ProgramRepository(db).getByUid(programUid);
+    if (program != null) {
+      List<int> programSections =
+          program.programSections.map((section) => section.id).toList();
+      await box.removeManyAsync(programSections);
+    }
+  }
 }
