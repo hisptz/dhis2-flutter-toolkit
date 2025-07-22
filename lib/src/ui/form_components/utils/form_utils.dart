@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:dhis2_flutter_toolkit/src/ui/form_components/input_field/models/multi_text_input_field.dart';
 import 'package:flutter/material.dart';
 
 class D2FormUtils {
@@ -80,6 +79,17 @@ class D2FormUtils {
           clearable: clearable ?? false,
           allowFutureDates: allowFutureDates ?? false);
     }
+
+    if (D2InputFieldType.isDateTimeType(type)) {
+      return D2DateTimeInputFieldConfig(
+          label: label,
+          type: type,
+          name: name,
+          mandatory: mandatory,
+          clearable: clearable ?? false,
+          allowFutureDates: allowFutureDates ?? false);
+    }
+
     if (D2InputFieldType.isDateRange(type)) {
       return D2DateRangeInputFieldConfig(
           label: label,
