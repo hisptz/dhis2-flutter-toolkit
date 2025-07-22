@@ -43,14 +43,28 @@ class D2ProgramStageSectionRepository
               .programStageSectionDataElements
               .map((element) => element.id));
         }
-
         await D2ProgramStageSectionRepository(db)
             .box
             .removeManyAsync(programStageSectionDataElements);
         await box.removeManyAsync(sectionIds);
       }
     }
-
     return await super.saveOffline(json);
+  }
+
+  Future<void> deleteProgramStageSectionsByProgram(
+      String programStageUid) async {
+    D2Program? program = D2ProgramRepository(db).getByUid(programStageUid);
+    if (program != null) {
+      List<int> programStages =
+          program.programStages.map((stage) => stage.id).toList();
+
+      for (int programStageId in programStages) {
+        await box
+            .query(D2ProgramStageSection_.programStage.equals(programStageId))
+            .build()
+            .removeAsync();
+      }
+    }
   }
 }

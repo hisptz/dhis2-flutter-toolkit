@@ -21,6 +21,8 @@ export "input_field/models/boolean_input_field.dart"
 export "input_field/models/coordinate_field.dart" show D2GeometryInputConfig;
 export "input_field/models/coordinate_field.dart" show D2GeometryValue;
 export "input_field/models/date_input_field.dart" show D2DateInputFieldConfig;
+export "input_field/models/date_time_input_field.dart"
+    show D2DateTimeInputFieldConfig;
 export "input_field/models/date_range_input_field.dart"
     show D2DateRangeInputFieldConfig;
 export "input_field/models/input_decoration_container.dart";

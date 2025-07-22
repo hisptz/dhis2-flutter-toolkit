@@ -18,6 +18,7 @@ import 'components/boolean_input.dart';
 import 'components/coordinate_input/coordinate_input.dart';
 import 'components/date_input.dart';
 import 'components/date_range_input.dart';
+import 'components/date_time_input.dart';
 import 'components/input_field_icon.dart';
 import 'components/org_unit_input/org_unit_input.dart';
 import 'components/period_selector_input.dart';
@@ -31,6 +32,7 @@ import 'models/boolean_input_field.dart';
 import 'models/coordinate_field.dart';
 import 'models/date_input_field.dart';
 import 'models/date_range_input_field.dart';
+import 'models/date_time_input_field.dart';
 import 'models/input_field_type_enum.dart';
 import 'models/number_input_field.dart';
 import 'models/org_unit_input_field.dart';
@@ -144,6 +146,17 @@ class D2InputFieldContainer extends StatelessWidget {
           disabled: disabled,
           value: value,
           input: input as D2DateRangeInputFieldConfig,
+          color: colorOverride,
+          onChange: onChange,
+          decoration: inputDecoration!,
+        );
+      }
+
+      if (input is D2DateTimeInputFieldConfig) {
+        return DateTimeInput(
+          disabled: disabled,
+          value: value,
+          input: input as D2DateTimeInputFieldConfig,
           color: colorOverride,
           onChange: onChange,
           decoration: inputDecoration!,
