@@ -10,7 +10,7 @@ enum D2InputFieldType {
   boolean, //TODO;
   date, //TODO:
   dateRange, //TODO:
-  dateTime,
+  datetime,
   time,
   password,
   number, //TODO:
@@ -49,7 +49,11 @@ enum D2InputFieldType {
   }
 
   static bool isDateType(D2InputFieldType type) {
-    return [D2InputFieldType.date, D2InputFieldType.dateTime].contains(type);
+    return [D2InputFieldType.date].contains(type);
+  }
+
+  static bool isDateTimeType(D2InputFieldType type) {
+    return [D2InputFieldType.datetime].contains(type);
   }
 
   static bool isNumber(D2InputFieldType type) {
