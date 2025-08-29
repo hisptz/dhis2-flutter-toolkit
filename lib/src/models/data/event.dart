@@ -290,6 +290,7 @@ class D2Event extends SyncDataSource
     }
   }
 
+
   void completeEvent() {
     status = 'COMPLETED';
     synced = false;
