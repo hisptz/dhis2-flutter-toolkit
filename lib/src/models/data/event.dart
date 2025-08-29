@@ -290,6 +290,11 @@ class D2Event extends SyncDataSource
     }
   }
 
+  void completeEvent() {
+    status = 'COMPLETED';
+    synced = false;
+  }
+
   @override
   bool delete(D2ObjectBox db) {
     //Deletes event and all associated data values & relationships
