@@ -39,7 +39,7 @@ mixin BaseMetaDownloadServiceMixin<T extends D2MetaResource>
     return params;
   }
 
-  get downloadStream {
+  Stream<D2SyncStatus> get downloadStream {
     return downloadController.stream;
   }
 
@@ -114,7 +114,7 @@ mixin BaseMetaDownloadServiceMixin<T extends D2MetaResource>
         downloadController.add(status.increment());
       }
       downloadController.add(status.complete());
-     await downloadController.close();
+      await downloadController.close();
     } catch (e) {
       downloadController.addError(e);
       rethrow;
