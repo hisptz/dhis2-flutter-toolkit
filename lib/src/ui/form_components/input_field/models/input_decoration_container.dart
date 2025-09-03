@@ -17,7 +17,7 @@ class D2InputContainerColorScheme {
         active = main,
         disabled = Colors.grey,
         error = Colors.red,
-        warning = Colors.orangeAccent,
+        warning = const Color(0xFFFF6F00),
         inactive = const Color(0xFF94A0B1);
 
   D2InputContainerColorScheme(
