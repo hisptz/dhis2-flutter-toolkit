@@ -1,5 +1,7 @@
 import 'package:collection/collection.dart';
+import 'package:dhis2_flutter_toolkit/src/services/sync/on_saving_synchronizations/foreground_task_handler.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 
 import '../../../../../objectbox.dart';
 import '../../../../models/data/entry.dart';
@@ -226,12 +228,37 @@ class D2TrackerEnrollmentFormController extends D2FormController
     return enrollment!;
   }
 
+
+
+ // Trigger function to start foreground upload task
+  Future<void> triggerUploading() async {
+    await FlutterForegroundTask.startService(
+      serviceId: 300,
+      notificationTitle: 'Preparing for data upload...',
+      notificationText: 'Tap to return to the app',
+      notificationInitialRoute: '/modules/sync/data',
+      callback: offlineVisitsServicesCallback, 
+    );
+
+    FlutterForegroundTask.sendDataToTask({
+      "syncType": "upload",
+    });
+  }
+
   ///Calls on submit and then saves the updated data. If the enrollment is new, a tracked entity is also created. It doesn't really need to be an async function
   Future<D2Enrollment> save() async {
+    D2Enrollment result;
     if (trackedEntity != null) {
-      return update();
+      result = await update();
     } else {
-      return create();
+      result = await create();
     }
+    await triggerUploading(); // Wait for upload trigger to finish
+    return result;
   }
+
+
+  
+
+ 
 }
