@@ -1,3 +1,6 @@
+import 'package:dhis2_flutter_toolkit/src/services/sync/on_saving_synchronizations/foreground_task_handler.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
+
 import '../../../../../objectbox.dart';
 import '../../../../models/data/entry.dart';
 import '../../../../models/metadata/entry.dart';
@@ -118,12 +121,35 @@ class D2TrackerEventFormController extends D2FormController
     return event!;
   }
 
-  ///Calls on submit and then saves the updated data. It doesn't really need to be an async function but is set as one for forward compatibility
-  Future<D2Event> save() async {
-    if (event != null) {
-      return update();
-    } else {
-      return create();
-    }
+   Future<void> triggerUploading() async {
+    await FlutterForegroundTask.startService(
+      //TODO to change serviceId to a random number to avoid conflicts
+
+      serviceId: 300,
+      notificationTitle: 'Preparing for data upload...',
+      notificationText: 'Tap to return to the app',
+      notificationInitialRoute: '/modules/sync/data',
+      callback: offlineVisitsServicesCallback, 
+    );
+
+    FlutterForegroundTask.sendDataToTask({
+      "syncType": "upload",
+    });
   }
+
+  // Calls on submit and then saves the updated data. It doesn't really need to be an async function but is set as one for forward compatibility
+ Future<D2Event> save() async {
+  D2Event result;
+  if (event != null) {
+    result = await update();
+  } else {
+    result = await create();
+  }
+  await triggerUploading(); // Wait for upload trigger to finish
+  return result;
+}
+
+
+
+  
 }
