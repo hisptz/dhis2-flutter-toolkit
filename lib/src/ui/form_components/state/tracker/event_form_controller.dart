@@ -123,8 +123,6 @@ class D2TrackerEventFormController extends D2FormController
 
    Future<void> triggerUploading() async {
     await FlutterForegroundTask.startService(
-      //TODO to change serviceId to a random number to avoid conflicts
-
       serviceId: 300,
       notificationTitle: 'Preparing for data upload...',
       notificationText: 'Tap to return to the app',
@@ -138,14 +136,16 @@ class D2TrackerEventFormController extends D2FormController
   }
 
   // Calls on submit and then saves the updated data. It doesn't really need to be an async function but is set as one for forward compatibility
- Future<D2Event> save() async {
+ Future<D2Event> save({final bool triggerUpload = true}) async {
   D2Event result;
   if (event != null) {
     result = await update();
   } else {
     result = await create();
   }
-  await triggerUploading(); // Wait for upload trigger to finish
+  if (triggerUpload) {
+    await triggerUploading(); 
+  }
   return result;
 }
 
