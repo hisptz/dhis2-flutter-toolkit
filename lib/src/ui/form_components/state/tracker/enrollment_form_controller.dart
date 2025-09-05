@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
-import 'package:dhis2_flutter_toolkit/src/services/sync/on_saving_synchronizations/foreground_task_handler.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dhis2_flutter_toolkit/src/utils/hasInternet.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 
 import '../../../../../objectbox.dart';
 import '../../../../models/data/entry.dart';
@@ -228,39 +228,25 @@ class D2TrackerEnrollmentFormController extends D2FormController
     return enrollment!;
   }
 
-
-
- // Trigger function to start foreground upload task
-  Future<void> triggerUploading() async {
-    await FlutterForegroundTask.startService(
-      serviceId: 300,
-      notificationTitle: 'Preparing for data upload...',
-      notificationText: 'Tap to return to the app',
-      notificationInitialRoute: '/modules/sync/data',
-      callback: offlineVisitsServicesCallback, 
-    );
-
-    FlutterForegroundTask.sendDataToTask({
-      "syncType": "upload",
-    });
-  }
-
   ///Calls on submit and then saves the updated data. If the enrollment is new, a tracked entity is also created. It doesn't really need to be an async function
   Future<D2Enrollment> save({bool autoUpload = true}) async {
     D2Enrollment result;
+    var connectivityResult = await Connectivity().checkConnectivity();
+    bool online = await InternetUtils.hasInternetAccess();
     if (trackedEntity != null) {
       result = await update();
     } else {
       result = await create();
     }
     if (autoUpload) {
-      await triggerUploading(); // Wait for upload trigger to finish
+      if (!connectivityResult.contains(ConnectivityResult.none) && online) {
+        await InternetUtils.triggerUploading(serviceId: 2);
+        if (kDebugMode) {
+          print(
+              "No internet connection. use manual sync to upload when there is a connection");
+        }
+      }
     }
     return result;
   }
-
-
-  
-
- 
 }
