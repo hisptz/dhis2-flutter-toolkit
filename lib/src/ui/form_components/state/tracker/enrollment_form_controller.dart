@@ -246,14 +246,16 @@ class D2TrackerEnrollmentFormController extends D2FormController
   }
 
   ///Calls on submit and then saves the updated data. If the enrollment is new, a tracked entity is also created. It doesn't really need to be an async function
-  Future<D2Enrollment> save() async {
+  Future<D2Enrollment> save({bool autoUpload = true}) async {
     D2Enrollment result;
     if (trackedEntity != null) {
       result = await update();
     } else {
       result = await create();
     }
-    await triggerUploading(); // Wait for upload trigger to finish
+    if (autoUpload) {
+      await triggerUploading(); // Wait for upload trigger to finish
+    }
     return result;
   }
 
