@@ -1,5 +1,7 @@
-import 'package:dhis2_flutter_toolkit/src/services/sync/on_saving_synchronizations/foreground_task_handler.dart';
-import 'package:flutter_foreground_task/flutter_foreground_task.dart';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dhis2_flutter_toolkit/src/utils/hasInternet.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../../../../objectbox.dart';
 import '../../../../models/data/entry.dart';
@@ -121,35 +123,27 @@ class D2TrackerEventFormController extends D2FormController
     return event!;
   }
 
-   Future<void> triggerUploading() async {
-    await FlutterForegroundTask.startService(
-      serviceId: 300,
-      notificationTitle: 'Preparing for data upload...',
-      notificationText: 'Tap to return to the app',
-      notificationInitialRoute: '/modules/sync/data',
-      callback: offlineVisitsServicesCallback, 
-    );
-
-    FlutterForegroundTask.sendDataToTask({
-      "syncType": "upload",
-    });
-  }
 
   // Calls on submit and then saves the updated data. It doesn't really need to be an async function but is set as one for forward compatibility
- Future<D2Event> save({final bool triggerUpload = true}) async {
-  D2Event result;
-  if (event != null) {
-    result = await update();
-  } else {
-    result = await create();
+  Future<D2Event> save({final bool triggerUpload = true}) async {
+    D2Event result;
+    if (event != null) {
+      result = await update();
+    } else {
+      result = await create();
+    }
+    if (triggerUpload) {
+      var connectivityResult = await Connectivity().checkConnectivity();
+      bool online = await InternetUtils.hasInternetAccess();
+      if (!connectivityResult.contains(ConnectivityResult.none) && online) {
+        await InternetUtils.triggerUploading(serviceId: 1);
+      } else {
+        if (kDebugMode) {
+          print(
+              "No internet connection. Use manual sync to upload when there is a connection");
+        }
+      }
+    }
+    return result;
   }
-  if (triggerUpload) {
-    await triggerUploading(); 
-  }
-  return result;
-}
-
-
-
-  
 }
