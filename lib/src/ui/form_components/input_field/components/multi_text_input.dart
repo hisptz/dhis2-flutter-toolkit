@@ -25,7 +25,7 @@ class MultiTextInput
     if (value!.isEmpty) {
       return false;
     }
-    return value!.contains(option.code);
+    return value!.split(",").contains(option.code);
   }
 
   List<Widget> getInputs() {
