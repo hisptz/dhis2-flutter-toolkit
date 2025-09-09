@@ -1,16 +1,8 @@
 import 'package:collection/collection.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dhis2_flutter_toolkit/src/utils/hasInternet.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../../../objectbox.dart';
-import '../../../../models/data/entry.dart';
-import '../../../../models/metadata/entry.dart';
+import '../../../../../dhis2_flutter_toolkit.dart';
 import '../../../../models/metadata/program_rule.dart';
-import '../../../../repositories/data/entry.dart';
-import '../../../../repositories/metadata/entry.dart';
-import '../../../../utils/entry.dart';
-import '../form_state.dart';
 import 'program_rule_engine_state.dart';
 
 class D2TrackerEnrollmentFormController extends D2FormController
@@ -231,21 +223,14 @@ class D2TrackerEnrollmentFormController extends D2FormController
   ///Calls on submit and then saves the updated data. If the enrollment is new, a tracked entity is also created. It doesn't really need to be an async function
   Future<D2Enrollment> save({bool autoUpload = true}) async {
     D2Enrollment result;
-    var connectivityResult = await Connectivity().checkConnectivity();
-    bool online = await InternetUtils.hasInternetAccess();
+
     if (trackedEntity != null) {
       result = await update();
     } else {
       result = await create();
     }
     if (autoUpload) {
-      if (!connectivityResult.contains(ConnectivityResult.none) && online) {
-        await InternetUtils.triggerUploading(serviceId: 2);
-        if (kDebugMode) {
-          print(
-              "No internet connection. use manual sync to upload when there is a connection");
-        }
-      }
+      D2FormUtils.saveDataOnline();
     }
     return result;
   }
