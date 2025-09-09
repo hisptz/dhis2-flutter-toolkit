@@ -1,8 +1,23 @@
 import 'package:collection/collection.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dhis2_flutter_toolkit/dhis2_flutter_toolkit.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+
+import '../../../utils/hasInternet.dart';
 
 class D2FormUtils {
+  static Future<void> saveDataOnline() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    bool online = await InternetUtils.hasInternetAccess();
+    if (!connectivityResult.contains(ConnectivityResult.none) && online) {
+      InternetUtils.triggerUploading(serviceId: 2);
+      if (kDebugMode) {
+        print(
+            "No internet connection. use manual data synchronization to upload when there is a connection");
+      }
+    }
+  }
+
   static D2BaseInputFieldConfig getFieldConfigFromDataItem(
     dataItem, {
     bool mandatory = false,

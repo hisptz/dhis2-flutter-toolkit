@@ -1,16 +1,5 @@
-
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dhis2_flutter_toolkit/src/utils/hasInternet.dart';
-import 'package:flutter/foundation.dart';
-
-import '../../../../../objectbox.dart';
-import '../../../../models/data/entry.dart';
-import '../../../../models/metadata/entry.dart';
+import '../../../../../dhis2_flutter_toolkit.dart';
 import '../../../../models/metadata/program_rule.dart';
-import '../../../../repositories/metadata/entry.dart';
-import '../../../../utils/program_rule_engine/models/custom_program_rule.dart';
-import '../../../../utils/program_rule_engine/program_rule_engine.dart';
-import '../form_state.dart';
 import 'program_rule_engine_state.dart';
 
 class D2TrackerEventFormController extends D2FormController
@@ -123,7 +112,6 @@ class D2TrackerEventFormController extends D2FormController
     return event!;
   }
 
-
   // Calls on submit and then saves the updated data. It doesn't really need to be an async function but is set as one for forward compatibility
   Future<D2Event> save({final bool triggerUpload = true}) async {
     D2Event result;
@@ -133,16 +121,7 @@ class D2TrackerEventFormController extends D2FormController
       result = await create();
     }
     if (triggerUpload) {
-      var connectivityResult = await Connectivity().checkConnectivity();
-      bool online = await InternetUtils.hasInternetAccess();
-      if (!connectivityResult.contains(ConnectivityResult.none) && online) {
-        await InternetUtils.triggerUploading(serviceId: 1);
-      } else {
-        if (kDebugMode) {
-          print(
-              "No internet connection. Use manual sync to upload when there is a connection");
-        }
-      }
+      D2FormUtils.saveDataOnline();
     }
     return result;
   }
