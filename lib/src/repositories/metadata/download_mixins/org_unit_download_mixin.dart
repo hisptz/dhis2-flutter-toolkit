@@ -43,7 +43,19 @@ mixin D2OrgUnitDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2OrgUnit> {
 
   D2OrgUnitDownloadServiceMixin setupDownload(D2ClientService client) {
     setClient(client);
-    setFields(["*"]);
+    setFields([
+      "id",
+      "name",
+      "shortName",
+      "path",
+      "code",
+      "created",
+      "createdAt",
+      "openingDate",
+      "lastUpdated",
+      "parent[id]",
+      "level"
+    ]);
     return this;
   }
 }
