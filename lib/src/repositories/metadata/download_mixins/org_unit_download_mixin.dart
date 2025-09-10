@@ -46,6 +46,7 @@ mixin D2OrgUnitDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2OrgUnit> {
     setFields([
       "id",
       "name",
+      "displayName",
       "shortName",
       "path",
       "code",
