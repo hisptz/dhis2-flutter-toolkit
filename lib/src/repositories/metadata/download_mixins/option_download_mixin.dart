@@ -11,9 +11,13 @@ mixin D2OptionDownloadServiceMixin
 
   D2OptionDownloadServiceMixin setupDownload(
     D2ClientService client,
+    {Map<String, String>? queryParams}
   ) {
     setClient(client);
     setFields(["*"]);
+    if (queryParams != null) {
+      params = queryParams;
+    }
 
     return this;
   }
