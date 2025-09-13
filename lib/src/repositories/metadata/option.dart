@@ -1,9 +1,15 @@
+import 'package:dhis2_flutter_toolkit/src/repositories/metadata/download_mixins/base_single_meta_download_mixin.dart';
+import 'package:dhis2_flutter_toolkit/src/repositories/metadata/download_mixins/option_download_mixin.dart';
+
 import '../../../objectbox.g.dart';
 
 import '../../models/metadata/option.dart';
 import 'base.dart';
 
-class D2OptionRepository extends BaseMetaRepository<D2Option> {
+class D2OptionRepository extends BaseMetaRepository<D2Option>
+    with
+        BaseSingleMetaDownloadServiceMixin<D2Option>,
+        D2OptionDownloadServiceMixin {
   D2OptionRepository(super.db);
 
   @override
