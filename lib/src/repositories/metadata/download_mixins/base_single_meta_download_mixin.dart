@@ -37,12 +37,11 @@ mixin BaseSingleMetaDownloadServiceMixin<T extends D2MetaResource>
   }
 
   get queryParams {
-    
     if (fields.isNotEmpty) {
       params["fields"] = fields.join(",");
     }
     if (filters.isNotEmpty) {
-      params["filters"] = filters.join(",");
+      params["filter"] = filters.join("&filter=");
     }
 
     return params;
