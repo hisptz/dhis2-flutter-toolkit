@@ -10,6 +10,7 @@ mixin BaseSingleMetaDownloadServiceMixin<T extends D2MetaResource>
   D2ClientService? client;
   abstract String resource;
   abstract String label;
+  Map<String, String> params = {};
   List<String> fields = [];
   List<String> filters = [];
   T? entity;
@@ -36,12 +37,11 @@ mixin BaseSingleMetaDownloadServiceMixin<T extends D2MetaResource>
   }
 
   get queryParams {
-    Map<String, String> params = {};
     if (fields.isNotEmpty) {
       params["fields"] = fields.join(",");
     }
     if (filters.isNotEmpty) {
-      params["filters"] = filters.join(",");
+      params["filter"] = filters.join("&filter=");
     }
 
     return params;
