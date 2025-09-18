@@ -110,9 +110,20 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
         .httpPost<Map<String, dynamic>>(uploadURL, payload,
             queryParameters: uploadQueryParams);
 
-    List errorReports = response["validationReport"]["errorReports"];
+    List errorReports = response["validationReport"] != null
+        ? response["validationReport"]["errorReports"]
+        : [];
 
-    if (errorReports.isNotEmpty) {
+    if (response["validationReport"] == null) {
+      D2AppLog errorLog = D2AppLog.log(
+        code: 500,
+        message:
+            'No validation report found in upload response for $label upload',
+        process: 'DATA_UPLOAD_ERROR',
+        stackTrace: response.toString(),
+      );
+      errorLog.save(db);
+    } else if (errorReports.isNotEmpty) {
       List<D2ImportSummaryError> importSummary =
           getItemsWithErrorsEntityUidFromImportSummary(response);
       List<String> entitiesIdsWithErrors =
@@ -138,6 +149,7 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     }
     return response;
   }
+
   BaseTrackerDataUploadServiceMixin<T> setUploadPageSize(int pageSize) {
     this.uploadPageSize = pageSize;
     return this;
