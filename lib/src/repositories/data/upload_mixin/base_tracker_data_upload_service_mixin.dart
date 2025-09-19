@@ -221,8 +221,20 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     Map response = await client!
         .httpPost(uploadURL, payload, queryParameters: uploadQueryParams);
 
-    List errorReports = response["validationReport"]["errorReports"];
-    if (errorReports.isNotEmpty) {
+    List errorReports = response["validationReport"] != null
+        ? response["validationReport"]["errorReports"]
+        : [];
+
+    if (response["validationReport"] == null) {
+      D2AppLog errorLog = D2AppLog.log(
+        code: 500,
+        message:
+            'No validation report found in upload response for $label upload',
+        process: 'DATA_UPLOAD_ERROR',
+        stackTrace: response.toString(),
+      );
+      errorLog.save(db);
+    } else if (errorReports.isNotEmpty) {
       List<D2ImportSummaryError> importSummary =
           getItemsWithErrorsEntityUidFromImportSummary(
               response as Map<String, dynamic>);
@@ -248,8 +260,20 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     Map<String, dynamic> response = await client!
         .httpPost(uploadURL, payload, queryParameters: uploadQueryParams);
 
-    List errorReports = response["validationReport"]["errorReports"];
-    if (errorReports.isNotEmpty) {
+    List errorReports = response["validationReport"] != null
+        ? response["validationReport"]["errorReports"]
+        : [];
+
+    if (response["validationReport"] == null) {
+      D2AppLog errorLog = D2AppLog.log(
+        code: 500,
+        message:
+            'No validation report found in upload response for $label upload',
+        process: 'DATA_UPLOAD_ERROR',
+        stackTrace: response.toString(),
+      );
+      errorLog.save(db);
+    } else if (errorReports.isNotEmpty) {
       List<D2ImportSummaryError> importSummary =
           getItemsWithErrorsEntityUidFromImportSummary(response);
       List<String> entitiesIdsWithErrors =

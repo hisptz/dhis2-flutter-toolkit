@@ -60,6 +60,13 @@ class D2TrackedEntityAttributeValue extends D2DataResource
 
   @override
   Future<Map<String, dynamic>> toMap({D2ObjectBox? db}) async {
+    if (value == null || value == 'null') {
+      return {
+        "attribute": trackedEntityAttribute.target?.uid,
+        "updatedAt": updatedAt.toIso8601String(),
+        "createdAt": createdAt.toIso8601String(),
+      };
+    }
     return {
       "attribute": trackedEntityAttribute.target?.uid,
       "value": value,
