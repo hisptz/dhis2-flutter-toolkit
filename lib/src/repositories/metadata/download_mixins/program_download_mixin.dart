@@ -205,6 +205,32 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
         }
       }
     }
+    if (programMetadata['programStageDataElements'] == null) {
+      List programStageDataElements = [];
+      List? programStages = programMetadata['programStages'];
+
+      if (programStages != null) {
+        for (Map<String, dynamic> programStage in programStages) {
+          if (programStage['programStageDataElements'] != null) {
+            programStageDataElements.addAll(
+              programStage['programStageDataElements'],
+            );
+          }
+        }
+        //We need to check if the payload is valid
+        Map<String, dynamic>? testAttribute =
+            programStageDataElements.firstOrNull;
+        if (testAttribute != null) {
+          if (testAttribute.keys.length > 1) {
+            await syncMeta(
+              'programStageDataElements',
+              programStageDataElements.cast<Map<String, dynamic>>(),
+              programId: programId,
+            );
+          }
+        }
+      }
+    }
     if (programMetadata["optionSets"] != null) {
       await getOptionGroup(
         programMetadata['optionSets'].cast<Map<String, dynamic>>(),
