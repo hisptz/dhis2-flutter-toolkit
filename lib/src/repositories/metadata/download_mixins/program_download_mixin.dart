@@ -36,10 +36,8 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
   @override
   String resource = "programs";
 
-  D2ProgramDownloadServiceMixin setupDownload(
-    D2ClientService client,
-    List<String> programIds,
-  ) {
+  D2ProgramDownloadServiceMixin setupDownload(D2ClientService client,
+      List<String> programIds,) {
     this.programIds = programIds;
     setClient(client);
     setFilters(["id:in:[${programIds.join(",")}]"]);
@@ -131,8 +129,7 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
   ];
 
   Future<List<D2Sharing>> saveSharingSettings(
-    List<Map<String, dynamic>> objects,
-  ) async {
+      List<Map<String, dynamic>> objects,) async {
     try {
       return D2SharingRepository(db).saveOffline(objects);
     } catch (e, stackTrace) {
@@ -163,12 +160,12 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
         .where((element) => sortOrder.contains(element.key))
         .toList();
     metadataEntries.sort(
-      (a, b) => sortOrder.indexOf(a.key).compareTo(sortOrder.indexOf(b.key)),
+          (a, b) =>
+          sortOrder.indexOf(a.key).compareTo(sortOrder.indexOf(b.key)),
     );
 
-    await Future.forEach(metadataEntries, (
-      MapEntry<String, dynamic> element,
-    ) async {
+    await Future.forEach(
+        metadataEntries, (MapEntry<String, dynamic> element,) async {
       if (element.value == null) {
         return;
       }
@@ -188,8 +185,8 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
     });
     if (programMetadata['programTrackedEntityAttributes'] == null) {
       List<Map<String, dynamic>>? programTrackedEntityAttributes =
-          programMetadata['programs'][0]['programTrackedEntityAttributes']
-              .cast<Map<String, dynamic>>();
+      programMetadata['programs'][0]['programTrackedEntityAttributes']
+          .cast<Map<String, dynamic>>();
       if (programTrackedEntityAttributes != null) {
         //We need to check if the payload is valid
         Map<String, dynamic>? testAttribute =
@@ -201,6 +198,33 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
               programTrackedEntityAttributes,
               programId: programId,
             );
+          }
+        }
+      }
+    }
+    if (programMetadata['programStageDataElements'] == null) {
+      List programStageDataElements = [];
+      List programStages = programMetadata['programStages'];
+
+      if (programStages != null) {
+        for (Map<String, dynamic> programStage in programStages) {
+          if (programStage['programStageDataElements'] != null) {
+            programStageDataElements.addAll(
+                programStage['programStageDataElements']);
+          }
+        }
+        if (programStageDataElements != null) {
+          //We need to check if the payload is valid
+          Map<String, dynamic>? testAttribute =
+              programStageDataElements.firstOrNull;
+          if (testAttribute != null) {
+            if (testAttribute.keys.length > 1) {
+              await syncMeta(
+                'programStageDataElements',
+                programStageDataElements.cast<Map<String, dynamic>>(),
+                programId: programId,
+              );
+            }
           }
         }
       }
@@ -263,7 +287,7 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
       if (entry['legendSets'] != null) {
         legendSetIds.addAll(
           entry['legendSets'].map<String>(
-            (legendSet) => legendSet['id'] as String,
+                (legendSet) => legendSet['id'] as String,
           ),
         );
       }
@@ -271,12 +295,12 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
     if (legendSetIds.isNotEmpty) {
       Map<String, dynamic>? legendSets = await client!
           .httpGet<Map<String, dynamic>>(
-            "legendSets",
-            queryParameters: {
-              'filter': 'id:in:[${legendSetIds.join(",")}]',
-              'fields': '*,legends[*]',
-            },
-          );
+        "legendSets",
+        queryParameters: {
+          'filter': 'id:in:[${legendSetIds.join(",")}]',
+          'fields': '*,legends[*]',
+        },
+      );
       if (legendSets != null) {
         await D2LegendSetRepository(
           db,
@@ -293,13 +317,13 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
       if (optionSetIds.isNotEmpty) {
         Map<String, dynamic>? optionGroupSets = await client!
             .httpGet<Map<String, dynamic>>(
-              "optionGroupSets",
-              queryParameters: {
-                'filter': 'optionSet.id:in:[${optionSetIds.join(",")}]',
-                'fields': '*',
-                'paging': 'false',
-              },
-            );
+          "optionGroupSets",
+          queryParameters: {
+            'filter': 'optionSet.id:in:[${optionSetIds.join(",")}]',
+            'fields': '*',
+            'paging': 'false',
+          },
+        );
 
         if (optionGroupSets != null) {
           await D2OptionGroupSetRepository(db).saveOffline(
@@ -330,13 +354,13 @@ mixin D2ProgramDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2Program> {
       if (optionSetIds.isNotEmpty) {
         Map<String, dynamic>? optionGroups = await client!
             .httpGet<Map<String, dynamic>>(
-              "optionGroups",
-              queryParameters: {
-                'filter': 'optionSet.id:in:[${optionSetIds.join(",")}]',
-                'fields': '*',
-                'paging': 'false',
-              },
-            );
+          "optionGroups",
+          queryParameters: {
+            'filter': 'optionSet.id:in:[${optionSetIds.join(",")}]',
+            'fields': '*',
+            'paging': 'false',
+          },
+        );
         if (optionGroups != null) {
           await D2OptionGroupRepository(db).saveOffline(
             optionGroups['optionGroups'].cast<Map<String, dynamic>>(),
