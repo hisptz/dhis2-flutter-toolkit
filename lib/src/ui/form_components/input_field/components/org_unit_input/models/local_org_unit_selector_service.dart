@@ -7,10 +7,14 @@ class D2LocalOrgUnitSelectorService
     extends D2BaseOrgUnitSelectorService<D2OrgUnit> {
   D2ObjectBox db;
   List<TreeNode<OrgUnitData>>? roots;
+  final bool sorted;
 
-  D2LocalOrgUnitSelectorService(this.db, {List<OrgUnitData>? initialRoots}) {
+  D2LocalOrgUnitSelectorService(this.db, {List<OrgUnitData>? initialRoots, this.sorted = false}) {
     if (initialRoots != null) {
       roots = initialRoots.map(getTreeNodeFromOrgUnitData).toList();
+      if (sorted) {
+        sortTreeNodes(roots!);
+      }
     }
   }
 
@@ -20,6 +24,9 @@ class D2LocalOrgUnitSelectorService
           await D2OrgUnitRepository(db).getByLevel(1);
       List<OrgUnitData> orgUnitData =
           rootOrgUnits.map(getOrgUnitDataFromOrgUnit).toList();
+      if (sorted) {
+        orgUnitData.sort((orgUnitA, orgUnitB) => orgUnitA.displayName.compareTo(orgUnitB.displayName));
+      }
       roots = orgUnitData
           .map<TreeNode<OrgUnitData>>(getTreeNodeFromOrgUnitData)
           .toList();
@@ -28,11 +35,15 @@ class D2LocalOrgUnitSelectorService
 
   @override
   OrgUnitData getOrgUnitDataFromOrgUnit(D2OrgUnit orgUnit) {
+    List<OrgUnitData> children = orgUnit.children.map(getOrgUnitDataFromOrgUnit).toList();
+    if (sorted) {
+      children.sort((orgUnitA, orgUnitB) => orgUnitA.displayName.compareTo(orgUnitB.displayName));
+    }
     return OrgUnitData(
         displayName: orgUnit.displayName ?? orgUnit.name,
         level: orgUnit.level.target!.level,
         hasChildren: orgUnit.children.isNotEmpty,
-        children: orgUnit.children.map(getOrgUnitDataFromOrgUnit).toList(),
+        children: children,
         id: orgUnit.uid,
         path: orgUnit.path);
   }
@@ -56,10 +67,14 @@ class D2LocalOrgUnitSelectorService
       TreeNode<OrgUnitData> node) async {
     D2OrgUnit? orgUnit = D2OrgUnitRepository(db).getByUid(node.data!.id);
     if (orgUnit != null) {
-      return orgUnit.children
+      List<TreeNode<OrgUnitData>> children = orgUnit.children
           .map(getOrgUnitDataFromOrgUnit)
           .map(getTreeNodeFromOrgUnitData)
           .toList();
+      if (sorted) {
+        sortTreeNodes(children);
+      }
+      return children;
     }
     return [];
   }
@@ -94,6 +109,14 @@ class D2LocalOrgUnitSelectorService
             .contains(keyword, caseSensitive: false)
             .or(D2OrgUnit_.uid.contains(keyword, caseSensitive: false))));
     List<D2OrgUnit> orgUnits = await queryBuilder.build().findAsync();
-    return orgUnits.map(getOrgUnitDataFromOrgUnit).toList();
+    List<OrgUnitData> results = orgUnits.map(getOrgUnitDataFromOrgUnit).toList();
+    if (sorted) {
+      results.sort((orgUnitA, orgUnitB) => orgUnitA.displayName.compareTo(orgUnitB.displayName));
+    }
+    return results;
+  }
+
+  void sortTreeNodes(List<TreeNode<OrgUnitData>> nodes) {
+    nodes.sort((orgUnitA, orgUnitB) => orgUnitA.data!.displayName.compareTo(orgUnitB.data!.displayName));
   }
 }
