@@ -58,7 +58,7 @@ class D2DataStoreRepository extends BaseDataRepository
     List<Map> logs = D2AppLogRepository(db).getAllLogsAsMap();
 
     // Prepare the payload to send
-    String key = client.credentials.username;
+    String key = client.credentials.username.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_');
     String payload = jsonEncode(logs);
     List jsonPayload = jsonDecode(payload);
     D2DataStore logDataStore =
