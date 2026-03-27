@@ -89,6 +89,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(1, 642469775700694910),
+        relationField: 'dataElement',
         relationTarget: 'D2DataElement',
       ),
       obx_int.ModelProperty(
@@ -97,6 +98,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(2, 582472308750711563),
+        relationField: 'trackedEntityAttribute',
         relationTarget: 'D2TrackedEntityAttribute',
       ),
       obx_int.ModelProperty(
@@ -206,6 +208,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(4, 2213367397718689164),
+        relationField: 'optionSet',
         relationTarget: 'D2OptionSet',
       ),
       obx_int.ModelProperty(
@@ -226,6 +229,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(95, 5418199369240187784),
+        relationField: 'categoryCombo',
         relationTarget: 'D2CategoryCombo',
       ),
       obx_int.ModelProperty(
@@ -298,6 +302,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(6, 3148136911393648919),
+        relationField: 'event',
         relationTarget: 'D2Event',
       ),
       obx_int.ModelProperty(
@@ -306,6 +311,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(7, 8203652011957087137),
+        relationField: 'dataElement',
         relationTarget: 'D2DataElement',
       ),
       obx_int.ModelProperty(
@@ -391,6 +397,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(9, 2892247543491146345),
+        relationField: 'trackedEntity',
         relationTarget: 'D2TrackedEntity',
       ),
       obx_int.ModelProperty(
@@ -399,6 +406,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(10, 1632045706883429006),
+        relationField: 'orgUnit',
         relationTarget: 'D2OrgUnit',
       ),
       obx_int.ModelProperty(
@@ -407,6 +415,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(11, 6522261318498184945),
+        relationField: 'program',
         relationTarget: 'D2Program',
       ),
       obx_int.ModelProperty(
@@ -538,6 +547,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(12, 2834602324857817255),
+        relationField: 'enrollment',
         relationTarget: 'D2Enrollment',
       ),
       obx_int.ModelProperty(
@@ -546,6 +556,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(13, 4650617062715984219),
+        relationField: 'trackedEntity',
         relationTarget: 'D2TrackedEntity',
       ),
       obx_int.ModelProperty(
@@ -554,6 +565,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(14, 3561540464840186280),
+        relationField: 'program',
         relationTarget: 'D2Program',
       ),
       obx_int.ModelProperty(
@@ -562,6 +574,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(15, 5142603708832639895),
+        relationField: 'programStage',
         relationTarget: 'D2ProgramStage',
       ),
       obx_int.ModelProperty(
@@ -570,6 +583,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(16, 5879648136843000888),
+        relationField: 'orgUnit',
         relationTarget: 'D2OrgUnit',
       ),
       obx_int.ModelProperty(
@@ -682,6 +696,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(17, 4674397307958643269),
+        relationField: 'legendSet',
         relationTarget: 'D2LegendSet',
       ),
     ],
@@ -802,6 +817,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(19, 5285213498890461357),
+        relationField: 'optionSet',
         relationTarget: 'D2OptionSet',
       ),
       obx_int.ModelProperty(
@@ -958,6 +974,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(72, 3773362161700458511),
+        relationField: 'parent',
         relationTarget: 'D2OrgUnit',
       ),
       obx_int.ModelProperty(
@@ -972,6 +989,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(73, 8352789729516065977),
+        relationField: 'level',
         relationTarget: 'D2OrgUnitLevel',
       ),
       obx_int.ModelProperty(
@@ -1122,6 +1140,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(24, 3109789638828809218),
+        relationField: 'trackedEntityType',
         relationTarget: 'D2TrackedEntityType',
       ),
       obx_int.ModelProperty(
@@ -1148,6 +1167,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(127, 2133040154421627187),
+        relationField: 'sharing',
         relationTarget: 'D2Sharing',
       ),
       obx_int.ModelProperty(
@@ -1252,6 +1272,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(25, 2248942903548672394),
+        relationField: 'program',
         relationTarget: 'D2Program',
       ),
       obx_int.ModelProperty(
@@ -1272,6 +1293,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(139, 8964796790491520241),
+        relationField: 'programStage',
         relationTarget: 'D2ProgramStage',
       ),
     ],
@@ -1345,6 +1367,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(26, 4298310230523124445),
+        relationField: 'programRule',
         relationTarget: 'D2ProgramRule',
       ),
       obx_int.ModelProperty(
@@ -1353,6 +1376,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(27, 7939182947485596438),
+        relationField: 'dataElement',
         relationTarget: 'D2DataElement',
       ),
       obx_int.ModelProperty(
@@ -1361,6 +1385,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(28, 8250828384727859954),
+        relationField: 'programStageSection',
         relationTarget: 'D2ProgramStageSection',
       ),
       obx_int.ModelProperty(
@@ -1369,6 +1394,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(29, 8366458728023359043),
+        relationField: 'programSection',
         relationTarget: 'D2ProgramSection',
       ),
       obx_int.ModelProperty(
@@ -1377,6 +1403,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(30, 1288031782494056378),
+        relationField: 'trackedEntityAttribute',
         relationTarget: 'D2TrackedEntityAttribute',
       ),
       obx_int.ModelProperty(
@@ -1391,6 +1418,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(114, 7962243569458609015),
+        relationField: 'option',
         relationTarget: 'D2Option',
       ),
       obx_int.ModelProperty(
@@ -1399,6 +1427,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(116, 1858460167627699525),
+        relationField: 'optionGroup',
         relationTarget: 'D2OptionGroup',
       ),
     ],
@@ -1466,6 +1495,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(32, 2474192404727638582),
+        relationField: 'trackedEntityAttribute',
         relationTarget: 'D2TrackedEntityAttribute',
       ),
       obx_int.ModelProperty(
@@ -1474,6 +1504,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(33, 4426809406728920492),
+        relationField: 'dataElement',
         relationTarget: 'D2DataElement',
       ),
       obx_int.ModelProperty(
@@ -1482,6 +1513,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(34, 3791869431635888508),
+        relationField: 'programStage',
         relationTarget: 'D2ProgramStage',
       ),
       obx_int.ModelProperty(
@@ -1490,6 +1522,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(35, 63939993003839629),
+        relationField: 'program',
         relationTarget: 'D2Program',
       ),
       obx_int.ModelProperty(
@@ -1551,6 +1584,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(37, 690470734372984836),
+        relationField: 'program',
         relationTarget: 'D2Program',
       ),
       obx_int.ModelProperty(
@@ -1642,6 +1676,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(39, 5460732382124656440),
+        relationField: 'program',
         relationTarget: 'D2Program',
       ),
       obx_int.ModelProperty(
@@ -1680,6 +1715,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(140, 9173362820409307694),
+        relationField: 'sharing',
         relationTarget: 'D2Sharing',
       ),
     ],
@@ -1746,6 +1782,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(40, 9126103669369147453),
+        relationField: 'programStage',
         relationTarget: 'D2ProgramStage',
       ),
       obx_int.ModelProperty(
@@ -1754,6 +1791,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(41, 4841480228644203129),
+        relationField: 'dataElement',
         relationTarget: 'D2DataElement',
       ),
       obx_int.ModelProperty(
@@ -1833,6 +1871,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(43, 7141247526240994425),
+        relationField: 'programStage',
         relationTarget: 'D2ProgramStage',
       ),
       obx_int.ModelProperty(
@@ -1911,6 +1950,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(44, 2787195353366423576),
+        relationField: 'program',
         relationTarget: 'D2Program',
       ),
       obx_int.ModelProperty(
@@ -1919,6 +1959,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(45, 6785587349605976907),
+        relationField: 'trackedEntityAttribute',
         relationTarget: 'D2TrackedEntityAttribute',
       ),
       obx_int.ModelProperty(
@@ -1998,6 +2039,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(81, 3291896588767367520),
+        relationField: 'fromTrackedEntity',
         relationTarget: 'D2TrackedEntity',
       ),
       obx_int.ModelProperty(
@@ -2006,6 +2048,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(82, 5416175323921404207),
+        relationField: 'fromEnrollment',
         relationTarget: 'D2Enrollment',
       ),
       obx_int.ModelProperty(
@@ -2014,6 +2057,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(83, 344826800521479650),
+        relationField: 'fromEvent',
         relationTarget: 'D2Event',
       ),
       obx_int.ModelProperty(
@@ -2022,6 +2066,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(84, 117956957890255339),
+        relationField: 'toTrackedEntity',
         relationTarget: 'D2TrackedEntity',
       ),
       obx_int.ModelProperty(
@@ -2030,6 +2075,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(85, 1769549624299726170),
+        relationField: 'toEnrollment',
         relationTarget: 'D2Enrollment',
       ),
       obx_int.ModelProperty(
@@ -2038,6 +2084,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(86, 3052706075650826301),
+        relationField: 'toEvent',
         relationTarget: 'D2Event',
       ),
       obx_int.ModelProperty(
@@ -2046,6 +2093,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(87, 5516752848296392221),
+        relationField: 'relationshipType',
         relationTarget: 'D2RelationshipType',
       ),
       obx_int.ModelProperty(
@@ -2149,6 +2197,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(48, 8853401604678662253),
+        relationField: 'fromTrackedEntityType',
         relationTarget: 'D2TrackedEntityType',
       ),
       obx_int.ModelProperty(
@@ -2157,6 +2206,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(49, 3552615975764845296),
+        relationField: 'fromProgram',
         relationTarget: 'D2Program',
       ),
       obx_int.ModelProperty(
@@ -2165,6 +2215,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(50, 826252574858097647),
+        relationField: 'fromProgramStage',
         relationTarget: 'D2ProgramStage',
       ),
       obx_int.ModelProperty(
@@ -2173,6 +2224,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(51, 728278201152570124),
+        relationField: 'toTrackedEntityType',
         relationTarget: 'D2TrackedEntityType',
       ),
       obx_int.ModelProperty(
@@ -2181,6 +2233,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(52, 3951138221494014961),
+        relationField: 'toProgram',
         relationTarget: 'D2Program',
       ),
       obx_int.ModelProperty(
@@ -2189,6 +2242,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(53, 7592223155403911848),
+        relationField: 'toProgramStage',
         relationTarget: 'D2ProgramStage',
       ),
     ],
@@ -2316,6 +2370,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(57, 1682445336648991798),
+        relationField: 'orgUnit',
         relationTarget: 'D2OrgUnit',
       ),
       obx_int.ModelProperty(
@@ -2324,6 +2379,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(58, 4696403960282200937),
+        relationField: 'trackedEntityType',
         relationTarget: 'D2TrackedEntityType',
       ),
       obx_int.ModelProperty(
@@ -2480,6 +2536,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(60, 2855556399843561833),
+        relationField: 'optionSet',
         relationTarget: 'D2OptionSet',
       ),
       obx_int.ModelProperty(
@@ -2571,6 +2628,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(62, 6480444501372053029),
+        relationField: 'trackedEntityAttribute',
         relationTarget: 'D2TrackedEntityAttribute',
       ),
       obx_int.ModelProperty(
@@ -2579,6 +2637,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(63, 1739666982818415992),
+        relationField: 'trackedEntity',
         relationTarget: 'D2TrackedEntity',
       ),
       obx_int.ModelProperty(
@@ -2686,6 +2745,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(65, 2184578746272812346),
+        relationField: 'trackedEntityType',
         relationTarget: 'D2TrackedEntityType',
       ),
       obx_int.ModelProperty(
@@ -2694,6 +2754,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(66, 8845498364021398089),
+        relationField: 'trackedEntityAttribute',
         relationTarget: 'D2TrackedEntityAttribute',
       ),
       obx_int.ModelProperty(
@@ -3015,6 +3076,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(75, 8510094677109879090),
+        relationField: 'trackedEntityAttribute',
         relationTarget: 'D2TrackedEntityAttribute',
       ),
       obx_int.ModelProperty(
@@ -3023,6 +3085,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(76, 6280361999862837744),
+        relationField: 'programSection',
         relationTarget: 'D2ProgramSection',
       ),
     ],
@@ -3060,6 +3123,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(77, 7232666104355635927),
+        relationField: 'dataElement',
         relationTarget: 'D2DataElement',
       ),
       obx_int.ModelProperty(
@@ -3068,6 +3132,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(78, 5184937314444604601),
+        relationField: 'programStageSection',
         relationTarget: 'D2ProgramStageSection',
       ),
     ],
@@ -3092,6 +3157,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(79, 3811308188912901820),
+        relationField: 'trackedEntityAttribute',
         relationTarget: 'D2TrackedEntityAttribute',
       ),
       obx_int.ModelProperty(
@@ -3130,6 +3196,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(80, 722459701791797865),
+        relationField: 'orgUnit',
         relationTarget: 'D2OrgUnit',
       ),
     ],
@@ -3299,6 +3366,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(91, 1299718182608691472),
+        relationField: 'category',
         relationTarget: 'D2Category',
       ),
       obx_int.ModelProperty(
@@ -3307,6 +3375,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(93, 6950796954834436805),
+        relationField: 'categoryOptionCombo',
         relationTarget: 'D2CategoryOptionCombo',
       ),
     ],
@@ -3432,6 +3501,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(92, 1552864541697651566),
+        relationField: 'categoryCombo',
         relationTarget: 'D2CategoryCombo',
       ),
     ],
@@ -3529,6 +3599,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(94, 2388420805686363269),
+        relationField: 'categoryCombo',
         relationTarget: 'D2CategoryCombo',
       ),
     ],
@@ -3618,6 +3689,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(97, 5058082037699399519),
+        relationField: 'dataElement',
         relationTarget: 'D2DataElement',
       ),
       obx_int.ModelProperty(
@@ -3626,6 +3698,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(98, 3675633919913749446),
+        relationField: 'categoryOptionCombo',
         relationTarget: 'D2CategoryOptionCombo',
       ),
       obx_int.ModelProperty(
@@ -3634,6 +3707,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(99, 6336989251941203727),
+        relationField: 'attributeOptionCombo',
         relationTarget: 'D2CategoryOptionCombo',
       ),
       obx_int.ModelProperty(
@@ -3642,6 +3716,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(100, 4513580249183790056),
+        relationField: 'organisationUnit',
         relationTarget: 'D2OrgUnit',
       ),
       obx_int.ModelProperty(
@@ -3679,6 +3754,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(102, 1275202439331720907),
+        relationField: 'dataElement',
         relationTarget: 'D2DataElement',
       ),
       obx_int.ModelProperty(
@@ -3687,6 +3763,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(103, 7263758166735967433),
+        relationField: 'dataSet',
         relationTarget: 'D2DataSet',
       ),
     ],
@@ -3729,6 +3806,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(106, 1616976052564179831),
+        relationField: 'dataElement',
         relationTarget: 'D2DataElement',
       ),
       obx_int.ModelProperty(
@@ -3737,6 +3815,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(107, 4863908447571161423),
+        relationField: 'dataSet',
         relationTarget: 'D2DataSet',
       ),
       obx_int.ModelProperty(
@@ -3745,6 +3824,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(108, 7337492334193565123),
+        relationField: 'categoryOptionCombo',
         relationTarget: 'D2CategoryOptionCombo',
       ),
     ],
@@ -3794,6 +3874,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(113, 8796998809142746007),
+        relationField: 'optionSet',
         relationTarget: 'D2OptionSet',
       ),
       obx_int.ModelProperty(
@@ -3860,6 +3941,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(119, 2160560134524471167),
+        relationField: 'trackedEntity',
         relationTarget: 'D2TrackedEntity',
       ),
       obx_int.ModelProperty(
@@ -3868,6 +3950,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(120, 7431645064698892712),
+        relationField: 'event',
         relationTarget: 'D2Event',
       ),
       obx_int.ModelProperty(
@@ -3876,6 +3959,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(121, 9154092580187784373),
+        relationField: 'relationship',
         relationTarget: 'D2Relationship',
       ),
       obx_int.ModelProperty(
@@ -3884,6 +3968,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(122, 2991693433776428510),
+        relationField: 'enrollment',
         relationTarget: 'D2Enrollment',
       ),
     ],
@@ -3967,6 +4052,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(123, 4659434041632935461),
+        relationField: 'program',
         relationTarget: 'D2Program',
       ),
       obx_int.ModelProperty(
@@ -3975,6 +4061,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(124, 5956572668431648531),
+        relationField: 'programStage',
         relationTarget: 'D2ProgramStage',
       ),
       obx_int.ModelProperty(
@@ -3995,6 +4082,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(125, 169224762123669753),
+        relationField: 'enrollment',
         relationTarget: 'D2Enrollment',
       ),
       obx_int.ModelProperty(
@@ -4003,6 +4091,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(126, 1231265935167275863),
+        relationField: 'event',
         relationTarget: 'D2Event',
       ),
     ],
@@ -4052,6 +4141,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(128, 1630261984002993172),
+        relationField: 'program',
         relationTarget: 'D2Program',
       ),
       obx_int.ModelProperty(
@@ -4060,6 +4150,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(129, 8259448726626854686),
+        relationField: 'programStage',
         relationTarget: 'D2ProgramStage',
       ),
       obx_int.ModelProperty(
@@ -4068,6 +4159,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(132, 4766871569166237777),
+        relationField: 'dataSet',
         relationTarget: 'D2DataSet',
       ),
     ],
@@ -4121,6 +4213,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(130, 6361695183103328082),
+        relationField: 'sharing',
         relationTarget: 'D2Sharing',
       ),
     ],
@@ -4145,6 +4238,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(131, 6278696128238798942),
+        relationField: 'sharing',
         relationTarget: 'D2Sharing',
       ),
       obx_int.ModelProperty(
@@ -4218,6 +4312,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(136, 6299465337609188232),
+        relationField: 'optionSet',
         relationTarget: 'D2OptionSet',
       ),
     ],
@@ -4248,6 +4343,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(143, 3205376848409378385),
+        relationField: 'trackedEntity',
         relationTarget: 'D2TrackedEntity',
       ),
       obx_int.ModelProperty(
@@ -4256,6 +4352,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(144, 7599136116441433153),
+        relationField: 'program',
         relationTarget: 'D2Program',
       ),
       obx_int.ModelProperty(
@@ -4264,6 +4361,7 @@ final _entities = <obx_int.ModelEntity>[
         type: 11,
         flags: 520,
         indexId: const obx_int.IdUid(145, 7044602451247654144),
+        relationField: 'orgUnit',
         relationTarget: 'D2OrgUnit',
       ),
       obx_int.ModelProperty(
@@ -4327,6 +4425,11 @@ Future<obx.Store> openStore({
 /// [obx.Store.new].
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
+    // If this version is not found, it means that this file was generated
+    // with an older version of the ObjectBox Dart generator.
+    // Please regenerate this file with the current generator version.
+    // Typically, this is done with `dart run build_runner build`.
+    generatorVersion: obx_int.GeneratorVersion.v2025_12_16,
     entities: _entities,
     lastEntityId: const obx_int.IdUid(56, 4049942013744007910),
     lastIndexId: const obx_int.IdUid(145, 7044602451247654144),
@@ -4400,19 +4503,19 @@ obx_int.ModelDefinition getObjectBoxModel() {
   final bindings = <Type, obx_int.EntityDefinition>{
     D2AttributeValue: obx_int.EntityDefinition<D2AttributeValue>(
       model: _entities[0],
-      toOneRelations:
-          (D2AttributeValue object) => [
-            object.dataElement,
-            object.trackedEntityAttribute,
-          ],
+      toOneRelations: (D2AttributeValue object) => [
+        object.dataElement,
+        object.trackedEntityAttribute,
+      ],
       toManyRelations: (D2AttributeValue object) => {},
       getId: (D2AttributeValue object) => object.id,
       setId: (D2AttributeValue object, int id) {
         object.id = id;
       },
       objectToFB: (D2AttributeValue object, fb.Builder fbb) {
-        final valueOffset =
-            object.value == null ? null : fbb.writeString(object.value!);
+        final valueOffset = object.value == null
+            ? null
+            : fbb.writeString(object.value!);
         fbb.startTable(5);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.dataElement.targetId);
@@ -4444,15 +4547,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     D2DataElement: obx_int.EntityDefinition<D2DataElement>(
       model: _entities[1],
-      toOneRelations:
-          (D2DataElement object) => [object.optionSet, object.categoryCombo],
-      toManyRelations:
-          (D2DataElement object) => {
-            obx_int.RelInfo<D2DataElement>.toMany(1, object.id):
-                object.legendSets,
-            obx_int.RelInfo<D2DataElement>.toMany(19, object.id):
-                object.dataValues,
-          },
+      toOneRelations: (D2DataElement object) => [
+        object.optionSet,
+        object.categoryCombo,
+      ],
+      toManyRelations: (D2DataElement object) => {
+        obx_int.RelInfo<D2DataElement>.toMany(1, object.id): object.legendSets,
+        obx_int.RelInfo<D2DataElement>.toMany(19, object.id): object.dataValues,
+      },
       getId: (D2DataElement object) => object.id,
       setId: (D2DataElement object, int id) {
         object.id = id;
@@ -4460,30 +4562,28 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2DataElement object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
-        final codeOffset =
-            object.code == null ? null : fbb.writeString(object.code!);
-        final displayFormNameOffset =
-            object.displayFormName == null
-                ? null
-                : fbb.writeString(object.displayFormName!);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
-        final formNameOffset =
-            object.formName == null ? null : fbb.writeString(object.formName!);
+        final codeOffset = object.code == null
+            ? null
+            : fbb.writeString(object.code!);
+        final displayFormNameOffset = object.displayFormName == null
+            ? null
+            : fbb.writeString(object.displayFormName!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
+        final formNameOffset = object.formName == null
+            ? null
+            : fbb.writeString(object.formName!);
         final shortNameOffset = fbb.writeString(object.shortName);
-        final descriptionOffset =
-            object.description == null
-                ? null
-                : fbb.writeString(object.description!);
+        final descriptionOffset = object.description == null
+            ? null
+            : fbb.writeString(object.description!);
         final aggregationTypeOffset = fbb.writeString(object.aggregationType);
         final valueTypeOffset = fbb.writeString(object.valueType);
         final domainTypeOffset = fbb.writeString(object.domainType);
-        final fieldMaskOffset =
-            object.fieldMask == null
-                ? null
-                : fbb.writeString(object.fieldMask!);
+        final fieldMaskOffset = object.fieldMask == null
+            ? null
+            : fbb.writeString(object.fieldMask!);
         fbb.startTable(20);
         fbb.addInt64(0, object.created.millisecondsSinceEpoch);
         fbb.addInt64(1, object.lastUpdated.millisecondsSinceEpoch);
@@ -4609,8 +4709,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     D2DataValue: obx_int.EntityDefinition<D2DataValue>(
       model: _entities[2],
-      toOneRelations:
-          (D2DataValue object) => [object.event, object.dataElement],
+      toOneRelations: (D2DataValue object) => [
+        object.event,
+        object.dataElement,
+      ],
       toManyRelations: (D2DataValue object) => {},
       getId: (D2DataValue object) => object.id,
       setId: (D2DataValue object, int id) {
@@ -4618,8 +4720,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
       },
       objectToFB: (D2DataValue object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
-        final valueOffset =
-            object.value == null ? null : fbb.writeString(object.value!);
+        final valueOffset = object.value == null
+            ? null
+            : fbb.writeString(object.value!);
         fbb.startTable(10);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.createdAt.millisecondsSinceEpoch);
@@ -4694,35 +4797,30 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     D2Enrollment: obx_int.EntityDefinition<D2Enrollment>(
       model: _entities[3],
-      toOneRelations:
-          (D2Enrollment object) => [
-            object.trackedEntity,
-            object.orgUnit,
-            object.program,
-          ],
-      toManyRelations:
-          (D2Enrollment object) => {
-            obx_int.RelInfo<D2Enrollment>.toMany(29, object.id):
-                object.relationshipsForQuery,
-            obx_int.RelInfo<D2Event>.toOneBacklink(
-                  13,
-                  object.id,
-                  (D2Event srcObject) => srcObject.enrollment,
-                ):
-                object.events,
-            obx_int.RelInfo<D2Relationship>.toOneBacklink(
-                  14,
-                  object.id,
-                  (D2Relationship srcObject) => srcObject.fromEnrollment,
-                ):
-                object.relationships,
-            obx_int.RelInfo<D2Relationship>.toOneBacklink(
-                  17,
-                  object.id,
-                  (D2Relationship srcObject) => srcObject.toEnrollment,
-                ):
-                object.toRelationships,
-          },
+      toOneRelations: (D2Enrollment object) => [
+        object.trackedEntity,
+        object.orgUnit,
+        object.program,
+      ],
+      toManyRelations: (D2Enrollment object) => {
+        obx_int.RelInfo<D2Enrollment>.toMany(29, object.id):
+            object.relationshipsForQuery,
+        obx_int.RelInfo<D2Event>.toOneBacklink(
+          13,
+          object.id,
+          (D2Event srcObject) => srcObject.enrollment,
+        ): object.events,
+        obx_int.RelInfo<D2Relationship>.toOneBacklink(
+          14,
+          object.id,
+          (D2Relationship srcObject) => srcObject.fromEnrollment,
+        ): object.relationships,
+        obx_int.RelInfo<D2Relationship>.toOneBacklink(
+          17,
+          object.id,
+          (D2Relationship srcObject) => srcObject.toEnrollment,
+        ): object.toRelationships,
+      },
       getId: (D2Enrollment object) => object.id,
       setId: (D2Enrollment object, int id) {
         object.id = id;
@@ -4730,14 +4828,15 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2Enrollment object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
         final statusOffset = fbb.writeString(object.status);
-        final notesOffset =
-            object.notes == null ? null : fbb.writeString(object.notes!);
-        final geometryOffset =
-            object.geometry == null ? null : fbb.writeString(object.geometry!);
-        final createdByOffset =
-            object.createdBy == null
-                ? null
-                : fbb.writeString(object.createdBy!);
+        final notesOffset = object.notes == null
+            ? null
+            : fbb.writeString(object.notes!);
+        final geometryOffset = object.geometry == null
+            ? null
+            : fbb.writeString(object.geometry!);
+        final createdByOffset = object.createdBy == null
+            ? null
+            : fbb.writeString(object.createdBy!);
         fbb.startTable(17);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.createdAt.millisecondsSinceEpoch);
@@ -4877,37 +4976,32 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     D2Event: obx_int.EntityDefinition<D2Event>(
       model: _entities[4],
-      toOneRelations:
-          (D2Event object) => [
-            object.enrollment,
-            object.trackedEntity,
-            object.program,
-            object.programStage,
-            object.orgUnit,
-          ],
-      toManyRelations:
-          (D2Event object) => {
-            obx_int.RelInfo<D2Event>.toMany(27, object.id):
-                object.dataValuesForQuery,
-            obx_int.RelInfo<D2Relationship>.toOneBacklink(
-                  15,
-                  object.id,
-                  (D2Relationship srcObject) => srcObject.fromEvent,
-                ):
-                object.relationships,
-            obx_int.RelInfo<D2Relationship>.toOneBacklink(
-                  18,
-                  object.id,
-                  (D2Relationship srcObject) => srcObject.toEvent,
-                ):
-                object.toRelationships,
-            obx_int.RelInfo<D2DataValue>.toOneBacklink(
-                  7,
-                  object.id,
-                  (D2DataValue srcObject) => srcObject.event,
-                ):
-                object.dataValues,
-          },
+      toOneRelations: (D2Event object) => [
+        object.enrollment,
+        object.trackedEntity,
+        object.program,
+        object.programStage,
+        object.orgUnit,
+      ],
+      toManyRelations: (D2Event object) => {
+        obx_int.RelInfo<D2Event>.toMany(27, object.id):
+            object.dataValuesForQuery,
+        obx_int.RelInfo<D2Relationship>.toOneBacklink(
+          15,
+          object.id,
+          (D2Relationship srcObject) => srcObject.fromEvent,
+        ): object.relationships,
+        obx_int.RelInfo<D2Relationship>.toOneBacklink(
+          18,
+          object.id,
+          (D2Relationship srcObject) => srcObject.toEvent,
+        ): object.toRelationships,
+        obx_int.RelInfo<D2DataValue>.toOneBacklink(
+          7,
+          object.id,
+          (D2DataValue srcObject) => srcObject.event,
+        ): object.dataValues,
+      },
       getId: (D2Event object) => object.id,
       setId: (D2Event object, int id) {
         object.id = id;
@@ -4917,20 +5011,20 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final statusOffset = fbb.writeString(object.status);
         final attributeCategoryOptionsOffset =
             object.attributeCategoryOptions == null
-                ? null
-                : fbb.writeString(object.attributeCategoryOptions!);
-        final attributeOptionComboOffset =
-            object.attributeOptionCombo == null
-                ? null
-                : fbb.writeString(object.attributeOptionCombo!);
-        final notesOffset =
-            object.notes == null ? null : fbb.writeString(object.notes!);
-        final geometryOffset =
-            object.geometry == null ? null : fbb.writeString(object.geometry!);
-        final createdByOffset =
-            object.createdBy == null
-                ? null
-                : fbb.writeString(object.createdBy!);
+            ? null
+            : fbb.writeString(object.attributeCategoryOptions!);
+        final attributeOptionComboOffset = object.attributeOptionCombo == null
+            ? null
+            : fbb.writeString(object.attributeOptionCombo!);
+        final notesOffset = object.notes == null
+            ? null
+            : fbb.writeString(object.notes!);
+        final geometryOffset = object.geometry == null
+            ? null
+            : fbb.writeString(object.geometry!);
+        final createdByOffset = object.createdBy == null
+            ? null
+            : fbb.writeString(object.createdBy!);
         fbb.startTable(21);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.createdAt.millisecondsSinceEpoch);
@@ -4998,17 +5092,15 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final notesParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGetNullable(buffer, rootOffset, 26);
-        final scheduledAtParam =
-            scheduledAtValue == null
-                ? null
-                : DateTime.fromMillisecondsSinceEpoch(scheduledAtValue);
+        final scheduledAtParam = scheduledAtValue == null
+            ? null
+            : DateTime.fromMillisecondsSinceEpoch(scheduledAtValue);
         final uidParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGet(buffer, rootOffset, 10, '');
-        final occurredAtParam =
-            occurredAtValue == null
-                ? null
-                : DateTime.fromMillisecondsSinceEpoch(occurredAtValue);
+        final occurredAtParam = occurredAtValue == null
+            ? null
+            : DateTime.fromMillisecondsSinceEpoch(occurredAtValue);
         final syncedParam = const fb.BoolReader().vTableGet(
           buffer,
           rootOffset,
@@ -5119,10 +5211,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
         final colorOffset = fbb.writeString(object.color);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
         fbb.startTable(11);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.created.millisecondsSinceEpoch);
@@ -5193,15 +5284,13 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2LegendSet: obx_int.EntityDefinition<D2LegendSet>(
       model: _entities[6],
       toOneRelations: (D2LegendSet object) => [],
-      toManyRelations:
-          (D2LegendSet object) => {
-            obx_int.RelInfo<D2Legend>.toOneBacklink(
-                  10,
-                  object.id,
-                  (D2Legend srcObject) => srcObject.legendSet,
-                ):
-                object.legends,
-          },
+      toManyRelations: (D2LegendSet object) => {
+        obx_int.RelInfo<D2Legend>.toOneBacklink(
+          10,
+          object.id,
+          (D2Legend srcObject) => srcObject.legendSet,
+        ): object.legends,
+      },
       getId: (D2LegendSet object) => object.id,
       setId: (D2LegendSet object, int id) {
         object.id = id;
@@ -5209,12 +5298,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2LegendSet object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
-        final codeOffset =
-            object.code == null ? null : fbb.writeString(object.code!);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
+        final codeOffset = object.code == null
+            ? null
+            : fbb.writeString(object.code!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
         fbb.startTable(8);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.created.millisecondsSinceEpoch);
@@ -5277,11 +5366,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2Option: obx_int.EntityDefinition<D2Option>(
       model: _entities[7],
       toOneRelations: (D2Option object) => [object.optionSet],
-      toManyRelations:
-          (D2Option object) => {
-            obx_int.RelInfo<D2Option>.toMany(26, object.id):
-                object.optionGroups,
-          },
+      toManyRelations: (D2Option object) => {
+        obx_int.RelInfo<D2Option>.toMany(26, object.id): object.optionGroups,
+      },
       getId: (D2Option object) => object.id,
       setId: (D2Option object, int id) {
         object.id = id;
@@ -5290,14 +5377,15 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
         final codeOffset = fbb.writeString(object.code);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
-        final colorOffset =
-            object.color == null ? null : fbb.writeString(object.color!);
-        final iconOffset =
-            object.icon == null ? null : fbb.writeString(object.icon!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
+        final colorOffset = object.color == null
+            ? null
+            : fbb.writeString(object.color!);
+        final iconOffset = object.icon == null
+            ? null
+            : fbb.writeString(object.icon!);
         fbb.startTable(12);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.created.millisecondsSinceEpoch);
@@ -5382,15 +5470,13 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2OptionSet: obx_int.EntityDefinition<D2OptionSet>(
       model: _entities[8],
       toOneRelations: (D2OptionSet object) => [],
-      toManyRelations:
-          (D2OptionSet object) => {
-            obx_int.RelInfo<D2Option>.toOneBacklink(
-                  8,
-                  object.id,
-                  (D2Option srcObject) => srcObject.optionSet,
-                ):
-                object.options,
-          },
+      toManyRelations: (D2OptionSet object) => {
+        obx_int.RelInfo<D2Option>.toOneBacklink(
+          8,
+          object.id,
+          (D2Option srcObject) => srcObject.optionSet,
+        ): object.options,
+      },
       getId: (D2OptionSet object) => object.id,
       setId: (D2OptionSet object, int id) {
         object.id = id;
@@ -5398,13 +5484,13 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2OptionSet object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
-        final codeOffset =
-            object.code == null ? null : fbb.writeString(object.code!);
+        final codeOffset = object.code == null
+            ? null
+            : fbb.writeString(object.code!);
         final valueTypeOffset = fbb.writeString(object.valueType);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
         fbb.startTable(9);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.created.millisecondsSinceEpoch);
@@ -5472,16 +5558,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2OrgUnit: obx_int.EntityDefinition<D2OrgUnit>(
       model: _entities[9],
       toOneRelations: (D2OrgUnit object) => [object.parent, object.level],
-      toManyRelations:
-          (D2OrgUnit object) => {
-            obx_int.RelInfo<D2OrgUnit>.toMany(20, object.id): object.dataValues,
-            obx_int.RelInfo<D2OrgUnit>.toOneBacklink(
-                  10,
-                  object.id,
-                  (D2OrgUnit srcObject) => srcObject.parent,
-                ):
-                object.children,
-          },
+      toManyRelations: (D2OrgUnit object) => {
+        obx_int.RelInfo<D2OrgUnit>.toMany(20, object.id): object.dataValues,
+        obx_int.RelInfo<D2OrgUnit>.toOneBacklink(
+          10,
+          object.id,
+          (D2OrgUnit srcObject) => srcObject.parent,
+        ): object.children,
+      },
       getId: (D2OrgUnit object) => object.id,
       setId: (D2OrgUnit object, int id) {
         object.id = id;
@@ -5491,12 +5575,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final shortNameOffset = fbb.writeString(object.shortName);
         final uidOffset = fbb.writeString(object.uid);
         final pathOffset = fbb.writeString(object.path);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
-        final codeOffset =
-            object.code == null ? null : fbb.writeString(object.code!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
+        final codeOffset = object.code == null
+            ? null
+            : fbb.writeString(object.code!);
         fbb.startTable(14);
         fbb.addInt64(0, object.id);
         fbb.addOffset(1, nameOffset);
@@ -5595,11 +5679,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2OrgUnitGroup: obx_int.EntityDefinition<D2OrgUnitGroup>(
       model: _entities[10],
       toOneRelations: (D2OrgUnitGroup object) => [],
-      toManyRelations:
-          (D2OrgUnitGroup object) => {
-            obx_int.RelInfo<D2OrgUnitGroup>.toMany(3, object.id):
-                object.organisationUnits,
-          },
+      toManyRelations: (D2OrgUnitGroup object) => {
+        obx_int.RelInfo<D2OrgUnitGroup>.toMany(3, object.id):
+            object.organisationUnits,
+      },
       getId: (D2OrgUnitGroup object) => object.id,
       setId: (D2OrgUnitGroup object, int id) {
         object.id = id;
@@ -5607,10 +5690,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2OrgUnitGroup object, fb.Builder fbb) {
         final nameOffset = fbb.writeString(object.name);
         final uidOffset = fbb.writeString(object.uid);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
         fbb.startTable(7);
         fbb.addInt64(0, object.id);
         fbb.addOffset(1, nameOffset);
@@ -5663,42 +5745,39 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     D2Program: obx_int.EntityDefinition<D2Program>(
       model: _entities[11],
-      toOneRelations:
-          (D2Program object) => [object.trackedEntityType, object.sharing],
-      toManyRelations:
-          (D2Program object) => {
-            obx_int.RelInfo<D2Program>.toMany(4, object.id):
-                object.organisationUnits,
-            obx_int.RelInfo<D2ProgramStage>.toOneBacklink(
-                  11,
-                  object.id,
-                  (D2ProgramStage srcObject) => srcObject.program,
-                ):
-                object.programStages,
-            obx_int.RelInfo<D2ProgramRule>.toOneBacklink(
-                  8,
-                  object.id,
-                  (D2ProgramRule srcObject) => srcObject.program,
-                ):
-                object.programRules,
-            obx_int.RelInfo<D2ProgramRuleVariable>.toOneBacklink(
-                  12,
-                  object.id,
-                  (D2ProgramRuleVariable srcObject) => srcObject.program,
-                ):
-                object.programRuleVariables,
-            obx_int.RelInfo<D2ProgramSection>.toOneBacklink(
-                  7,
-                  object.id,
-                  (D2ProgramSection srcObject) => srcObject.program,
-                ):
-                object.programSections,
-            obx_int.RelInfo<D2ProgramTrackedEntityAttribute>.toOneBacklink(
-              10,
-              object.id,
-              (D2ProgramTrackedEntityAttribute srcObject) => srcObject.program,
-            ): object.programTrackedEntityAttributes,
-          },
+      toOneRelations: (D2Program object) => [
+        object.trackedEntityType,
+        object.sharing,
+      ],
+      toManyRelations: (D2Program object) => {
+        obx_int.RelInfo<D2Program>.toMany(4, object.id):
+            object.organisationUnits,
+        obx_int.RelInfo<D2ProgramStage>.toOneBacklink(
+          11,
+          object.id,
+          (D2ProgramStage srcObject) => srcObject.program,
+        ): object.programStages,
+        obx_int.RelInfo<D2ProgramRule>.toOneBacklink(
+          8,
+          object.id,
+          (D2ProgramRule srcObject) => srcObject.program,
+        ): object.programRules,
+        obx_int.RelInfo<D2ProgramRuleVariable>.toOneBacklink(
+          12,
+          object.id,
+          (D2ProgramRuleVariable srcObject) => srcObject.program,
+        ): object.programRuleVariables,
+        obx_int.RelInfo<D2ProgramSection>.toOneBacklink(
+          7,
+          object.id,
+          (D2ProgramSection srcObject) => srcObject.program,
+        ): object.programSections,
+        obx_int.RelInfo<D2ProgramTrackedEntityAttribute>.toOneBacklink(
+          10,
+          object.id,
+          (D2ProgramTrackedEntityAttribute srcObject) => srcObject.program,
+        ): object.programTrackedEntityAttributes,
+      },
       getId: (D2Program object) => object.id,
       setId: (D2Program object, int id) {
         object.id = id;
@@ -5709,21 +5788,19 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final shortNameOffset = fbb.writeString(object.shortName);
         final accessLevelOffset = fbb.writeString(object.accessLevel);
         final programTypeOffset = fbb.writeString(object.programType);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
-        final featureTypeOffset =
-            object.featureType == null
-                ? null
-                : fbb.writeString(object.featureType!);
-        final colorOffset =
-            object.color == null ? null : fbb.writeString(object.color!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
+        final featureTypeOffset = object.featureType == null
+            ? null
+            : fbb.writeString(object.featureType!);
+        final colorOffset = object.color == null
+            ? null
+            : fbb.writeString(object.color!);
         final codeOffset = fbb.writeString(object.code);
-        final descriptionOffset =
-            object.description == null
-                ? null
-                : fbb.writeString(object.description!);
+        final descriptionOffset = object.description == null
+            ? null
+            : fbb.writeString(object.description!);
         fbb.startTable(18);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.created.millisecondsSinceEpoch);
@@ -5877,17 +5954,17 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     D2ProgramRule: obx_int.EntityDefinition<D2ProgramRule>(
       model: _entities[12],
-      toOneRelations:
-          (D2ProgramRule object) => [object.program, object.programStage],
-      toManyRelations:
-          (D2ProgramRule object) => {
-            obx_int.RelInfo<D2ProgramRuleAction>.toOneBacklink(
-                  9,
-                  object.id,
-                  (D2ProgramRuleAction srcObject) => srcObject.programRule,
-                ):
-                object.programRuleActions,
-          },
+      toOneRelations: (D2ProgramRule object) => [
+        object.program,
+        object.programStage,
+      ],
+      toManyRelations: (D2ProgramRule object) => {
+        obx_int.RelInfo<D2ProgramRuleAction>.toOneBacklink(
+          9,
+          object.id,
+          (D2ProgramRuleAction srcObject) => srcObject.programRule,
+        ): object.programRuleActions,
+      },
       getId: (D2ProgramRule object) => object.id,
       setId: (D2ProgramRule object, int id) {
         object.id = id;
@@ -5895,15 +5972,13 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2ProgramRule object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
-        final descriptionOffset =
-            object.description == null
-                ? null
-                : fbb.writeString(object.description!);
+        final descriptionOffset = object.description == null
+            ? null
+            : fbb.writeString(object.description!);
         final conditionOffset = fbb.writeString(object.condition);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
         fbb.startTable(12);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.created.millisecondsSinceEpoch);
@@ -5993,16 +6068,15 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     D2ProgramRuleAction: obx_int.EntityDefinition<D2ProgramRuleAction>(
       model: _entities[13],
-      toOneRelations:
-          (D2ProgramRuleAction object) => [
-            object.programRule,
-            object.dataElement,
-            object.programStageSection,
-            object.programSection,
-            object.trackedEntityAttribute,
-            object.option,
-            object.optionGroup,
-          ],
+      toOneRelations: (D2ProgramRuleAction object) => [
+        object.programRule,
+        object.dataElement,
+        object.programStageSection,
+        object.programSection,
+        object.trackedEntityAttribute,
+        object.option,
+        object.optionGroup,
+      ],
       toManyRelations: (D2ProgramRuleAction object) => {},
       getId: (D2ProgramRuleAction object) => object.id,
       setId: (D2ProgramRuleAction object, int id) {
@@ -6013,16 +6087,18 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final programRuleActionTypeOffset = fbb.writeString(
           object.programRuleActionType,
         );
-        final contentOffset =
-            object.content == null ? null : fbb.writeString(object.content!);
-        final dataOffset =
-            object.data == null ? null : fbb.writeString(object.data!);
-        final locationOffset =
-            object.location == null ? null : fbb.writeString(object.location!);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
+        final contentOffset = object.content == null
+            ? null
+            : fbb.writeString(object.content!);
+        final dataOffset = object.data == null
+            ? null
+            : fbb.writeString(object.data!);
+        final locationOffset = object.location == null
+            ? null
+            : fbb.writeString(object.location!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
         fbb.startTable(17);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.created.millisecondsSinceEpoch);
@@ -6137,13 +6213,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     D2ProgramRuleVariable: obx_int.EntityDefinition<D2ProgramRuleVariable>(
       model: _entities[14],
-      toOneRelations:
-          (D2ProgramRuleVariable object) => [
-            object.trackedEntityAttribute,
-            object.dataElement,
-            object.programStage,
-            object.program,
-          ],
+      toOneRelations: (D2ProgramRuleVariable object) => [
+        object.trackedEntityAttribute,
+        object.dataElement,
+        object.programStage,
+        object.program,
+      ],
       toManyRelations: (D2ProgramRuleVariable object) => {},
       getId: (D2ProgramRuleVariable object) => object.id,
       setId: (D2ProgramRuleVariable object, int id) {
@@ -6156,10 +6231,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.programRuleVariableSourceType,
         );
         final valueTypeOffset = fbb.writeString(object.valueType);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
         fbb.startTable(14);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.created.millisecondsSinceEpoch);
@@ -6254,18 +6328,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2ProgramSection: obx_int.EntityDefinition<D2ProgramSection>(
       model: _entities[15],
       toOneRelations: (D2ProgramSection object) => [object.program],
-      toManyRelations:
-          (D2ProgramSection object) => {
-            obx_int.RelInfo<
-                  D2ProgramSectionTrackedEntityAttribute
-                >.toOneBacklink(
-                  5,
-                  object.id,
-                  (D2ProgramSectionTrackedEntityAttribute srcObject) =>
-                      srcObject.programSection,
-                ):
-                object.programSectionTrackedEntityAttributes,
-          },
+      toManyRelations: (D2ProgramSection object) => {
+        obx_int.RelInfo<D2ProgramSectionTrackedEntityAttribute>.toOneBacklink(
+          5,
+          object.id,
+          (D2ProgramSectionTrackedEntityAttribute srcObject) =>
+              srcObject.programSection,
+        ): object.programSectionTrackedEntityAttributes,
+      },
       getId: (D2ProgramSection object) => object.id,
       setId: (D2ProgramSection object, int id) {
         object.id = id;
@@ -6273,10 +6343,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2ProgramSection object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
         fbb.startTable(9);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.created.millisecondsSinceEpoch);
@@ -6344,28 +6413,27 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     D2ProgramStage: obx_int.EntityDefinition<D2ProgramStage>(
       model: _entities[16],
-      toOneRelations:
-          (D2ProgramStage object) => [object.program, object.sharing],
-      toManyRelations:
-          (D2ProgramStage object) => {
-            obx_int.RelInfo<D2ProgramStageDataElement>.toOneBacklink(
-              7,
-              object.id,
-              (D2ProgramStageDataElement srcObject) => srcObject.programStage,
-            ): object.programStageDataElements,
-            obx_int.RelInfo<D2ProgramStageSection>.toOneBacklink(
-                  7,
-                  object.id,
-                  (D2ProgramStageSection srcObject) => srcObject.programStage,
-                ):
-                object.programStageSections,
-            obx_int.RelInfo<D2Event>.toOneBacklink(
-                  16,
-                  object.id,
-                  (D2Event srcObject) => srcObject.programStage,
-                ):
-                object.events,
-          },
+      toOneRelations: (D2ProgramStage object) => [
+        object.program,
+        object.sharing,
+      ],
+      toManyRelations: (D2ProgramStage object) => {
+        obx_int.RelInfo<D2ProgramStageDataElement>.toOneBacklink(
+          7,
+          object.id,
+          (D2ProgramStageDataElement srcObject) => srcObject.programStage,
+        ): object.programStageDataElements,
+        obx_int.RelInfo<D2ProgramStageSection>.toOneBacklink(
+          7,
+          object.id,
+          (D2ProgramStageSection srcObject) => srcObject.programStage,
+        ): object.programStageSections,
+        obx_int.RelInfo<D2Event>.toOneBacklink(
+          16,
+          object.id,
+          (D2Event srcObject) => srcObject.programStage,
+        ): object.events,
+      },
       getId: (D2ProgramStage object) => object.id,
       setId: (D2ProgramStage object, int id) {
         object.id = id;
@@ -6373,38 +6441,30 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2ProgramStage object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
-        final descriptionOffset =
-            object.description == null
-                ? null
-                : fbb.writeString(object.description!);
-        final validationStrategyOffset =
-            object.validationStrategy == null
-                ? null
-                : fbb.writeString(object.validationStrategy!);
-        final featureTypeOffset =
-            object.featureType == null
-                ? null
-                : fbb.writeString(object.featureType!);
-        final reportDateToUseOffset =
-            object.reportDateToUse == null
-                ? null
-                : fbb.writeString(object.reportDateToUse!);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
-        final executionDateLabelOffset =
-            object.executionDateLabel == null
-                ? null
-                : fbb.writeString(object.executionDateLabel!);
-        final eventLabelOffset =
-            object.eventLabel == null
-                ? null
-                : fbb.writeString(object.eventLabel!);
-        final programStageLabelOffset =
-            object.programStageLabel == null
-                ? null
-                : fbb.writeString(object.programStageLabel!);
+        final descriptionOffset = object.description == null
+            ? null
+            : fbb.writeString(object.description!);
+        final validationStrategyOffset = object.validationStrategy == null
+            ? null
+            : fbb.writeString(object.validationStrategy!);
+        final featureTypeOffset = object.featureType == null
+            ? null
+            : fbb.writeString(object.featureType!);
+        final reportDateToUseOffset = object.reportDateToUse == null
+            ? null
+            : fbb.writeString(object.reportDateToUse!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
+        final executionDateLabelOffset = object.executionDateLabel == null
+            ? null
+            : fbb.writeString(object.executionDateLabel!);
+        final eventLabelOffset = object.eventLabel == null
+            ? null
+            : fbb.writeString(object.eventLabel!);
+        final programStageLabelOffset = object.programStageLabel == null
+            ? null
+            : fbb.writeString(object.programStageLabel!);
         fbb.startTable(18);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.created.millisecondsSinceEpoch);
@@ -6544,11 +6604,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2ProgramStageDataElement:
         obx_int.EntityDefinition<D2ProgramStageDataElement>(
           model: _entities[17],
-          toOneRelations:
-              (D2ProgramStageDataElement object) => [
-                object.programStage,
-                object.dataElement,
-              ],
+          toOneRelations: (D2ProgramStageDataElement object) => [
+            object.programStage,
+            object.dataElement,
+          ],
           toManyRelations: (D2ProgramStageDataElement object) => {},
           getId: (D2ProgramStageDataElement object) => object.id,
           setId: (D2ProgramStageDataElement object, int id) {
@@ -6556,14 +6615,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
           },
           objectToFB: (D2ProgramStageDataElement object, fb.Builder fbb) {
             final uidOffset = fbb.writeString(object.uid);
-            final displayNameOffset =
-                object.displayName == null
-                    ? null
-                    : fbb.writeString(object.displayName!);
-            final renderTypeOffset =
-                object.renderType == null
-                    ? null
-                    : fbb.writeString(object.renderType!);
+            final displayNameOffset = object.displayName == null
+                ? null
+                : fbb.writeString(object.displayName!);
+            final renderTypeOffset = object.renderType == null
+                ? null
+                : fbb.writeString(object.renderType!);
             fbb.startTable(13);
             fbb.addInt64(0, object.created.millisecondsSinceEpoch);
             fbb.addInt64(1, object.id);
@@ -6651,16 +6708,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2ProgramStageSection: obx_int.EntityDefinition<D2ProgramStageSection>(
       model: _entities[18],
       toOneRelations: (D2ProgramStageSection object) => [object.programStage],
-      toManyRelations:
-          (D2ProgramStageSection object) => {
-            obx_int.RelInfo<D2ProgramStageSectionDataElement>.toOneBacklink(
-                  5,
-                  object.id,
-                  (D2ProgramStageSectionDataElement srcObject) =>
-                      srcObject.programStageSection,
-                ):
-                object.programStageSectionDataElements,
-          },
+      toManyRelations: (D2ProgramStageSection object) => {
+        obx_int.RelInfo<D2ProgramStageSectionDataElement>.toOneBacklink(
+          5,
+          object.id,
+          (D2ProgramStageSectionDataElement srcObject) =>
+              srcObject.programStageSection,
+        ): object.programStageSectionDataElements,
+      },
       getId: (D2ProgramStageSection object) => object.id,
       setId: (D2ProgramStageSection object, int id) {
         object.id = id;
@@ -6668,10 +6723,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2ProgramStageSection object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
         fbb.startTable(9);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.created.millisecondsSinceEpoch);
@@ -6740,11 +6794,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2ProgramTrackedEntityAttribute:
         obx_int.EntityDefinition<D2ProgramTrackedEntityAttribute>(
           model: _entities[19],
-          toOneRelations:
-              (D2ProgramTrackedEntityAttribute object) => [
-                object.program,
-                object.trackedEntityAttribute,
-              ],
+          toOneRelations: (D2ProgramTrackedEntityAttribute object) => [
+            object.program,
+            object.trackedEntityAttribute,
+          ],
           toManyRelations: (D2ProgramTrackedEntityAttribute object) => {},
           getId: (D2ProgramTrackedEntityAttribute object) => object.id,
           setId: (D2ProgramTrackedEntityAttribute object, int id) {
@@ -6752,14 +6805,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
           },
           objectToFB: (D2ProgramTrackedEntityAttribute object, fb.Builder fbb) {
             final uidOffset = fbb.writeString(object.uid);
-            final displayNameOffset =
-                object.displayName == null
-                    ? null
-                    : fbb.writeString(object.displayName!);
-            final renderTypeOffset =
-                object.renderType == null
-                    ? null
-                    : fbb.writeString(object.renderType!);
+            final displayNameOffset = object.displayName == null
+                ? null
+                : fbb.writeString(object.displayName!);
+            final renderTypeOffset = object.renderType == null
+                ? null
+                : fbb.writeString(object.renderType!);
             fbb.startTable(17);
             fbb.addInt64(0, object.created.millisecondsSinceEpoch);
             fbb.addInt64(1, object.id);
@@ -6831,23 +6882,24 @@ obx_int.ModelDefinition getObjectBoxModel() {
             final renderTypeParam = const fb.StringReader(
               asciiOptimization: true,
             ).vTableGetNullable(buffer, rootOffset, 34);
-            final object = D2ProgramTrackedEntityAttribute(
-                createdParam,
-                idParam,
-                lastUpdatedParam,
-                uidParam,
-                sortOrderParam,
-                displayInListParam,
-                mandatoryParam,
-                searchableParam,
-                renderOptionsAsRadioParam,
-                allowFutureDateParam,
-                optionSetValueParam,
-                renderTypeParam,
-              )
-              ..displayName = const fb.StringReader(
-                asciiOptimization: true,
-              ).vTableGetNullable(buffer, rootOffset, 26);
+            final object =
+                D2ProgramTrackedEntityAttribute(
+                    createdParam,
+                    idParam,
+                    lastUpdatedParam,
+                    uidParam,
+                    sortOrderParam,
+                    displayInListParam,
+                    mandatoryParam,
+                    searchableParam,
+                    renderOptionsAsRadioParam,
+                    allowFutureDateParam,
+                    optionSetValueParam,
+                    renderTypeParam,
+                  )
+                  ..displayName = const fb.StringReader(
+                    asciiOptimization: true,
+                  ).vTableGetNullable(buffer, rootOffset, 26);
             object.program.targetId = const fb.Int64Reader().vTableGet(
               buffer,
               rootOffset,
@@ -6863,16 +6915,15 @@ obx_int.ModelDefinition getObjectBoxModel() {
         ),
     D2Relationship: obx_int.EntityDefinition<D2Relationship>(
       model: _entities[20],
-      toOneRelations:
-          (D2Relationship object) => [
-            object.fromTrackedEntity,
-            object.fromEnrollment,
-            object.fromEvent,
-            object.toTrackedEntity,
-            object.toEnrollment,
-            object.toEvent,
-            object.relationshipType,
-          ],
+      toOneRelations: (D2Relationship object) => [
+        object.fromTrackedEntity,
+        object.fromEnrollment,
+        object.fromEvent,
+        object.toTrackedEntity,
+        object.toEnrollment,
+        object.toEvent,
+        object.relationshipType,
+      ],
       toManyRelations: (D2Relationship object) => {},
       getId: (D2Relationship object) => object.id,
       setId: (D2Relationship object, int id) {
@@ -6989,15 +7040,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     D2RelationshipType: obx_int.EntityDefinition<D2RelationshipType>(
       model: _entities[21],
-      toOneRelations:
-          (D2RelationshipType object) => [
-            object.fromTrackedEntityType,
-            object.fromProgram,
-            object.fromProgramStage,
-            object.toTrackedEntityType,
-            object.toProgram,
-            object.toProgramStage,
-          ],
+      toOneRelations: (D2RelationshipType object) => [
+        object.fromTrackedEntityType,
+        object.fromProgram,
+        object.fromProgramStage,
+        object.toTrackedEntityType,
+        object.toProgram,
+        object.toProgramStage,
+      ],
       toManyRelations: (D2RelationshipType object) => {},
       getId: (D2RelationshipType object) => object.id,
       setId: (D2RelationshipType object, int id) {
@@ -7006,26 +7056,21 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2RelationshipType object, fb.Builder fbb) {
         final nameOffset = fbb.writeString(object.name);
         final uidOffset = fbb.writeString(object.uid);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
-        final fromToNameOffset =
-            object.fromToName == null
-                ? null
-                : fbb.writeString(object.fromToName!);
-        final toFromNameOffset =
-            object.toFromName == null
-                ? null
-                : fbb.writeString(object.toFromName!);
-        final displayFromToNameOffset =
-            object.displayFromToName == null
-                ? null
-                : fbb.writeString(object.displayFromToName!);
-        final displayToFromNameOffset =
-            object.displayToFromName == null
-                ? null
-                : fbb.writeString(object.displayToFromName!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
+        final fromToNameOffset = object.fromToName == null
+            ? null
+            : fbb.writeString(object.fromToName!);
+        final toFromNameOffset = object.toFromName == null
+            ? null
+            : fbb.writeString(object.toFromName!);
+        final displayFromToNameOffset = object.displayFromToName == null
+            ? null
+            : fbb.writeString(object.displayFromToName!);
+        final displayToFromNameOffset = object.displayToFromName == null
+            ? null
+            : fbb.writeString(object.displayToFromName!);
         final fromRelationshipEntityOffset = fbb.writeString(
           object.fromRelationshipEntity,
         );
@@ -7172,8 +7217,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final calendarOffset = fbb.writeString(object.calendar);
         final dateFormatOffset = fbb.writeString(object.dateFormat);
         final contextPathOffset = fbb.writeString(object.contextPath);
-        final systemIdOffset =
-            object.systemId == null ? null : fbb.writeString(object.systemId!);
+        final systemIdOffset = object.systemId == null
+            ? null
+            : fbb.writeString(object.systemId!);
         final systemNameOffset = fbb.writeString(object.systemName);
         final uidOffset = fbb.writeString(object.uid);
         fbb.startTable(13);
@@ -7219,88 +7265,80 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final systemNameParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGet(buffer, rootOffset, 18, '');
-        final object = D2SystemInfo(
-            idParam,
-            versionParam,
-            revisionParam,
-            calendarParam,
-            dateFormatParam,
-            contextPathParam,
-            systemIdParam,
-            systemNameParam,
-          )
-          ..uid = const fb.StringReader(
-            asciiOptimization: true,
-          ).vTableGet(buffer, rootOffset, 26, '');
+        final object =
+            D2SystemInfo(
+                idParam,
+                versionParam,
+                revisionParam,
+                calendarParam,
+                dateFormatParam,
+                contextPathParam,
+                systemIdParam,
+                systemNameParam,
+              )
+              ..uid = const fb.StringReader(
+                asciiOptimization: true,
+              ).vTableGet(buffer, rootOffset, 26, '');
 
         return object;
       },
     ),
     D2TrackedEntity: obx_int.EntityDefinition<D2TrackedEntity>(
       model: _entities[23],
-      toOneRelations:
-          (D2TrackedEntity object) => [
-            object.orgUnit,
-            object.trackedEntityType,
-          ],
-      toManyRelations:
-          (D2TrackedEntity object) => {
-            obx_int.RelInfo<D2TrackedEntity>.toMany(11, object.id):
-                object.enrollmentsForQuery,
-            obx_int.RelInfo<D2TrackedEntity>.toMany(24, object.id):
-                object.attributesForQuery,
-            obx_int.RelInfo<D2TrackedEntity>.toMany(31, object.id):
-                object.relationshipsForQuery,
-            obx_int.RelInfo<D2Enrollment>.toOneBacklink(
-                  11,
-                  object.id,
-                  (D2Enrollment srcObject) => srcObject.trackedEntity,
-                ):
-                object.enrollments,
-            obx_int.RelInfo<D2ProgramOwner>.toOneBacklink(
-                  2,
-                  object.id,
-                  (D2ProgramOwner srcObject) => srcObject.trackedEntity,
-                ):
-                object.programOwners,
-            obx_int.RelInfo<D2Relationship>.toOneBacklink(
-                  13,
-                  object.id,
-                  (D2Relationship srcObject) => srcObject.fromTrackedEntity,
-                ):
-                object.relationships,
-            obx_int.RelInfo<D2Relationship>.toOneBacklink(
-                  16,
-                  object.id,
-                  (D2Relationship srcObject) => srcObject.toTrackedEntity,
-                ):
-                object.toRelationships,
-            obx_int.RelInfo<D2TrackedEntityAttributeValue>.toOneBacklink(
-                  7,
-                  object.id,
-                  (D2TrackedEntityAttributeValue srcObject) =>
-                      srcObject.trackedEntity,
-                ):
-                object.attributes,
-            obx_int.RelInfo<D2Event>.toOneBacklink(
-                  14,
-                  object.id,
-                  (D2Event srcObject) => srcObject.trackedEntity,
-                ):
-                object.events,
-          },
+      toOneRelations: (D2TrackedEntity object) => [
+        object.orgUnit,
+        object.trackedEntityType,
+      ],
+      toManyRelations: (D2TrackedEntity object) => {
+        obx_int.RelInfo<D2TrackedEntity>.toMany(11, object.id):
+            object.enrollmentsForQuery,
+        obx_int.RelInfo<D2TrackedEntity>.toMany(24, object.id):
+            object.attributesForQuery,
+        obx_int.RelInfo<D2TrackedEntity>.toMany(31, object.id):
+            object.relationshipsForQuery,
+        obx_int.RelInfo<D2Enrollment>.toOneBacklink(
+          11,
+          object.id,
+          (D2Enrollment srcObject) => srcObject.trackedEntity,
+        ): object.enrollments,
+        obx_int.RelInfo<D2ProgramOwner>.toOneBacklink(
+          2,
+          object.id,
+          (D2ProgramOwner srcObject) => srcObject.trackedEntity,
+        ): object.programOwners,
+        obx_int.RelInfo<D2Relationship>.toOneBacklink(
+          13,
+          object.id,
+          (D2Relationship srcObject) => srcObject.fromTrackedEntity,
+        ): object.relationships,
+        obx_int.RelInfo<D2Relationship>.toOneBacklink(
+          16,
+          object.id,
+          (D2Relationship srcObject) => srcObject.toTrackedEntity,
+        ): object.toRelationships,
+        obx_int.RelInfo<D2TrackedEntityAttributeValue>.toOneBacklink(
+          7,
+          object.id,
+          (D2TrackedEntityAttributeValue srcObject) => srcObject.trackedEntity,
+        ): object.attributes,
+        obx_int.RelInfo<D2Event>.toOneBacklink(
+          14,
+          object.id,
+          (D2Event srcObject) => srcObject.trackedEntity,
+        ): object.events,
+      },
       getId: (D2TrackedEntity object) => object.id,
       setId: (D2TrackedEntity object, int id) {
         object.id = id;
       },
       objectToFB: (D2TrackedEntity object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
-        final geometryOffset =
-            object.geometry == null ? null : fbb.writeString(object.geometry!);
-        final createdByOffset =
-            object.createdBy == null
-                ? null
-                : fbb.writeString(object.createdBy!);
+        final geometryOffset = object.geometry == null
+            ? null
+            : fbb.writeString(object.geometry!);
+        final createdByOffset = object.createdBy == null
+            ? null
+            : fbb.writeString(object.createdBy!);
         fbb.startTable(13);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.createdAt.millisecondsSinceEpoch);
@@ -7457,176 +7495,175 @@ obx_int.ModelDefinition getObjectBoxModel() {
         return object;
       },
     ),
-    D2TrackedEntityAttribute: obx_int.EntityDefinition<
-      D2TrackedEntityAttribute
-    >(
-      model: _entities[24],
-      toOneRelations: (D2TrackedEntityAttribute object) => [object.optionSet],
-      toManyRelations:
-          (D2TrackedEntityAttribute object) => {
+    D2TrackedEntityAttribute:
+        obx_int.EntityDefinition<D2TrackedEntityAttribute>(
+          model: _entities[24],
+          toOneRelations: (D2TrackedEntityAttribute object) => [
+            object.optionSet,
+          ],
+          toManyRelations: (D2TrackedEntityAttribute object) => {
             obx_int.RelInfo<D2TrackedEntityAttribute>.toMany(7, object.id):
                 object.legendSets,
           },
-      getId: (D2TrackedEntityAttribute object) => object.id,
-      setId: (D2TrackedEntityAttribute object, int id) {
-        object.id = id;
-      },
-      objectToFB: (D2TrackedEntityAttribute object, fb.Builder fbb) {
-        final uidOffset = fbb.writeString(object.uid);
-        final nameOffset = fbb.writeString(object.name);
-        final codeOffset =
-            object.code == null ? null : fbb.writeString(object.code!);
-        final formNameOffset =
-            object.formName == null ? null : fbb.writeString(object.formName!);
-        final shortNameOffset = fbb.writeString(object.shortName);
-        final descriptionOffset =
-            object.description == null
+          getId: (D2TrackedEntityAttribute object) => object.id,
+          setId: (D2TrackedEntityAttribute object, int id) {
+            object.id = id;
+          },
+          objectToFB: (D2TrackedEntityAttribute object, fb.Builder fbb) {
+            final uidOffset = fbb.writeString(object.uid);
+            final nameOffset = fbb.writeString(object.name);
+            final codeOffset = object.code == null
+                ? null
+                : fbb.writeString(object.code!);
+            final formNameOffset = object.formName == null
+                ? null
+                : fbb.writeString(object.formName!);
+            final shortNameOffset = fbb.writeString(object.shortName);
+            final descriptionOffset = object.description == null
                 ? null
                 : fbb.writeString(object.description!);
-        final aggregationTypeOffset =
-            object.aggregationType == null
+            final aggregationTypeOffset = object.aggregationType == null
                 ? null
                 : fbb.writeString(object.aggregationType!);
-        final valueTypeOffset = fbb.writeString(object.valueType);
-        final displayNameOffset =
-            object.displayName == null
+            final valueTypeOffset = fbb.writeString(object.valueType);
+            final displayNameOffset = object.displayName == null
                 ? null
                 : fbb.writeString(object.displayName!);
-        final displayFormNameOffset =
-            object.displayFormName == null
+            final displayFormNameOffset = object.displayFormName == null
                 ? null
                 : fbb.writeString(object.displayFormName!);
-        final patternOffset =
-            object.pattern == null ? null : fbb.writeString(object.pattern!);
-        final fieldMaskOffset =
-            object.fieldMask == null
+            final patternOffset = object.pattern == null
+                ? null
+                : fbb.writeString(object.pattern!);
+            final fieldMaskOffset = object.fieldMask == null
                 ? null
                 : fbb.writeString(object.fieldMask!);
-        fbb.startTable(20);
-        fbb.addInt64(0, object.id);
-        fbb.addInt64(1, object.created.millisecondsSinceEpoch);
-        fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
-        fbb.addOffset(3, uidOffset);
-        fbb.addOffset(4, nameOffset);
-        fbb.addOffset(5, codeOffset);
-        fbb.addOffset(6, formNameOffset);
-        fbb.addOffset(7, shortNameOffset);
-        fbb.addOffset(8, descriptionOffset);
-        fbb.addOffset(9, aggregationTypeOffset);
-        fbb.addOffset(10, valueTypeOffset);
-        fbb.addBool(11, object.zeroIsSignificant);
-        fbb.addInt64(12, object.optionSet.targetId);
-        fbb.addOffset(13, displayNameOffset);
-        fbb.addOffset(14, displayFormNameOffset);
-        fbb.addOffset(15, patternOffset);
-        fbb.addBool(16, object.generated);
-        fbb.addBool(17, object.optionSetValue);
-        fbb.addOffset(18, fieldMaskOffset);
-        fbb.finish(fbb.endTable());
-        return object.id;
-      },
-      objectFromFB: (obx.Store store, ByteData fbData) {
-        final buffer = fb.BufferContext(fbData);
-        final rootOffset = buffer.derefObject(0);
-        final createdParam = DateTime.fromMillisecondsSinceEpoch(
-          const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0),
-        );
-        final lastUpdatedParam = DateTime.fromMillisecondsSinceEpoch(
-          const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0),
-        );
-        final uidParam = const fb.StringReader(
-          asciiOptimization: true,
-        ).vTableGet(buffer, rootOffset, 10, '');
-        final nameParam = const fb.StringReader(
-          asciiOptimization: true,
-        ).vTableGet(buffer, rootOffset, 12, '');
-        final codeParam = const fb.StringReader(
-          asciiOptimization: true,
-        ).vTableGetNullable(buffer, rootOffset, 14);
-        final formNameParam = const fb.StringReader(
-          asciiOptimization: true,
-        ).vTableGetNullable(buffer, rootOffset, 16);
-        final shortNameParam = const fb.StringReader(
-          asciiOptimization: true,
-        ).vTableGet(buffer, rootOffset, 18, '');
-        final descriptionParam = const fb.StringReader(
-          asciiOptimization: true,
-        ).vTableGetNullable(buffer, rootOffset, 20);
-        final aggregationTypeParam = const fb.StringReader(
-          asciiOptimization: true,
-        ).vTableGetNullable(buffer, rootOffset, 22);
-        final valueTypeParam = const fb.StringReader(
-          asciiOptimization: true,
-        ).vTableGet(buffer, rootOffset, 24, '');
-        final zeroIsSignificantParam = const fb.BoolReader().vTableGetNullable(
-          buffer,
-          rootOffset,
-          26,
-        );
-        final generatedParam = const fb.BoolReader().vTableGetNullable(
-          buffer,
-          rootOffset,
-          36,
-        );
-        final patternParam = const fb.StringReader(
-          asciiOptimization: true,
-        ).vTableGetNullable(buffer, rootOffset, 34);
-        final fieldMaskParam = const fb.StringReader(
-          asciiOptimization: true,
-        ).vTableGetNullable(buffer, rootOffset, 40);
-        final optionSetValueParam = const fb.BoolReader().vTableGetNullable(
-          buffer,
-          rootOffset,
-          38,
-        );
-        final object =
-            D2TrackedEntityAttribute(
-                createdParam,
-                lastUpdatedParam,
-                uidParam,
-                nameParam,
-                codeParam,
-                formNameParam,
-                shortNameParam,
-                descriptionParam,
-                aggregationTypeParam,
-                valueTypeParam,
-                zeroIsSignificantParam,
-                generatedParam,
-                patternParam,
-                fieldMaskParam,
-                optionSetValueParam,
-              )
-              ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0)
-              ..displayName = const fb.StringReader(
-                asciiOptimization: true,
-              ).vTableGetNullable(buffer, rootOffset, 30)
-              ..displayFormName = const fb.StringReader(
-                asciiOptimization: true,
-              ).vTableGetNullable(buffer, rootOffset, 32);
-        object.optionSet.targetId = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          28,
-          0,
-        );
-        object.optionSet.attach(store);
-        obx_int.InternalToManyAccess.setRelInfo<D2TrackedEntityAttribute>(
-          object.legendSets,
-          store,
-          obx_int.RelInfo<D2TrackedEntityAttribute>.toMany(7, object.id),
-        );
-        return object;
-      },
-    ),
+            fbb.startTable(20);
+            fbb.addInt64(0, object.id);
+            fbb.addInt64(1, object.created.millisecondsSinceEpoch);
+            fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
+            fbb.addOffset(3, uidOffset);
+            fbb.addOffset(4, nameOffset);
+            fbb.addOffset(5, codeOffset);
+            fbb.addOffset(6, formNameOffset);
+            fbb.addOffset(7, shortNameOffset);
+            fbb.addOffset(8, descriptionOffset);
+            fbb.addOffset(9, aggregationTypeOffset);
+            fbb.addOffset(10, valueTypeOffset);
+            fbb.addBool(11, object.zeroIsSignificant);
+            fbb.addInt64(12, object.optionSet.targetId);
+            fbb.addOffset(13, displayNameOffset);
+            fbb.addOffset(14, displayFormNameOffset);
+            fbb.addOffset(15, patternOffset);
+            fbb.addBool(16, object.generated);
+            fbb.addBool(17, object.optionSetValue);
+            fbb.addOffset(18, fieldMaskOffset);
+            fbb.finish(fbb.endTable());
+            return object.id;
+          },
+          objectFromFB: (obx.Store store, ByteData fbData) {
+            final buffer = fb.BufferContext(fbData);
+            final rootOffset = buffer.derefObject(0);
+            final createdParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0),
+            );
+            final lastUpdatedParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0),
+            );
+            final uidParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGet(buffer, rootOffset, 10, '');
+            final nameParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGet(buffer, rootOffset, 12, '');
+            final codeParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGetNullable(buffer, rootOffset, 14);
+            final formNameParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGetNullable(buffer, rootOffset, 16);
+            final shortNameParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGet(buffer, rootOffset, 18, '');
+            final descriptionParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGetNullable(buffer, rootOffset, 20);
+            final aggregationTypeParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGetNullable(buffer, rootOffset, 22);
+            final valueTypeParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGet(buffer, rootOffset, 24, '');
+            final zeroIsSignificantParam = const fb.BoolReader()
+                .vTableGetNullable(buffer, rootOffset, 26);
+            final generatedParam = const fb.BoolReader().vTableGetNullable(
+              buffer,
+              rootOffset,
+              36,
+            );
+            final patternParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGetNullable(buffer, rootOffset, 34);
+            final fieldMaskParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGetNullable(buffer, rootOffset, 40);
+            final optionSetValueParam = const fb.BoolReader().vTableGetNullable(
+              buffer,
+              rootOffset,
+              38,
+            );
+            final object =
+                D2TrackedEntityAttribute(
+                    createdParam,
+                    lastUpdatedParam,
+                    uidParam,
+                    nameParam,
+                    codeParam,
+                    formNameParam,
+                    shortNameParam,
+                    descriptionParam,
+                    aggregationTypeParam,
+                    valueTypeParam,
+                    zeroIsSignificantParam,
+                    generatedParam,
+                    patternParam,
+                    fieldMaskParam,
+                    optionSetValueParam,
+                  )
+                  ..id = const fb.Int64Reader().vTableGet(
+                    buffer,
+                    rootOffset,
+                    4,
+                    0,
+                  )
+                  ..displayName = const fb.StringReader(
+                    asciiOptimization: true,
+                  ).vTableGetNullable(buffer, rootOffset, 30)
+                  ..displayFormName = const fb.StringReader(
+                    asciiOptimization: true,
+                  ).vTableGetNullable(buffer, rootOffset, 32);
+            object.optionSet.targetId = const fb.Int64Reader().vTableGet(
+              buffer,
+              rootOffset,
+              28,
+              0,
+            );
+            object.optionSet.attach(store);
+            obx_int.InternalToManyAccess.setRelInfo<D2TrackedEntityAttribute>(
+              object.legendSets,
+              store,
+              obx_int.RelInfo<D2TrackedEntityAttribute>.toMany(7, object.id),
+            );
+            return object;
+          },
+        ),
     D2TrackedEntityAttributeValue:
         obx_int.EntityDefinition<D2TrackedEntityAttributeValue>(
           model: _entities[25],
-          toOneRelations:
-              (D2TrackedEntityAttributeValue object) => [
-                object.trackedEntityAttribute,
-                object.trackedEntity,
-              ],
+          toOneRelations: (D2TrackedEntityAttributeValue object) => [
+            object.trackedEntityAttribute,
+            object.trackedEntity,
+          ],
           toManyRelations: (D2TrackedEntityAttributeValue object) => {},
           getId: (D2TrackedEntityAttributeValue object) => object.id,
           setId: (D2TrackedEntityAttributeValue object, int id) {
@@ -7634,8 +7671,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
           },
           objectToFB: (D2TrackedEntityAttributeValue object, fb.Builder fbb) {
             final uidOffset = fbb.writeString(object.uid);
-            final valueOffset =
-                object.value == null ? null : fbb.writeString(object.value!);
+            final valueOffset = object.value == null
+                ? null
+                : fbb.writeString(object.value!);
             fbb.startTable(9);
             fbb.addInt64(0, object.id);
             fbb.addInt64(1, object.createdAt.millisecondsSinceEpoch);
@@ -7692,11 +7730,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2TrackedEntityType: obx_int.EntityDefinition<D2TrackedEntityType>(
       model: _entities[26],
       toOneRelations: (D2TrackedEntityType object) => [],
-      toManyRelations:
-          (D2TrackedEntityType object) => {
-            obx_int.RelInfo<D2TrackedEntityType>.toMany(8, object.id):
-                object.trackedEntityTypeAttributes,
-          },
+      toManyRelations: (D2TrackedEntityType object) => {
+        obx_int.RelInfo<D2TrackedEntityType>.toMany(8, object.id):
+            object.trackedEntityTypeAttributes,
+      },
       getId: (D2TrackedEntityType object) => object.id,
       setId: (D2TrackedEntityType object, int id) {
         object.id = id;
@@ -7704,14 +7741,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2TrackedEntityType object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
-        final descriptionOffset =
-            object.description == null
-                ? null
-                : fbb.writeString(object.description!);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
+        final descriptionOffset = object.description == null
+            ? null
+            : fbb.writeString(object.description!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
         fbb.startTable(8);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.created.millisecondsSinceEpoch);
@@ -7770,11 +7805,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2TrackedEntityTypeAttribute:
         obx_int.EntityDefinition<D2TrackedEntityTypeAttribute>(
           model: _entities[27],
-          toOneRelations:
-              (D2TrackedEntityTypeAttribute object) => [
-                object.trackedEntityType,
-                object.trackedEntityAttribute,
-              ],
+          toOneRelations: (D2TrackedEntityTypeAttribute object) => [
+            object.trackedEntityType,
+            object.trackedEntityAttribute,
+          ],
           toManyRelations: (D2TrackedEntityTypeAttribute object) => {},
           getId: (D2TrackedEntityTypeAttribute object) => object.id,
           setId: (D2TrackedEntityTypeAttribute object, int id) {
@@ -7783,10 +7817,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
           objectToFB: (D2TrackedEntityTypeAttribute object, fb.Builder fbb) {
             final uidOffset = fbb.writeString(object.uid);
             final valueTypeOffset = fbb.writeString(object.valueType);
-            final displayNameOffset =
-                object.displayName == null
-                    ? null
-                    : fbb.writeString(object.displayName!);
+            final displayNameOffset = object.displayName == null
+                ? null
+                : fbb.writeString(object.displayName!);
             final displayShortNameOffset = fbb.writeString(
               object.displayShortName,
             );
@@ -7859,11 +7892,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2User: obx_int.EntityDefinition<D2User>(
       model: _entities[28],
       toOneRelations: (D2User object) => [],
-      toManyRelations:
-          (D2User object) => {
-            obx_int.RelInfo<D2User>.toMany(9, object.id): object.userRoles,
-            obx_int.RelInfo<D2User>.toMany(10, object.id): object.userGroups,
-          },
+      toManyRelations: (D2User object) => {
+        obx_int.RelInfo<D2User>.toMany(9, object.id): object.userRoles,
+        obx_int.RelInfo<D2User>.toMany(10, object.id): object.userGroups,
+      },
       getId: (D2User object) => object.id,
       setId: (D2User object, int id) {
         object.id = id;
@@ -7872,8 +7904,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final usernameOffset = fbb.writeString(object.username);
         final firstNameOffset = fbb.writeString(object.firstName);
         final surnameOffset = fbb.writeString(object.surname);
-        final emailOffset =
-            object.email == null ? null : fbb.writeString(object.email!);
+        final emailOffset = object.email == null
+            ? null
+            : fbb.writeString(object.email!);
         final authoritiesOffset = fbb.writeList(
           object.authorities.map(fbb.writeString).toList(growable: false),
         );
@@ -7948,14 +7981,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final lastUpdatedParam = DateTime.fromMillisecondsSinceEpoch(
           const fb.Int64Reader().vTableGet(buffer, rootOffset, 32, 0),
         );
-        final lastLoginParam =
-            lastLoginValue == null
-                ? null
-                : DateTime.fromMillisecondsSinceEpoch(lastLoginValue);
-        final passwordLastUpdatedParam =
-            passwordLastUpdatedValue == null
-                ? null
-                : DateTime.fromMillisecondsSinceEpoch(passwordLastUpdatedValue);
+        final lastLoginParam = lastLoginValue == null
+            ? null
+            : DateTime.fromMillisecondsSinceEpoch(lastLoginValue);
+        final passwordLastUpdatedParam = passwordLastUpdatedValue == null
+            ? null
+            : DateTime.fromMillisecondsSinceEpoch(passwordLastUpdatedValue);
         final dataSetsParam = const fb.ListReader<String>(
           fb.StringReader(asciiOptimization: true),
           lazy: false,
@@ -7999,10 +8030,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2UserGroup object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
         fbb.startTable(7);
         fbb.addInt64(0, object.id);
         fbb.addOffset(1, uidOffset);
@@ -8063,10 +8093,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final authoritiesOffset = fbb.writeList(
           object.authorities.map(fbb.writeString).toList(growable: false),
         );
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
         fbb.startTable(8);
         fbb.addInt64(0, object.id);
         fbb.addOffset(1, uidOffset);
@@ -8123,10 +8152,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2OrgUnitLevel object, fb.Builder fbb) {
         final nameOffset = fbb.writeString(object.name);
         final uidOffset = fbb.writeString(object.uid);
-        final displayNameOffset =
-            object.displayName == null
-                ? null
-                : fbb.writeString(object.displayName!);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
         fbb.startTable(8);
         fbb.addInt64(0, object.id);
         fbb.addOffset(1, nameOffset);
@@ -8184,31 +8212,28 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2ProgramSectionTrackedEntityAttribute:
         obx_int.EntityDefinition<D2ProgramSectionTrackedEntityAttribute>(
           model: _entities[32],
-          toOneRelations:
-              (D2ProgramSectionTrackedEntityAttribute object) => [
-                object.trackedEntityAttribute,
-                object.programSection,
-              ],
-          toManyRelations:
-              (D2ProgramSectionTrackedEntityAttribute object) => {},
+          toOneRelations: (D2ProgramSectionTrackedEntityAttribute object) => [
+            object.trackedEntityAttribute,
+            object.programSection,
+          ],
+          toManyRelations: (D2ProgramSectionTrackedEntityAttribute object) =>
+              {},
           getId: (D2ProgramSectionTrackedEntityAttribute object) => object.id,
           setId: (D2ProgramSectionTrackedEntityAttribute object, int id) {
             object.id = id;
           },
-          objectToFB: (
-            D2ProgramSectionTrackedEntityAttribute object,
-            fb.Builder fbb,
-          ) {
-            final uidOffset = fbb.writeString(object.uid);
-            fbb.startTable(6);
-            fbb.addInt64(0, object.id);
-            fbb.addOffset(1, uidOffset);
-            fbb.addInt64(2, object.sortOrder);
-            fbb.addInt64(3, object.trackedEntityAttribute.targetId);
-            fbb.addInt64(4, object.programSection.targetId);
-            fbb.finish(fbb.endTable());
-            return object.id;
-          },
+          objectToFB:
+              (D2ProgramSectionTrackedEntityAttribute object, fb.Builder fbb) {
+                final uidOffset = fbb.writeString(object.uid);
+                fbb.startTable(6);
+                fbb.addInt64(0, object.id);
+                fbb.addOffset(1, uidOffset);
+                fbb.addInt64(2, object.sortOrder);
+                fbb.addInt64(3, object.trackedEntityAttribute.targetId);
+                fbb.addInt64(4, object.programSection.targetId);
+                fbb.finish(fbb.endTable());
+                return object.id;
+              },
           objectFromFB: (obx.Store store, ByteData fbData) {
             final buffer = fb.BufferContext(fbData);
             final rootOffset = buffer.derefObject(0);
@@ -8241,30 +8266,27 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2ProgramStageSectionDataElement:
         obx_int.EntityDefinition<D2ProgramStageSectionDataElement>(
           model: _entities[33],
-          toOneRelations:
-              (D2ProgramStageSectionDataElement object) => [
-                object.dataElement,
-                object.programStageSection,
-              ],
+          toOneRelations: (D2ProgramStageSectionDataElement object) => [
+            object.dataElement,
+            object.programStageSection,
+          ],
           toManyRelations: (D2ProgramStageSectionDataElement object) => {},
           getId: (D2ProgramStageSectionDataElement object) => object.id,
           setId: (D2ProgramStageSectionDataElement object, int id) {
             object.id = id;
           },
-          objectToFB: (
-            D2ProgramStageSectionDataElement object,
-            fb.Builder fbb,
-          ) {
-            final uidOffset = fbb.writeString(object.uid);
-            fbb.startTable(6);
-            fbb.addInt64(0, object.id);
-            fbb.addOffset(1, uidOffset);
-            fbb.addInt64(2, object.sortOrder);
-            fbb.addInt64(3, object.dataElement.targetId);
-            fbb.addInt64(4, object.programStageSection.targetId);
-            fbb.finish(fbb.endTable());
-            return object.id;
-          },
+          objectToFB:
+              (D2ProgramStageSectionDataElement object, fb.Builder fbb) {
+                final uidOffset = fbb.writeString(object.uid);
+                fbb.startTable(6);
+                fbb.addInt64(0, object.id);
+                fbb.addOffset(1, uidOffset);
+                fbb.addInt64(2, object.sortOrder);
+                fbb.addInt64(3, object.dataElement.targetId);
+                fbb.addInt64(4, object.programStageSection.targetId);
+                fbb.finish(fbb.endTable());
+                return object.id;
+              },
           objectFromFB: (obx.Store store, ByteData fbData) {
             final buffer = fb.BufferContext(fbData);
             final rootOffset = buffer.derefObject(0);
@@ -8296,11 +8318,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
         ),
     D2ReservedValue: obx_int.EntityDefinition<D2ReservedValue>(
       model: _entities[34],
-      toOneRelations:
-          (D2ReservedValue object) => [
-            object.trackedEntityAttribute,
-            object.orgUnit,
-          ],
+      toOneRelations: (D2ReservedValue object) => [
+        object.trackedEntityAttribute,
+        object.orgUnit,
+      ],
       toManyRelations: (D2ReservedValue object) => {},
       getId: (D2ReservedValue object) => object.id,
       setId: (D2ReservedValue object, int id) {
@@ -8419,15 +8440,13 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2Category: obx_int.EntityDefinition<D2Category>(
       model: _entities[36],
       toOneRelations: (D2Category object) => [],
-      toManyRelations:
-          (D2Category object) => {
-            obx_int.RelInfo<D2CategoryOption>.toOneBacklink(
-                  8,
-                  object.id,
-                  (D2CategoryOption srcObject) => srcObject.category,
-                ):
-                object.categoryOptions,
-          },
+      toManyRelations: (D2Category object) => {
+        obx_int.RelInfo<D2CategoryOption>.toOneBacklink(
+          8,
+          object.id,
+          (D2CategoryOption srcObject) => srcObject.category,
+        ): object.categoryOptions,
+      },
       getId: (D2Category object) => object.id,
       setId: (D2Category object, int id) {
         object.id = id;
@@ -8435,8 +8454,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2Category object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
-        final codeOffset =
-            object.code == null ? null : fbb.writeString(object.code!);
+        final codeOffset = object.code == null
+            ? null
+            : fbb.writeString(object.code!);
         final shortNameOffset = fbb.writeString(object.shortName);
         final dataDimensionTypeOffset = fbb.writeString(
           object.dataDimensionType,
@@ -8507,11 +8527,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     D2CategoryOption: obx_int.EntityDefinition<D2CategoryOption>(
       model: _entities[37],
-      toOneRelations:
-          (D2CategoryOption object) => [
-            object.category,
-            object.categoryOptionCombo,
-          ],
+      toOneRelations: (D2CategoryOption object) => [
+        object.category,
+        object.categoryOptionCombo,
+      ],
       toManyRelations: (D2CategoryOption object) => {},
       getId: (D2CategoryOption object) => object.id,
       setId: (D2CategoryOption object, int id) {
@@ -8520,8 +8539,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2CategoryOption object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
-        final codeOffset =
-            object.code == null ? null : fbb.writeString(object.code!);
+        final codeOffset = object.code == null
+            ? null
+            : fbb.writeString(object.code!);
         final shortNameOffset = fbb.writeString(object.shortName);
         fbb.startTable(10);
         fbb.addInt64(0, object.id);
@@ -8592,17 +8612,15 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2CategoryCombo: obx_int.EntityDefinition<D2CategoryCombo>(
       model: _entities[38],
       toOneRelations: (D2CategoryCombo object) => [],
-      toManyRelations:
-          (D2CategoryCombo object) => {
-            obx_int.RelInfo<D2CategoryCombo>.toMany(21, object.id):
-                object.categories,
-            obx_int.RelInfo<D2CategoryOptionCombo>.toOneBacklink(
-                  7,
-                  object.id,
-                  (D2CategoryOptionCombo srcObject) => srcObject.categoryCombo,
-                ):
-                object.categoryOptionCombos,
-          },
+      toManyRelations: (D2CategoryCombo object) => {
+        obx_int.RelInfo<D2CategoryCombo>.toMany(21, object.id):
+            object.categories,
+        obx_int.RelInfo<D2CategoryOptionCombo>.toOneBacklink(
+          7,
+          object.id,
+          (D2CategoryOptionCombo srcObject) => srcObject.categoryCombo,
+        ): object.categoryOptionCombos,
+      },
       getId: (D2CategoryCombo object) => object.id,
       setId: (D2CategoryCombo object, int id) {
         object.id = id;
@@ -8610,8 +8628,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2CategoryCombo object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
-        final codeOffset =
-            object.code == null ? null : fbb.writeString(object.code!);
+        final codeOffset = object.code == null
+            ? null
+            : fbb.writeString(object.code!);
         final dataDimensionTypeOffset = fbb.writeString(
           object.dataDimensionType,
         );
@@ -8690,11 +8709,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2CategoryOptionCombo: obx_int.EntityDefinition<D2CategoryOptionCombo>(
       model: _entities[39],
       toOneRelations: (D2CategoryOptionCombo object) => [object.categoryCombo],
-      toManyRelations:
-          (D2CategoryOptionCombo object) => {
-            obx_int.RelInfo<D2CategoryOptionCombo>.toMany(22, object.id):
-                object.categoryOptions,
-          },
+      toManyRelations: (D2CategoryOptionCombo object) => {
+        obx_int.RelInfo<D2CategoryOptionCombo>.toMany(22, object.id):
+            object.categoryOptions,
+      },
       getId: (D2CategoryOptionCombo object) => object.id,
       setId: (D2CategoryOptionCombo object, int id) {
         object.id = id;
@@ -8702,8 +8720,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2CategoryOptionCombo object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
-        final codeOffset =
-            object.code == null ? null : fbb.writeString(object.code!);
+        final codeOffset = object.code == null
+            ? null
+            : fbb.writeString(object.code!);
         fbb.startTable(8);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.created.millisecondsSinceEpoch);
@@ -8765,23 +8784,21 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2DataSet: obx_int.EntityDefinition<D2DataSet>(
       model: _entities[40],
       toOneRelations: (D2DataSet object) => [object.categoryCombo],
-      toManyRelations:
-          (D2DataSet object) => {
-            obx_int.RelInfo<D2DataSet>.toMany(16, object.id): object.legendSets,
-            obx_int.RelInfo<D2DataSet>.toMany(23, object.id):
-                object.organisationUnits,
-            obx_int.RelInfo<D2DataSetElement>.toOneBacklink(
-                  4,
-                  object.id,
-                  (D2DataSetElement srcObject) => srcObject.dataSet,
-                ):
-                object.dataSetElements,
-            obx_int.RelInfo<D2CompulsoryDataElementOperand>.toOneBacklink(
-              9,
-              object.id,
-              (D2CompulsoryDataElementOperand srcObject) => srcObject.dataSet,
-            ): object.compulsoryDataElementOperands,
-          },
+      toManyRelations: (D2DataSet object) => {
+        obx_int.RelInfo<D2DataSet>.toMany(16, object.id): object.legendSets,
+        obx_int.RelInfo<D2DataSet>.toMany(23, object.id):
+            object.organisationUnits,
+        obx_int.RelInfo<D2DataSetElement>.toOneBacklink(
+          4,
+          object.id,
+          (D2DataSetElement srcObject) => srcObject.dataSet,
+        ): object.dataSetElements,
+        obx_int.RelInfo<D2CompulsoryDataElementOperand>.toOneBacklink(
+          9,
+          object.id,
+          (D2CompulsoryDataElementOperand srcObject) => srcObject.dataSet,
+        ): object.compulsoryDataElementOperands,
+      },
       getId: (D2DataSet object) => object.id,
       setId: (D2DataSet object, int id) {
         object.id = id;
@@ -8790,8 +8807,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
         final shortNameOffset = fbb.writeString(object.shortName);
-        final codeOffset =
-            object.code == null ? null : fbb.writeString(object.code!);
+        final codeOffset = object.code == null
+            ? null
+            : fbb.writeString(object.code!);
         final periodTypeOffset = fbb.writeString(object.periodType);
         fbb.startTable(14);
         fbb.addInt64(0, object.id);
@@ -8918,13 +8936,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     D2DataValueSet: obx_int.EntityDefinition<D2DataValueSet>(
       model: _entities[41],
-      toOneRelations:
-          (D2DataValueSet object) => [
-            object.dataElement,
-            object.categoryOptionCombo,
-            object.attributeOptionCombo,
-            object.organisationUnit,
-          ],
+      toOneRelations: (D2DataValueSet object) => [
+        object.dataElement,
+        object.categoryOptionCombo,
+        object.attributeOptionCombo,
+        object.organisationUnit,
+      ],
       toManyRelations: (D2DataValueSet object) => {},
       getId: (D2DataValueSet object) => object.id,
       setId: (D2DataValueSet object, int id) {
@@ -8934,8 +8951,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final uidOffset = fbb.writeString(object.uid);
         final valueOffset = fbb.writeString(object.value);
         final periodOffset = fbb.writeString(object.period);
-        final commentOffset =
-            object.comment == null ? null : fbb.writeString(object.comment!);
+        final commentOffset = object.comment == null
+            ? null
+            : fbb.writeString(object.comment!);
         fbb.startTable(14);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.createdAt.millisecondsSinceEpoch);
@@ -8986,22 +9004,23 @@ obx_int.ModelDefinition getObjectBoxModel() {
           28,
           false,
         );
-        final object = D2DataValueSet(
-            uidParam,
-            idParam,
-            createdAtParam,
-            updatedAtParam,
-            valueParam,
-            periodParam,
-            commentParam,
-            followupParam,
-          )
-          ..synced = const fb.BoolReader().vTableGet(
-            buffer,
-            rootOffset,
-            10,
-            false,
-          );
+        final object =
+            D2DataValueSet(
+                uidParam,
+                idParam,
+                createdAtParam,
+                updatedAtParam,
+                valueParam,
+                periodParam,
+                commentParam,
+                followupParam,
+              )
+              ..synced = const fb.BoolReader().vTableGet(
+                buffer,
+                rootOffset,
+                10,
+                false,
+              );
         object.dataElement.targetId = const fb.Int64Reader().vTableGet(
           buffer,
           rootOffset,
@@ -9035,8 +9054,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     D2DataSetElement: obx_int.EntityDefinition<D2DataSetElement>(
       model: _entities[42],
-      toOneRelations:
-          (D2DataSetElement object) => [object.dataElement, object.dataSet],
+      toOneRelations: (D2DataSetElement object) => [
+        object.dataElement,
+        object.dataSet,
+      ],
       toManyRelations: (D2DataSetElement object) => {},
       getId: (D2DataSetElement object) => object.id,
       setId: (D2DataSetElement object, int id) {
@@ -9085,12 +9106,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2CompulsoryDataElementOperand:
         obx_int.EntityDefinition<D2CompulsoryDataElementOperand>(
           model: _entities[43],
-          toOneRelations:
-              (D2CompulsoryDataElementOperand object) => [
-                object.dataElement,
-                object.dataSet,
-                object.categoryOptionCombo,
-              ],
+          toOneRelations: (D2CompulsoryDataElementOperand object) => [
+            object.dataElement,
+            object.dataSet,
+            object.categoryOptionCombo,
+          ],
           toManyRelations: (D2CompulsoryDataElementOperand object) => {},
           getId: (D2CompulsoryDataElementOperand object) => object.id,
           setId: (D2CompulsoryDataElementOperand object, int id) {
@@ -9156,11 +9176,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2OptionGroup: obx_int.EntityDefinition<D2OptionGroup>(
       model: _entities[44],
       toOneRelations: (D2OptionGroup object) => [object.optionSet],
-      toManyRelations:
-          (D2OptionGroup object) => {
-            obx_int.RelInfo<D2Option>.toManyBacklink(26, object.id):
-                object.options,
-          },
+      toManyRelations: (D2OptionGroup object) => {
+        obx_int.RelInfo<D2Option>.toManyBacklink(26, object.id): object.options,
+      },
       getId: (D2OptionGroup object) => object.id,
       setId: (D2OptionGroup object, int id) {
         object.id = id;
@@ -9168,8 +9186,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2OptionGroup object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
-        final codeOffset =
-            object.code == null ? null : fbb.writeString(object.code!);
+        final codeOffset = object.code == null
+            ? null
+            : fbb.writeString(object.code!);
         fbb.startTable(8);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.created.millisecondsSinceEpoch);
@@ -9230,13 +9249,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     D2ImportSummaryError: obx_int.EntityDefinition<D2ImportSummaryError>(
       model: _entities[45],
-      toOneRelations:
-          (D2ImportSummaryError object) => [
-            object.trackedEntity,
-            object.event,
-            object.relationship,
-            object.enrollment,
-          ],
+      toOneRelations: (D2ImportSummaryError object) => [
+        object.trackedEntity,
+        object.event,
+        object.relationship,
+        object.enrollment,
+      ],
       toManyRelations: (D2ImportSummaryError object) => {},
       getId: (D2ImportSummaryError object) => object.id,
       setId: (D2ImportSummaryError object, int id) {
@@ -9328,10 +9346,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2AppLog object, fb.Builder fbb) {
         final messageOffset = fbb.writeString(object.message);
         final processOffset = fbb.writeString(object.process);
-        final stackTraceOffset =
-            object.stackTrace == null
-                ? null
-                : fbb.writeString(object.stackTrace!);
+        final stackTraceOffset = object.stackTrace == null
+            ? null
+            : fbb.writeString(object.stackTrace!);
         final uidOffset = fbb.writeString(object.uid);
         fbb.startTable(8);
         fbb.addInt64(0, object.id);
@@ -9389,13 +9406,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     D2AppAutoSave: obx_int.EntityDefinition<D2AppAutoSave>(
       model: _entities[47],
-      toOneRelations:
-          (D2AppAutoSave object) => [
-            object.program,
-            object.programStage,
-            object.enrollment,
-            object.event,
-          ],
+      toOneRelations: (D2AppAutoSave object) => [
+        object.program,
+        object.programStage,
+        object.enrollment,
+        object.event,
+      ],
       toManyRelations: (D2AppAutoSave object) => {},
       getId: (D2AppAutoSave object) => object.id,
       setId: (D2AppAutoSave object, int id) {
@@ -9427,14 +9443,13 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final dataParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGet(buffer, rootOffset, 6, '');
-        final object =
-            D2AppAutoSave(idParam, dataParam)
-              ..createdAt = DateTime.fromMillisecondsSinceEpoch(
-                const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0),
-              )
-              ..updatedAt = DateTime.fromMillisecondsSinceEpoch(
-                const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0),
-              );
+        final object = D2AppAutoSave(idParam, dataParam)
+          ..createdAt = DateTime.fromMillisecondsSinceEpoch(
+            const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0),
+          )
+          ..updatedAt = DateTime.fromMillisecondsSinceEpoch(
+            const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0),
+          );
         object.program.targetId = const fb.Int64Reader().vTableGet(
           buffer,
           rootOffset,
@@ -9468,27 +9483,23 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     D2Sharing: obx_int.EntityDefinition<D2Sharing>(
       model: _entities[48],
-      toOneRelations:
-          (D2Sharing object) => [
-            object.program,
-            object.programStage,
-            object.dataSet,
-          ],
-      toManyRelations:
-          (D2Sharing object) => {
-            obx_int.RelInfo<D2UserSharing>.toOneBacklink(
-                  2,
-                  object.id,
-                  (D2UserSharing srcObject) => srcObject.sharing,
-                ):
-                object.users,
-            obx_int.RelInfo<D2UserGroupSharing>.toOneBacklink(
-                  5,
-                  object.id,
-                  (D2UserGroupSharing srcObject) => srcObject.sharing,
-                ):
-                object.userGroups,
-          },
+      toOneRelations: (D2Sharing object) => [
+        object.program,
+        object.programStage,
+        object.dataSet,
+      ],
+      toManyRelations: (D2Sharing object) => {
+        obx_int.RelInfo<D2UserSharing>.toOneBacklink(
+          2,
+          object.id,
+          (D2UserSharing srcObject) => srcObject.sharing,
+        ): object.users,
+        obx_int.RelInfo<D2UserGroupSharing>.toOneBacklink(
+          5,
+          object.id,
+          (D2UserGroupSharing srcObject) => srcObject.sharing,
+        ): object.userGroups,
+      },
       getId: (D2Sharing object) => object.id,
       setId: (D2Sharing object, int id) {
         object.id = id;
@@ -9695,11 +9706,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
     D2OptionGroupSet: obx_int.EntityDefinition<D2OptionGroupSet>(
       model: _entities[51],
       toOneRelations: (D2OptionGroupSet object) => [object.optionSet],
-      toManyRelations:
-          (D2OptionGroupSet object) => {
-            obx_int.RelInfo<D2OptionGroupSet>.toMany(28, object.id):
-                object.optionGroups,
-          },
+      toManyRelations: (D2OptionGroupSet object) => {
+        obx_int.RelInfo<D2OptionGroupSet>.toMany(28, object.id):
+            object.optionGroups,
+      },
       getId: (D2OptionGroupSet object) => object.id,
       setId: (D2OptionGroupSet object, int id) {
         object.id = id;
@@ -9707,8 +9717,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (D2OptionGroupSet object, fb.Builder fbb) {
         final uidOffset = fbb.writeString(object.uid);
         final nameOffset = fbb.writeString(object.name);
-        final codeOffset =
-            object.code == null ? null : fbb.writeString(object.code!);
+        final codeOffset = object.code == null
+            ? null
+            : fbb.writeString(object.code!);
         fbb.startTable(8);
         fbb.addOffset(0, uidOffset);
         fbb.addInt64(1, object.created.millisecondsSinceEpoch);
@@ -9769,12 +9780,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     D2ProgramOwner: obx_int.EntityDefinition<D2ProgramOwner>(
       model: _entities[52],
-      toOneRelations:
-          (D2ProgramOwner object) => [
-            object.trackedEntity,
-            object.program,
-            object.orgUnit,
-          ],
+      toOneRelations: (D2ProgramOwner object) => [
+        object.trackedEntity,
+        object.program,
+        object.orgUnit,
+      ],
       toManyRelations: (D2ProgramOwner object) => {},
       getId: (D2ProgramOwner object) => object.id,
       setId: (D2ProgramOwner object, int id) {
@@ -10967,10 +10977,11 @@ class D2ProgramSection_ {
   );
 
   /// see [D2ProgramSection.programSectionTrackedEntityAttributes]
-  static final programSectionTrackedEntityAttributes = obx.QueryBacklinkToMany<
-    D2ProgramSectionTrackedEntityAttribute,
-    D2ProgramSection
-  >(D2ProgramSectionTrackedEntityAttribute_.programSection);
+  static final programSectionTrackedEntityAttributes =
+      obx.QueryBacklinkToMany<
+        D2ProgramSectionTrackedEntityAttribute,
+        D2ProgramSection
+      >(D2ProgramSectionTrackedEntityAttribute_.programSection);
 }
 
 /// [D2ProgramStage] entity fields to define ObjectBox queries.
@@ -11189,10 +11200,11 @@ class D2ProgramStageSection_ {
   );
 
   /// see [D2ProgramStageSection.programStageSectionDataElements]
-  static final programStageSectionDataElements = obx.QueryBacklinkToMany<
-    D2ProgramStageSectionDataElement,
-    D2ProgramStageSection
-  >(D2ProgramStageSectionDataElement_.programStageSection);
+  static final programStageSectionDataElements =
+      obx.QueryBacklinkToMany<
+        D2ProgramStageSectionDataElement,
+        D2ProgramStageSection
+      >(D2ProgramStageSectionDataElement_.programStageSection);
 }
 
 /// [D2ProgramTrackedEntityAttribute] entity fields to define ObjectBox queries.
@@ -11249,10 +11261,11 @@ class D2ProgramTrackedEntityAttribute_ {
       );
 
   /// See [D2ProgramTrackedEntityAttribute.trackedEntityAttribute].
-  static final trackedEntityAttribute = obx.QueryRelationToOne<
-    D2ProgramTrackedEntityAttribute,
-    D2TrackedEntityAttribute
-  >(_entities[19].properties[9]);
+  static final trackedEntityAttribute =
+      obx.QueryRelationToOne<
+        D2ProgramTrackedEntityAttribute,
+        D2TrackedEntityAttribute
+      >(_entities[19].properties[9]);
 
   /// See [D2ProgramTrackedEntityAttribute.displayName].
   static final displayName =
@@ -11762,10 +11775,11 @@ class D2TrackedEntityAttributeValue_ {
   );
 
   /// See [D2TrackedEntityAttributeValue.trackedEntityAttribute].
-  static final trackedEntityAttribute = obx.QueryRelationToOne<
-    D2TrackedEntityAttributeValue,
-    D2TrackedEntityAttribute
-  >(_entities[25].properties[5]);
+  static final trackedEntityAttribute =
+      obx.QueryRelationToOne<
+        D2TrackedEntityAttributeValue,
+        D2TrackedEntityAttribute
+      >(_entities[25].properties[5]);
 
   /// See [D2TrackedEntityAttributeValue.trackedEntity].
   static final trackedEntity =
@@ -11817,10 +11831,11 @@ class D2TrackedEntityType_ {
   );
 
   /// see [D2TrackedEntityType.trackedEntityTypeAttributes]
-  static final trackedEntityTypeAttributes = obx.QueryRelationToMany<
-    D2TrackedEntityType,
-    D2TrackedEntityTypeAttribute
-  >(_entities[26].relations[0]);
+  static final trackedEntityTypeAttributes =
+      obx.QueryRelationToMany<
+        D2TrackedEntityType,
+        D2TrackedEntityTypeAttribute
+      >(_entities[26].relations[0]);
 }
 
 /// [D2TrackedEntityTypeAttribute] entity fields to define ObjectBox queries.
@@ -11853,10 +11868,11 @@ class D2TrackedEntityTypeAttribute_ {
       );
 
   /// See [D2TrackedEntityTypeAttribute.trackedEntityAttribute].
-  static final trackedEntityAttribute = obx.QueryRelationToOne<
-    D2TrackedEntityTypeAttribute,
-    D2TrackedEntityAttribute
-  >(_entities[27].properties[5]);
+  static final trackedEntityAttribute =
+      obx.QueryRelationToOne<
+        D2TrackedEntityTypeAttribute,
+        D2TrackedEntityAttribute
+      >(_entities[27].properties[5]);
 
   /// See [D2TrackedEntityTypeAttribute.valueType].
   static final valueType =
@@ -12096,16 +12112,18 @@ class D2ProgramSectionTrackedEntityAttribute_ {
       );
 
   /// See [D2ProgramSectionTrackedEntityAttribute.trackedEntityAttribute].
-  static final trackedEntityAttribute = obx.QueryRelationToOne<
-    D2ProgramSectionTrackedEntityAttribute,
-    D2TrackedEntityAttribute
-  >(_entities[32].properties[3]);
+  static final trackedEntityAttribute =
+      obx.QueryRelationToOne<
+        D2ProgramSectionTrackedEntityAttribute,
+        D2TrackedEntityAttribute
+      >(_entities[32].properties[3]);
 
   /// See [D2ProgramSectionTrackedEntityAttribute.programSection].
-  static final programSection = obx.QueryRelationToOne<
-    D2ProgramSectionTrackedEntityAttribute,
-    D2ProgramSection
-  >(_entities[32].properties[4]);
+  static final programSection =
+      obx.QueryRelationToOne<
+        D2ProgramSectionTrackedEntityAttribute,
+        D2ProgramSection
+      >(_entities[32].properties[4]);
 }
 
 /// [D2ProgramStageSectionDataElement] entity fields to define ObjectBox queries.
@@ -12133,10 +12151,11 @@ class D2ProgramStageSectionDataElement_ {
       );
 
   /// See [D2ProgramStageSectionDataElement.programStageSection].
-  static final programStageSection = obx.QueryRelationToOne<
-    D2ProgramStageSectionDataElement,
-    D2ProgramStageSection
-  >(_entities[33].properties[4]);
+  static final programStageSection =
+      obx.QueryRelationToOne<
+        D2ProgramStageSectionDataElement,
+        D2ProgramStageSection
+      >(_entities[33].properties[4]);
 }
 
 /// [D2ReservedValue] entity fields to define ObjectBox queries.
@@ -12631,10 +12650,11 @@ class D2CompulsoryDataElementOperand_ {
       );
 
   /// See [D2CompulsoryDataElementOperand.categoryOptionCombo].
-  static final categoryOptionCombo = obx.QueryRelationToOne<
-    D2CompulsoryDataElementOperand,
-    D2CategoryOptionCombo
-  >(_entities[43].properties[6]);
+  static final categoryOptionCombo =
+      obx.QueryRelationToOne<
+        D2CompulsoryDataElementOperand,
+        D2CategoryOptionCombo
+      >(_entities[43].properties[6]);
 }
 
 /// [D2OptionGroup] entity fields to define ObjectBox queries.
