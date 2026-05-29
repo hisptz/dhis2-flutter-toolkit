@@ -58,23 +58,26 @@ class D2DataSet extends D2MetaResource {
   );
 
   D2DataSet.fromMap(D2ObjectBox db, Map json)
-      : created = DateTime.parse(json['created'] ?? json['createdAt']),
-        lastUpdated = DateTime.parse(json['lastUpdated'] ?? json['updatedAt']),
-        uid = json['id'],
-        name = json['name'],
-        code = json['code'],
-        periodType = json['periodType'],
-        expiryDays = json['expiryDays'],
-        timelyDays = (json['timelyDays'] is double)
-            ? json['timelyDays'].toInt()
-            : json['timelyDays'],
-        openFuturePeriods = json['openFuturePeriods'],
-        openPeriodsAfterCoEndDate = json['openPeriodsAfterCoEndDate'],
-        shortName = json['shortName'] {
+    : created = DateTime.parse(json['created'] ?? json['createdAt']),
+      lastUpdated = DateTime.parse(json['lastUpdated'] ?? json['updatedAt']),
+      uid = json['id'],
+      name = json['name'],
+      code = json['code'],
+      periodType = json['periodType'],
+      expiryDays = (json['expiryDays'] is double)
+          ? json['expiryDays'].toInt()
+          : json['expiryDays'],
+      timelyDays = (json['timelyDays'] is double)
+          ? json['timelyDays'].toInt()
+          : json['timelyDays'],
+      openFuturePeriods = json['openFuturePeriods'],
+      openPeriodsAfterCoEndDate = json['openPeriodsAfterCoEndDate'],
+      shortName = json['shortName'] {
     id = D2DataSetRepository(db).getIdByUid(json["id"]) ?? 0;
 
-    categoryCombo.target = D2CategoryComboRepository(db)
-        .getByUid(json['categoryCombo']?['id'] ?? '');
+    categoryCombo.target = D2CategoryComboRepository(
+      db,
+    ).getByUid(json['categoryCombo']?['id'] ?? '');
 
     List<D2DataSetElement> elements = json['dataSetElements']
         .cast<Map>()
@@ -85,8 +88,10 @@ class D2DataSet extends D2MetaResource {
     List<D2CompulsoryDataElementOperand> compulsoryElements =
         json['compulsoryDataElementOperands']
             .cast<Map>()
-            ?.map<D2CompulsoryDataElementOperand>((Map element) =>
-                D2CompulsoryDataElementOperand.fromMap(db, element))
+            ?.map<D2CompulsoryDataElementOperand>(
+              (Map element) =>
+                  D2CompulsoryDataElementOperand.fromMap(db, element),
+            )
             .toList()
             .cast<D2CompulsoryDataElementOperand>();
     compulsoryDataElementOperands.addAll(compulsoryElements);
@@ -94,12 +99,12 @@ class D2DataSet extends D2MetaResource {
     List<D2OrgUnit?> orgUnits = json['organisationUnits']
         .cast<Map>()
         .map<D2OrgUnit?>(
-            (Map json) => D2OrgUnitRepository(db).getByUid(json['id']))
+          (Map json) => D2OrgUnitRepository(db).getByUid(json['id']),
+        )
         .toList()
         .cast<D2OrgUnit?>();
-    organisationUnits.addAll(orgUnits
-        .where((element) => element != null)
-        .toList()
-        .cast<D2OrgUnit>());
+    organisationUnits.addAll(
+      orgUnits.where((element) => element != null).toList().cast<D2OrgUnit>(),
+    );
   }
 }
