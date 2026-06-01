@@ -8,6 +8,7 @@ import '../category_option.dart';
 import '../category_option_combo.dart';
 import '../data_element.dart';
 import '../data_set.dart';
+import '../data_set_section.dart';
 import '../legend.dart';
 import '../legend_set.dart';
 import '../option.dart';
@@ -40,7 +41,9 @@ mixin D2DataSetDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2DataSet> {
     "categoryCombos",
     "categoryOptionCombos",
     "dataElements",
-    "dataSets"
+    "dataSets",
+    // Sections must come after dataSets so the parent dataSet FK resolves.
+    "sections",
   ];
 
   syncMeta(String key, List<Map<String, dynamic>> value) {
@@ -65,6 +68,8 @@ mixin D2DataSetDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2DataSet> {
         return D2CategoryOptionRepository(db).saveOffline(value);
       case "dataSets":
         return D2DataSetRepository(db).saveOffline(value);
+      case "sections":
+        return D2DataSetSectionRepository(db).saveOffline(value);
     }
   }
 

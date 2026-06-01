@@ -38,10 +38,10 @@ class D2DataValueSet extends SyncDataSource implements D2BaseDeletable {
   D2DataValueSet.fromMap(D2ObjectBox db, Map json)
       : updatedAt = DateTime.parse(json["lastUpdated"] ?? json["updatedAt"]),
         createdAt = DateTime.parse(json["created"] ?? json["createdAt"]),
-        value = json["value"],
-        period = json["period"],
+        value = json['value'] ?? '',
+        period = json['period'] ?? '',
         comment = json["comment"],
-        followup = json['followup'] {
+        followup = json['followup'] ?? false {
     dataElement.target =
         D2DataElementRepository(db).getByUid(json["dataElement"]);
     organisationUnit.target = D2OrgUnitRepository(db).getByUid(json["orgUnit"]);
