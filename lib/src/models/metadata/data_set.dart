@@ -6,6 +6,7 @@ import '../../repositories/metadata/entry.dart';
 import './base.dart';
 import 'category_combo.dart';
 import 'data_set_element.dart';
+import 'data_set_section.dart';
 import 'legend_set.dart';
 import 'org_unit.dart';
 
@@ -30,6 +31,13 @@ class D2DataSet extends D2MetaResource {
   int timelyDays;
   int openPeriodsAfterCoEndDate;
 
+  /// Hex color configured by the DHIS2 admin (e.g. "#64b5f6"). Null if not set.
+  String? styleColor;
+
+  /// DHIS2 icon name configured by the admin (e.g. "child_program_outline").
+  /// Use the icon API or a local mapping to resolve the actual icon asset.
+  String? styleIcon;
+
   final categoryCombo = ToOne<D2CategoryCombo>();
 
   @Backlink("dataSet")
@@ -41,6 +49,9 @@ class D2DataSet extends D2MetaResource {
   @Backlink("dataSet")
   final compulsoryDataElementOperands =
       ToMany<D2CompulsoryDataElementOperand>();
+
+  @Backlink("dataSet")
+  final sections = ToMany<D2DataSetSection>();
 
   D2DataSet(
     this.id,
@@ -58,26 +69,27 @@ class D2DataSet extends D2MetaResource {
   );
 
   D2DataSet.fromMap(D2ObjectBox db, Map json)
-    : created = DateTime.parse(json['created'] ?? json['createdAt']),
-      lastUpdated = DateTime.parse(json['lastUpdated'] ?? json['updatedAt']),
-      uid = json['id'],
-      name = json['name'],
-      code = json['code'],
-      periodType = json['periodType'],
-      expiryDays = (json['expiryDays'] is double)
-          ? json['expiryDays'].toInt()
-          : json['expiryDays'],
-      timelyDays = (json['timelyDays'] is double)
-          ? json['timelyDays'].toInt()
-          : json['timelyDays'],
-      openFuturePeriods = json['openFuturePeriods'],
-      openPeriodsAfterCoEndDate = json['openPeriodsAfterCoEndDate'],
-      shortName = json['shortName'] {
+      : created = DateTime.parse(json['created'] ?? json['createdAt']),
+        lastUpdated = DateTime.parse(json['lastUpdated'] ?? json['updatedAt']),
+        uid = json['id'],
+        name = json['name'],
+        code = json['code'],
+        periodType = json['periodType'],
+        expiryDays = (json['expiryDays'] as num).toInt(),
+        timelyDays = (json['timelyDays'] as num).toInt(),
+        openFuturePeriods = (json['openFuturePeriods'] as num).toInt(),
+        openPeriodsAfterCoEndDate =
+            (json['openPeriodsAfterCoEndDate'] as num).toInt(),
+        shortName = json['shortName'] {
     id = D2DataSetRepository(db).getIdByUid(json["id"]) ?? 0;
 
-    categoryCombo.target = D2CategoryComboRepository(
-      db,
-    ).getByUid(json['categoryCombo']?['id'] ?? '');
+    // Parse style fields — present only when the admin has configured them.
+    final style = json['style'] as Map?;
+    styleColor = style?['color'] as String?;
+    styleIcon = style?['icon'] as String?;
+
+    categoryCombo.target = D2CategoryComboRepository(db)
+        .getByUid(json['categoryCombo']?['id'] ?? '');
 
     List<D2DataSetElement> elements = json['dataSetElements']
         .cast<Map>()

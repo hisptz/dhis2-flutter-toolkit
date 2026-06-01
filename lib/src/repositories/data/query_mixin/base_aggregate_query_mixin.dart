@@ -16,7 +16,7 @@ mixin D2BaseAggregateQueryMixin<T extends D2DataResource>
 
   updateQueryCondition(Condition<T> condition) {
     if (queryConditions != null) {
-      queryConditions!.and(condition);
+      queryConditions = queryConditions!.and(condition);
     } else {
       queryConditions = condition;
     }
