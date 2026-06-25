@@ -1,5 +1,6 @@
 import '../../../models/metadata/data_set.dart';
 import '../../../models/metadata/sharing.dart';
+import '../../../models/metadata/validation_rule.dart';
 import '../../../services/entry.dart';
 import '../../../utils/entry.dart';
 import '../category.dart';
@@ -14,6 +15,7 @@ import '../legend_set.dart';
 import '../option.dart';
 import '../option_set.dart';
 import '../sharing.dart';
+import '../validation_rule.dart';
 import 'base_meta_download_mixin.dart';
 
 mixin D2DataSetDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2DataSet> {
@@ -107,6 +109,42 @@ mixin D2DataSetDownloadServiceMixin on BaseMetaDownloadServiceMixin<D2DataSet> {
         await saveSharingSettings(value);
       }
     });
+
+    await _syncValidationRules(dataSetId);
+  }
+
+  Future<void> _syncValidationRules(String dataSetId) async {
+    Map<String, dynamic>? response =
+        await client!.httpGet<Map<String, dynamic>>(
+      'validationRules',
+      queryParameters: {
+        'dataSet': dataSetId,
+        'fields':
+            'id,name,description,instruction,importance,operator,periodType,skipFormValidation,leftSide[expression,description,missingValueStrategy,slidingWindow],rightSide[expression,description,missingValueStrategy,slidingWindow]',
+        'paging': 'false',
+      },
+    );
+
+    if (response == null) return;
+
+    final List<Map<String, dynamic>> rules =
+        (response['validationRules'] as List?)?.cast<Map<String, dynamic>>() ??
+            [];
+
+    if (rules.isEmpty) return;
+
+    final repo = D2ValidationRuleRepository(db);
+    final dataSet = D2DataSetRepository(db).getByUid(dataSetId);
+
+    for (final ruleJson in rules) {
+      final rule = D2ValidationRule.fromMap(db, ruleJson);
+
+      if (dataSet != null && !rule.dataSets.any((ds) => ds.uid == dataSetId)) {
+        rule.dataSets.add(dataSet);
+      }
+
+      repo.box.put(rule);
+    }
   }
 
   @override

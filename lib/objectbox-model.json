@@ -3710,11 +3710,123 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "59:3681575742877049569",
+      "lastPropertyId": "19:3427862082728335955",
+      "name": "D2ValidationRule",
+      "properties": [
+        {
+          "id": "1:8135318903724708109",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8131884812478269704",
+          "name": "uid",
+          "indexId": "151:2763763157059561384",
+          "type": 9,
+          "flags": 2080
+        },
+        {
+          "id": "3:2097399502864811987",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "4:6019195741352672964",
+          "name": "lastUpdated",
+          "type": 10
+        },
+        {
+          "id": "5:632276805107621505",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:2667192974724731354",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "7:8157965436573540844",
+          "name": "instruction",
+          "type": 9
+        },
+        {
+          "id": "8:6061335043920324734",
+          "name": "importance",
+          "type": 9
+        },
+        {
+          "id": "9:4309356076973379462",
+          "name": "operator",
+          "type": 9
+        },
+        {
+          "id": "10:4327651700933051521",
+          "name": "periodType",
+          "type": 9
+        },
+        {
+          "id": "11:8859998027085998340",
+          "name": "skipFormValidation",
+          "type": 1
+        },
+        {
+          "id": "12:8945018211144195428",
+          "name": "leftSideExpression",
+          "type": 9
+        },
+        {
+          "id": "13:5931768719240667180",
+          "name": "leftSideDescription",
+          "type": 9
+        },
+        {
+          "id": "14:3654639709580991829",
+          "name": "leftSideMissingValueStrategy",
+          "type": 9
+        },
+        {
+          "id": "15:150807143564538514",
+          "name": "leftSideSlidingWindow",
+          "type": 1
+        },
+        {
+          "id": "16:9141933577015718238",
+          "name": "rightSideExpression",
+          "type": 9
+        },
+        {
+          "id": "17:8564546786053398078",
+          "name": "rightSideDescription",
+          "type": 9
+        },
+        {
+          "id": "18:4748808572112043643",
+          "name": "rightSideMissingValueStrategy",
+          "type": 9
+        },
+        {
+          "id": "19:3427862082728335955",
+          "name": "rightSideSlidingWindow",
+          "type": 1
+        }
+      ],
+      "relations": [
+        {
+          "id": "32:4221501691947852654",
+          "name": "dataSets",
+          "targetId": "42:12844185218694803"
+        }
+      ]
     }
   ],
-  "lastEntityId": "58:6185148801304404309",
-  "lastIndexId": "150:9027293883785354485",
-  "lastRelationId": "31:7622425236856509721",
+  "lastEntityId": "59:3681575742877049569",
+  "lastIndexId": "151:2763763157059561384",
+  "lastRelationId": "32:4221501691947852654",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,

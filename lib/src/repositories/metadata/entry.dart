@@ -39,3 +39,4 @@ export "tracked_entity_type_attribute.dart"
 export "user.dart" show D2UserRepository;
 export "user_group.dart" show D2UserGroupRepository;
 export "user_role.dart" show D2UserRoleRepository;
+export 'validation_rule.dart' show D2ValidationRuleRepository;

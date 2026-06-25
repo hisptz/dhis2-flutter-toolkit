@@ -36,3 +36,4 @@ export "tracked_entity_type_attribute.dart" show D2TrackedEntityTypeAttribute;
 export "user.dart" show D2User;
 export "user_group.dart" show D2UserGroup;
 export "user_role.dart" show D2UserRole;
+export 'validation_rule.dart' show D2ValidationRule;

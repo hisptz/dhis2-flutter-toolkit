@@ -9,6 +9,7 @@ import 'data_set_element.dart';
 import 'data_set_section.dart';
 import 'legend_set.dart';
 import 'org_unit.dart';
+import 'validation_rule.dart';
 
 @Entity()
 class D2DataSet extends D2MetaResource {
@@ -52,6 +53,9 @@ class D2DataSet extends D2MetaResource {
 
   @Backlink("dataSet")
   final sections = ToMany<D2DataSetSection>();
+
+  @Backlink("dataSets")
+  final validationRules = ToMany<D2ValidationRule>();
 
   D2DataSet(
     this.id,
