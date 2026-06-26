@@ -69,6 +69,7 @@ import 'src/models/metadata/user_group.dart';
 import 'src/models/metadata/user_group_sharing.dart';
 import 'src/models/metadata/user_role.dart';
 import 'src/models/metadata/user_sharing.dart';
+import 'src/models/metadata/validation_rule.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
@@ -3636,14 +3637,19 @@ final _entities = <obx_int.ModelEntity>[
         srcField: 'dataSet',
       ),
       obx_int.ModelBacklink(
+        name: 'compulsoryDataElementOperands',
+        srcEntity: 'D2CompulsoryDataElementOperand',
+        srcField: 'dataSet',
+      ),
+      obx_int.ModelBacklink(
         name: 'sections',
         srcEntity: 'D2DataSetSection',
         srcField: 'dataSet',
       ),
       obx_int.ModelBacklink(
-        name: 'compulsoryDataElementOperands',
-        srcEntity: 'D2CompulsoryDataElementOperand',
-        srcField: 'dataSet',
+        name: 'validationRules',
+        srcEntity: 'D2ValidationRule',
+        srcField: 'dataSets',
       ),
     ],
   ),
@@ -4520,6 +4526,137 @@ final _entities = <obx_int.ModelEntity>[
     relations: <obx_int.ModelRelation>[],
     backlinks: <obx_int.ModelBacklink>[],
   ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(59, 3681575742877049569),
+    name: 'D2ValidationRule',
+    lastPropertyId: const obx_int.IdUid(19, 3427862082728335955),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 8135318903724708109),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 8131884812478269704),
+        name: 'uid',
+        type: 9,
+        flags: 2080,
+        indexId: const obx_int.IdUid(151, 2763763157059561384),
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 2097399502864811987),
+        name: 'created',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 6019195741352672964),
+        name: 'lastUpdated',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 632276805107621505),
+        name: 'name',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 2667192974724731354),
+        name: 'description',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 8157965436573540844),
+        name: 'instruction',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(8, 6061335043920324734),
+        name: 'importance',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(9, 4309356076973379462),
+        name: 'operator',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(10, 4327651700933051521),
+        name: 'periodType',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(11, 8859998027085998340),
+        name: 'skipFormValidation',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(12, 8945018211144195428),
+        name: 'leftSideExpression',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(13, 5931768719240667180),
+        name: 'leftSideDescription',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(14, 3654639709580991829),
+        name: 'leftSideMissingValueStrategy',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(15, 150807143564538514),
+        name: 'leftSideSlidingWindow',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(16, 9141933577015718238),
+        name: 'rightSideExpression',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(17, 8564546786053398078),
+        name: 'rightSideDescription',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(18, 4748808572112043643),
+        name: 'rightSideMissingValueStrategy',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(19, 3427862082728335955),
+        name: 'rightSideSlidingWindow',
+        type: 1,
+        flags: 0,
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[
+      obx_int.ModelRelation(
+        id: const obx_int.IdUid(32, 4221501691947852654),
+        name: 'dataSets',
+        targetId: const obx_int.IdUid(42, 12844185218694803),
+      ),
+    ],
+    backlinks: <obx_int.ModelBacklink>[],
+  ),
 ];
 
 /// Shortcut for [obx.Store.new] that passes [getObjectBoxModel] and for Flutter
@@ -4565,9 +4702,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
     // Typically, this is done with `dart run build_runner build`.
     generatorVersion: obx_int.GeneratorVersion.v2025_12_16,
     entities: _entities,
-    lastEntityId: const obx_int.IdUid(58, 6185148801304404309),
-    lastIndexId: const obx_int.IdUid(150, 9027293883785354485),
-    lastRelationId: const obx_int.IdUid(31, 7622425236856509721),
+    lastEntityId: const obx_int.IdUid(59, 3681575742877049569),
+    lastIndexId: const obx_int.IdUid(151, 2763763157059561384),
+    lastRelationId: const obx_int.IdUid(32, 4221501691947852654),
     lastSequenceId: const obx_int.IdUid(0, 0),
     retiredEntityUids: const [
       4845029629663650184,
@@ -8927,16 +9064,18 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.id,
           (D2DataSetElement srcObject) => srcObject.dataSet,
         ): object.dataSetElements,
-        obx_int.RelInfo<D2DataSetSection>.toOneBacklink(
-          8,
-          object.id,
-          (D2DataSetSection srcObject) => srcObject.dataSet,
-        ): object.sections,
         obx_int.RelInfo<D2CompulsoryDataElementOperand>.toOneBacklink(
           9,
           object.id,
           (D2CompulsoryDataElementOperand srcObject) => srcObject.dataSet,
         ): object.compulsoryDataElementOperands,
+        obx_int.RelInfo<D2DataSetSection>.toOneBacklink(
+          8,
+          object.id,
+          (D2DataSetSection srcObject) => srcObject.dataSet,
+        ): object.sections,
+        obx_int.RelInfo<D2ValidationRule>.toManyBacklink(32, object.id):
+            object.validationRules,
       },
       getId: (D2DataSet object) => object.id,
       setId: (D2DataSet object, int id) {
@@ -9077,6 +9216,15 @@ obx_int.ModelDefinition getObjectBoxModel() {
           ),
         );
         obx_int.InternalToManyAccess.setRelInfo<D2DataSet>(
+          object.compulsoryDataElementOperands,
+          store,
+          obx_int.RelInfo<D2CompulsoryDataElementOperand>.toOneBacklink(
+            9,
+            object.id,
+            (D2CompulsoryDataElementOperand srcObject) => srcObject.dataSet,
+          ),
+        );
+        obx_int.InternalToManyAccess.setRelInfo<D2DataSet>(
           object.sections,
           store,
           obx_int.RelInfo<D2DataSetSection>.toOneBacklink(
@@ -9086,13 +9234,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
           ),
         );
         obx_int.InternalToManyAccess.setRelInfo<D2DataSet>(
-          object.compulsoryDataElementOperands,
+          object.validationRules,
           store,
-          obx_int.RelInfo<D2CompulsoryDataElementOperand>.toOneBacklink(
-            9,
-            object.id,
-            (D2CompulsoryDataElementOperand srcObject) => srcObject.dataSet,
-          ),
+          obx_int.RelInfo<D2ValidationRule>.toManyBacklink(32, object.id),
         );
         return object;
       },
@@ -10152,6 +10296,173 @@ obx_int.ModelDefinition getObjectBoxModel() {
             return object;
           },
         ),
+    D2ValidationRule: obx_int.EntityDefinition<D2ValidationRule>(
+      model: _entities[55],
+      toOneRelations: (D2ValidationRule object) => [],
+      toManyRelations: (D2ValidationRule object) => {
+        obx_int.RelInfo<D2ValidationRule>.toMany(32, object.id):
+            object.dataSets,
+      },
+      getId: (D2ValidationRule object) => object.id,
+      setId: (D2ValidationRule object, int id) {
+        object.id = id;
+      },
+      objectToFB: (D2ValidationRule object, fb.Builder fbb) {
+        final uidOffset = fbb.writeString(object.uid);
+        final nameOffset = fbb.writeString(object.name);
+        final descriptionOffset = object.description == null
+            ? null
+            : fbb.writeString(object.description!);
+        final instructionOffset = object.instruction == null
+            ? null
+            : fbb.writeString(object.instruction!);
+        final importanceOffset = fbb.writeString(object.importance);
+        final operatorOffset = fbb.writeString(object.operator);
+        final periodTypeOffset = object.periodType == null
+            ? null
+            : fbb.writeString(object.periodType!);
+        final leftSideExpressionOffset = fbb.writeString(
+          object.leftSideExpression,
+        );
+        final leftSideDescriptionOffset = object.leftSideDescription == null
+            ? null
+            : fbb.writeString(object.leftSideDescription!);
+        final leftSideMissingValueStrategyOffset = fbb.writeString(
+          object.leftSideMissingValueStrategy,
+        );
+        final rightSideExpressionOffset = fbb.writeString(
+          object.rightSideExpression,
+        );
+        final rightSideDescriptionOffset = object.rightSideDescription == null
+            ? null
+            : fbb.writeString(object.rightSideDescription!);
+        final rightSideMissingValueStrategyOffset = fbb.writeString(
+          object.rightSideMissingValueStrategy,
+        );
+        fbb.startTable(20);
+        fbb.addInt64(0, object.id);
+        fbb.addOffset(1, uidOffset);
+        fbb.addInt64(2, object.created.millisecondsSinceEpoch);
+        fbb.addInt64(3, object.lastUpdated.millisecondsSinceEpoch);
+        fbb.addOffset(4, nameOffset);
+        fbb.addOffset(5, descriptionOffset);
+        fbb.addOffset(6, instructionOffset);
+        fbb.addOffset(7, importanceOffset);
+        fbb.addOffset(8, operatorOffset);
+        fbb.addOffset(9, periodTypeOffset);
+        fbb.addBool(10, object.skipFormValidation);
+        fbb.addOffset(11, leftSideExpressionOffset);
+        fbb.addOffset(12, leftSideDescriptionOffset);
+        fbb.addOffset(13, leftSideMissingValueStrategyOffset);
+        fbb.addBool(14, object.leftSideSlidingWindow);
+        fbb.addOffset(15, rightSideExpressionOffset);
+        fbb.addOffset(16, rightSideDescriptionOffset);
+        fbb.addOffset(17, rightSideMissingValueStrategyOffset);
+        fbb.addBool(18, object.rightSideSlidingWindow);
+        fbb.finish(fbb.endTable());
+        return object.id;
+      },
+      objectFromFB: (obx.Store store, ByteData fbData) {
+        final buffer = fb.BufferContext(fbData);
+        final rootOffset = buffer.derefObject(0);
+        final idParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          4,
+          0,
+        );
+        final uidParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 6, '');
+        final createdParam = DateTime.fromMillisecondsSinceEpoch(
+          const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0),
+        );
+        final lastUpdatedParam = DateTime.fromMillisecondsSinceEpoch(
+          const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0),
+        );
+        final nameParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 12, '');
+        final descriptionParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 14);
+        final instructionParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 16);
+        final importanceParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 18, '');
+        final operatorParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 20, '');
+        final periodTypeParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 22);
+        final skipFormValidationParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          24,
+          false,
+        );
+        final leftSideExpressionParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 26, '');
+        final leftSideDescriptionParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 28);
+        final leftSideMissingValueStrategyParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 30, '');
+        final leftSideSlidingWindowParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          32,
+          false,
+        );
+        final rightSideExpressionParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 34, '');
+        final rightSideDescriptionParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 36);
+        final rightSideMissingValueStrategyParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 38, '');
+        final rightSideSlidingWindowParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          40,
+          false,
+        );
+        final object = D2ValidationRule(
+          idParam,
+          uidParam,
+          createdParam,
+          lastUpdatedParam,
+          nameParam,
+          descriptionParam,
+          instructionParam,
+          importanceParam,
+          operatorParam,
+          periodTypeParam,
+          skipFormValidationParam,
+          leftSideExpressionParam,
+          leftSideDescriptionParam,
+          leftSideMissingValueStrategyParam,
+          leftSideSlidingWindowParam,
+          rightSideExpressionParam,
+          rightSideDescriptionParam,
+          rightSideMissingValueStrategyParam,
+          rightSideSlidingWindowParam,
+        );
+        obx_int.InternalToManyAccess.setRelInfo<D2ValidationRule>(
+          object.dataSets,
+          store,
+          obx_int.RelInfo<D2ValidationRule>.toMany(32, object.id),
+        );
+        return object;
+      },
+    ),
   };
 
   return obx_int.ModelDefinition(model, bindings);
@@ -12822,16 +13133,16 @@ class D2DataSet_ {
         D2DataSetElement_.dataSet,
       );
 
-  /// see [D2DataSet.sections]
-  static final sections = obx.QueryBacklinkToMany<D2DataSetSection, D2DataSet>(
-    D2DataSetSection_.dataSet,
-  );
-
   /// see [D2DataSet.compulsoryDataElementOperands]
   static final compulsoryDataElementOperands =
       obx.QueryBacklinkToMany<D2CompulsoryDataElementOperand, D2DataSet>(
         D2CompulsoryDataElementOperand_.dataSet,
       );
+
+  /// see [D2DataSet.sections]
+  static final sections = obx.QueryBacklinkToMany<D2DataSetSection, D2DataSet>(
+    D2DataSetSection_.dataSet,
+  );
 }
 
 /// [D2DataValueSet] entity fields to define ObjectBox queries.
@@ -13421,4 +13732,103 @@ class D2DataSetSectionDataElement_ {
       obx.QueryRelationToOne<D2DataSetSectionDataElement, D2DataSetSection>(
         _entities[54].properties[4],
       );
+}
+
+/// [D2ValidationRule] entity fields to define ObjectBox queries.
+class D2ValidationRule_ {
+  /// See [D2ValidationRule.id].
+  static final id = obx.QueryIntegerProperty<D2ValidationRule>(
+    _entities[55].properties[0],
+  );
+
+  /// See [D2ValidationRule.uid].
+  static final uid = obx.QueryStringProperty<D2ValidationRule>(
+    _entities[55].properties[1],
+  );
+
+  /// See [D2ValidationRule.created].
+  static final created = obx.QueryDateProperty<D2ValidationRule>(
+    _entities[55].properties[2],
+  );
+
+  /// See [D2ValidationRule.lastUpdated].
+  static final lastUpdated = obx.QueryDateProperty<D2ValidationRule>(
+    _entities[55].properties[3],
+  );
+
+  /// See [D2ValidationRule.name].
+  static final name = obx.QueryStringProperty<D2ValidationRule>(
+    _entities[55].properties[4],
+  );
+
+  /// See [D2ValidationRule.description].
+  static final description = obx.QueryStringProperty<D2ValidationRule>(
+    _entities[55].properties[5],
+  );
+
+  /// See [D2ValidationRule.instruction].
+  static final instruction = obx.QueryStringProperty<D2ValidationRule>(
+    _entities[55].properties[6],
+  );
+
+  /// See [D2ValidationRule.importance].
+  static final importance = obx.QueryStringProperty<D2ValidationRule>(
+    _entities[55].properties[7],
+  );
+
+  /// See [D2ValidationRule.operator].
+  static final operator = obx.QueryStringProperty<D2ValidationRule>(
+    _entities[55].properties[8],
+  );
+
+  /// See [D2ValidationRule.periodType].
+  static final periodType = obx.QueryStringProperty<D2ValidationRule>(
+    _entities[55].properties[9],
+  );
+
+  /// See [D2ValidationRule.skipFormValidation].
+  static final skipFormValidation = obx.QueryBooleanProperty<D2ValidationRule>(
+    _entities[55].properties[10],
+  );
+
+  /// See [D2ValidationRule.leftSideExpression].
+  static final leftSideExpression = obx.QueryStringProperty<D2ValidationRule>(
+    _entities[55].properties[11],
+  );
+
+  /// See [D2ValidationRule.leftSideDescription].
+  static final leftSideDescription = obx.QueryStringProperty<D2ValidationRule>(
+    _entities[55].properties[12],
+  );
+
+  /// See [D2ValidationRule.leftSideMissingValueStrategy].
+  static final leftSideMissingValueStrategy =
+      obx.QueryStringProperty<D2ValidationRule>(_entities[55].properties[13]);
+
+  /// See [D2ValidationRule.leftSideSlidingWindow].
+  static final leftSideSlidingWindow =
+      obx.QueryBooleanProperty<D2ValidationRule>(_entities[55].properties[14]);
+
+  /// See [D2ValidationRule.rightSideExpression].
+  static final rightSideExpression = obx.QueryStringProperty<D2ValidationRule>(
+    _entities[55].properties[15],
+  );
+
+  /// See [D2ValidationRule.rightSideDescription].
+  static final rightSideDescription = obx.QueryStringProperty<D2ValidationRule>(
+    _entities[55].properties[16],
+  );
+
+  /// See [D2ValidationRule.rightSideMissingValueStrategy].
+  static final rightSideMissingValueStrategy =
+      obx.QueryStringProperty<D2ValidationRule>(_entities[55].properties[17]);
+
+  /// See [D2ValidationRule.rightSideSlidingWindow].
+  static final rightSideSlidingWindow =
+      obx.QueryBooleanProperty<D2ValidationRule>(_entities[55].properties[18]);
+
+  /// see [D2ValidationRule.dataSets]
+  static final dataSets = obx.QueryRelationToMany<D2ValidationRule, D2DataSet>(
+    _entities[55].relations[0],
+  );
 }
