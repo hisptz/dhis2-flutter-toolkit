@@ -3822,10 +3822,90 @@
           "targetId": "42:12844185218694803"
         }
       ]
+    },
+    {
+      "id": "60:5812387314836062802",
+      "lastPropertyId": "12:1562086641125918634",
+      "name": "D2CompleteDataSetRegistration",
+      "properties": [
+        {
+          "id": "1:8993903378984298607",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8102460743545769914",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "3:3178703564881304463",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "4:985030322249676118",
+          "name": "synced",
+          "type": 1
+        },
+        {
+          "id": "5:1695447697707734741",
+          "name": "uid",
+          "indexId": "152:7919265395705809152",
+          "type": 9,
+          "flags": 2080
+        },
+        {
+          "id": "6:2919096143417667841",
+          "name": "period",
+          "type": 9
+        },
+        {
+          "id": "7:3118974297169149954",
+          "name": "date",
+          "type": 9
+        },
+        {
+          "id": "8:4077813230168178729",
+          "name": "storedBy",
+          "type": 9
+        },
+        {
+          "id": "9:2136880888967950152",
+          "name": "completed",
+          "type": 1
+        },
+        {
+          "id": "10:2242988118234165413",
+          "name": "dataSetId",
+          "indexId": "153:6931808303740324467",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "D2DataSet"
+        },
+        {
+          "id": "11:3339673812509960414",
+          "name": "organisationUnitId",
+          "indexId": "154:868442462717283032",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "D2OrgUnit"
+        },
+        {
+          "id": "12:1562086641125918634",
+          "name": "attributeOptionComboId",
+          "indexId": "155:4648498100130662985",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "D2CategoryOptionCombo"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "59:3681575742877049569",
-  "lastIndexId": "151:2763763157059561384",
+  "lastEntityId": "60:5812387314836062802",
+  "lastIndexId": "155:4648498100130662985",
   "lastRelationId": "32:4221501691947852654",
   "lastSequenceId": "0:0",
   "modelVersion": 5,

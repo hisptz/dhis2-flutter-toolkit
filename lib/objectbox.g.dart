@@ -17,6 +17,7 @@ import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 import 'src/models/app/autosave.dart';
 import 'src/models/app/logs.dart';
 import 'src/models/data/attribute_value.dart';
+import 'src/models/data/complete_data_set_registration.dart';
 import 'src/models/data/data_store.dart';
 import 'src/models/data/data_value.dart';
 import 'src/models/data/data_value_set.dart';
@@ -4657,6 +4658,98 @@ final _entities = <obx_int.ModelEntity>[
     ],
     backlinks: <obx_int.ModelBacklink>[],
   ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(60, 5812387314836062802),
+    name: 'D2CompleteDataSetRegistration',
+    lastPropertyId: const obx_int.IdUid(12, 1562086641125918634),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 8993903378984298607),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 8102460743545769914),
+        name: 'createdAt',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 3178703564881304463),
+        name: 'updatedAt',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 985030322249676118),
+        name: 'synced',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 1695447697707734741),
+        name: 'uid',
+        type: 9,
+        flags: 2080,
+        indexId: const obx_int.IdUid(152, 7919265395705809152),
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 2919096143417667841),
+        name: 'period',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 3118974297169149954),
+        name: 'date',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(8, 4077813230168178729),
+        name: 'storedBy',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(9, 2136880888967950152),
+        name: 'completed',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(10, 2242988118234165413),
+        name: 'dataSetId',
+        type: 11,
+        flags: 520,
+        indexId: const obx_int.IdUid(153, 6931808303740324467),
+        relationField: 'dataSet',
+        relationTarget: 'D2DataSet',
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(11, 3339673812509960414),
+        name: 'organisationUnitId',
+        type: 11,
+        flags: 520,
+        indexId: const obx_int.IdUid(154, 868442462717283032),
+        relationField: 'organisationUnit',
+        relationTarget: 'D2OrgUnit',
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(12, 1562086641125918634),
+        name: 'attributeOptionComboId',
+        type: 11,
+        flags: 520,
+        indexId: const obx_int.IdUid(155, 4648498100130662985),
+        relationField: 'attributeOptionCombo',
+        relationTarget: 'D2CategoryOptionCombo',
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[],
+    backlinks: <obx_int.ModelBacklink>[],
+  ),
 ];
 
 /// Shortcut for [obx.Store.new] that passes [getObjectBoxModel] and for Flutter
@@ -4702,8 +4795,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
     // Typically, this is done with `dart run build_runner build`.
     generatorVersion: obx_int.GeneratorVersion.v2025_12_16,
     entities: _entities,
-    lastEntityId: const obx_int.IdUid(59, 3681575742877049569),
-    lastIndexId: const obx_int.IdUid(151, 2763763157059561384),
+    lastEntityId: const obx_int.IdUid(60, 5812387314836062802),
+    lastIndexId: const obx_int.IdUid(155, 4648498100130662985),
     lastRelationId: const obx_int.IdUid(32, 4221501691947852654),
     lastSequenceId: const obx_int.IdUid(0, 0),
     retiredEntityUids: const [
@@ -10463,6 +10556,113 @@ obx_int.ModelDefinition getObjectBoxModel() {
         return object;
       },
     ),
+    D2CompleteDataSetRegistration:
+        obx_int.EntityDefinition<D2CompleteDataSetRegistration>(
+          model: _entities[56],
+          toOneRelations: (D2CompleteDataSetRegistration object) => [
+            object.dataSet,
+            object.organisationUnit,
+            object.attributeOptionCombo,
+          ],
+          toManyRelations: (D2CompleteDataSetRegistration object) => {},
+          getId: (D2CompleteDataSetRegistration object) => object.id,
+          setId: (D2CompleteDataSetRegistration object, int id) {
+            object.id = id;
+          },
+          objectToFB: (D2CompleteDataSetRegistration object, fb.Builder fbb) {
+            final uidOffset = fbb.writeString(object.uid);
+            final periodOffset = fbb.writeString(object.period);
+            final dateOffset = object.date == null
+                ? null
+                : fbb.writeString(object.date!);
+            final storedByOffset = object.storedBy == null
+                ? null
+                : fbb.writeString(object.storedBy!);
+            fbb.startTable(13);
+            fbb.addInt64(0, object.id);
+            fbb.addInt64(1, object.createdAt.millisecondsSinceEpoch);
+            fbb.addInt64(2, object.updatedAt.millisecondsSinceEpoch);
+            fbb.addBool(3, object.synced);
+            fbb.addOffset(4, uidOffset);
+            fbb.addOffset(5, periodOffset);
+            fbb.addOffset(6, dateOffset);
+            fbb.addOffset(7, storedByOffset);
+            fbb.addBool(8, object.completed);
+            fbb.addInt64(9, object.dataSet.targetId);
+            fbb.addInt64(10, object.organisationUnit.targetId);
+            fbb.addInt64(11, object.attributeOptionCombo.targetId);
+            fbb.finish(fbb.endTable());
+            return object.id;
+          },
+          objectFromFB: (obx.Store store, ByteData fbData) {
+            final buffer = fb.BufferContext(fbData);
+            final rootOffset = buffer.derefObject(0);
+            final idParam = const fb.Int64Reader().vTableGet(
+              buffer,
+              rootOffset,
+              4,
+              0,
+            );
+            final createdAtParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0),
+            );
+            final updatedAtParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0),
+            );
+            final periodParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGet(buffer, rootOffset, 14, '');
+            final dateParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGetNullable(buffer, rootOffset, 16);
+            final storedByParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGetNullable(buffer, rootOffset, 18);
+            final completedParam = const fb.BoolReader().vTableGet(
+              buffer,
+              rootOffset,
+              20,
+              false,
+            );
+            final object =
+                D2CompleteDataSetRegistration(
+                    idParam,
+                    createdAtParam,
+                    updatedAtParam,
+                    periodParam,
+                    dateParam,
+                    storedByParam,
+                    completedParam,
+                  )
+                  ..synced = const fb.BoolReader().vTableGet(
+                    buffer,
+                    rootOffset,
+                    10,
+                    false,
+                  )
+                  ..uid = const fb.StringReader(
+                    asciiOptimization: true,
+                  ).vTableGet(buffer, rootOffset, 12, '');
+            object.dataSet.targetId = const fb.Int64Reader().vTableGet(
+              buffer,
+              rootOffset,
+              22,
+              0,
+            );
+            object.dataSet.attach(store);
+            object.organisationUnit.targetId = const fb.Int64Reader().vTableGet(
+              buffer,
+              rootOffset,
+              24,
+              0,
+            );
+            object.organisationUnit.attach(store);
+            object.attributeOptionCombo.targetId = const fb.Int64Reader()
+                .vTableGet(buffer, rootOffset, 26, 0);
+            object.attributeOptionCombo.attach(store);
+            return object;
+          },
+        ),
   };
 
   return obx_int.ModelDefinition(model, bindings);
@@ -13831,4 +14031,73 @@ class D2ValidationRule_ {
   static final dataSets = obx.QueryRelationToMany<D2ValidationRule, D2DataSet>(
     _entities[55].relations[0],
   );
+}
+
+/// [D2CompleteDataSetRegistration] entity fields to define ObjectBox queries.
+class D2CompleteDataSetRegistration_ {
+  /// See [D2CompleteDataSetRegistration.id].
+  static final id = obx.QueryIntegerProperty<D2CompleteDataSetRegistration>(
+    _entities[56].properties[0],
+  );
+
+  /// See [D2CompleteDataSetRegistration.createdAt].
+  static final createdAt = obx.QueryDateProperty<D2CompleteDataSetRegistration>(
+    _entities[56].properties[1],
+  );
+
+  /// See [D2CompleteDataSetRegistration.updatedAt].
+  static final updatedAt = obx.QueryDateProperty<D2CompleteDataSetRegistration>(
+    _entities[56].properties[2],
+  );
+
+  /// See [D2CompleteDataSetRegistration.synced].
+  static final synced = obx.QueryBooleanProperty<D2CompleteDataSetRegistration>(
+    _entities[56].properties[3],
+  );
+
+  /// See [D2CompleteDataSetRegistration.uid].
+  static final uid = obx.QueryStringProperty<D2CompleteDataSetRegistration>(
+    _entities[56].properties[4],
+  );
+
+  /// See [D2CompleteDataSetRegistration.period].
+  static final period = obx.QueryStringProperty<D2CompleteDataSetRegistration>(
+    _entities[56].properties[5],
+  );
+
+  /// See [D2CompleteDataSetRegistration.date].
+  static final date = obx.QueryStringProperty<D2CompleteDataSetRegistration>(
+    _entities[56].properties[6],
+  );
+
+  /// See [D2CompleteDataSetRegistration.storedBy].
+  static final storedBy =
+      obx.QueryStringProperty<D2CompleteDataSetRegistration>(
+        _entities[56].properties[7],
+      );
+
+  /// See [D2CompleteDataSetRegistration.completed].
+  static final completed =
+      obx.QueryBooleanProperty<D2CompleteDataSetRegistration>(
+        _entities[56].properties[8],
+      );
+
+  /// See [D2CompleteDataSetRegistration.dataSet].
+  static final dataSet =
+      obx.QueryRelationToOne<D2CompleteDataSetRegistration, D2DataSet>(
+        _entities[56].properties[9],
+      );
+
+  /// See [D2CompleteDataSetRegistration.organisationUnit].
+  static final organisationUnit =
+      obx.QueryRelationToOne<D2CompleteDataSetRegistration, D2OrgUnit>(
+        _entities[56].properties[10],
+      );
+
+  /// See [D2CompleteDataSetRegistration.attributeOptionCombo].
+  static final attributeOptionCombo =
+      obx.QueryRelationToOne<
+        D2CompleteDataSetRegistration,
+        D2CategoryOptionCombo
+      >(_entities[56].properties[11]);
 }

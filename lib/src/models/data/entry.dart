@@ -1,4 +1,5 @@
 export "base.dart" show D2DataResource;
+export 'complete_data_set_registration.dart' show D2CompleteDataSetRegistration;
 export 'data_store.dart' show D2DataStore;
 export "data_value.dart" show D2DataValue;
 export 'data_value_set.dart' show D2DataValueSet;
