@@ -36,22 +36,42 @@ class D2DataValueSet extends SyncDataSource implements D2BaseDeletable {
   final organisationUnit = ToOne<D2OrgUnit>();
 
   D2DataValueSet.fromMap(D2ObjectBox db, Map json)
-      : updatedAt = DateTime.parse(json["lastUpdated"] ?? json["updatedAt"]),
-        createdAt = DateTime.parse(json["created"] ?? json["createdAt"]),
-        value = json['value'] ?? '',
-        period = json['period'] ?? '',
-        comment = json["comment"],
+      : updatedAt = DateTime.tryParse(
+                json["lastUpdated"]?.toString() ??
+                    json["updatedAt"]?.toString() ??
+                    '') ??
+            DateTime.now(),
+        createdAt = DateTime.tryParse(
+                json["created"]?.toString() ??
+                    json["createdAt"]?.toString() ??
+                    '') ??
+            DateTime.now(),
+        value = json['value']?.toString() ?? '',
+        period = json['period']?.toString() ?? '',
+        comment = json["comment"]?.toString(),
         followup = json['followup'] ?? false {
-    dataElement.target =
-        D2DataElementRepository(db).getByUid(json["dataElement"]);
-    organisationUnit.target = D2OrgUnitRepository(db).getByUid(json["orgUnit"]);
-    categoryOptionCombo.target = D2CategoryOptionComboRepository(db)
-        .getByUid(json["categoryOptionCombo"]);
-    attributeOptionCombo.target = D2CategoryOptionComboRepository(db)
-        .getByUid(json["attributeOptionCombo"]);
+    String? dataElementUid = json["dataElement"]?.toString();
+    String? orgUnitUid = json["orgUnit"]?.toString();
+    String? catOptComboUid = json["categoryOptionCombo"]?.toString();
+    String? attrOptComboUid = json["attributeOptionCombo"]?.toString();
+
+    if (dataElementUid != null) {
+      dataElement.target = D2DataElementRepository(db).getByUid(dataElementUid);
+    }
+    if (orgUnitUid != null) {
+      organisationUnit.target = D2OrgUnitRepository(db).getByUid(orgUnitUid);
+    }
+    if (catOptComboUid != null) {
+      categoryOptionCombo.target =
+          D2CategoryOptionComboRepository(db).getByUid(catOptComboUid);
+    }
+    if (attrOptComboUid != null) {
+      attributeOptionCombo.target =
+          D2CategoryOptionComboRepository(db).getByUid(attrOptComboUid);
+    }
 
     uid =
-        '${organisationUnit.target!.uid}-$period-${attributeOptionCombo.target!.uid}-${dataElement.target!.uid}-${categoryOptionCombo.target!.uid}';
+        '${organisationUnit.target?.uid ?? ''}-$period-${attributeOptionCombo.target?.uid ?? ''}-${dataElement.target?.uid ?? ''}-${categoryOptionCombo.target?.uid ?? ''}';
 
     id = D2DataValueSetRepository(db).getIdByUid(uid) ?? 0;
   }
