@@ -15,9 +15,9 @@ class D2UserSharing {
   D2UserSharing(this.id, this.displayName, this.access, this.userId);
 
   D2UserSharing.fromMap(Map json, D2Sharing sharing)
-      : userId = json["id"],
-        access = json["access"],
-        displayName = json["displayName"] {
+      : userId = json["id"] ?? '',
+        access = json["access"] ?? '--------',
+        displayName = json["displayName"] ?? '' {
     this.sharing.target = sharing;
   }
 }

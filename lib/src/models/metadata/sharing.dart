@@ -32,26 +32,31 @@ class D2Sharing {
   }
 
   D2Sharing.fromMap(Map json, {required String id, required D2ObjectBox db})
-      : owner = json['owner'],
-        external = json['external'],
-        public = json['public'],
+      : owner = json['owner'] ?? '',
+        external = json['external'] ?? false,
+        public = json['public'] ?? '--------',
         uid = id {
     this.id = D2SharingRepository(db).getByUid(uid)?.id ?? 0;
     program.target = D2ProgramRepository(db).getByUid(uid);
     programStage.target = D2ProgramStageRepository(db).getByUid(uid);
     dataSet.target = D2DataSetRepository(db).getByUid(uid);
 
-    Map userGroupObjects = json['userGroups'];
-    List<D2UserGroupSharing> userGroupsData = userGroupObjects.keys
-        .map((key) => D2UserGroupSharing.fromMap(userGroupObjects[key], this))
-        .toList();
-    db.store.box<D2UserGroupSharing>().putMany(userGroupsData);
-    userGroups.addAll(userGroupsData);
-    Map usersObject = json['users'];
-    List<D2UserSharing> userData = usersObject.keys
-        .map((key) => D2UserSharing.fromMap(usersObject[key], this))
-        .toList();
-    db.store.box<D2UserSharing>().putMany(userData);
-    users.addAll(userData);
+    Map? userGroupObjects = json['userGroups'];
+    if (userGroupObjects != null) {
+      List<D2UserGroupSharing> userGroupsData = userGroupObjects.keys
+          .map(
+              (key) => D2UserGroupSharing.fromMap(userGroupObjects[key], this))
+          .toList();
+      db.store.box<D2UserGroupSharing>().putMany(userGroupsData);
+      userGroups.addAll(userGroupsData);
+    }
+    Map? usersObject = json['users'];
+    if (usersObject != null) {
+      List<D2UserSharing> userData = usersObject.keys
+          .map((key) => D2UserSharing.fromMap(usersObject[key], this))
+          .toList();
+      db.store.box<D2UserSharing>().putMany(userData);
+      users.addAll(userData);
+    }
   }
 }
