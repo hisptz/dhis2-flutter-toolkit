@@ -16,9 +16,9 @@ class D2UserGroupSharing {
 
   //TODO: Create a uid for preventing duplication
   D2UserGroupSharing.fromMap(Map json, D2Sharing sharing)
-      : userGroupId = json["id"],
-        access = json["access"],
-        displayName = json["displayName"] {
+      : userGroupId = json["id"] ?? '',
+        access = json["access"] ?? '--------',
+        displayName = json["displayName"] ?? '' {
     this.sharing.target = sharing;
   }
 }
