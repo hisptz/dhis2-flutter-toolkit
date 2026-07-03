@@ -1,4 +1,6 @@
 export "base_tracker.dart" show D2BaseTrackerDataRepository;
+export 'complete_data_set_registration.dart'
+    show D2CompleteDataSetRegistrationRepository;
 export "data_store.dart" show D2DataStoreRepository;
 export "data_value.dart" show D2DataValueRepository;
 export 'data_value_set.dart' show D2DataValueSetRepository;

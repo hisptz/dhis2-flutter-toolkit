@@ -70,7 +70,21 @@ class D2ClientService {
       headers: headers,
       body: jsonEncode(body),
     );
-    return jsonDecode(response.body) as T;
+
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw Exception(
+          'HTTP POST failed with status ${response.statusCode}: ${response.body}');
+    }
+
+    if (response.body.isEmpty) {
+      throw Exception('HTTP POST returned empty response body');
+    }
+
+    try {
+      return jsonDecode(response.body) as T;
+    } catch (e) {
+      throw Exception('Failed to parse JSON response: ${response.body}');
+    }
   }
 
   Future<http.Response> rawPost(

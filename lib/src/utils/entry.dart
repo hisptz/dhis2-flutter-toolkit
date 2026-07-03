@@ -10,6 +10,8 @@ export "period_engine/models/period_utility.dart" show D2PeriodUtility;
 export "program_rule_engine/models/entry.dart";
 // Program rule engine
 export 'program_rule_engine/program_rule_engine.dart' show D2ProgramRuleEngine;
+// Validation rule engine
+export 'validation_rule_engine/entry.dart';
 //Utils
 export "sync_status.dart" show D2SyncStatus;
 export "sync_status.dart" show D2SyncStatusEnum;

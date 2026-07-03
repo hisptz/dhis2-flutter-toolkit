@@ -7,6 +7,8 @@ export 'compulsory_data_element_operand.dart'
 export "data_element.dart" show D2DataElement;
 export 'data_set.dart' show D2DataSet;
 export 'data_set_element.dart' show D2DataSetElement;
+export 'data_set_section.dart' show D2DataSetSection;
+export 'data_set_section_data_element.dart' show D2DataSetSectionDataElement;
 export "legend.dart" show D2Legend;
 export "legend_set.dart" show D2LegendSet;
 export "option.dart" show D2Option;
@@ -34,3 +36,4 @@ export "tracked_entity_type_attribute.dart" show D2TrackedEntityTypeAttribute;
 export "user.dart" show D2User;
 export "user_group.dart" show D2UserGroup;
 export "user_role.dart" show D2UserRole;
+export 'validation_rule.dart' show D2ValidationRule;

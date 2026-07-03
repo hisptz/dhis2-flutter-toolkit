@@ -18,8 +18,9 @@ class D2DataStoreRepository extends BaseDataRepository
   }
 
   D2DataStoreRepository(super.db, {this.namespace})
-      : conditions =
-            namespace != null ? D2DataStore_.namespace.equals(namespace) : null;
+    : conditions = namespace != null
+          ? D2DataStore_.namespace.equals(namespace)
+          : null;
 
   List<String> get keys {
     List<D2DataStore> stores = box.query(conditions).build().find();
@@ -53,34 +54,64 @@ class D2DataStoreRepository extends BaseDataRepository
     return box.query(D2DataStore_.uid.equals(uid)).build().findFirst()?.id;
   }
 
-  uploadLogsToDataStore(String namespace, D2ClientService client) async {
-    // Fetch logs as map
-    List<Map> logs = D2AppLogRepository(db).getAllLogsAsMap();
 
-    // Prepare the payload to send
-    String key = client.credentials.username;
-    String payload = jsonEncode(logs);
-    List jsonPayload = jsonDecode(payload);
-    D2DataStore logDataStore =
-        D2DataStore.fromMap(db, namespace: namespace, key: key, value: logs);
-    box.put(logDataStore);
+
+uploadLogsToDataStore(String namespace, D2ClientService client) async {
+  List<Map> logs = D2AppLogRepository(db).getAllLogsAsMap();
+  String key = client.credentials.username.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_');
+
+  D2DataStore logDataStore =
+      D2DataStore.fromMap(db, namespace: namespace, key: key, value: logs);
+  box.put(logDataStore);
+
+  try {
+    List<Map> existingLogsInDatastore = [];
+    bool keyExists = false;
+
     try {
-      Map response =
-          await client.httpPost("dataStore/$namespace/$key", jsonPayload);
-      if (response.containsKey("httpStatus")) {
-        if (response["httpStatus"] == "OK") {
-          if (kDebugMode) {
-            print("Logs uploaded successfully");
-          }
-        } else {
-          response =
-              await client.httpPut("dataStore/$namespace/$key", jsonPayload);
-        }
+      dynamic dataStoreResponse = await client.httpGet("dataStore/$namespace/$key");
+      if (dataStoreResponse is List) {
+        existingLogsInDatastore = dataStoreResponse
+            .map((e) => Map<String, dynamic>.from(e))
+            .toList();
+        keyExists = true;
       }
-    } catch (e) {
-      if (kDebugMode) {
-        print("Failed to upload logs: $e");
-      }
+    } catch (_) {
+      keyExists = false;
+    }
+
+    Map<String, Map> mergedMap = {};
+
+    for (var log in existingLogsInDatastore) {
+      final id = log['id']?.toString();
+      if (id != null) mergedMap[id] = log;
+    }
+
+    for (var log in logs) {
+      final id = log['id']?.toString();
+      if (id != null) mergedMap[id] = log;
+    }
+
+    List<Map> mergedLogs = mergedMap.values.toList();
+
+    List jsonPayload = jsonDecode(jsonEncode(mergedLogs));
+    Map response;
+
+    if (keyExists) {
+      response = await client.httpPut("dataStore/$namespace/$key", jsonPayload);
+    } else {
+      response = await client.httpPost("dataStore/$namespace/$key", jsonPayload);
+    }
+
+    String httpStatus = response["httpStatus"]?.toString() ?? "Unknown";
+    String message = response["message"]?.toString() ?? "No message";
+
+    if (httpStatus != "OK") {
+      throw Exception("Upload failed: $message");
+    }
+  } catch (e) {
+    if(kDebugMode){
+      print("Error uploading logs to DataStore: $e");
     }
   }
-}
+}}

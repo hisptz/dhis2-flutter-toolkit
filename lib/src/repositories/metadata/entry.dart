@@ -7,6 +7,9 @@ export 'compulsory_data_element_operand.dart'
 export "data_element.dart" show D2DataElementRepository;
 export 'data_set.dart' show D2DataSetRepository;
 export 'data_set_element.dart' show D2DataSetElementRepository;
+export 'data_set_section.dart' show D2DataSetSectionRepository;
+export 'data_set_section_data_element.dart'
+    show D2DataSetSectionDataElementRepository;
 export "legend.dart" show D2LegendRepository;
 export "legend_set.dart" show D2LegendSetRepository;
 export "option.dart" show D2OptionRepository;
@@ -36,3 +39,4 @@ export "tracked_entity_type_attribute.dart"
 export "user.dart" show D2UserRepository;
 export "user_group.dart" show D2UserGroupRepository;
 export "user_role.dart" show D2UserRoleRepository;
+export 'validation_rule.dart' show D2ValidationRuleRepository;

@@ -6,8 +6,10 @@ import '../../repositories/metadata/entry.dart';
 import './base.dart';
 import 'category_combo.dart';
 import 'data_set_element.dart';
+import 'data_set_section.dart';
 import 'legend_set.dart';
 import 'org_unit.dart';
+import 'validation_rule.dart';
 
 @Entity()
 class D2DataSet extends D2MetaResource {
@@ -30,6 +32,13 @@ class D2DataSet extends D2MetaResource {
   int timelyDays;
   int openPeriodsAfterCoEndDate;
 
+  /// Hex color configured by the DHIS2 admin (e.g. "#64b5f6"). Null if not set.
+  String? styleColor;
+
+  /// DHIS2 icon name configured by the admin (e.g. "child_program_outline").
+  /// Use the icon API or a local mapping to resolve the actual icon asset.
+  String? styleIcon;
+
   final categoryCombo = ToOne<D2CategoryCombo>();
 
   @Backlink("dataSet")
@@ -41,6 +50,12 @@ class D2DataSet extends D2MetaResource {
   @Backlink("dataSet")
   final compulsoryDataElementOperands =
       ToMany<D2CompulsoryDataElementOperand>();
+
+  @Backlink("dataSet")
+  final sections = ToMany<D2DataSetSection>();
+
+  @Backlink("dataSets")
+  final validationRules = ToMany<D2ValidationRule>();
 
   D2DataSet(
     this.id,
@@ -64,14 +79,18 @@ class D2DataSet extends D2MetaResource {
         name = json['name'],
         code = json['code'],
         periodType = json['periodType'],
-        expiryDays = json['expiryDays'],
-        timelyDays = (json['timelyDays'] is double)
-            ? json['timelyDays'].toInt()
-            : json['timelyDays'],
-        openFuturePeriods = json['openFuturePeriods'],
-        openPeriodsAfterCoEndDate = json['openPeriodsAfterCoEndDate'],
+        expiryDays = (json['expiryDays'] as num).toInt(),
+        timelyDays = (json['timelyDays'] as num).toInt(),
+        openFuturePeriods = (json['openFuturePeriods'] as num).toInt(),
+        openPeriodsAfterCoEndDate =
+            (json['openPeriodsAfterCoEndDate'] as num).toInt(),
         shortName = json['shortName'] {
     id = D2DataSetRepository(db).getIdByUid(json["id"]) ?? 0;
+
+    // Parse style fields — present only when the admin has configured them.
+    final style = json['style'] as Map?;
+    styleColor = style?['color'] as String?;
+    styleIcon = style?['icon'] as String?;
 
     categoryCombo.target = D2CategoryComboRepository(db)
         .getByUid(json['categoryCombo']?['id'] ?? '');
@@ -85,8 +104,10 @@ class D2DataSet extends D2MetaResource {
     List<D2CompulsoryDataElementOperand> compulsoryElements =
         json['compulsoryDataElementOperands']
             .cast<Map>()
-            ?.map<D2CompulsoryDataElementOperand>((Map element) =>
-                D2CompulsoryDataElementOperand.fromMap(db, element))
+            ?.map<D2CompulsoryDataElementOperand>(
+              (Map element) =>
+                  D2CompulsoryDataElementOperand.fromMap(db, element),
+            )
             .toList()
             .cast<D2CompulsoryDataElementOperand>();
     compulsoryDataElementOperands.addAll(compulsoryElements);
@@ -94,12 +115,12 @@ class D2DataSet extends D2MetaResource {
     List<D2OrgUnit?> orgUnits = json['organisationUnits']
         .cast<Map>()
         .map<D2OrgUnit?>(
-            (Map json) => D2OrgUnitRepository(db).getByUid(json['id']))
+          (Map json) => D2OrgUnitRepository(db).getByUid(json['id']),
+        )
         .toList()
         .cast<D2OrgUnit?>();
-    organisationUnits.addAll(orgUnits
-        .where((element) => element != null)
-        .toList()
-        .cast<D2OrgUnit>());
+    organisationUnits.addAll(
+      orgUnits.where((element) => element != null).toList().cast<D2OrgUnit>(),
+    );
   }
 }

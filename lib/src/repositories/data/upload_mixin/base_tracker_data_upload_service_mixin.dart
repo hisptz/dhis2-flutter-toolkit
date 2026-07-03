@@ -11,7 +11,7 @@ import '../../../models/data/base.dart';
 mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     on D2BaseTrackerDataRepository<T>, D2BaseTrackerDataQueryMixin<T> {
   D2ClientService? client;
-  int uploadPageSize = 50;
+  int uploadPageSize = 25;
   String uploadResource = "tracker";
   abstract String label;
   abstract String uploadDataKey;
