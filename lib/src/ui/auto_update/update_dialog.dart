@@ -11,6 +11,12 @@ class D2UpdateDialog extends StatefulWidget {
     required this.progressStream,
     required this.onUpdate,
     this.onSkip,
+    this.title = 'Update Available',
+    this.accentColor = Colors.deepPurple,
+    this.icon = Icons.system_update_alt,
+    this.updateButtonLabel = 'Update',
+    this.skipButtonLabel = 'Skip',
+    this.borderRadius = 16,
   });
 
   final String version;
@@ -18,6 +24,19 @@ class D2UpdateDialog extends StatefulWidget {
   final Stream<double> progressStream;
   final Future<void> Function() onUpdate;
   final VoidCallback? onSkip;
+
+  /// Dialog title text, e.g. "New Update Available".
+  final String title;
+
+  /// Drives the title icon, progress bar and update button color.
+  final Color accentColor;
+
+  /// Icon shown next to the title. Pass `null` to hide it.
+  final IconData? icon;
+
+  final String updateButtonLabel;
+  final String skipButtonLabel;
+  final double borderRadius;
 
   @override
   State<D2UpdateDialog> createState() => _D2UpdateDialogState();
@@ -52,12 +71,15 @@ class _D2UpdateDialogState extends State<D2UpdateDialog> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(widget.borderRadius)),
       title: Row(
         children: [
-          const Icon(Icons.system_update_alt, color: Colors.deepPurple),
-          const SizedBox(width: 8),
-          Text('Update Available', style: theme.textTheme.titleLarge),
+          if (widget.icon != null) ...[
+            Icon(widget.icon, color: widget.accentColor),
+            const SizedBox(width: 8),
+          ],
+          Text(widget.title, style: theme.textTheme.titleLarge),
         ],
       ),
       content: SizedBox(
@@ -102,7 +124,7 @@ class _D2UpdateDialogState extends State<D2UpdateDialog> {
                   value: _progress > 0 ? _progress : null,
                   minHeight: 8,
                   backgroundColor: Colors.grey[200],
-                  valueColor: const AlwaysStoppedAnimation(Colors.deepPurple),
+                  valueColor: AlwaysStoppedAnimation(widget.accentColor),
                 ),
               ),
             ],
@@ -115,12 +137,13 @@ class _D2UpdateDialogState extends State<D2UpdateDialog> {
               TextButton(
                 onPressed: widget.onSkip ??
                     () => Navigator.of(context).pop(),
-                child: const Text('Skip'),
+                child: Text(widget.skipButtonLabel),
               ),
               FilledButton.icon(
                 onPressed: _startUpdate,
+                style: FilledButton.styleFrom(backgroundColor: widget.accentColor),
                 icon: const Icon(Icons.download),
-                label: const Text('Update'),
+                label: Text(widget.updateButtonLabel),
               ),
             ],
     );
