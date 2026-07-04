@@ -84,17 +84,70 @@ class D2UpdateService {
   }
 
   bool _isNewerVersion(String serverVersion, String currentVersion) {
-    final server = _parseVersion(serverVersion);
-    final current = _parseVersion(currentVersion);
-    for (int i = 0; i < server.length; i++) {
-      if (i >= current.length) return true;
-      if (server[i] > current[i]) return true;
-      if (server[i] < current[i]) return false;
+    final server = _Version.parse(serverVersion);
+    final current = _Version.parse(currentVersion);
+    return server.compareTo(current) > 0;
+  }
+}
+
+/// A semver-ish version: numeric core (major.minor.patch...) plus an
+/// optional pre-release tag (e.g. `1.0.0-beta5`). Build metadata after
+/// a `+` is ignored, as per semver.
+class _Version {
+  _Version(this.core, this.preRelease);
+
+  final List<int> core;
+  final List<String> preRelease;
+
+  factory _Version.parse(String raw) {
+    // Strip build metadata (e.g. "1.0.0+build.1") and a leading "v".
+    var version = raw.split('+').first.trim();
+    if (version.startsWith('v') || version.startsWith('V')) {
+      version = version.substring(1);
     }
-    return false;
+
+    final dashIndex = version.indexOf('-');
+    final corePart = dashIndex == -1 ? version : version.substring(0, dashIndex);
+    final preReleasePart = dashIndex == -1 ? '' : version.substring(dashIndex + 1);
+
+    final core = corePart.split('.').map((p) => int.tryParse(p) ?? 0).toList();
+    final preRelease =
+        preReleasePart.isEmpty ? <String>[] : preReleasePart.split('.');
+
+    return _Version(core, preRelease);
   }
 
-  List<int> _parseVersion(String version) {
-    return version.split('.').map((p) => int.tryParse(p) ?? 0).toList();
+  /// Returns >0 if this version is newer than [other], <0 if older, 0 if equal.
+  int compareTo(_Version other) {
+    final length = core.length > other.core.length ? core.length : other.core.length;
+    for (int i = 0; i < length; i++) {
+      final a = i < core.length ? core[i] : 0;
+      final b = i < other.core.length ? other.core[i] : 0;
+      if (a != b) return a.compareTo(b);
+    }
+
+    // Same core version: a pre-release is *older* than a full release.
+    if (preRelease.isEmpty && other.preRelease.isEmpty) return 0;
+    if (preRelease.isEmpty) return 1;
+    if (other.preRelease.isEmpty) return -1;
+
+    final preLength =
+        preRelease.length > other.preRelease.length ? preRelease.length : other.preRelease.length;
+    for (int i = 0; i < preLength; i++) {
+      if (i >= preRelease.length) return -1;
+      if (i >= other.preRelease.length) return 1;
+
+      final a = preRelease[i];
+      final b = other.preRelease[i];
+      if (a == b) continue;
+
+      final aNum = int.tryParse(a);
+      final bNum = int.tryParse(b);
+      if (aNum != null && bNum != null) return aNum.compareTo(bNum);
+      if (aNum != null) return -1; // numeric identifiers sort lower
+      if (bNum != null) return 1;
+      return a.compareTo(b);
+    }
+    return 0;
   }
 }
