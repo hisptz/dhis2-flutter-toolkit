@@ -17,6 +17,8 @@ export 'src/ui/app_modals/entry.dart';
 export 'src/ui/form_components/entry.dart';
 export 'src/ui/button/entry.dart';
 export "src/ui/period/period_filter.dart" show D2PeriodSelector;
+// Auto-update dialog
+export 'src/ui/auto_update/update_dialog.dart' show D2UpdateDialog;
 //Period Engine
 export 'src/utils/entry.dart';
 
