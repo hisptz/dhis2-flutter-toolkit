@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'github-update-service.dart';
+
 class D2UpdateService {
   D2UpdateService({
     required this.githubOwner,
@@ -12,8 +13,8 @@ class D2UpdateService {
     this.apkKey = '',
     this.githubToken,
     this.channelName = 'com.example.dhis2_toolkit/installer',
-  })  : _gitHubService = D2GitHubUpdateService(),
-        _dio = Dio();
+  }) : _gitHubService = D2GitHubUpdateService(),
+       _dio = Dio();
 
   final String githubOwner;
   final String githubRepo;
@@ -53,7 +54,6 @@ class D2UpdateService {
     return null;
   }
 
- 
   Future<String?> downloadAPK(
     String url,
     void Function(int received, int total) onProgress,
@@ -72,12 +72,13 @@ class D2UpdateService {
     }
   }
 
-  
   Future<void> installAPK(String filePath) async {
     try {
       await _platform.invokeMethod('installApk', {'filePath': filePath});
     } on PlatformException catch (e) {
-      debugPrint('D2UpdateService: PlatformException during install: ${e.message}');
+      debugPrint(
+        'D2UpdateService: PlatformException during install: ${e.message}',
+      );
     } catch (e) {
       debugPrint('D2UpdateService: Error triggering installation: $e');
     }
@@ -90,9 +91,6 @@ class D2UpdateService {
   }
 }
 
-/// A semver-ish version: numeric core (major.minor.patch...) plus an
-/// optional pre-release tag (e.g. `1.0.0-beta5`). Build metadata after
-/// a `+` is ignored, as per semver.
 class _Version {
   _Version(this.core, this.preRelease);
 
@@ -107,19 +105,33 @@ class _Version {
     }
 
     final dashIndex = version.indexOf('-');
-    final corePart = dashIndex == -1 ? version : version.substring(0, dashIndex);
-    final preReleasePart = dashIndex == -1 ? '' : version.substring(dashIndex + 1);
+    final corePart = dashIndex == -1
+        ? version
+        : version.substring(0, dashIndex);
+    final preReleasePart = dashIndex == -1
+        ? ''
+        : version.substring(dashIndex + 1);
 
     final core = corePart.split('.').map((p) => int.tryParse(p) ?? 0).toList();
-    final preRelease =
-        preReleasePart.isEmpty ? <String>[] : preReleasePart.split('.');
+    final preRelease = preReleasePart.isEmpty
+        ? <String>[]
+        : preReleasePart.split('.').expand(_splitLabelAndNumber).toList();
 
     return _Version(core, preRelease);
   }
 
+  static final _labelNumberPattern = RegExp(r'^([A-Za-z]+)(\d+)$');
+  static List<String> _splitLabelAndNumber(String identifier) {
+    final match = _labelNumberPattern.firstMatch(identifier);
+    if (match == null) return [identifier];
+    return [match.group(1)!, match.group(2)!];
+  }
+
   /// Returns >0 if this version is newer than [other], <0 if older, 0 if equal.
   int compareTo(_Version other) {
-    final length = core.length > other.core.length ? core.length : other.core.length;
+    final length = core.length > other.core.length
+        ? core.length
+        : other.core.length;
     for (int i = 0; i < length; i++) {
       final a = i < core.length ? core[i] : 0;
       final b = i < other.core.length ? other.core[i] : 0;
@@ -131,8 +143,9 @@ class _Version {
     if (preRelease.isEmpty) return 1;
     if (other.preRelease.isEmpty) return -1;
 
-    final preLength =
-        preRelease.length > other.preRelease.length ? preRelease.length : other.preRelease.length;
+    final preLength = preRelease.length > other.preRelease.length
+        ? preRelease.length
+        : other.preRelease.length;
     for (int i = 0; i < preLength; i++) {
       if (i >= preRelease.length) return -1;
       if (i >= other.preRelease.length) return 1;
