@@ -32,7 +32,7 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
       "validationMode": "FULL",
       "skipSideEffects": "TRUE",
       "skipPatternValidation": "TRUE",
-      "skipRuleEngine": "TRUE"
+      "skipRuleEngine": "TRUE",
     };
   }
 
@@ -45,24 +45,27 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
   }
 
   List<D2ImportSummaryError> getItemsWithErrorsEntityUidFromImportSummary(
-      Map<String, dynamic> importSummary) {
+    Map<String, dynamic> importSummary,
+  ) {
     List errorReports = importSummary["validationReport"]["errorReports"];
     return errorReports
         .map<D2ImportSummaryError>(
-            (errorReport) => D2ImportSummaryError.fromMap(db, errorReport))
+          (errorReport) => D2ImportSummaryError.fromMap(db, errorReport),
+        )
         .toList();
   }
 
-  Future<void> deleteSoftDeletedEntitiesByPage(int page) async {
+  Future<void> deleteSoftDeletedEntitiesByPage() async {
     Query<T> query = getDeletedQuery();
 
     query
       ..limit = uploadPageSize
-      ..offset = uploadPageSize * page;
+      ..offset = 0;
 
     List<T> entities = await query.findAsync();
-    List<Map<String, dynamic>> entityPayload =
-        await Future.wait(entities.map((entity) => entity.toMap(db: db)));
+    List<Map<String, dynamic>> entityPayload = await Future.wait(
+      entities.map((entity) => entity.toMap(db: db)),
+    );
     Map<String, dynamic> payload = {uploadDataKey: entityPayload};
 
     Map<String, String> params = uploadQueryParams;
@@ -70,8 +73,11 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     params.addAll({"importStrategy": "DELETE", "atomicMode": "OBJECT"});
     try {
       Map<String, dynamic> response = await client!
-          .httpPost<Map<String, dynamic>>(uploadURL, payload,
-              queryParameters: params);
+          .httpPost<Map<String, dynamic>>(
+            uploadURL,
+            payload,
+            queryParameters: params,
+          );
       debugPrint(response.toString());
       //We won't deal with this response as it will contain errors. This is because the entities may not exist in the server
       //We then delete them locally
@@ -91,24 +97,27 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     int pages = (count / uploadPageSize).ceil();
 
     for (int page = 0; page < pages; page++) {
-      await deleteSoftDeletedEntitiesByPage(page);
+      await deleteSoftDeletedEntitiesByPage();
     }
   }
 
-  Future<Map<String, dynamic>> uploadPage(int page,
-      {required Query<T> query}) async {
+  Future<Map<String, dynamic>> uploadPage({required Query<T> query}) async {
     Query<T> localQuery = query;
     localQuery
-      ..offset = (page * uploadPageSize)
+      ..offset = 0
       ..limit = uploadPageSize;
     List<T> entities = await localQuery.findAsync();
-    List<Map<String, dynamic>> entityPayload =
-        await Future.wait(entities.map((entity) => entity.toMap(db: db)));
+    List<Map<String, dynamic>> entityPayload = await Future.wait(
+      entities.map((entity) => entity.toMap(db: db)),
+    );
 
     Map<String, dynamic> payload = {uploadDataKey: entityPayload};
     Map<String, dynamic> response = await client!
-        .httpPost<Map<String, dynamic>>(uploadURL, payload,
-            queryParameters: uploadQueryParams);
+        .httpPost<Map<String, dynamic>>(
+          uploadURL,
+          payload,
+          queryParameters: uploadQueryParams,
+        );
 
     List errorReports = response["validationReport"] != null
         ? response["validationReport"]["errorReports"]
@@ -126,8 +135,9 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     } else if (errorReports.isNotEmpty) {
       List<D2ImportSummaryError> importSummary =
           getItemsWithErrorsEntityUidFromImportSummary(response);
-      List<String> entitiesIdsWithErrors =
-          importSummary.map<String>((summary) => summary.uid).toList();
+      List<String> entitiesIdsWithErrors = importSummary
+          .map<String>((summary) => summary.uid)
+          .toList();
 
       List<T> entitiesWithoutErrors = entities
           .whereNot((T entity) => entitiesIdsWithErrors.contains(entity.uid))
@@ -177,22 +187,24 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
         if (!uploadController.hasListener) {
           uploadController.stream.listen(null);
         }
-        uploadController
-            .add(D2SyncStatus(status: D2SyncStatusEnum.complete, label: label));
+        uploadController.add(
+          D2SyncStatus(status: D2SyncStatusEnum.complete, label: label),
+        );
         await uploadController.close();
         return;
       }
       int pages = (count / uploadPageSize).ceil();
       D2SyncStatus status = D2SyncStatus(
-          synced: 0,
-          total: pages,
-          status: D2SyncStatusEnum.initialized,
-          label: "$label for ${program?.name ?? 'all'} program(s)");
+        synced: 0,
+        total: pages,
+        status: D2SyncStatusEnum.initialized,
+        label: "$label for ${program?.name ?? 'all'} program(s)",
+      );
       uploadController.add(status);
 
       status.updateStatus(D2SyncStatusEnum.syncing);
       for (int page = 0; page < pages; page++) {
-        await uploadPage(page, query: query); //TODO: Handle import summary
+        await uploadPage(query: query); //TODO: Handle import summary
         status.increment();
         uploadController.add(status);
       }
@@ -215,11 +227,14 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
   Future uploadOne(T entity) async {
     Map<String, dynamic> entityPayload = await entity.toMap(db: db);
     Map<String, dynamic> payload = {
-      uploadDataKey: [entityPayload]
+      uploadDataKey: [entityPayload],
     };
 
-    Map response = await client!
-        .httpPost(uploadURL, payload, queryParameters: uploadQueryParams);
+    Map response = await client!.httpPost(
+      uploadURL,
+      payload,
+      queryParameters: uploadQueryParams,
+    );
 
     List errorReports = response["validationReport"] != null
         ? response["validationReport"]["errorReports"]
@@ -237,7 +252,8 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     } else if (errorReports.isNotEmpty) {
       List<D2ImportSummaryError> importSummary =
           getItemsWithErrorsEntityUidFromImportSummary(
-              response as Map<String, dynamic>);
+            response as Map<String, dynamic>,
+          );
       entity.synced = false;
       if (importSummary.isNotEmpty) {
         await D2ImportSummaryErrorRepository(db).saveEntities(importSummary);
@@ -257,8 +273,11 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     }
     Map<String, dynamic> payload = {uploadDataKey: entitiesPayload};
 
-    Map<String, dynamic> response = await client!
-        .httpPost(uploadURL, payload, queryParameters: uploadQueryParams);
+    Map<String, dynamic> response = await client!.httpPost(
+      uploadURL,
+      payload,
+      queryParameters: uploadQueryParams,
+    );
 
     List errorReports = response["validationReport"] != null
         ? response["validationReport"]["errorReports"]
@@ -276,8 +295,9 @@ mixin BaseTrackerDataUploadServiceMixin<T extends SyncDataSource>
     } else if (errorReports.isNotEmpty) {
       List<D2ImportSummaryError> importSummary =
           getItemsWithErrorsEntityUidFromImportSummary(response);
-      List<String> entitiesIdsWithErrors =
-          importSummary.map<String>((summary) => summary.uid).toList();
+      List<String> entitiesIdsWithErrors = importSummary
+          .map<String>((summary) => summary.uid)
+          .toList();
 
       List<T> entitiesWithoutErrors = entities
           .whereNot((T entity) => entitiesIdsWithErrors.contains(entity.uid))
