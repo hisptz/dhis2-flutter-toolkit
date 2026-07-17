@@ -11,7 +11,7 @@ import '../../../utils/entry.dart';
 mixin BaseAggregateDataUploadServiceMixin<T extends SyncDataSource>
     on D2BaseAggregateRepository<T>, D2BaseAggregateQueryMixin<T> {
   D2ClientService? client;
-  int uploadPageSize = 50;
+  int uploadPageSize = 100;
   abstract String uploadResource;
   abstract String label;
   abstract String uploadDataKey;
@@ -40,10 +40,10 @@ mixin BaseAggregateDataUploadServiceMixin<T extends SyncDataSource>
     return this;
   }
 
-  Future uploadPage({required int page, required Query<T> query}) async {
+  Future uploadPage({required Query<T> query}) async {
     Query<T> localQuery = query;
     localQuery
-      ..offset = (page * uploadPageSize)
+      ..offset = 0
       ..limit = uploadPageSize;
     List<T> entities = await localQuery.findAsync();
     List<Map<String, dynamic>> entityPayload = await Future.wait(
@@ -91,8 +91,8 @@ mixin BaseAggregateDataUploadServiceMixin<T extends SyncDataSource>
       );
       uploadController.add(status);
       status.updateStatus(D2SyncStatusEnum.syncing);
-      for (int page = 0; page <= pages; page++) {
-        await uploadPage(page: page, query: query);
+      for (int page = 0; page < pages; page++) {
+        await uploadPage(query: query);
         status.increment();
         uploadController.add(status);
       }
