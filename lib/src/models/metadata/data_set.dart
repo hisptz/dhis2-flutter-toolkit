@@ -32,6 +32,10 @@ class D2DataSet extends D2MetaResource {
   int timelyDays;
   int openPeriodsAfterCoEndDate;
 
+  bool compulsoryFieldsCompleteOnly;
+  bool fieldCombinationRequired;
+  bool validCompleteOnly;
+
   /// Hex color configured by the DHIS2 admin (e.g. "#64b5f6"). Null if not set.
   String? styleColor;
 
@@ -70,6 +74,9 @@ class D2DataSet extends D2MetaResource {
     this.uid,
     this.openFuturePeriods,
     this.openPeriodsAfterCoEndDate,
+    this.compulsoryFieldsCompleteOnly,
+    this.fieldCombinationRequired,
+    this.validCompleteOnly,
   );
 
   D2DataSet.fromMap(D2ObjectBox db, Map json)
@@ -84,6 +91,10 @@ class D2DataSet extends D2MetaResource {
         openFuturePeriods = (json['openFuturePeriods'] as num).toInt(),
         openPeriodsAfterCoEndDate =
             (json['openPeriodsAfterCoEndDate'] as num).toInt(),
+        compulsoryFieldsCompleteOnly =
+            json['compulsoryFieldsCompleteOnly'] ?? false,
+        fieldCombinationRequired = json['fieldCombinationRequired'] ?? false,
+        validCompleteOnly = json['validCompleteOnly'] ?? false,
         shortName = json['shortName'] {
     id = D2DataSetRepository(db).getIdByUid(json["id"]) ?? 0;
 
