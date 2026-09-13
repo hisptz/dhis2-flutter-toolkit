@@ -2870,7 +2870,7 @@
     },
     {
       "id": "42:12844185218694803",
-      "lastPropertyId": "15:7595955455931427668",
+      "lastPropertyId": "18:3595915271300974029",
       "name": "D2DataSet",
       "properties": [
         {
@@ -2953,6 +2953,21 @@
           "id": "15:7595955455931427668",
           "name": "styleIcon",
           "type": 9
+        },
+        {
+          "id": "16:4793445502940023289",
+          "name": "compulsoryFieldsCompleteOnly",
+          "type": 1
+        },
+        {
+          "id": "17:879731602386555053",
+          "name": "fieldCombinationRequired",
+          "type": 1
+        },
+        {
+          "id": "18:3595915271300974029",
+          "name": "validCompleteOnly",
+          "type": 1
         }
       ],
       "relations": [

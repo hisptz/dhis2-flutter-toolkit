@@ -3521,7 +3521,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(42, 12844185218694803),
     name: 'D2DataSet',
-    lastPropertyId: const obx_int.IdUid(15, 7595955455931427668),
+    lastPropertyId: const obx_int.IdUid(18, 3595915271300974029),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -3616,6 +3616,24 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(15, 7595955455931427668),
         name: 'styleIcon',
         type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(16, 4793445502940023289),
+        name: 'compulsoryFieldsCompleteOnly',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(17, 879731602386555053),
+        name: 'fieldCombinationRequired',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(18, 3595915271300974029),
+        name: 'validCompleteOnly',
+        type: 1,
         flags: 0,
       ),
     ],
@@ -9188,7 +9206,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final styleIconOffset = object.styleIcon == null
             ? null
             : fbb.writeString(object.styleIcon!);
-        fbb.startTable(16);
+        fbb.startTable(19);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.created.millisecondsSinceEpoch);
         fbb.addInt64(2, object.lastUpdated.millisecondsSinceEpoch);
@@ -9204,6 +9222,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
         fbb.addInt64(12, object.categoryCombo.targetId);
         fbb.addOffset(13, styleColorOffset);
         fbb.addOffset(14, styleIconOffset);
+        fbb.addBool(15, object.compulsoryFieldsCompleteOnly);
+        fbb.addBool(16, object.fieldCombinationRequired);
+        fbb.addBool(17, object.validCompleteOnly);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -9261,6 +9282,20 @@ obx_int.ModelDefinition getObjectBoxModel() {
           26,
           0,
         );
+        final compulsoryFieldsCompleteOnlyParam = const fb.BoolReader()
+            .vTableGet(buffer, rootOffset, 34, false);
+        final fieldCombinationRequiredParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          36,
+          false,
+        );
+        final validCompleteOnlyParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          38,
+          false,
+        );
         final object =
             D2DataSet(
                 idParam,
@@ -9275,6 +9310,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
                 uidParam,
                 openFuturePeriodsParam,
                 openPeriodsAfterCoEndDateParam,
+                compulsoryFieldsCompleteOnlyParam,
+                fieldCombinationRequiredParam,
+                validCompleteOnlyParam,
               )
               ..styleColor = const fb.StringReader(
                 asciiOptimization: true,
@@ -13316,6 +13354,20 @@ class D2DataSet_ {
   /// See [D2DataSet.styleIcon].
   static final styleIcon = obx.QueryStringProperty<D2DataSet>(
     _entities[40].properties[14],
+  );
+
+  /// See [D2DataSet.compulsoryFieldsCompleteOnly].
+  static final compulsoryFieldsCompleteOnly =
+      obx.QueryBooleanProperty<D2DataSet>(_entities[40].properties[15]);
+
+  /// See [D2DataSet.fieldCombinationRequired].
+  static final fieldCombinationRequired = obx.QueryBooleanProperty<D2DataSet>(
+    _entities[40].properties[16],
+  );
+
+  /// See [D2DataSet.validCompleteOnly].
+  static final validCompleteOnly = obx.QueryBooleanProperty<D2DataSet>(
+    _entities[40].properties[17],
   );
 
   /// see [D2DataSet.legendSets]

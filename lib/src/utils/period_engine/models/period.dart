@@ -30,6 +30,11 @@ class D2Period {
   ///This is the category of the current period. It is a `String` representation of the period category
   late String category;
 
+  int? get daysInPeriod {
+    if (start == null || end == null) return null;
+    return end!.difference(start!).inDays + 1;
+  }
+
   /// This is the previous period of the current period
   D2Period get previous => D2PeriodType.getPeriodById(getPreviousPeriodId(id));
 
@@ -39,10 +44,11 @@ class D2Period {
   ///`D2Period.fromObject` is a constructor method that creates a D2Period from a `Map` object.
   ///The constructor accepts a `Map<String, dynamic>` object, `String` period type and  `String` period category as required parameters
   D2Period.fromObject(
-      Map<String, dynamic> object, Interval? interval, {
-        required this.type,
-        required this.category,
-      }) {
+    Map<String, dynamic> object,
+    Interval? interval, {
+    required this.type,
+    required this.category,
+  }) {
     start = interval?.start;
     end = interval?.end;
     id = object['id'];
@@ -50,11 +56,13 @@ class D2Period {
   }
 
   ///`D2Period.fromInterval` is a constructor function that generates period based on the passed `interval`, `idGenerator` function, `nameGenerator` function, `String` period type and  `String` period category as required parameters
-  D2Period.fromInterval(Interval interval,
-      {required Function idGenerator,
-      required Function nameGenerator,
-      required this.type,
-      required this.category}) {
+  D2Period.fromInterval(
+    Interval interval, {
+    required Function idGenerator,
+    required Function nameGenerator,
+    required this.type,
+    required this.category,
+  }) {
     start = interval.start;
     end = interval.end;
     id = idGenerator(interval);
