@@ -1,4 +1,7 @@
+import '../../../objectbox.dart';
+import '../../models/metadata/org_unit.dart';
 import '../../models/metadata/validation_rule.dart';
+import '../period_engine/models/period.dart';
 import 'helpers/expression_evaluator.dart';
 import 'models/validation_result.dart';
 
@@ -7,13 +10,24 @@ class D2ValidationRuleEngine {
 
   D2ValidationRuleEngine({required this.validationRules});
 
-  D2ValidationResult validate(Map<String, String> dataValues) {
+  D2ValidationResult validate(
+    Map<String, String> dataValues, {
+    D2OrgUnit? currentOrgUnit,
+    D2ObjectBox? db,
+    D2Period? period,
+  }) {
     final List<D2ValidationViolation> violations = [];
 
     for (final rule in validationRules) {
       if (rule.skipFormValidation) continue;
 
-      final violation = _evaluateRule(rule, dataValues);
+      final violation = _evaluateRule(
+        rule,
+        dataValues,
+        currentOrgUnit: currentOrgUnit,
+        db: db,
+        period: period,
+      );
       if (violation != null) {
         violations.add(violation);
       }
@@ -24,28 +38,47 @@ class D2ValidationRuleEngine {
 
   D2ValidationViolation? _evaluateRule(
     D2ValidationRule rule,
-    Map<String, String> dataValues,
-  ) {
-    final leftOperands =
-        ExpressionEvaluator.extractOperands(rule.leftSideExpression);
-    final rightOperands =
-        ExpressionEvaluator.extractOperands(rule.rightSideExpression);
+    Map<String, String> dataValues, {
+    D2OrgUnit? currentOrgUnit,
+    D2ObjectBox? db,
+    D2Period? period,
+  }) {
+    final leftOperands = ExpressionEvaluator.extractOperands(
+      rule.leftSideExpression,
+    );
+    final rightOperands = ExpressionEvaluator.extractOperands(
+      rule.rightSideExpression,
+    );
 
     if (rule.operator == 'compulsory_pair') {
       return _evaluateCompulsoryPair(
-          rule, leftOperands, rightOperands, dataValues);
+        rule,
+        leftOperands,
+        rightOperands,
+        dataValues,
+      );
     }
     if (rule.operator == 'exclusive_pair') {
       return _evaluateExclusivePair(
-          rule, leftOperands, rightOperands, dataValues);
+        rule,
+        leftOperands,
+        rightOperands,
+        dataValues,
+      );
     }
 
     if (_shouldSkip(
-        leftOperands, dataValues, rule.leftSideMissingValueStrategy)) {
+      leftOperands,
+      dataValues,
+      rule.leftSideMissingValueStrategy,
+    )) {
       return null;
     }
     if (_shouldSkip(
-        rightOperands, dataValues, rule.rightSideMissingValueStrategy)) {
+      rightOperands,
+      dataValues,
+      rule.rightSideMissingValueStrategy,
+    )) {
       return null;
     }
 
@@ -53,11 +86,17 @@ class D2ValidationRuleEngine {
       rule.leftSideExpression,
       dataValues,
       rule.leftSideMissingValueStrategy,
+      currentOrgUnit: currentOrgUnit,
+      db: db,
+      period: period,
     );
     final rightValue = ExpressionEvaluator.evaluate(
       rule.rightSideExpression,
       dataValues,
       rule.rightSideMissingValueStrategy,
+      currentOrgUnit: currentOrgUnit,
+      db: db,
+      period: period,
     );
 
     if (leftValue == null || rightValue == null) return null;
