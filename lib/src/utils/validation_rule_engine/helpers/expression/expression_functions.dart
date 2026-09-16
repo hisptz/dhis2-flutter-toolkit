@@ -1,3 +1,5 @@
+import 'package:dhis2_flutter_toolkit/objectbox.dart';
+import 'package:dhis2_flutter_toolkit/src/models/metadata/org_unit.dart';
 import 'package:dhis2_flutter_toolkit/src/repositories/metadata/data_set.dart';
 import 'package:dhis2_flutter_toolkit/src/repositories/metadata/org_unit_group.dart';
 import 'package:dhis2_flutter_toolkit/src/repositories/metadata/program.dart';
@@ -163,66 +165,91 @@ Object? _removeZeros(List<D2ExprNode> args, D2ExprEvalContext ctx) {
   return value;
 }
 
-/// `orgUnit.ancestor(uid, ...)` — true iff the current org unit is a
-/// *strict* descendant of any listed org unit (matches the ancestor's UID
-/// followed by a path separator; the org unit is never its own ancestor).
-bool _orgUnitAncestor(List<D2ExprNode> args, D2ExprEvalContext ctx) {
-  final orgUnit = ctx.currentOrgUnit;
+final RegExp _orgUnitFunctionCallPattern = RegExp(
+  r'orgUnit\.(ancestor|dataSet|group|program)\(([^()]*)\)',
+);
+
+Iterable<(String function, String uid)> d2ExtractOrgUnitFunctionRefs(
+  String expression,
+) sync* {
+  for (final match in _orgUnitFunctionCallPattern.allMatches(expression)) {
+    final function = 'orgUnit.${match.group(1)}';
+    final uids = match
+        .group(2)!
+        .split(',')
+        .map((uid) => uid.trim())
+        .where((uid) => uid.isNotEmpty);
+    for (final uid in uids) {
+      yield (function, uid);
+    }
+  }
+}
+
+bool d2ResolveOrgUnitFunctionAnswer(
+  String function,
+  String uid,
+  D2OrgUnit? orgUnit,
+  D2ObjectBox? db,
+) {
   if (orgUnit == null) return false;
+  switch (function) {
+    case 'orgUnit.ancestor':
+      return orgUnit.path.contains('$uid/');
+    case 'orgUnit.dataSet':
+      if (db == null) return false;
+      final dataSet = D2DataSetRepository(db).getByUid(uid);
+      return dataSet != null &&
+          dataSet.organisationUnits.any((ou) => ou.id == orgUnit.id);
+    case 'orgUnit.group':
+      if (db == null) return false;
+      final group = D2OrgUnitGroupRepository(db).getByUid(uid);
+      return group != null &&
+          group.organisationUnits.any((ou) => ou.id == orgUnit.id);
+    case 'orgUnit.program':
+      if (db == null) return false;
+      final program = D2ProgramRepository(db).getByUid(uid);
+      return program != null &&
+          program.organisationUnits.any((ou) => ou.id == orgUnit.id);
+    default:
+      return false;
+  }
+}
+
+bool _orgUnitFunction(
+  String function,
+  List<D2ExprNode> args,
+  D2ExprEvalContext ctx,
+) {
+  final precomputed = ctx.orgUnitFunctionAnswers;
   for (final arg in args) {
     final uid = d2CastString(arg.eval(ctx));
-    if (orgUnit.path.contains('$uid/')) return true;
+    final answer = precomputed != null
+        ? (precomputed['$function:$uid'] ?? false)
+        : d2ResolveOrgUnitFunctionAnswer(
+            function,
+            uid,
+            ctx.currentOrgUnit,
+            ctx.db,
+          );
+    if (answer) return true;
   }
   return false;
 }
+
+bool _orgUnitAncestor(List<D2ExprNode> args, D2ExprEvalContext ctx) =>
+    _orgUnitFunction('orgUnit.ancestor', args, ctx);
 
 /// `orgUnit.dataSet(uid, ...)` — true iff the current org unit is directly
 /// assigned to any listed data set.
-bool _orgUnitDataSet(List<D2ExprNode> args, D2ExprEvalContext ctx) {
-  final orgUnit = ctx.currentOrgUnit;
-  final db = ctx.db;
-  if (orgUnit == null || db == null) return false;
-  for (final arg in args) {
-    final uid = d2CastString(arg.eval(ctx));
-    final dataSet = D2DataSetRepository(db).getByUid(uid);
-    if (dataSet != null &&
-        dataSet.organisationUnits.any((ou) => ou.id == orgUnit.id)) {
-      return true;
-    }
-  }
-  return false;
-}
+bool _orgUnitDataSet(List<D2ExprNode> args, D2ExprEvalContext ctx) =>
+    _orgUnitFunction('orgUnit.dataSet', args, ctx);
 
 /// `orgUnit.group(uid, ...)` — true iff the current org unit is a member of
 /// any listed org unit group.
-bool _orgUnitGroup(List<D2ExprNode> args, D2ExprEvalContext ctx) {
-  final orgUnit = ctx.currentOrgUnit;
-  final db = ctx.db;
-  if (orgUnit == null || db == null) return false;
-  for (final arg in args) {
-    final uid = d2CastString(arg.eval(ctx));
-    final group = D2OrgUnitGroupRepository(db).getByUid(uid);
-    if (group != null &&
-        group.organisationUnits.any((ou) => ou.id == orgUnit.id)) {
-      return true;
-    }
-  }
-  return false;
-}
+bool _orgUnitGroup(List<D2ExprNode> args, D2ExprEvalContext ctx) =>
+    _orgUnitFunction('orgUnit.group', args, ctx);
 
 /// `orgUnit.program(uid, ...)` — true iff the current org unit is directly
 /// assigned to any listed program.
-bool _orgUnitProgram(List<D2ExprNode> args, D2ExprEvalContext ctx) {
-  final orgUnit = ctx.currentOrgUnit;
-  final db = ctx.db;
-  if (orgUnit == null || db == null) return false;
-  for (final arg in args) {
-    final uid = d2CastString(arg.eval(ctx));
-    final program = D2ProgramRepository(db).getByUid(uid);
-    if (program != null &&
-        program.organisationUnits.any((ou) => ou.id == orgUnit.id)) {
-      return true;
-    }
-  }
-  return false;
-}
+bool _orgUnitProgram(List<D2ExprNode> args, D2ExprEvalContext ctx) =>
+    _orgUnitFunction('orgUnit.program', args, ctx);
