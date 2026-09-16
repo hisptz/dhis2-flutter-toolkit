@@ -23,6 +23,7 @@ class ExpressionEvaluator {
     D2OrgUnit? currentOrgUnit,
     D2ObjectBox? db,
     D2Period? period,
+    Map<String, bool>? orgUnitFunctionAnswers,
   }) {
     try {
       final node = D2ExpressionParser(expression).parse();
@@ -31,6 +32,7 @@ class ExpressionEvaluator {
         currentOrgUnit: currentOrgUnit,
         db: db,
         period: period,
+        orgUnitFunctionAnswers: orgUnitFunctionAnswers,
       );
 
       final result = node.eval(ctx);

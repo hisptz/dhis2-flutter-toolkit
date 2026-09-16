@@ -16,6 +16,9 @@ class D2ExprEvalContext {
   final D2OrgUnit? currentOrgUnit;
   final D2ObjectBox? db;
   final D2Period? period;
+
+  final Map<String, bool>? orgUnitFunctionAnswers;
+
   bool replaceNulls = true;
 
   D2ExprEvalContext({
@@ -23,5 +26,6 @@ class D2ExprEvalContext {
     this.currentOrgUnit,
     this.db,
     this.period,
+    this.orgUnitFunctionAnswers,
   });
 }
